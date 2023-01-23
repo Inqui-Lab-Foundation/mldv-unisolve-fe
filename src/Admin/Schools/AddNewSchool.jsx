@@ -40,15 +40,15 @@ const AddNewSchool = (props) => {
     const phoneRegExp =
         /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const headingDetails = {
-        title: 'Add New Organization Details',
+        title: 'Add New Institution Details',
 
         options: [
             {
-                title: 'School Registration',
+                title: 'Institution',
                 path: '/admin/registered-schools'
             },
             {
-                title: 'Add New Organization',
+                title: 'Add New Institution',
                 path: '/admin/register-new-schools'
             }
         ]
@@ -69,29 +69,32 @@ const AddNewSchool = (props) => {
 
         validationSchema: Yup.object({
             principal_mobile: Yup.string()
+                .optional()
                 .matches(phoneRegExp, 'Mobile number is not valid')
                 .min(10, 'Enter a valid mobile number')
                 .max(10, 'Enter a valid mobile number'),
-            principal_email: Yup.string().email('Invalid email address format'),
-            principal_name: Yup.string().matches(
-                /^[aA-zZ\s]+$/,
-                'Invalid Name'
-            ),
+            principal_email: Yup.string()
+                .optional()
+                .email('Invalid email address format'),
+            principal_name: Yup.string()
+                .optional()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid Name'),
             organization_name: Yup.string().required(
                 'Organization  Name is Required'
             ),
             organization_code: Yup.string()
-                .matches(phoneRegExp, 'organization code is not valid')
+                .matches(/^[A-Za-z0-9]*$/, 'Please enter only alphanumeric characters')
                 .required('UDISE  Code is Required'),
             city: Yup.string().matches(/^[aA-zZ\s]+$/, 'Invalid City'),
             district: Yup.string()
                 .matches(/^[aA-zZ\s]+$/, 'Invalid district')
                 .required('District is Required'),
-            state: Yup.string().matches(/^[aA-zZ\s]+$/, 'Invalid State')
+            state: Yup.string()
+                .optional()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid State')
         }),
 
         onSubmit: async (values) => {
-            console.log(JSON.stringify(values));
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             await axios
                 .post(
@@ -109,6 +112,10 @@ const AddNewSchool = (props) => {
                     }
                 })
                 .catch((err) => {
+                    openNotificationWithIcon(
+                        'error',
+                        err.response.data.message
+                    );
                     return err.response;
                 });
         }
@@ -128,8 +135,10 @@ const AddNewSchool = (props) => {
                                         <Label
                                             className="mb-2"
                                             htmlFor="organization_code"
+                                            // style={{ fontSize: 15 }}
                                         >
                                             Unique Code
+                                            <span required>*</span>
                                         </Label>
                                         <InputBox
                                             {...inputDICE}
@@ -154,8 +163,10 @@ const AddNewSchool = (props) => {
                                         <Label
                                             className="mb-2"
                                             htmlFor="organization_name"
+                                            // style={{ fontSize: 15 }}
                                         >
                                             Institute/School Name
+                                            <span required>*</span>
                                         </Label>
                                         <InputBox
                                             {...inputDICE}
@@ -200,6 +211,7 @@ const AddNewSchool = (props) => {
                                             htmlFor="district"
                                         >
                                             District
+                                            <span required>*</span>
                                         </Label>
                                         <InputBox
                                             {...inputDICE}

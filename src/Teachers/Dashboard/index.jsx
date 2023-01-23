@@ -30,8 +30,8 @@ const Dashboard = () => {
     }, []);
     
     useEffect(() => {
-        dispatch(getDashboardStates(currentUser.data[0].user_id));
-    }, [dispatch, currentUser.data[0].user_id]);
+        dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
+    }, [dispatch, currentUser?.data[0]?.user_id]);
 
     return (
         <Layout>

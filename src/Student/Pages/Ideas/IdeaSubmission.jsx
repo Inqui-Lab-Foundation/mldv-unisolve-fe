@@ -6,7 +6,7 @@ import { getCurrentUser } from '../../../helpers/Utils';
 import { getStudentChallengeSubmittedResponse } from '../../../redux/studentRegistration/actions';
 import Layout from '../../Layout';
 import IdeasPageNew from './IdeasPageCopy';
-import SDG from './SDG';
+//import SDG from './SDG';
 import { useTranslation } from 'react-i18next';
 
 const IdeaSubmission = () => {
@@ -59,7 +59,10 @@ const IdeaSubmission = () => {
     ) : showChallenges ? (
         <IdeasPageNew />
     ) : (
-        <SDG setShowChallenges={setShowChallenges} />
+        //<SDG setShowChallenges={setShowChallenges} />
+        <Layout>
+            <CommonPage text={t("student_course.idea_submission_date_com_desc")} ideaSubmissionComButton={true}/>
+        </Layout> 
     );
 };
 export default IdeaSubmission;

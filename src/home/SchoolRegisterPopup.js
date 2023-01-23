@@ -10,7 +10,6 @@ import { URL, KEY } from '../constants/defaultValues';
 import { getNormalHeaders, openNotificationWithIcon } from '../helpers/Utils';
 import axios from 'axios';
 function SchoolRegisterPopup(props) {
-    console.log(props.diesCode1);
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
@@ -18,8 +17,9 @@ function SchoolRegisterPopup(props) {
     const handleClose = () => {
         props.setShow(false);
     };
-   
-    const phoneRegExp = /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+
+    const phoneRegExp =
+        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const formik = useFormik({
         initialValues: {
             principal_name: '',
@@ -35,23 +35,39 @@ function SchoolRegisterPopup(props) {
         },
 
         validationSchema: Yup.object({
-            
-            principal_name: Yup.string().matches(/^[aA-zZ\s]+$/, "Invalid name ").min(2, "Enter a valid name").required('Principal Name is Required'),
-            principal_mobile: Yup.string().matches(phoneRegExp, 'Mobile number is not valid')
-            .min(10, "Enter a valid mobile number")
-            .max(10, "Enter a valid mobile number").required('Mobile Number is Required'),
-            principal_email: Yup.string().email("Invalid email address format")
-            .required("Email is required"),
-            organization_name: Yup.string().required('Organization  Name is Required'),
-            organization_code: Yup.string().matches(phoneRegExp, 'organization code is not valid').required('UDISE  Code is Required'),
-            city: Yup.string().matches(/^[aA-zZ\s]+$/, "Invalid City").required('City is Required'),
-            district: Yup.string().matches(/^[aA-zZ\s]+$/, "Invalid district").required('District is Required'),
-            state: Yup.string().matches(/^[aA-zZ\s]+$/, "Invalid State").required('State is Required'),
-            country: Yup.string().matches(/^[aA-zZ\s]+$/, "Invalid country ").required('Country Required')
+            principal_name: Yup.string()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid name ')
+                .min(2, 'Enter a valid name')
+                .required('Principal Name is Required'),
+            principal_mobile: Yup.string()
+                .matches(phoneRegExp, 'Mobile number is not valid')
+                .min(10, 'Enter a valid mobile number')
+                .max(10, 'Enter a valid mobile number')
+                .required('Mobile Number is Required'),
+            principal_email: Yup.string()
+                .email('Invalid email address format')
+                .required('Email is required'),
+            organization_name: Yup.string().required(
+                'Organization  Name is Required'
+            ),
+            organization_code: Yup.string()
+                .matches(phoneRegExp, 'organization code is not valid')
+                .required('UDISE  Code is Required'),
+            city: Yup.string()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid City')
+                .required('City is Required'),
+            district: Yup.string()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid district')
+                .required('District is Required'),
+            state: Yup.string()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid State')
+                .required('State is Required'),
+            country: Yup.string()
+                .matches(/^[aA-zZ\s]+$/, 'Invalid country ')
+                .required('Country Required')
         }),
 
         onSubmit: async (values) => {
-            console.log(JSON.stringify(values));
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             await axios
                 .post(
@@ -157,7 +173,7 @@ function SchoolRegisterPopup(props) {
                             </small>
                         ) : null}
                         <Label className="mb-2" htmlFor="organization_name">
-                        Institute/School Name
+                            Institute/School Name
                         </Label>
                         <InputBox
                             {...inputDICE}
@@ -175,7 +191,7 @@ function SchoolRegisterPopup(props) {
                             </small>
                         ) : null}
                         <Label className="mb-2" htmlFor="organization_code">
-                        Unique Code
+                            Unique Code
                         </Label>
                         <InputBox
                             {...inputDICE}

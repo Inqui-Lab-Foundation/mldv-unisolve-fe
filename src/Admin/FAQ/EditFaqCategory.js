@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import '../../Student/Pages/Student.scss';
 import React from 'react';
 import {
@@ -21,17 +22,15 @@ import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 
 import Layout from '../Layout';
 
-
 const EditFaqCategory = (props) => {
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const faqCate = props.location.data;
-    console.log("line 37",faqCate);
+    // console.log("line 37",faqCate);
     const headingDetails = {
         title: 'Edit FAQ Category',
 
         options: [
-            
             {
                 title: 'FAQ Categories',
                 path: '/admin/faq'
@@ -42,12 +41,10 @@ const EditFaqCategory = (props) => {
             }
         ]
     };
-   
 
     const formik = useFormik({
         initialValues: {
-            faqCate: faqCate.category_name,
-            
+            faqCate: faqCate.category_name
         },
 
         validationSchema: Yup.object({
@@ -56,17 +53,18 @@ const EditFaqCategory = (props) => {
 
         onSubmit: (values) => {
             const body = JSON.stringify({
-                "status": "ACTIVE",
+                status: 'ACTIVE',
                 category_name: values.faqCate
             });
             var config = {
                 method: 'put',
                 url:
                     process.env.REACT_APP_API_BASE_URL +
-                    '/faqCategories/' + faqCate.faqCatID,
+                    '/faqCategories/' +
+                    faqCate.faqCatID,
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${currentUser.data[0].token}`
+                    Authorization: `Bearer ${currentUser?.data[0]?.token}`
                 },
                 data: body
             };
@@ -125,9 +123,10 @@ const EditFaqCategory = (props) => {
                                                 >
                                                     <FormGroup className="form-row row mb-5">
                                                         <Label className="mb-2">
-                                                            Enter New FAQ Category
+                                                            Enter New FAQ
+                                                            Category
                                                         </Label>
-                                                        
+
                                                         <Col
                                                             className="form-group"
                                                             md={12}
@@ -153,19 +152,17 @@ const EditFaqCategory = (props) => {
                                                                 .faqCate &&
                                                             formik.errors
                                                                 .faqCate ? (
-                                                                    <small className="error-cls">
-                                                                        {
-                                                                            formik
-                                                                                .errors
-                                                                                .faqCate
-                                                                        }
-                                                                    </small>
-                                                                ) : null}
+                                                                <small className="error-cls">
+                                                                    {
+                                                                        formik
+                                                                            .errors
+                                                                            .faqCate
+                                                                    }
+                                                                </small>
+                                                            ) : null}
                                                         </Col>
                                                     </FormGroup>
                                                 </Col>
-
-                                               
                                             </FormGroup>
                                         </CardBody>
                                     </Card>

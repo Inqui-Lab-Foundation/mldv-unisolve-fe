@@ -64,7 +64,7 @@ const RoadMap = (props) => {
             url: process.env.REACT_APP_API_BASE_URL + '/auth/roadMap',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
         await axios(config)
@@ -410,7 +410,7 @@ const RoadMap = (props) => {
             url: process.env.REACT_APP_API_BASE_URL + '/auth/roadMap',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             },
             data: body
         };

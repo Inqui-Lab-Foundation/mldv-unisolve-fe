@@ -11,11 +11,10 @@ import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import { KEY, URL } from '../../constants/defaultValues';
-import  Swal  from 'sweetalert2/dist/sweetalert2';
+import Swal from 'sweetalert2/dist/sweetalert2';
 import 'sweetalert2/src/sweetalert2.scss';
 import { Button } from '../../stories/Button';
-import {  getCurrentUser } from "../../helpers/Utils.js";
-
+import { getCurrentUser } from '../../helpers/Utils.js';
 
 const FaqByCategory = () => {
     // eslint-disable-next-line no-unused-vars
@@ -34,14 +33,14 @@ const FaqByCategory = () => {
     //         headers: {
     //             "Content-Type": "application/json",
     //             // Accept: "application/json",
-    //             Authorization: `Bearer ${currentUser.data[0].token}`,
+    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`,
     //         },
     //         // data: body,
     //     };
     //     axios(config)
     //         .then(function (response) {
     //             console.log("line no:99", response);
-                
+
     //             if (response.status === 200) {
     //                 setData(() =>
     //                     response?.data?.data[0]?.dataValues &&
@@ -68,12 +67,10 @@ const FaqByCategory = () => {
                     setData(
                         () =>
                             res?.data?.data[0]?.faqs &&
-                            res?.data?.data[0]?.faqs.map(
-                                (item, i) => {
-                                    item.index = i + 1;
-                                    return item;
-                                }
-                            )
+                            res?.data?.data[0]?.faqs.map((item, i) => {
+                                item.index = i + 1;
+                                return item;
+                            })
                     );
                 }
             })
@@ -84,7 +81,7 @@ const FaqByCategory = () => {
                 );
             });
     };
-    
+
     useEffect(() => {
         getFaqByCategory(1);
     }, []);
@@ -125,7 +122,7 @@ const FaqByCategory = () => {
         data: data,
         columns: [
             {
-                name: 'S.No.',
+                name: 'No.',
                 selector: 'index',
                 sortable: true,
                 width: '10%'
@@ -154,12 +151,16 @@ const FaqByCategory = () => {
                     //         history.push(`/admin/edit-faq/${row.faq_id}`)
                     //     }
                     // />,
-                    <div className={`btn ${row.status === 'ACTIVE' ? "btn-primary" : "btn-danger" }`} key={row.faq_id}>{row.status}</div>
-                    
-                    
-                    
-                    
-                   
+                    <div
+                        className={`btn ${
+                            row.status === 'ACTIVE'
+                                ? 'btn-primary'
+                                : 'btn-danger'
+                        }`}
+                        key={row.faq_id}
+                    >
+                        {row.status}
+                    </div>
                 ],
                 allowOverflow: true,
                 button: true,
@@ -212,7 +213,7 @@ const FaqByCategory = () => {
                                 label={`Add FAQ`}
                                 btnClass="primary float-end mb-3"
                                 size="small"
-                                onClick={() =>history.push("/admin/New-faq")}
+                                onClick={() => history.push('/admin/New-faq')}
                             />
                             <DataTableExtensions
                                 {...dataProps}

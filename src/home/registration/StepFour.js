@@ -40,10 +40,7 @@ function StepFour({ userData, setHideFour, setHideFive }) {
             new_password: Yup.string()
                 .required('Password is required')
                 .min(5, 'Your password should be minimum 5 characters')
-                .matches(
-                    /[a-zA-Z0-9]/,
-                    'Password should be only alphanumeric'
-                ),
+                .matches(/[a-zA-Z0-9]/, 'Password should be only alphanumeric'),
             confirmpassword: Yup.string().oneOf(
                 [Yup.ref('new_password'), null],
                 'Passwords must match'
@@ -61,7 +58,6 @@ function StepFour({ userData, setHideFour, setHideFive }) {
                 iv: iv,
                 padding: CryptoJS.pad.NoPadding
             }).toString();
-            console.log(encrypted);
             const body = {
                 new_password: encrypted,
                 old_password: values.old_password,

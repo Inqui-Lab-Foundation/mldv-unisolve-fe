@@ -76,7 +76,7 @@ const MyProfile = () => {
     // }
     useLayoutEffect(() => {
         dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
-    }, [currentUser.data[0].mentor_id]);
+    }, [currentUser?.data[0]?.mentor_id]);
     // useEffect(() => {
     //     const search = window.location.search;
     //     // if (search === '?id=teams') {

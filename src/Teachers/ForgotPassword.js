@@ -91,7 +91,7 @@ function ForgotPassword(props) {
                             {...inputMob}
                             id="mobile"
                             name="mobile"
-                            placeholder="Please enter mobile number"
+                            placeholder=" Enter the Registered mobile number"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.mobile}

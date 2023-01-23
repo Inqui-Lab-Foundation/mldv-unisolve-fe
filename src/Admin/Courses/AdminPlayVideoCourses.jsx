@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { Fragment, useState, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
@@ -31,7 +32,6 @@ import Pdf from '../../assets/media/pdf.png';
 import { getCurrentUser } from '../../helpers/Utils';
 
 const AdminPlayVideoCourses = (props) => {
-    // console.log(props);
     const course_id = props.match.params.id;
     const description = props.location.data
         ? props.location.data.description
@@ -45,7 +45,6 @@ const AdminPlayVideoCourses = (props) => {
         : '';
 
     const currentUser = getCurrentUser('current_user');
-    // console.log("============================currentUser=========", currentUser);
     const [condition, setCondition] = useState('');
     const [modalShow, setModalShow] = useState(false);
     const [showQuiz, setHideQuiz] = useState(false);
@@ -76,13 +75,12 @@ const AdminPlayVideoCourses = (props) => {
     const [paused, setPaused] = useState(false);
     const [item, setItem] = useState('');
     const [adminCourseDetails, setAdminCourseDetails] = useState('');
-    const language = useSelector(state=>state?.admin?.adminLanguage);
+    const language = useSelector((state) => state?.admin?.adminLanguage);
     const scrollRef = React.createRef();
 
-
     useEffect(() => {
-        props.getAdminCourseDetailsActions(course_id,language);
-    }, [course_id,language]);
+        props.getAdminCourseDetailsActions(course_id, language);
+    }, [course_id, language]);
 
     useEffect(() => {
         var topicArrays = [];
@@ -100,18 +98,16 @@ const AdminPlayVideoCourses = (props) => {
     }, [props.adminCoursesDetails]);
 
     async function fetchData(videoId) {
-        // console.log("00000000000000000000000000000000");
         setVideoId(videoId);
         var config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + '/videos/' + videoId,
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
         // let response = await axios(config);
-        // console.log("res", response);
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
@@ -133,12 +129,11 @@ const AdminPlayVideoCourses = (props) => {
                 worksheetId,
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
         axios(config)
             .then(function (response) {
-                // console.log("===============responc", response);
                 if (response.status === 200) {
                     SetWorksheetResponce(response.data.data[0]);
                 }
@@ -154,9 +149,8 @@ const AdminPlayVideoCourses = (props) => {
     };
 
     async function modulesListUpdateApi(courseTopicId) {
-        // console.log(courseTopicId);
         const body1 = JSON.stringify({
-            user_id: JSON.stringify(currentUser.data[0].user_id),
+            user_id: JSON.stringify(currentUser?.data[0]?.user_id),
             course_topic_id: JSON.stringify(courseTopicId),
             status: 'Completed'
         });
@@ -165,19 +159,18 @@ const AdminPlayVideoCourses = (props) => {
             url: process.env.REACT_APP_API_BASE_URL + '/userTopicProgress',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             },
             data: body1
         };
         // let response = await axios(config);
-        // console.log("res", response);
         await axios(config)
             .then(function (response) {
                 if (response.status === 201) {
                     setUpdateModuleResponce(
                         response.data && response.data.data[0]
                     );
-                    props.getAdminCourseDetailsActions(course_id,language);
+                    props.getAdminCourseDetailsActions(course_id, language);
                 }
             })
             .catch(function (error) {
@@ -213,19 +206,15 @@ const AdminPlayVideoCourses = (props) => {
         progress: true
     };
 
-    const handleSeeked = () => {
-        // console.log("428 event fired: ", event);
-    };
+    const handleSeeked = () => {};
 
     // const handleTimeUpdate = (event) => {
-    //   // console.log("432event fired: ", event);
     //   if (event.seconds > "11.62") {
     //     // setModalShow(true);
     //   }
     // };
 
     const handleTimeUpdate = (event) => {
-        // console.log("==========", event);
         const videoLength = event.duration; //500
         const halfTrimmedLength = videoLength / 2; //250
         const calculatePercentage = halfTrimmedLength / videoLength; //0.5
@@ -260,10 +249,8 @@ const AdminPlayVideoCourses = (props) => {
         //   event.percent === calculatePercentage1 &&
         //   eventSeconds1 === calculatedSeconds1
         // ) {
-        //   console.log("==============1===============");
         // }
         if (event.percent === 0.998) {
-            // console.log("=========111111111111");s
             modulesListUpdateApi(topicObj.course_topic_id);
             handleSelect(
                 topicObj.topic_type_id,
@@ -275,7 +262,7 @@ const AdminPlayVideoCourses = (props) => {
     };
 
     const handleSelect = (topicId, couseId, type) => {
-        scrollRef.current.scrollIntoView(); 
+        scrollRef.current.scrollIntoView();
         setCourseId(couseId);
         const topic_Index =
             setTopicArrays &&
@@ -315,18 +302,15 @@ const AdminPlayVideoCourses = (props) => {
     // const handlePlayer = (time) => {
     //   if (time.getCurrentTime(3000)) {
     //     alert("jhani");
-    //     console.log("jhani");
     //   }
     // };
 
     const videoStatus = (type, status) => {
-        // console.log(type, "==========", status);
         const done = <IoCheckmarkDoneCircleSharp className="done" />;
         const notDone = <IoCheckmarkDoneCircleSharp />;
         if (type === 'VIDEO' && status === 'COMPLETED') {
             return done;
         } else if (type === 'VIDEO' && status === 'INCOMPLETE') {
-            // console.log("=================================================");
             return notDone;
         }
 
@@ -417,7 +401,7 @@ const AdminPlayVideoCourses = (props) => {
                 '/response',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             },
             data: data
         };
@@ -449,14 +433,12 @@ const AdminPlayVideoCourses = (props) => {
         );
     };
     // const OnLoaded = (e) => {
-    //   console.log(e);
     // };
     // const video_stream_id = '666422934';
     // console.log(
     //   "===worksheetId",
     //   responce && responce.data[0] && responce.data[0].video_stream_id
     // );
-    // console.log("===worksheetId", Math.floor(20 / 60));
     // const video_id = Number(id);
 
     // const id =
@@ -515,7 +497,6 @@ const AdminPlayVideoCourses = (props) => {
                                             adminCourseDetails.length &&
                                             adminCourseDetails.map(
                                                 (course, index) => {
-                                                    // console.log("============return, course", course);
                                                     return (
                                                         <Accordion.Item
                                                             eventKey={index}
@@ -555,7 +536,10 @@ const AdminPlayVideoCourses = (props) => {
                                                                                             ? 'hHover'
                                                                                             : 'noHover'
                                                                                     }  `}
-                                                                                    key={index}>
+                                                                                    key={
+                                                                                        index
+                                                                                    }
+                                                                                >
                                                                                     <Row
                                                                                         className={`justify-content-between w-100 px-4 py-3 ${
                                                                                             lecture.progress ===
@@ -564,7 +548,6 @@ const AdminPlayVideoCourses = (props) => {
                                                                                                 : 'noCurser'
                                                                                         }`}
                                                                                     >
-                                                                                       
                                                                                         <Col
                                                                                             md={
                                                                                                 12
@@ -592,19 +575,19 @@ const AdminPlayVideoCourses = (props) => {
 
                                                                                                 {lecture.type ===
                                                                                                 'modal' ? (
-                                                                                                        <span
-                                                                                                            className="course-name"
-                                                                                                            onClick={() =>
-                                                                                                                setModalShow(
-                                                                                                                    true
-                                                                                                                )
-                                                                                                            }
-                                                                                                        >
+                                                                                                    <span
+                                                                                                        className="course-name"
+                                                                                                        onClick={() =>
+                                                                                                            setModalShow(
+                                                                                                                true
+                                                                                                            )
+                                                                                                        }
+                                                                                                    >
                                                                                                         Assesment
-                                                                                                        </span>
-                                                                                                    ) : (
-                                                                                                        ''
-                                                                                                    )}
+                                                                                                    </span>
+                                                                                                ) : (
+                                                                                                    ''
+                                                                                                )}
                                                                                             </p>
                                                                                             <p className="course-time mb-0 px-5 my-auto">
                                                                                                 {videoType(
@@ -637,7 +620,6 @@ const AdminPlayVideoCourses = (props) => {
                                     </Accordion>
                                 </div>
                             </div>
-                            
                         </Col>
 
                         <Col xl={8} className="course-video order-1 order-xl-2">
@@ -716,138 +698,138 @@ const AdminPlayVideoCourses = (props) => {
                                             <div className="text-right">
                                                 {worksheetResponce.response !=
                                                 null ? (
-                                                        <a
-                                                            href={
-                                                                process.env
-                                                                    .REACT_APP_API_IMAGE_BASE_URL +
+                                                    <a
+                                                        href={
+                                                            process.env
+                                                                .REACT_APP_API_IMAGE_BASE_URL +
                                                             '/images/default_worksheet.pdf'
-                                                            }
-                                                            target="_blank"
-                                                            rel="noreferrer"
-                                                            className="primary"
-                                                        >
-                                                            {/* <p className='primary mt-4'>Download</p> */}
+                                                        }
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        className="primary"
+                                                    >
+                                                        {/* <p className='primary mt-4'>Download</p> */}
 
-                                                            <Button
-                                                                button="submit"
-                                                                label="Download Worksheet"
-                                                                btnClass="primary mt-4 mb-2"
-                                                                size="small"
-                                                                style={{
-                                                                    marginRight:
+                                                        <Button
+                                                            button="submit"
+                                                            label="Download Worksheet"
+                                                            btnClass="primary mt-4 mb-2"
+                                                            size="small"
+                                                            style={{
+                                                                marginRight:
                                                                     '2rem'
-                                                                }}
-                                                            />
-                                                        </a>
-                                                    ) : null}
+                                                            }}
+                                                        />
+                                                    </a>
+                                                ) : null}
                                                 {worksheetResponce.response !=
                                                 null ? (
-                                                        <Button
-                                                            label="Go to Next Course"
-                                                            btnClass="primary w-auto"
-                                                            size="small"
-                                                            type="submit"
-                                                            onClick={
-                                                                handleNextCourse
-                                                            }
-                                                        />
-                                                    ) : null}
+                                                    <Button
+                                                        label="Go to Next Course"
+                                                        btnClass="primary w-auto"
+                                                        size="small"
+                                                        type="submit"
+                                                        onClick={
+                                                            handleNextCourse
+                                                        }
+                                                    />
+                                                ) : null}
                                             </div>
 
                                             {worksheetResponce.response ===
                                             null ? (
-                                                    <Row className="my-5">
-                                                        <Col md={3}>
-                                                            <div className="wrapper">
-                                                                <div className="btnimg">
+                                                <Row className="my-5">
+                                                    <Col md={3}>
+                                                        <div className="wrapper">
+                                                            <div className="btnimg">
                                                                 upload
-                                                                </div>
-                                                                <input
-                                                                    type="file"
-                                                                    name="file"
-                                                                    accept={
-                                                                        '.pdf,.csv'
-                                                                    }
-                                                                    onChange={(e) =>
-                                                                        changeHandler(
-                                                                            e
-                                                                        )
-                                                                    }
-                                                                />
                                                             </div>
-                                                        </Col>
-                                                        <Col md={9}>
-                                                            <Row>
-                                                                <Col
-                                                                    md={6}
-                                                                    className="my-auto"
-                                                                >
-                                                                    <p>
-                                                                        {fileName}
-                                                                    </p>
-                                                                </Col>
-                                                                <Col
-                                                                    md={2}
-                                                                    className="my-auto"
-                                                                >
-                                                                    {image &&
+                                                            <input
+                                                                type="file"
+                                                                name="file"
+                                                                accept={
+                                                                    '.pdf,.csv'
+                                                                }
+                                                                onChange={(e) =>
+                                                                    changeHandler(
+                                                                        e
+                                                                    )
+                                                                }
+                                                            />
+                                                        </div>
+                                                    </Col>
+                                                    <Col md={9}>
+                                                        <Row>
+                                                            <Col
+                                                                md={6}
+                                                                className="my-auto"
+                                                            >
+                                                                <p>
+                                                                    {fileName}
+                                                                </p>
+                                                            </Col>
+                                                            <Col
+                                                                md={2}
+                                                                className="my-auto"
+                                                            >
+                                                                {image &&
                                                                 url ===
                                                                     'csv' ? (
-                                                                            <img
-                                                                                src={`${Csv}`}
-                                                                                className="img-fluid"
-                                                                                alt="Thumb"
-                                                                            />
-                                                                        ) : image &&
+                                                                    <img
+                                                                        src={`${Csv}`}
+                                                                        className="img-fluid"
+                                                                        alt="Thumb"
+                                                                    />
+                                                                ) : image &&
                                                                   url ===
                                                                       'pdf' ? (
-                                                                                <img
-                                                                                    src={`${Pdf}`}
-                                                                                    className="img-fluid"
-                                                                                    alt="Thumb"
-                                                                                />
-                                                                            ) : null}
-                                                                </Col>
-                                                                <Col
-                                                                    md={2}
-                                                                    className="my-auto"
-                                                                >
-                                                                    {image ? (
-                                                                        <Button
-                                                                            onClick={
-                                                                                removeSelectedImage
-                                                                            }
-                                                                            btnClass="primary py-2 px-4"
-                                                                            size="small"
-                                                                            label="Remove"
-                                                                        >
+                                                                    <img
+                                                                        src={`${Pdf}`}
+                                                                        className="img-fluid"
+                                                                        alt="Thumb"
+                                                                    />
+                                                                ) : null}
+                                                            </Col>
+                                                            <Col
+                                                                md={2}
+                                                                className="my-auto"
+                                                            >
+                                                                {image ? (
+                                                                    <Button
+                                                                        onClick={
+                                                                            removeSelectedImage
+                                                                        }
+                                                                        btnClass="primary py-2 px-4"
+                                                                        size="small"
+                                                                        label="Remove"
+                                                                    >
                                                                         Remove
-                                                                        </Button>
-                                                                    ) : null}
-                                                                </Col>
-                                                                <Col
-                                                                    md={2}
-                                                                    className="my-auto"
-                                                                >
-                                                                    {image ? (
-                                                                        <Button
-                                                                            btnClass="primary py-2 px-4"
-                                                                            size="small"
-                                                                            label="Submit"
-                                                                            onClick={(
+                                                                    </Button>
+                                                                ) : null}
+                                                            </Col>
+                                                            <Col
+                                                                md={2}
+                                                                className="my-auto"
+                                                            >
+                                                                {image ? (
+                                                                    <Button
+                                                                        btnClass="primary py-2 px-4"
+                                                                        size="small"
+                                                                        label="Submit"
+                                                                        onClick={(
+                                                                            e
+                                                                        ) =>
+                                                                            handleSubmit(
                                                                                 e
-                                                                            ) =>
-                                                                                handleSubmit(
-                                                                                    e
-                                                                                )
-                                                                            }
-                                                                        />
-                                                                    ) : null}
-                                                                </Col>
-                                                            </Row>
-                                                        </Col>
-                                                    </Row>
-                                                ) : null}
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                ) : null}
+                                                            </Col>
+                                                        </Row>
+                                                    </Col>
+                                                </Row>
+                                            ) : null}
 
                                             {/* <div class="wrapper">
                         <div class="btnimg">upload</div>

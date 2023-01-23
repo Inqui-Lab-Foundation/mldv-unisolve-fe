@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import axios from 'axios';
 
 // import {
@@ -5,7 +6,7 @@ import axios from 'axios';
 // } from '../../../redux/actions.js';
 import { URL, KEY } from '../../../constants/defaultValues.js';
 import {
-    getNormalHeaders,
+    getNormalHeaders
     // openNotificationWithIcon
 } from '../../../helpers/Utils.js';
 
@@ -26,13 +27,13 @@ const deleteTempMentorById = (id) => async (dispatch) => {
             .catch((err) => {
                 return err.response;
             });
-            console.log(result);
+        console.log(result);
         // if (result && result.status === 200) {
         //     const data =
         //         result.data &&
         //         result.data.data[0] &&
         //         result.data.data[0];
-        //     dispatch(getAdminSuccess(data)); 
+        //     dispatch(getAdminSuccess(data));
         // } else {
         //     dispatch(
         //         getAdminError(result.statusText)
@@ -43,4 +44,3 @@ const deleteTempMentorById = (id) => async (dispatch) => {
         // dispatch(getAdminError({}));
     }
 };
-

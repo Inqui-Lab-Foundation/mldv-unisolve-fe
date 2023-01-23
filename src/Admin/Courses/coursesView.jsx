@@ -18,7 +18,6 @@ const CourseView = () => {
 
     const history = useHistory();
     const data = (history && history.location && history.location.item) || {};
-    console.log('===============', data);
     const filterDropProps = {
         label: 'Filter by',
         Icon: BsFilter,

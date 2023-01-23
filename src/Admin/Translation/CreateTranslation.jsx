@@ -66,7 +66,7 @@ const CreateTranslation = (props) => {
                 url: process.env.REACT_APP_API_BASE_URL + '/translations',
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${currentUser.data[0].token}`
+                    Authorization: `Bearer ${currentUser?.data[0]?.token}`
                 },
                 data: body
             };

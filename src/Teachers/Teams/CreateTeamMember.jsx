@@ -376,7 +376,7 @@ const CreateTeamMember = (props) => {
                 '?status=ACTIVE',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
         await axios(config)
@@ -447,7 +447,7 @@ const CreateTeamMember = (props) => {
                         '/students/addStudent',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${currentUser.data[0].token}`
+                        Authorization: `Bearer ${currentUser?.data[0]?.token}`
                     },
                     data: body
                 };
@@ -484,7 +484,6 @@ const CreateTeamMember = (props) => {
             }
         }
     });
-    console.log(isClicked);
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">

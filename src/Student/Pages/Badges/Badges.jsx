@@ -27,9 +27,9 @@ const BadgesComp = () => {
 
     const dispatch = useDispatch();
     useEffect(() => {
-        dispatch(getStudentBadges(currentUser.data[0].user_id,language));
+        dispatch(getStudentBadges(currentUser?.data[0]?.user_id,language));
     }, []);
-    // }, [dispatch,currentUser.data[0].user_id,language]);
+    // }, [dispatch,currentUser?.data[0]?.user_id,language]);
     
    
     return (

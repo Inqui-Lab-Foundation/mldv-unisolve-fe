@@ -16,8 +16,17 @@ import { useLocation } from "react-router-dom";
 const Header = (props) => {
 
     const currentUser = getCurrentUser("current_user");
-    const idea_list = useSelector((state) => state?.evaluator.submittedIdeaList);
     const location= useLocation();
+    const allIdeaList = useSelector(
+        (state) => state?.evaluator.submittedIdeaList
+    );
+    // const processedIdeaList= useSelector(
+    //     (state) => state?.evaluator.processedRound1List
+    // );
+    // const yetToProcess= useSelector(
+    //     (state) => state?.evaluator.yetToProcessRound1List
+    // );
+
 
     return (
         <header>
@@ -40,11 +49,9 @@ const Header = (props) => {
                                         <div className="row w-100">
                                         <div className="col-sm-4 col-6">
                                             <p className="m-0 fs-3">
-                                                Total Idea:&nbsp;
+                                                Level:&nbsp;
                                                 <span className="fs-4 text-primary">
-                                                    {(idea_list &&
-                                                        idea_list?.length) ||
-                                                        0}
+                                                    {currentUser?.data[0]?.level_name}
                                                 </span>
                                             </p>
                                         </div>
@@ -52,7 +59,9 @@ const Header = (props) => {
                                             <p className="m-0 fs-3">
                                                 Processed:&nbsp;
                                                 <span className="fs-4 text-success">
-                                                    10
+                                                {(allIdeaList &&
+                                                        allIdeaList?.evaluatedIdeas) ||
+                                                        0}
                                                 </span>
                                             </p>
                                         </div>
@@ -60,7 +69,9 @@ const Header = (props) => {
                                             <p className="m-0 fs-3">
                                                 Yet to Process:&nbsp;
                                                 <span className="fs-4 text-danger">
-                                                    20
+                                                {(allIdeaList &&
+                                                        allIdeaList?.openIdeas) ||
+                                                        0}
                                                 </span>
                                             </p>
                                         </div>

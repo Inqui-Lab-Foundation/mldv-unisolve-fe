@@ -62,7 +62,6 @@ const AddNewFaq = (props) => {
     const history = useHistory();
     let query = useQuery();
     const faqID = query.get('faqid');
-    console.log('🚀 ~ file: AddNewFaq.js ~ line 78 ~ AddNewFaq ~ faqID', faqID);
 
     // A custom hook that builds on useLocation to parse
     // the query string for you.
@@ -148,7 +147,6 @@ const AddNewFaq = (props) => {
             .then((categoryListRes) => {
                 if (categoryListRes?.status == 200) {
                     let dataValue = categoryListRes?.data?.data[0]?.dataValues;
-                    console.log('Data value ', dataValue);
                     if (dataValue) {
                         let categoriesOptions = [];
                         dataValue.map((item) => {
@@ -179,7 +177,6 @@ const AddNewFaq = (props) => {
             .then((faqResData) => {
                 if (faqResData?.status == 200) {
                     let dataValue = faqResData?.data?.data[0];
-                    console.log('Data value ', dataValue);
                     if (dataValue) {
                         setFaqData(dataValue);
                         formik.setFieldValue('question', dataValue?.question);
@@ -210,33 +207,33 @@ const AddNewFaq = (props) => {
     };
 
     useEffect(() => {
-        console.log('formik.values ', formik.values, formik.errors);
+        // console.log('formik.values ', formik.values, formik.errors);
     }, [formik.values, formik.errors]);
 
     useEffect(() => {
-        console.log(
-            '🚀 ~ file: AddNewFaq.js ~ line 209 ~ useEffect ~ Object.keys(faqData).length > 0 && categoriesList.length',
-            Object.keys(faqData).length,
-            ' && ',
-            categoriesList.length
-        );
+        // console.log(
+        //     '🚀 ~ file: AddNewFaq.js ~ line 209 ~ useEffect ~ Object.keys(faqData).length > 0 && categoriesList.length',
+        //     Object.keys(faqData).length,
+        //     ' && ',
+        //     categoriesList.length
+        // );
         if (Object.keys(faqData).length > 0 && categoriesList.length > 0) {
             let defaultCategoryValue = categoriesList.find(
                 (eachFaqCat) => eachFaqCat.value == faqData.faq_category_id
             );
-            console.log(
-                '🚀 ~ file: AddNewFaq.js ~ line 213 ~ AddNewFaq ~ defaultCategory',
-                defaultCategoryValue
-            );
+            // console.log(
+            //     '🚀 ~ file: AddNewFaq.js ~ line 213 ~ AddNewFaq ~ defaultCategory',
+            //     defaultCategoryValue
+            // );
             setDefaultCategory(defaultCategoryValue);
         }
     }, [categoriesList, faqData]);
 
     useEffect(() => {
-        console.log(
-            '🚀 ~ file: AddNewFaq.js ~ line 220 ~ AddNewFaq ~ defaultCategory',
-            defaultCategory
-        );
+        // console.log(
+        //     '🚀 ~ file: AddNewFaq.js ~ line 220 ~ AddNewFaq ~ defaultCategory',
+        //     defaultCategory
+        // );
     }, [defaultCategory]);
 
     return (

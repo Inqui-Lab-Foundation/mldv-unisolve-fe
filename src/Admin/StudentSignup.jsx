@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from 'react';
 import { Container, Row, Col, Label, Input, Card, CardBody } from 'reactstrap';
 import axios from 'axios';
@@ -17,7 +18,6 @@ const StudentSignup = (props) => {
     const handleSubmit = () => {
         let finalObj = {};
         for (const [key, value] of Object.entries(state)) {
-            console.log(`${key}: ${value}`);
             if (value == true) {
                 finalObj[key] = value;
             }
@@ -37,7 +37,6 @@ const StudentSignup = (props) => {
         };
         axios(config)
             .then(function (response) {
-                console.log('========', response);
                 if (response.status === 200) {
                     alert('Successfully Create');
                     setState({
@@ -51,7 +50,6 @@ const StudentSignup = (props) => {
             .catch(function (error) {
                 console.log(error);
             });
-        console.log(finalObj);
     };
 
     const headingDetails = {
@@ -93,9 +91,8 @@ const StudentSignup = (props) => {
                                                 {key === 'studentName'
                                                     ? 'Student Name'
                                                     : key === 'email'
-                                                        ? 'Email'
-                                                        : 'Phone Number'
-                                                }
+                                                    ? 'Email'
+                                                    : 'Phone Number'}
                                             </Label>
                                         </div>
                                     );

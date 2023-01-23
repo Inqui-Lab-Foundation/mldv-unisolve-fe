@@ -93,6 +93,10 @@ const Home = () => {
                 ? history.push('/teacher/dashboard')
                 : moduleName === 'ADMIN'
                 ? history.push('/admin/dashboard')
+                : moduleName === 'EVALUATOR'
+                ? history.push('/evaluator/submitted-ideas')
+                : moduleName === 'EADMIN'
+                ? history.push('/eadmin/dashboard')
                 : history.push('/dashboard');
         }
     }, []);
@@ -545,7 +549,9 @@ const Home = () => {
                                                     label={t('home_tl.login')}
                                                     btnClass="primary "
                                                     onClick={() => {
-                                                        history.push("/teacher");
+                                                        history.push(
+                                                            '/teacher'
+                                                        );
                                                         i18next.changeLanguage(
                                                             'en'
                                                         );
@@ -667,16 +673,16 @@ const Home = () => {
                                         size="small"
                                     />
                                 </Link> */}
-                            </Col>
-                            <Col md={12} lg={6}>
-                                <figure className="my-0">
-                                    <img
-                                        src={LearnMentor}
-                                        alt="learn"
-                                        className="img-fluid"
-                                    />
-                                </figure>
-                            </Col>
+                        </Col>
+                        <Col md={12} lg={6}>
+                            <figure className="my-0">
+                                <img
+                                    src={LearnMentor}
+                                    alt="learn"
+                                    className="img-fluid"
+                                />
+                            </figure>
+                        </Col>
                     </Row>
                     <Row className="my-5 py-5">
                         <Col md={12} lg={5} className="teacher my-auto mx-auto">
@@ -789,7 +795,6 @@ const Home = () => {
                         
                     </Row>
                 </Container>
-                
             </section>
             {/* <section className="mentor-student">
         <Container className="both">

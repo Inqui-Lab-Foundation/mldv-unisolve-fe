@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import './style.scss';
 import Layout from '../../Layout.jsx';
 import {
@@ -26,16 +27,17 @@ const SDG = ({setShowChallenges}) => {
     const { t } = useTranslation();
     const [showPage, setShowPage] = useState(true);
     const comingSoonText = t('dummytext.student_idea_sub');
-    const dashboardStatus = useSelector((state) => state?.studentRegistration?.dashboardStatus);
-    let {all_topics_count,topics_completed_count} = dashboardStatus ? dashboardStatus : {all_topics_count:null,topics_completed_count:null};
-    useLayoutEffect(() => {
-        if(!dashboardStatus)
-            dispatch(getStudentDashboardStatus(currentUser.data[0].user_id, language));
-    }, [language]);
-    useEffect(() => {
-        if(all_topics_count && (all_topics_count !== topics_completed_count))
-            setShowPage(false);
-    }, [all_topics_count,topics_completed_count]);
+    // const dashboardStatus = useSelector((state) => state?.studentRegistration?.dashboardStatus);
+    // let {all_topics_count,topics_completed_count} = dashboardStatus ? dashboardStatus : {all_topics_count:null,topics_completed_count:null};
+    // useLayoutEffect(() => {
+    //     if(!dashboardStatus)
+    //         dispatch(getStudentDashboardStatus(currentUser?.data[0]?.user_id, language));
+    // }, [language]);
+    // useEffect(() => {
+    //     if(all_topics_count && (all_topics_count !== topics_completed_count))
+    //         setShowPage(false);
+    // }, [all_topics_count,topics_completed_count]);
+
     
     const handleSelect = (data)=>{
         const initialSizeData = {
@@ -121,20 +123,25 @@ const SDG = ({setShowChallenges}) => {
                                                             item?.bg_color
                                                     }}
                                                 >
-                                                    <h1 className="text-light opacity-50">
+                                                    {/* <h1 className="text-light opacity-50">
                                                         {item?.goal_number}
-                                                    </h1>
-                                                    <h2 className="text-white">
+                                                    </h1> */}
+                                                    <h2 className="text-white m-md-5">
                                                         {item?.goal_title}
                                                     </h2>
                                                     <p>{item?.goal_text}</p>
-                                                    <div className="choose_btn_box fixed-bottom mb-3">
-                                                        <Button
-                                                            btnClass="secondary"
-                                                            onClick={()=>handleSelect(item?.goal_title)}
-                                                            size="small"
-                                                            label="Select"
-                                                        />
+                                                    <div className="choose_btn_box fixed-bottom mb-md-2 mb-3  d-flex justify-content-between">
+                                                        <div className='selectbtn'>
+                                                            <Button
+                                                                btnClass="secondary"
+                                                                onClick={()=>handleSelect(item?.goal_title)}
+                                                                size="small"
+                                                                label="Select"
+                                                            />
+                                                        </div>
+                                                        <h1 className="text-light num">
+                                                            {item?.goal_number}
+                                                        </h1>
                                                     </div>
                                                 </div>
                                             </div>

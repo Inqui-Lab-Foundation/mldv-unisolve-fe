@@ -4,7 +4,7 @@ import { Button } from '../../stories/Button';
 import Layout from '../Layout';
 import jsPDF from 'jspdf';
 import { getCurrentUser, getNormalHeaders } from '../../helpers/Utils';
-import TeacherCertificate from '../../assets/media/img/certificates/TN_Teacher+Completion+Certficate.png';
+import TeacherCertificate from '../../assets/media/img/certificates/TN-SIDP-Certificates-signed-1-1.png';
 import { useTranslation } from 'react-i18next';
 import { KEY, URL } from '../../constants/defaultValues';
 import { useSelector } from 'react-redux';
@@ -18,11 +18,10 @@ const MyCertificate = () => {
     const currentUser = getCurrentUser('current_user');
     const language = useSelector((state) => state?.mentors.mentorLanguage);
     const [postSurveyStatus, setPostSurveyStatus] = useState('');
-    let tempVar = postSurveyStatus;
-    tempVar = 0;
+    let tempVar = postSurveyStatus ==="COMPLETED";
     const handleCertificateDownload = () => {
         const content = pdfRef.current;
-        const doc = new jsPDF('p', 'px', [298, 209]);
+        const doc = new jsPDF('l', 'px', [211,298]);
         doc.html(content, {
             callback: function (doc) {
                 doc.save('certificate.pdf');
@@ -51,13 +50,12 @@ const MyCertificate = () => {
                 return err.response;
             });
     }, [language]);
-
     return (
         <Layout>
             <Container className="presuervey mb-50 mt-5 ">
                 <Fragment>
                     <Card className="course-sec-basic p-5">
-                        {tempVar ? (
+                        {!tempVar ? (
                             <CardBody>
                                 <CardTitle
                                     className=" text-left pt-4 pb-4"
@@ -77,19 +75,32 @@ const MyCertificate = () => {
                                         className="text-capitalize"
                                         style={{
                                             position: 'absolute',
-                                            top: '11.5rem',
-                                            left: '8rem',
-                                            fontSize: 'inherit'
+                                            top: '7.2rem',
+                                            left: '10rem',
+                                            fontSize: '1rem',
+                                            fontFamily:"Times New Roman"
                                         }}
                                     >
                                         {currentUser?.data[0]?.full_name}
+                                    </span>
+                                    <span
+                                        className="text-capitalize"
+                                        style={{
+                                            position: 'absolute',
+                                            top: '8.6rem',
+                                            left: '5rem',
+                                            fontSize: '1rem',
+                                            fontFamily:"Times New Roman"
+                                        }}
+                                    >
+                                        {currentUser?.data[0]?.organization_name}
                                     </span>
                                     <img
                                         src={TeacherCertificate}
                                         alt="certificate"
                                         style={{
-                                            width: '209px',
-                                            height: '297px',
+                                            width: '297px',
+                                            height: '209px',
                                             border: '1px solid #ccc'
                                         }}
                                     />
@@ -117,7 +128,7 @@ const MyCertificate = () => {
                                 </div>
                                 <div>
                                     <h2>
-                                        {t('teacher_certificate.complete_postsurvey')}
+                                        {postSurveyStatus =="COMPLETED" ? t('teacher_certificate.complete_post_survey_default') :t('teacher_certificate.complete_postsurvey')}
                                     </h2>
                                 </div>
                             </div>

@@ -107,11 +107,11 @@ const PreSurvey = () => {
                                 ''
                             );
                             dispatch(getPresurveyData(language));
-                            dispatch(getStudentDashboardStatus(currentUser.data[0].user_id, language));
+                            dispatch(getStudentDashboardStatus(currentUser?.data[0]?.user_id, language));
                             dispatch(
                                 updateStudentBadges(
                                     { badge_slugs: ['survey_champ'] },
-                                    currentUser.data[0].user_id,
+                                    currentUser?.data[0]?.user_id,
                                     language,t
                                 )
                             );

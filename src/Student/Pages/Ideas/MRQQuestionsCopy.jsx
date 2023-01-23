@@ -1,8 +1,15 @@
+/* eslint-disable no-unused-vars */
+/* eslint-disable indent */
 // import { useEffect, useState } from 'react';
 import { FormGroup, Input, Label } from 'reactstrap';
 import { TextArea } from '../../../stories/TextArea/TextArea';
 
-const MRQQuestionsCopy = ({ eachQuestion,i, setAnswerResponses,answerResponses }) => {
+const MRQQuestionsCopy = ({
+    eachQuestion,
+    i,
+    setAnswerResponses,
+    answerResponses
+}) => {
     // const [isCheck, setIsCheck] = useState({
     //     challenge_question_id: '',
     //     selected_option: [] || null
@@ -46,22 +53,22 @@ const MRQQuestionsCopy = ({ eachQuestion,i, setAnswerResponses,answerResponses }
     //     }
     // }
     // };
-    const handleChange=(e)=>{
+    const handleChange = (e) => {
         let newItems = [...answerResponses];
-        let obj={challenge_question_id:e.target.name,selected_option:e.target.value};
+        let obj = {
+            challenge_question_id: e.target.name,
+            selected_option: e.target.value
+        };
         let i = newItems.length;
-        if(i)
-
-        if(newItems[i]){
-            newItems[i]['challenge_question_id'] = e.target.name;
-            newItems[i]['selected_option'] = e.target.value;
-        }else{
-            newItems[i]=obj;
-        }
+        if (i)
+            if (newItems[i]) {
+                newItems[i]['challenge_question_id'] = e.target.name;
+                newItems[i]['selected_option'] = e.target.value;
+            } else {
+                newItems[i] = obj;
+            }
         setAnswerResponses(newItems);
-        
     };
-    console.log(answerResponses);
     return (
         <>
             {eachQuestion.type === 'TEXT' && (

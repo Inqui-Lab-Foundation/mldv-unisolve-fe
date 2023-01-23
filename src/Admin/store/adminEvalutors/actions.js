@@ -27,15 +27,15 @@ export const getAdminEvalutorsList = () => async (dispatch) => {
         dispatch({ type: ADMIN_EVALUTORS_LIST });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .get(`${URL.getAdminEvaluator}`, axiosConfig)
+            .get(`${URL.getAdminEvaluator + '?status=ALL'}`, axiosConfig)
             .then((user) => user)
             .catch((err) => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            const data = result.data;
+            const data = result.data?.data[0]?.dataValues || [];
+            data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
             dispatch(getAdminEvalutorsListSuccess(data));
-            // history.push("/teams");
         } else {
             dispatch(getAdminEvalutorsListError(result.statusText));
         }

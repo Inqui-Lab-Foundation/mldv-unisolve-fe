@@ -15,7 +15,8 @@ import {
     GET_STUDENT_DASHBOARD_TUTORIALS,
     SET_PRESURVEY_STATUS,
     SET_POSTSURVEY_STATUS,
-    SET_FILE_SUCCESS
+    SET_FILE_SUCCESS,
+    GET_DISTRICTS
 } from '../actions';
 
 const localLang = JSON.parse(localStorage.getItem("s_language"));
@@ -39,7 +40,8 @@ const INIT_STATE = {
     presuveyStatusGl :null,
     postSurveyStatusGl :null,
     ideaSubmissionStatus:null,
-    fileResponse:null
+    fileResponse:null,
+    dists:[]
 };
 
 export default (state = INIT_STATE, action) => {
@@ -126,6 +128,11 @@ export default (state = INIT_STATE, action) => {
         return {
             ...state,
             fileResponse:action.payload
+        };
+    case GET_DISTRICTS:
+        return {
+            ...state,
+            dists:action.payload
         };
     default:
         return newState;

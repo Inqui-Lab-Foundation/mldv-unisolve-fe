@@ -58,7 +58,7 @@ const TicketsPage = (props) => {
     useEffect(() => {
         setLoading(true);
         props
-            .getAdminTeamsListAction(currentUser.data[0].mentor_id)
+            .getAdminTeamsListAction(currentUser?.data[0]?.mentor_id)
             .then(() => setLoading(false));
     }, [count]);
 
@@ -213,7 +213,7 @@ const TicketsPage = (props) => {
                         headers: {
                             'Content-Type': 'application/json',
                             // Accept: "application/json",
-                            Authorization: `Bearer ${currentUser.data[0].token}`
+                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
                     axios(config)

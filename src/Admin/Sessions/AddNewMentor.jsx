@@ -1,46 +1,46 @@
-import React from "react";
-import { Row, Col } from "reactstrap";
-import {  withRouter } from "react-router-dom";
-import "./style.scss";
+import React from 'react';
+import { Row, Col } from 'reactstrap';
+import { withRouter } from 'react-router-dom';
+import './style.scss';
 // import { BsChevronRight, BsFilter, BsFillPauseFill } from "react-icons/bs";
 // import { RiAwardFill } from "react-icons/ri";
 // import { VscCheck } from "react-icons/vsc";
 // import CourseVideo from "../../assets/img/courseVideo.png";
-import Layout from "../../Admin/Layout";
+import Layout from '../../Admin/Layout';
 // import { BsDot, BsQuestionCircle } from "react-icons/bs";
 // import { Accordion } from "react-bootstrap";
 // import { AccordionHeader, AccordionBody, AccordionItem } from "reactstrap";
 // import User from "../../assets/img/avatar1.png";
-import { Button } from "../../stories/Button";
+import { Button } from '../../stories/Button';
 // import { GrDocument } from "react-icons/gr";
 // import { AiFillPlayCircle } from "react-icons/ai";
 
-import { InputBox } from "../../stories/InputBox/InputBox";
-import { TextArea } from "../../stories/TextArea/TextArea";
-import { ProgressComp } from "../../stories/Progress/Progress";
-import { PhotoUpload } from "../../stories/PhotoUpload/PhotoUpload";
-import * as Yup from "yup";
-import { useFormik } from "formik";
-import { BreadcrumbTwo } from "../../stories/BreadcrumbTwo/BreadcrumbTwo";
+import { InputBox } from '../../stories/InputBox/InputBox';
+import { TextArea } from '../../stories/TextArea/TextArea';
+import { ProgressComp } from '../../stories/Progress/Progress';
+import { PhotoUpload } from '../../stories/PhotoUpload/PhotoUpload';
+import * as Yup from 'yup';
+import { useFormik } from 'formik';
+import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 
 const AddNewMentor = (props) => {
     const headingDetails = {
-        title: "Add Problem Category",
+        title: 'Add Problem Category',
 
         options: [
             {
-                title: "Problem Categories",
-                path: "/admin/problem-categories",
+                title: 'Problem Categories',
+                path: '/admin/problem-categories'
             },
             {
-                title: "Add Problem Category",
-                path: "/admin/add-problem-category",
-            },
-        ],
+                title: 'Add Problem Category',
+                path: '/admin/add-problem-category'
+            }
+        ]
     };
     const inputIdeaTitle = {
-        type: "text",
-        placeholder: "Enter idea title here...",
+        type: 'text',
+        placeholder: 'Enter idea title here...'
     };
     // const serachprops = {
     //     options: [
@@ -53,23 +53,22 @@ const AddNewMentor = (props) => {
     // };
     const formik = useFormik({
         initialValues: {
-            ideaTitle: "",
-            ideaDescription: "",
-            richTextValue: "",
-            file: "",
+            ideaTitle: '',
+            ideaDescription: '',
+            richTextValue: '',
+            file: ''
         },
         validationSchema: Yup.object({
-            ideaTitle: Yup.string().required("Required"),
+            ideaTitle: Yup.string().required('Required')
             // password: Yup.string().required("Required"),
         }),
         onSubmit: (values) => {
-            console.log("====================submit");
             alert(JSON.stringify(values, null, 2));
-        },
+        }
     });
     const progressBar = {
-        label: "Progress",
-        options: [{ id: 1, teams: "CSK", percent: 75, status: "active" }],
+        label: 'Progress',
+        options: [{ id: 1, teams: 'CSK', percent: 75, status: 'active' }]
     };
 
     return (
@@ -86,7 +85,8 @@ const AddNewMentor = (props) => {
                             <div className="create-ticket">
                                 <p className="m-0 question">Name</p>
                                 <span className="que-text">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit.
                                 </span>
                                 <InputBox
                                     {...inputIdeaTitle}
@@ -98,15 +98,20 @@ const AddNewMentor = (props) => {
                                 />
                                 <p className="m-0 question mt-5">Description</p>
                                 <span className="que-text">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                                    Lorem ipsum dolor sit amet, consectetur
+                                    adipiscing elit.
                                 </span>
                                 <TextArea placeholder="Enter your question description here..." />
 
-                                <p className="m-0 question mt-5">Points count</p>
+                                <p className="m-0 question mt-5">
+                                    Points count
+                                </p>
 
                                 <ProgressComp {...progressBar} />
 
-                                <p className="m-0 question mt-5 mb-3">Badge icon</p>
+                                <p className="m-0 question mt-5 mb-3">
+                                    Badge icon
+                                </p>
 
                                 <Row>
                                     <Col md={3}>
@@ -123,7 +128,9 @@ const AddNewMentor = (props) => {
                                         label="Discard"
                                         btnClass="secondary"
                                         size="small"
-                                        onClick={() => props.history.push("/tickets")}
+                                        onClick={() =>
+                                            props.history.push('/tickets')
+                                        }
                                     />
                                 </Col>
                                 <Col className="submit-btn">
@@ -132,7 +139,11 @@ const AddNewMentor = (props) => {
                                         btnClass="primary-outline"
                                         size="small"
                                     />
-                                    <Button label="Submit" btnClass="default" size="small" />
+                                    <Button
+                                        label="Submit"
+                                        btnClass="default"
+                                        size="small"
+                                    />
                                 </Col>
                             </Row>
                         </div>

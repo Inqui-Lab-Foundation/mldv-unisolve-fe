@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useEffect, useLayoutEffect } from 'react';
 import Layout from '../../Layout.jsx';
 import { useHistory } from 'react-router-dom';
@@ -18,7 +19,7 @@ import { Table } from 'antd';
 import { Progress } from 'reactstrap';
 //import Vimeo from '@u-wave/react-vimeo';
 import { useDispatch } from 'react-redux';
-import { FaCheckCircle,FaTimesCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import {
     getStudentByIdData,
     // getStudentDashboardChallengesStatus,
@@ -34,45 +35,58 @@ const Dashboard = () => {
     );
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
-    const dashboardStatus = useSelector((state) => state?.studentRegistration.dashboardStatus);
-    const dashboardChallengesStatus = useSelector((state) => state?.studentRegistration.dashboardChallengesStatus);
-    const dashboardTeamProgressStatus = useSelector((state) => state?.studentRegistration.dashboardTeamProgressStatus);
-    const teamMember = useSelector((state) => state?.studentRegistration.teamMember);
-   
+    const dashboardStatus = useSelector(
+        (state) => state?.studentRegistration.dashboardStatus
+    );
+    const dashboardChallengesStatus = useSelector(
+        (state) => state?.studentRegistration.dashboardChallengesStatus
+    );
+    const dashboardTeamProgressStatus = useSelector(
+        (state) => state?.studentRegistration.dashboardTeamProgressStatus
+    );
+    const teamMember = useSelector(
+        (state) => state?.studentRegistration.teamMember
+    );
+
     const presuveyStatusGl = useSelector(
-        (state) =>
-            state?.studentRegistration.presuveyStatusGl
+        (state) => state?.studentRegistration.presuveyStatusGl
     );
     // const [videoId, setVideoId] = useState(null);
     const history = useHistory();
     useEffect(() => {
-        dispatch(
-            getStudentDashboardStatus(currentUser.data[0].user_id, language)
-        );
-        // dispatch(
-        //     getStudentDashboardChallengesStatus(
-        //         currentUser.data[0].user_id,
-        //         language
-        //     )
-        // );
-        dispatch(
-            getStudentDashboardTeamProgressStatus(
-                currentUser.data[0].user_id,
-                language
-            )
-        );
-    }, [currentUser.data[0].user_id, language]);
-    
+        if (currentUser) {
+            dispatch(
+                getStudentDashboardStatus(
+                    currentUser?.data[0]?.user_id,
+                    language
+                )
+            );
+            // dispatch(
+            //     getStudentDashboardChallengesStatus(
+            //         currentUser?.data[0]?.user_id,
+            //         language
+            //     )
+            // );
+            dispatch(
+                getStudentDashboardTeamProgressStatus(
+                    currentUser?.data[0]?.user_id,
+                    language
+                )
+            );
+        }
+    }, [currentUser?.data[0]?.user_id, language]);
+
     useEffect(() => {
-        dispatch(getStudentDashboardTutorialVideos(language));
+        if (currentUser) dispatch(getStudentDashboardTutorialVideos(language));
     }, [language]);
-    
+
     useEffect(() => {
-        dispatch(getStudentByIdData(currentUser.data[0].student_id));
-    }, [dispatch, currentUser.data[0].student_id]);
+        if (currentUser)
+            dispatch(getStudentByIdData(currentUser?.data[0]?.student_id));
+    }, [dispatch, currentUser?.data[0]?.student_id]);
 
     useLayoutEffect(() => {
-        if(presuveyStatusGl !=='COMPLETED')
+        if (presuveyStatusGl !== 'COMPLETED')
             history.push('/student/pre-survey');
     }, [presuveyStatusGl]);
 
@@ -131,7 +145,7 @@ const Dashboard = () => {
         {
             title: 'Pre Survey',
             dataIndex: 'pre_survey_status',
-            align:"center",
+            align: 'center',
             width: '10%',
             render: (_, record) =>
                 record?.pre_survey_status ? (
@@ -144,7 +158,7 @@ const Dashboard = () => {
             title: 'Lesson Progress',
             dataIndex: 'address',
             width: '30%',
-            align:"center",
+            align: 'center',
             render: (_, record) => {
                 let percent =
                     100 -
@@ -153,8 +167,8 @@ const Dashboard = () => {
                         record.topics_completed_count
                     );
                 return (
-                    <div className='d-flex'>
-                        <div style={{width:"80%"}}>
+                    <div className="d-flex">
+                        <div style={{ width: '80%' }}>
                             <Progress
                                 key={'25'}
                                 className="progress-height"
@@ -164,16 +178,18 @@ const Dashboard = () => {
                                         ? percent <= 25
                                             ? 'danger'
                                             : percent > 25 && percent <= 50
-                                                ? 'info'
-                                                : percent > 50 && percent <= 75
-                                                    ? 'warning'
-                                                    : 'sucess'
+                                            ? 'info'
+                                            : percent > 50 && percent <= 75
+                                            ? 'warning'
+                                            : 'sucess'
                                         : 'danger'
                                 }
                                 value={percent}
                             />
                         </div>
-                        <span className='ms-2'>{Math.round(percent) ? Math.round(percent) : '0'}%</span>
+                        <span className="ms-2">
+                            {Math.round(percent) ? Math.round(percent) : '0'}%
+                        </span>
                     </div>
                 );
             }
@@ -181,19 +197,23 @@ const Dashboard = () => {
         {
             title: 'Idea Submission',
             dataIndex: 'idea_submission',
-            align:"center",
+            align: 'center',
             width: '20%',
             render: (_, record) =>
-                record?.idea_submission ? <FaCheckCircle size={20} color="green"/> : <FaTimesCircle size={20} color="red" />
+                record?.idea_submission ? (
+                    <FaCheckCircle size={20} color="green" />
+                ) : (
+                    <FaTimesCircle size={20} color="red" />
+                )
         },
         {
             title: 'Post Survey',
             dataIndex: 'post_survey_status',
-            align:"center",
+            align: 'center',
             width: '10%',
             render: (_, record) =>
                 record?.post_survey_status ? (
-                    <FaCheckCircle size={20} color="green"/>
+                    <FaCheckCircle size={20} color="green" />
                 ) : (
                     <FaTimesCircle size={20} color="red" />
                 )
@@ -201,11 +221,11 @@ const Dashboard = () => {
         {
             title: 'Certificate',
             dataIndex: 'certificate',
-            align:"center",
+            align: 'center',
             width: '10%',
             render: (_, record) =>
                 record?.certificate ? (
-                    <FaCheckCircle size={20} color="green"/>
+                    <FaCheckCircle size={20} color="green" />
                 ) : (
                     <FaTimesCircle size={20} color="red" />
                 )
@@ -215,7 +235,7 @@ const Dashboard = () => {
     return (
         <Layout>
             <Container className="dashboard-wrapper">
-                <div className='d-flex justify-content-between align-items-center'>
+                <div className="d-flex justify-content-between align-items-center">
                     <h2>Dashboard</h2>
                     {/* <div className='bg-white rounded p-3 d-flex align-items-center' style={{width:"max-content"}}>
                         <p>Preferred Language : </p>
@@ -325,7 +345,9 @@ const Dashboard = () => {
                                     htmlFor="teams"
                                     className="mb-3 text-capitalize"
                                 >
-                                    <span>{currentUser.data[0].team_name}</span>
+                                    <span>
+                                        {currentUser?.data[0]?.team_name}
+                                    </span>
                                 </label>
                             </div>
                             <Table

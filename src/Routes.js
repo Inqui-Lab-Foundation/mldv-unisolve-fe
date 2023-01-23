@@ -51,7 +51,11 @@ import AdminDashboard from './Admin/Dashboard/index';
 import AdminMyProfile from './Admin/MyProfile';
 import AdminMySettings from './Admin/MySettings';
 
-import AdminBadgesComp from './Admin/Badges/Badges';
+import AdminChallenges from './Admin/Challenges/ViewSelectedChallenges';
+import AdminEvaluation from './Admin/Evaluation/index';
+import AdminEvaluationProcess from './Admin/EvalProcess/index';
+import Selectedlist from './Admin/Evaluation/ViewSelectedIdea/ViewSelectedideas';
+import Selectedfinallist from './Admin/Evaluation/FinalResults/ViewFinalSelectedideas';
 import AdminNewBadge from './Admin/Badges/NewBadge';
 import AdminCourses from './Admin/Courses';
 import AdminCourseView from './Admin/Courses/coursesView';
@@ -92,7 +96,7 @@ import IndividualReport from './Admin/Reports/ReportFilter';
 import StudentSignup from './Admin/StudentSignup';
 import Home from './home/home';
 import Terms from './home/termsandconditions';
-import AdminChallengesComp from './Admin/Challenges/Badges';
+import AdminChallengesComp from './Admin/Badges/Badges';
 import Preservey from './Admin/PreSurvey';
 import StudentPostservey from './Student/PostSurvey/PostSurvey';
 import TeacherPostservey from './Teachers/PostSurvey/PostSurvey';
@@ -138,16 +142,29 @@ import EvaluatorDashboard from './Evaluator/Dashboard/index';
 import EvaluatorChangePassword from './Evaluator/ChangePSWModal';
 import EvaluatorForgotPassword from './Evaluator/ForgotPassword';
 import EvaluatorIdeaList from './Evaluator/IdeaList/IdeaList';
+import ViewMore from './Admin/Dashboard/ViewMore';
+import EvaluatorInstructions from './Evaluator/Instructions/Instructions';
+import EvaluatedIdea from './Evaluator/EvaluatedIdea/EvaluatedIdea';
 
+import EvalutorAdminLogins from './Evaluator/Admin/EvaluatorAdminLogin';
+import Eadmindashboard from './Evaluator/Admin/Dashboard/EAdminDashboard';
+import EadminChangePassword from './Evaluator/Admin/Pages/ChangePSWModal';
+import ListOfIdeas from './Evaluator/Admin/ViewTable/ViewSelectedIdea';
+import ListOfFinalIdeas from './Evaluator/Admin/FinalResulteadmin/ViewFinalSelectedideas';
+import TicketResView from './Admin/Tickets/TicketResView';
+import EditEvalProcess from './Admin/EvalProcess/EditEvalProcess';
+import SelDistricts from './Admin/EvalProcess/SelectingDistricts';
+import CreateEvalProcess from './Admin/EvalProcess/CreateEvalProcess';
+import ReportsView from './Admin/Reports/Helpers/ReportsView';
 
 const Routers = () => {
     // const history = useHistory();
     // const currentUser = getCurrentUser('current_user');
-    // if (currentUser && currentUser.data[0].role === 'ADMIN') {
+    // if (currentUser && currentUser?.data[0]?.role === 'ADMIN') {
     //     history.push('/admin/dashboard');
-    // } else if (currentUser && currentUser.data[0].role === 'STUDENT') {
+    // } else if (currentUser && currentUser?.data[0]?.role === 'STUDENT') {
     //     history.push('/dashboard');
-    // } else if (currentUser && currentUser.data[0].role === 'TEACHER') {
+    // } else if (currentUser && currentUser?.data[0]?.role === 'TEACHER') {
     //     history.push('/teacher/dashboard');
     // }
     // if (currentUser) {
@@ -484,6 +501,11 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        path="/admin/View-More-details"
+                        component={ViewMore}
+                    />
+                    <ProtectedRoute
+                        exact={true}
                         path="/admin/register-new-schools"
                         component={AddNewSchool}
                     />
@@ -525,8 +547,31 @@ const Routers = () => {
 
                     <ProtectedRoute
                         exact={true}
-                        path="/admin/challenges "
-                        component={AdminBadgesComp}
+                        path="/admin/challenges"
+                        component={AdminChallenges}
+                    />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/evaluationStatus"
+                        component={AdminEvaluation}
+                    />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/evaluationStatus/viewlist"
+                        component={Selectedlist}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/evaluationStatus/viewfinallist"
+                        component={Selectedfinallist}
+                    />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/evaluationProcess"
+                        component={AdminEvaluationProcess}
                     />
 
                     <ProtectedRoute
@@ -548,6 +593,11 @@ const Routers = () => {
                         exact={true}
                         path="/admin/selected-report"
                         component={IndividualReport}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/reports-view"
+                        component={ReportsView}
                     />
 
                     <ProtectedRoute
@@ -646,6 +696,11 @@ const Routers = () => {
                         path="/teacher/support-journey/ans-ticket"
                         component={TeacherSupportAnswer}
                     />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/support-journey/ans-ticket"
+                        component={TicketResView}
+                    />
 
                     <ProtectedRoute
                         exact={true}
@@ -687,6 +742,21 @@ const Routers = () => {
                     />
                     <ProtectedRoute
                         exact={true}
+                        path="/admin/create-evaluationProcess"
+                        component={CreateEvalProcess}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/edit-evaluationProcess"
+                        component={EditEvalProcess}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/admin/selectingDistricts-evaluationProcess"
+                        component={SelDistricts}
+                    />
+                    <ProtectedRoute
+                        exact={true}
                         path="/admin/edit-translation"
                         component={EditTranslation}
                     />
@@ -722,7 +792,43 @@ const Routers = () => {
                         path="/evaluator/submitted-ideas"
                         component={EvaluatorIdeaList}
                     />
-                    
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/evaluator/instructions"
+                        component={EvaluatorInstructions}
+                    />
+
+                    <ProtectedRoute
+                        exact={true}
+                        path="/evaluator/evaluated-ideas"
+                        component={EvaluatedIdea}
+                    />
+                    <Route
+                        exact={true}
+                        path="/eadmin"
+                        render={() => <EvalutorAdminLogins />}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/eadmin/dashboard"
+                        component={Eadmindashboard}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/eadmin/change-password"
+                        component={EadminChangePassword}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/eadmin/listofideas"
+                        component={ListOfIdeas}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        path="/eadmin/listofFinalideas"
+                        component={ListOfFinalIdeas}
+                    />
                     <Route component={PageNotFound} path="*" />
                 </Switch>
             </Router>

@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { notification } from 'antd';
 import moment from 'moment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -23,7 +24,6 @@ export const getCurrentUser = () => {
 };
 
 export const setCurrentUser = (user) => {
-    console.log('===========user', user);
     try {
         if (user) {
             localStorage.setItem('current_user', JSON.stringify(user));
@@ -81,7 +81,7 @@ export const compareDates = (filterDate) => {
     );
 };
 
-export const logout = (history, t,module,dispatch) => {
+export const logout = (history, t, module, dispatch) => {
     const swalWithBootstrapButtons = Swal.mixin({
         customClass: {
             confirmButton: 'btn btn-success',
@@ -89,7 +89,6 @@ export const logout = (history, t,module,dispatch) => {
         },
         buttonsStyling: false,
         allowOutsideClick: false
-
     });
 
     swalWithBootstrapButtons
@@ -107,11 +106,21 @@ export const logout = (history, t,module,dispatch) => {
             if (result.isConfirmed) {
                 if (result.isConfirmed) {
                     localStorage.clear();
-                    if(module)
-                        localStorage.removeItem('module');
-                    if(dispatch)
-                        dispatch(userLogout());
-                    history.push('/');
+                    if (module) localStorage.removeItem('module');
+                    if (dispatch) dispatch(userLogout());
+                    switch (module) {
+                        case 'EVALUATOR':
+                            history.push('/evaluator');
+                            break;
+                        case 'ADMIN':
+                            history.push('/admin');
+                            break;
+                        case 'EADMIN':
+                            history.push('/eadmin');
+                            break;
+                        default:
+                            history.push('/');
+                    }
                 }
             } else if (
                 /* Read more about handling dismissals below */

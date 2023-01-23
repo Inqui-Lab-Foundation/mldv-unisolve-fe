@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from "react";
-import { Row, Col, Container } from "react-bootstrap";
+/* eslint-disable indent */
+import React, { useState, useEffect } from 'react';
+import { Row, Col, Container } from 'react-bootstrap';
 // import { Link, withRouter } from "react-router-dom";
-import "./style.scss";
+import './style.scss';
 // import { InputWithSearchComp } from "../../stories/InputWithSearch/InputWithSearch";
-import {
-// BsChevronRight,
+import // BsChevronRight,
 // BsFilter,
 // BsLayoutTextSidebarReverse,
-} from "react-icons/bs";
+'react-icons/bs';
 // import { RiAwardFill } from "react-icons/ri";
-import { ImageCardComp } from "../../stories/ImageCard/ImageCard";
+import { ImageCardComp } from '../../stories/ImageCard/ImageCard';
 // import { CommonDropDownComp } from "../../stories/CommonDropdown/CommonDropdownComp";
-import Layout from "../../Admin/Layout";
+import Layout from '../../Admin/Layout';
 // import { Button } from "../../stories/Button";
 // import { BsPlusLg } from "react-icons/bs";
-import { useHistory } from "react-router-dom";
-import { getAdminCoursesList } from "../../redux/actions";
-import { connect } from "react-redux";
-import { useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom';
+import { getAdminCoursesList } from '../../redux/actions';
+import { connect } from 'react-redux';
+import { useSelector } from 'react-redux';
 // import { ConsoleSqlOutlined } from "@ant-design/icons";
 // import hello from "../../media/logo-rect.svg";
 const Courses = (props) => {
     const history = useHistory();
     const [lists, setLists] = useState([]);
-    const language = useSelector(state=>state?.admin?.adminLanguage);
+    const language = useSelector((state) => state?.admin?.adminLanguage);
     // const SearchProps = {
     //     placeholder: "Search Course",
     // };
@@ -77,33 +77,30 @@ const Courses = (props) => {
     //   },
     // ];
     const handleItem = (item) => {
-        console.log("========00000000000000000000000000==", item);
         history.push({
-            pathname: `/admin/playvideo/${item.course_id}`, 
-            data: item,
+            pathname: `/admin/playvideo/${item.course_id}`,
+            data: item
         });
 
-    // history.push({
-    //   pathname: "/admin/add-course",
-    //   item: item,
-    // });
+        // history.push({
+        //   pathname: "/admin/add-course",
+        //   item: item,
+        // });
     };
-    // console.log("adminCoursesList", props.adminCoursesList);
     useEffect(() => {
         props.getAdminCoursesListAction(language);
     }, [language]);
     useEffect(() => {
         let array = [];
-        props.adminCoursesList && props.adminCoursesList.length &&
-        props.adminCoursesList.map((item) => {
-            let newVeriable = { label: "ImageCardComp" };
-            let newArray = { ...item, ...newVeriable };
-            array.push(newArray);
-        });
+        props.adminCoursesList &&
+            props.adminCoursesList.length &&
+            props.adminCoursesList.map((item) => {
+                let newVeriable = { label: 'ImageCardComp' };
+                let newArray = { ...item, ...newVeriable };
+                array.push(newArray);
+            });
         setLists(array);
     }, [props.adminCoursesList && props.adminCoursesList.length]);
-    // console.log(props.adminCoursesList && props.adminCoursesList);
-    console.log("============lists", lists);
 
     // course_id: 1;
     // created_at: null;
@@ -118,7 +115,7 @@ const Courses = (props) => {
 
     return (
         <Layout>
-            <Container  className="mt-5 mb-50">
+            <Container className="mt-5 mb-50">
                 <Row className="w-100">
                     <Col md={12} lg={6}>
                         <h2 className="my-auto">Courses</h2>
@@ -155,17 +152,16 @@ const Courses = (props) => {
                         <Row className=" mb-5 course-section">
                             {lists && lists.length
                                 ? lists.map((item, index) => {
-                                    // console.log(item);
-                                    return (
-                                        <ImageCardComp
-                                            {...item}
-                                            key={index}
-                                            onClick={() => handleItem(item)}
-                                            // onClick={() => history.push("/admin/playvideo")}
-                                        />
-                                    );
-                                })
-                                : "No Courses Found"}
+                                      return (
+                                          <ImageCardComp
+                                              {...item}
+                                              key={index}
+                                              onClick={() => handleItem(item)}
+                                              // onClick={() => history.push("/admin/playvideo")}
+                                          />
+                                      );
+                                  })
+                                : 'No Courses Found'}
                         </Row>
                         {/* <div>
               <img
@@ -188,5 +184,5 @@ const mapStateToProps = ({ adminCourses }) => {
     return { adminCoursesList, loading, successDleteMessage };
 };
 export default connect(mapStateToProps, {
-    getAdminCoursesListAction: getAdminCoursesList,
+    getAdminCoursesListAction: getAdminCoursesList
 })(Courses);

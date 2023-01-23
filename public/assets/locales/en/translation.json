@@ -240,7 +240,7 @@
         "roadmpa_six_desc": "<p>Solutions selected in the final event are provided support to actualize their solutions and implement their ideas</p>"
     },
     "home_tl": {
-        "Hero_section-header": "Creating Change Makers of Tomorrow with <span className='green'>21st Century Skills</span>",
+        "Hero_section-header": "<span class='green'> TAMIL NADU </span> <br/>Creating Change Makers of Tomorrow with <span className='green'>21st Century Skills</span>",
         "Hero_section-description": "Nurture a culture of social innovation and build skills while inspiring young people to become transformative leaders.",
         "register": "Register",
         "login": "Login",
@@ -389,7 +389,9 @@
         "post_survey":"Post Survey",
         "idea_submitted_desc":"<h2>Congratulations for successfully submitting the idea</h2>.</br><p>Please click continue to complete your post survey and get your certificate.</p>",
         "post_survey_desc":"Congratulations! your Unisolve journey for 2022-23 is complete.",
-        "click_button_post_survey":"Your certificate will be ready soon and you can download it from ‘My Certificate Page’"
+        "click_button_post_survey":"Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
+        "max_length_msg1":"Maximum length of characters is ",
+        "max_length_msg2":" only..."
     },
     "teacher_presurvey": {
         "completed_text": "Your survey has been successfully submitted!"
@@ -401,7 +403,8 @@
         "certificate": "Course Completion Certificate",
         "certificate_desc": "Please Download Certificate...",
         "part_certificate_desc": "Please Download Participate Certificate...",
-        "complete_postsurvey": "Please complete post survey to get course completion certificate"
+        "complete_postsurvey": "Please complete post survey to get course completion certificate",
+        "complete_post_survey_default":"Thank you for completing the journey and supporting your students in successful completion of the course and idea submission. Your certificate will be enabled soon."
     },
     "teacher_header": {
         "profile": "My Profile",
@@ -478,7 +481,8 @@
         "btn_ok":"ok",
         "cancelled":"Cancelled",
         "logged_in":"You are Logged in",
-        "submit_idea":"You are attempting to submit your idea Which is not revertable"
+        "submit_idea":"You are attempting to submit your idea Which is not revertable",
+        "idea_sub_cancelled":"Idea Submission Cancelled"
     },
     "teacehr_red": {
         "heading": "REGISTER",
@@ -510,7 +514,7 @@
         "student_idea_sub":"Dear Student, idea submission will be active once you and your team members complete the learning journey. Your guide teacher will support you with this.",
         "student_my_cer":"<p>Dear Student, your certificate will be available once you complete the course and submit the idea.</p><p>If you have completed these, your certificate will be ready shortly.</p>",
         "student_post_survey":"Dear Students, Post-Survey will be active once you complete the course and your team submits the idea. Hope you and your team are learning a lot of new things. :)",        
-        "student_course":"Dear Student, your Unisolve learning journey will begin soon. Please discuss with your School Unisolve Head cum Guide Teacher and prepare yourself for this journey. All the best 🙂" ,
+        "student_course":"Dear Student, your Unisolve learning journey will begin soon. Please discuss with your School Unisolve Head cum Guide Teacher and prepare yourself for this journey." ,
         "certificate_msg":"Your certificate will be printed with the above details. If there are any changes to the above follow the steps below:</br>1. If there is any spelling mistake, request your guide teacher to correct the spelling in Teams Page of Teacher Log-In</br>2. If your Initial, Full Name is missing or incorrect request your guide teacher to update the name in Teams Page of Teacher Login</br>(There should NOT be any ‘.’ in the name. Example: If your full name is  K. Vijay Kumar it should be added as K Vijay Kumar with out any .(dot) or special characters)</br></br>Note:",
         "name":"Name : ",
         "school":"</br>School : "      
@@ -537,7 +541,17 @@
         "sdg":"Which Sustainable development Goal (SDG) are you targeting with your solution ?",
         "sdg_desc":"(You can refer to the SDGs sheet from FIND Module and pick the right option )",
         "others":"If you picked the option ‘others’ in the above question, write down which SDG or theme is your solution targeting.",
-        "chars":"Characters Remaining"
+        "chars":"Characters Remaining",
+        "idea_submission":"Idea Submission",
+        "idea_submission_msg1":"Idea submission is",
+        "idea_status1":" initiated by ",
+        "idea_status2":" submitted by ",
+        "idea_submission_msg2":"your teammate ",
+        "idea_submission_msg3":" on ",
+        "idea_submission_date_com_desc":"Dear Students, the final date for idea submission is completed. Please complete your course and  post survey.",
+        "go_to_course_button":"Go to course",
+        "go_to_post_survey_button":"Go to Post Survey"
+
     },
     "translation":{
         "tamil":"ml Content :-",

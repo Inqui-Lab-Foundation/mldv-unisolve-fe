@@ -35,7 +35,15 @@ const LoginNew = (props) => {
         i18next.changeLanguage('en');
         const moduleName = localStorage.getItem("module");
         if (localStorage.getItem("current_user") && localStorage.getItem("module")) {
-            moduleName === "MENTOR" ? history.push("/teacher/dashboard") : moduleName === "ADMIN" ? history.push("/admin/dashboard") : history.push("/dashboard");
+            moduleName === 'MENTOR'
+                ? history.push('/teacher/dashboard')
+                : moduleName === 'ADMIN'
+                ? history.push('/admin/dashboard')
+                : moduleName === 'EVALUATOR'
+                ? history.push('/evaluator/submitted-ideas')
+                : moduleName === 'EADMIN'
+                ? history.push('/eadmin/dashboard')
+                : history.push('/dashboard');
         }
     }, []);
     

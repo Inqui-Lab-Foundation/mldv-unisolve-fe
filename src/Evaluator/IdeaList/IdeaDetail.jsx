@@ -1,39 +1,40 @@
 /* eslint-disable indent */
 import React from 'react';
 import { Button } from '../../stories/Button';
-import RangeSlider from './RangeSlider';
-
-const LinkComponent = ({ item }) => {
-    return (
-        <>
-            {item &&
-                item.length > 0 &&
-                item.map((ans, i) => {
-                    let a_link = ans.split('/');
-                    let count = a_link.length - 1;
-                    return (
-                        <a
-                            key={i}
-                            className="badge mb-2 bg-info p-3 ms-3"
-                            href={ans}
-                            target="_blank"
-                            rel="noreferrer"
-                        >
-                            {a_link[count]}
-                        </a>
-                    );
-                })}
-        </>
-    );
-};
+import LinkComponent from './LinkComponent';
+import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
+import axios from 'axios';
+import { useDispatch } from 'react-redux';
+import { getSubmittedIdeaList } from '../store/evaluator/action';
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import { Modal } from 'react-bootstrap';
+import Select from '../Helper/Select';
+import RateIdea from './RateIdea';
 
 const IdeaDetail = (props) => {
+    const dispatch = useDispatch();
+    const currentUser = getCurrentUser('current_user');
     const [teamResponse, setTeamResponse] = React.useState([]);
-    const [novelityScore, setNovelityScore] = React.useState(0);
-    const [usefulnessScore, setUsefulnessScore] = React.useState(0);
-    const [feasabilityScore, setFeasabilityScore] = React.useState(0);
-    const [scalabilityScore, setScalabilityScore] = React.useState(0);
-    const [affordabilityScore, setAffordabilityScore] = React.useState(0);
+   
+    const [isReject, setIsreject]=React.useState(false);
+    const [reason, setReason]=React.useState('');
+    const selectData = [
+        'Idea is very common and already in use.',
+        'Idea does not have proper details and information to make a decision.',
+        'Idea does not solve the problem identified/the solution and problem are not connected.',
+        'Not very clear about the idea and solution.',
+        'Inaccurate Data (Form is not filled properly)'
+    ];
+
+
+     const [levelName, setLevelName]=React.useState('');
+     const [evalSchema, setEvalSchema]=React.useState('');
+     React.useEffect(()=>{
+         if(currentUser){
+             setLevelName(currentUser?.data[0]?.level_name);
+             setEvalSchema(currentUser?.data[0]?.eval_schema);
+         }
+     },[currentUser]);
 
     React.useEffect(() => {
         if (props?.ideaDetails?.response) {
@@ -43,204 +44,279 @@ const IdeaDetail = (props) => {
         }
     }, [props]);
 
+    const handleAlert = (handledText) => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false,
+            allowOutsideClick: false
+        });
+
+        swalWithBootstrapButtons
+            .fire({
+                title:
+                    handledText === 'accept'
+                        ? 'You are attempting to accept this Idea'
+                        : 'You are attempting to reject this Idea',
+                text: 'Are you sure?',
+                // imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Confirm',
+                showCancelButton: true,
+                cancelButtonText: 'Cancel',
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    if (result.isConfirmed) {
+                        handleL1Round(handledText);
+                    }
+                } else if (
+                    result.dismiss === Swal.DismissReason.cancel
+                ) {
+                    swalWithBootstrapButtons.fire('Cancelled', '', 'error');
+                }
+            });
+    };
+
+    const handleL1Round = (handledText) => {
+        const body = JSON.stringify({
+            status:
+                handledText == 'accept' ? 'SELECTEDROUND1' : 'REJECTEDROUND1',
+            rejected_reason:handledText == 'reject' ? reason : ''
+        });
+        var config = {
+            method: 'put',
+            url: `${
+                process.env.REACT_APP_API_BASE_URL +
+                '/challenge_response/' +
+                props?.ideaDetails?.challenge_response_id
+            }`,
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: body
+        };
+        axios(config)
+            .then(function (response) {
+                openNotificationWithIcon('success', response?.data?.message=='OK'?'Idea processed successfully!':response?.data?.message);
+                setTimeout(() => {
+                    dispatch(getSubmittedIdeaList());
+                    props?.setIsNextDiv(true);
+                }, 100);
+            })
+            .catch(function (error) {
+                openNotificationWithIcon(
+                    'error',
+                    error?.response?.data?.message
+                );
+            });
+    };
+   const handleReject=()=>{
+        if(reason){
+            handleAlert('reject'); 
+            setIsreject(false);
+        }
+   };
+
     return (
         <>
-            <div className="row idea_detail_card">
-            <div className="col-12 p-0">
-                <div className="row">
-                    <div className="col-sm-8 p-0">
-                        <h2 className="mb-md-4 mb-3">
-                            Idea Name:{' '}
-                            <span className="text-capitalize fs-3">
-                                {props?.ideaDetails?.sdg?.toLowerCase() || ''}
-                            </span>
-                        </h2>
+            {teamResponse && teamResponse?.length > 0 ? (
+                <>
+                    <div className="row idea_detail_card">
+                        <div className="col-12 p-0">
+                            <div className="row">
+                                <div className="col-sm-8">
+                                    <h2 className="mb-md-4 mb-3">
+                                        SDG:{' '}
+                                        <span className="text-capitalize fs-3">
+                                            {props?.ideaDetails?.sdg?.toLowerCase() ||
+                                                ''}
+                                        </span>
+                                    </h2>
+                                </div>
+                                <div className="col-sm-4 d-flex justify-content-end">
+                                    <div className="ms-auto me-sm-3 p-0">
+                                        <Button
+                                            btnClass="primary"
+                                            size="small"
+                                            label="Skip"
+                                            onClick={() =>
+                                                props?.handleSkip()
+                                            }
+                                        />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div
+                            className={`${
+                                props?.ideaDetails?.status === 'SUBMITTED'
+                                    ? 'col-12'
+                                    : 'col-lg-8'
+                            } order-lg-0 order-1 p-0 h-100`}
+                        >
+                            {teamResponse?.map((item, index) => {
+                                return (
+                                    <div
+                                        key={index}
+                                        className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
+                                    >
+                                        <div className="question quiz mb-0">
+                                            <b
+                                                style={{
+                                                    fontSize: '1.6rem'
+                                                }}
+                                            >
+                                                {item?.question_no || ''}.{' '}
+                                                {item?.question || ''}
+                                            </b>
+                                        </div>
+                                        <div className="bg-light rounded p-5">
+                                            <p
+                                                style={{
+                                                    fontSize: '1.4rem'
+                                                }}
+                                            >
+                                                {item?.question_type ===
+                                                'MCQ' ? (
+                                                    item?.selected_option?.map(
+                                                        (data, i) => {
+                                                            return (
+                                                                <div key={i}>
+                                                                    {data || ''}
+                                                                </div>
+                                                            );
+                                                        }
+                                                    )
+                                                ) : item?.question_type ===
+                                                      'TEXT' ||
+                                                  item?.question_type ===
+                                                      'MRQ' ? (
+                                                    item?.selected_option
+                                                ) : item?.question_type ===
+                                                  'DRAW' ? (
+                                                    <LinkComponent
+                                                        item={
+                                                            item.selected_option
+                                                        }
+                                                    />
+                                                ) : (
+                                                    ''
+                                                )}
+                                            </p>
+                                        </div>
+                                    </div>
+                                );
+                            })}
+                            {/* -----level 1 accept/reject process---- */}
+                            {evalSchema?.toLowerCase()=='accept_reject' && 
+                                <div className="d-md-flex">
+                                
+                                {props?.ideaDetails?.status === 'SUBMITTED' && (
+                                    <div className="d-flex ms-auto">
+                                        <button
+                                            className="btn btn-lg px-5 py-2 btn-success me-3 rounded-pill"
+                                            onClick={() => {
+                                                handleAlert('accept');
+                                                setReason('');
+                                            }}
+                                        >
+                                            <span className="fs-4">Accept</span>
+                                        </button>
+                                        <button
+                                            className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill"
+                                            onClick={() => {
+                                                // handleAlert('reject');
+                                                setIsreject(true);
+                                                setReason('');
+                                            }}
+                                        >
+                                            <span className="fs-4">Reject</span>
+                                        </button>
+                                    </div>
+                                )}
+                                </div>
+                            }
+                        </div>
                     </div>
-                    <div className="col-sm-4 d-flex justify-content-end">
-                    <div className="ms-auto me-sm-3 p-0">
+
+                    {/* //-----------Rating section---- */}
+                    {evalSchema?.toLowerCase()=='rating_scale'? (
+                       <RateIdea
+                        challenge_response_id={props?.ideaDetails?.challenge_response_id}
+                        evaluator_id={currentUser?.data[0]?.user_id}
+                        level={levelName}
+                        setIsNextDiv={props?.setIsNextDiv}
+                       />
+                    ):
+                    <>
+                    </>
+                }
+                </>
+            ) : (
+                <>
+                    <h2 className="my-auto text-center mt-5">
+                        Details Not Available.
+                    </h2>
+                    <div className="text-center mt-5">
                         <Button
                             btnClass="primary"
                             size="small"
-                            label={props?.skipButtonText}
-                            onClick={() =>
-                                props?.handleSkip(Number(props?.currentRow))
-                            }
-                        />
-                </div>
-                    </div>
-                </div>
-            </div>
-
-            <div className="col-lg-8 order-lg-0 order-1 p-0 h-100">
-                {teamResponse?.map((item, index) => {
-                    return (
-                        <div
-                            key={index}
-                            className="mb-4 my-3 comment-card px-5 py-3 card me-md-3"
-                        >
-                            <div className="question quiz mb-0">
-                                <b
-                                    style={{
-                                        fontSize: '1.6rem'
-                                    }}
-                                >
-                                    {item?.question_no || ''}.{' '}
-                                    {item?.question || ''}
-                                </b>
-                            </div>
-                            <div className="bg-light rounded p-5">
-                                <p
-                                    style={{
-                                        fontSize: '1.4rem'
-                                    }}
-                                >
-                                   
-                                    {item?.question_type === 'MCQ' ? (
-                                        item?.selected_option?.map(
-                                            (data, i) => {
-                                                return (
-                                                    <div key={i}>
-                                                        {data || ''}
-                                                    </div>
-                                                );
-                                            }
-                                        )
-                                    ) : item?.question_type === 'TEXT' ||
-                                      item?.question_type === 'MRQ' ? (
-                                        item?.selected_option
-                                    ) : item?.question_type === 'DRAW' ? (
-                                        <LinkComponent
-                                            item={item.selected_option}
-                                        />
-                                    ) : (
-                                        ''
-                                    )}
-                                </p>
-                            </div>
-                        </div>
-                    );
-                })}
-                <div className="d-md-flex">
-                    <Button
-                        btnClass="primary m-md-0 mb-3"
-                        size="small"
-                        label="Back to List"
-                        onClick={() => {
-                            props?.setIsIdeaDetail(false);
-                        }}
-                    />
-                    <div className="d-flex ms-auto">
-                        <button
-                            className="btn btn-lg px-5 py-2 btn-success me-3 rounded-pill"
-                            data-bs-dismiss="modal"
-                            // onClick={() => {}}
-                        >
-                            <span className="fs-4">Accept</span>
-                        </button>
-                        <button
-                            className="btn btn-lg px-5 py-2 btn-danger me-3 rounded-pill"
-                            data-bs-dismiss="modal"
-                            // onClick={() => {}}
-                        >
-                            <span className="fs-4">Reject</span>
-                        </button>
-                    </div>
-                </div>
-                
-            </div>
-            <div className="col-lg-4 order-lg-1 order-0 p-0 h-100 mt-3">
-                <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
-                    L1 Status & TimeStamp
-                </div>
-                <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
-                    L2 Status & TimeStamp
-                </div>
-                <div className="level-status-card card border p-md-5 p-3 mb-3 me-lg-0 me-md-3">
-                    Final Status & TimeStamp
-                </div>
-            </div>
-        </div>
-
-        {/* //-----------Rating section---- */}
-        <div className='rating_card mt-md-5 mt-4 card p-md-5 p-3'>
-            <h2 className='mb-3'>Idea Scoring</h2>
-        <div className="row">
-            <div className="col-lg-4 col-md-6 mb-5">
-                <div className="for-novelity px-3">
-                <label htmlFor="novelity" className="form-label">Novelity score -{' '} <span className={novelityScore==0?'text-muted fs-2':'fs-2'}>{novelityScore}</span></label>
-                    <RangeSlider 
-                        name='novelity'
-                        setScore={setNovelityScore} 
-                    />
-                </div>
-            </div>
-            <div className="col-lg-4 col-md-6 mb-5">
-                <div className="for-usefulness px-3">
-                <label htmlFor="usefulness" className="form-label">Usefulness score -{' '}<span className={usefulnessScore==0?'text-muted fs-2':'fs-2'}>{usefulnessScore}</span></label>
-                    <RangeSlider 
-                        name='usefulness'
-                        setScore={setUsefulnessScore} 
-                    />
-                </div>
-            </div>
-            <div className="col-lg-4 col-md-6 mb-5">
-                <div className="for-feasability px-3">
-                <label htmlFor="feasability" className="form-label">Feasability score -{' '}<span className={feasabilityScore==0?'text-muted fs-2':'fs-2'}>{feasabilityScore}</span></label>
-                    <RangeSlider 
-                        name='feasability'
-                        setScore={setFeasabilityScore} 
-                    />
-                </div>
-            </div>
-            <div className="col-lg-4 col-md-6 mb-5">
-                <div className="for-scalability px-3">
-                <label htmlFor="scalability" className="form-label">Scalability score -{' '}<span className={scalabilityScore==0?'text-muted fs-2':'fs-2'}>{scalabilityScore}</span></label>
-                    <RangeSlider 
-                        name='scalability'
-                        setScore={setScalabilityScore} 
-                    />
-                </div>
-            </div>
-            <div className="col-lg-4 col-md-6 mb-5">
-                <div className="for-affordability px-3">
-                <label htmlFor="affordability" className="form-label">Affordability score -{' '}<span className={affordabilityScore==0?'text-muted fs-2':'fs-2'}>{affordabilityScore}</span></label>
-                    <RangeSlider 
-                        name='affordability'
-                        setScore={setAffordabilityScore} 
-                    />
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-md-6 mb-5 ps-4">
-                    <label htmlFor="floatingTextarea">Comments</label>
-                    <div className="form-floating">
-                        <textarea className="form-control fs-4 lh-sm" maxLength={500} placeholder="Leave a comment here" id="ComentTextarea" style={{height: '10rem'}}></textarea>
-                        
-                    </div>
-                </div>
-            </div>
-            <div className="col-12 d-flex justify-content-end">
-               <div className='me-3'>
-                <Button
-                            btnClass="secondary"
-                            size="small"
-                            label="Back to List"
+                            label="Next Idea"
                             onClick={() => {
-                                props?.setIsIdeaDetail(false);
+                                props?.handleSkip();
                             }}
                         />
-               </div>
-                <Button
-                        btnClass="primary"
-                        size="small"
-                        label="Update Score"
-                        onClick={() => {
-                            props?.setIsIdeaDetail(false);
-                        }}
+                    </div>
+                </>
+            )}
+            {/* ----------reject-modal----- */}
+            <Modal
+            show={isReject}
+            onHide={()=>setIsreject(false)}
+            {...props}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            className="assign-evaluator ChangePSWModal teacher-register-modal"
+            backdrop="static"
+            scrollable={true}
+        >
+            <Modal.Header closeButton onHide={()=>setIsreject(false)}>
+                <Modal.Title
+                    id="contained-modal-title-vcenter"
+                    className="w-100 d-block text-center"
+                >
+                    Reject
+                </Modal.Title>
+            </Modal.Header>
+
+            <Modal.Body>
+                <div className='my-3 text-center'>
+                    <h3 className='mb-sm-4 mb-3'>Please Select the reason for rejection.</h3>
+                    <Select 
+                    list={selectData}
+                    setValue={setReason}
+                    placeHolder={'Please Select'}
+                    value={reason}
                     />
-            </div>
-        </div>
-        </div>
+                </div>
+                <div className='text-center'>
+                    <Button
+                        label={'Submit'}
+                        btnClass={!reason?'default':'primary'}
+                        size="small "
+                        onClick={()=>handleReject()}
+                       disabled={!reason}
+                    />
+                </div>
+            </Modal.Body>
+        </Modal>
         </>
     );
 };

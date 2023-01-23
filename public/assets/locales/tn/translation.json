@@ -154,8 +154,8 @@
         "our_programs_sub_two": "Think & Make",
         "our_programs_sub_three": "Student Opportunities",
         "our_programs_sub_four": "Workshops",
-        "student_ideas": "Here are a few of ",
-        "student_ideas_span": "Student Ideas",
+        "student_ideas": "Adolescents as ",
+        "student_ideas_span": "Changemakers",
         "key_partners": "Key Partners",
         "testimonials": "Hear what they say about us",
         "unisolve_partner": "Does Unisolve Partner with My School?",
@@ -205,7 +205,7 @@
         "tamil": "Tamil",
         "eng": "English",
         "about_us": "About Us",
-        "about_us_heading": "Unisolve",
+        "about_us_heading": "<span class='blue'>unisolve Maldives</span",
         "about_us_desc": "<p>To create a positive and dynamic innovation ecosystem within educational institutions, Government of Tamil Nadu, <spa>EDII-TN</span> launches <spa>Unisolve<span> with support of School Education Department. </p><p>The objective of <span>Unisolve</span> is to inspire students to solve problems by using a simple design thinking process as a method to innovate, collaborate and obtain leadership skills. The program also focuses on building the capacity of the teaching community to play a vital role in building an entrepreneurial, innovative ecosystem in schools and be mentors to the evolving minds.</p>",
         "about_upshift_heading": "<h2 class='mb-5 sub-heading'>What is <span class='blue'>UPSHIFT</span></h2>",
         "about_upshift_desc": "<p><span class='yellow'>UPSHIFT</span> is a <span class='yellow'>UNICEF</span> global innovation for transferable skills building of adolescents and young people that is now in implementation in 45 countries. <span class='yellow'>UPSHIFT</span> is designed to build transferable skills and create opportunity, with a focus on the young people. <span class='yellow'>UPSHIFT</span> supports the development of skills for life and livelihood and supports youth to positively engage with their local communities as change-makers. <br/>[LEARN MORE ABOUT <a href='https://www.unicef.org/innovation/upshift' target='_target'><span class='blue'><u>UPSHIFT</u></span></a>]</p><p>With the goal of engaging and skilling more adolescents and young people, <span class='blue'>UNICEF</span>, along with State Government, Yuwaah and Inqui-Lab Foundation embarked on the development of <span class='blue'>UNISOLVE</span>. </p>",
@@ -240,18 +240,18 @@
         "roadmpa_six_desc": "<p>Solutions selected in the final event are provided support to actualize their solutions and implement their ideas</p>"
     },
     "home_tl": {
-        "Hero_section-header": "Creating Change Makers of Tomorrow with <span className='green'>21st Century Skills</span>",
+        "Hero_section-header": "<span class='green'> TAMIL NADU </span> <br/>Creating Change Makers of Tomorrow with <span className='green'>21st Century Skills</span>",
         "Hero_section-description": "Nurture a culture of social innovation and build skills while inspiring young people to become transformative leaders.",
         "register": "Register",
         "login": "Login",
         "tamil": "Tamil",
         "eng": "English",
         "about_us": "About Us",
-        "about_us_heading": "Unisolve",
-        "about_us_desc": "<p>To create a positive and dynamic innovation ecosystem within educational institutions, Ministry of Education and UNICEF Maldives, launches UNISOLVE with the support of National Institute of Education.</p><p>The objective of UNISOLVE is to:</p><ul><li><p>To expose school students to the cycle of innovation and promote the culture of entrepreneurship.</p></li><li><p>To inspire students to solve real life problems by using a simple design thinking process as a method to innovate, collaborate and obtain leadership cum entrepreneurship skills. </p></li><li><p>To build the capacity of the teaching community to play a vital role in building an entrepreneurial, innovative ecosystem in schools and be mentors to the evolving minds. </p></li></ul>",
+        "about_us_heading": "<span class='blue'>UNISOLVE Maldives</span",
+        "about_us_desc": "<p>To create a positive and dynamic innovation ecosystem within educational institutions, Ministry of Education, UNICEF Maldives and National Institute of Education launches UPSHIFT powered by UNISOLVE.</p><p>The objective of UPSHIFT powered by UNISOLVE  is to :</p><ul><li><p>To expose school students to the cycle of innovation and promote the culture of entrepreneurship.</p></li><li><p>To inspire students to solve real life problems by using a simple design thinking process as a method to innovate, collaborate and obtain leadership cum entrepreneurship skills. </p></li><li><p>To build the capacity of the teaching community to play a vital role in building an entrepreneurial, innovative ecosystem in schools and be mentors to the evolving minds. </p></li></ul>",
         "about_upshift_heading": "<h2 class='mb-5 sub-heading'>What is <span class='blue'>UPSHIFT</span></h2>",
-        "about_upshift_desc": "<p><b>UPSHIFT</b> is a <span class='blue'><b>UNICEF</b></span> global innovation for transferable skills building of adolescents and young people that is now in implementation in 45 countries. <b>UPSHIFT</b> is designed to build transferable skills and create opportunity, with a focus on the young people. <b>UPSHIFT</b> supports the development of skills for life and livelihood and supports youth to positively engage with their local communities as change-makers. <br/>[LEARN MORE ABOUT <a href='https://www.unicef.org/innovation/upshift' target='_target'><u><b>UPSHIFT</b></u></a> ]</p><p>With the goal of engaging and skilling more adolescents and young people, UNICEF Maldives, along with the Ministry of Education, National Institute of Education and Inqui-Lab Foundation embarked on the development of UNISOLVE.</p>",
-        "upshift_power_desc": "<p><span class='blue'><b>UNISOLVE</b></span> is a digital platform designed to facilitate <b>UPSHIFT</b> delivery through a school-based, teacher-facilitated blended learning model.</p><p><span class='blue'><b>UNISOLVE</b></span> combines the advantages of distance learning opportunities and face-to-face activities to promote creativity and innovation among adolescents and young people. Designed with and for the education system keeping scalability in mind this specially designed platform, <span class='blue'><b>UNISOLVE</b></span>, is a tool to skill students on social innovation and 21st century skills.</p>",
+        "about_upshift_desc": "<p><span class='blue'><b>UPSHIFT</b></span> is a UNICEF global innovation for transferable skills building of adolescents and young people that is now in implementation in 45 countries. <span class='blue'><b>UPSHIFT</b></span> is designed to build transferable skills and create opportunity, with a focus on the young people. <span class='blue'><b>UPSHIFT</b></span> supports the development of skills for life and livelihood and supports youth to positively engage with their local communities as change-makers. <br/>[LEARN MORE ABOUT <a href='https://www.unicef.org/innovation/upshift' target='_target'><u><span class='blue'><b>UPSHIFT</b></span></u></a> ]</p><p>With the goal of engaging and skilling more adolescents and young people, UNICEF Maldives, along with the Ministry of Education, National Institute of Education and Inqui-Lab Foundation embarked on the development of UNISOLVE.</p>",
+        "upshift_power_desc": "<p>UNISOLVE is a digital platform designed to facilitate UPSHIFT delivery through a school-based, teacher-facilitated blended learning model.</p><p>UNISOLVE combines the advantages of distance learning opportunities and face-to-face activities to promote creativity and innovation among adolescents and young people. Designed with and for the education system keeping scalability in mind this specially designed platform, UNISOLVE, is a tool to skill students on social innovation and 21st century skills.</p>",
         "idea_heading_1": "Multipurpose Agriculture Bag",
         "idea_desc_1": "Multipurpose Agriculture Bag can be used for plucking cotton, Chilli, vegetables, fruits and spreading fertilizers in the agriculture field.",
         "idea_heading_2": "Makeshift sweeping machine",
@@ -264,7 +264,7 @@
         "testimonials_desc_2": "UPSHIFT is a program that encourages creativity and innovation while enabling students to think out of the box and provide experiences beyond the classroom environment. Not only this programme teaches the use of latest technology to develop 21st century skills but also helps students to develop empathy and sympathy towards others. All in all, it is an all-around development of the students that enables them to achieve the objectives of the national curriculum faster.",
         "testimonials_name_2": "Rinzy Ibrahim Waheed",
         "testimonials_title_2": "Principal at Hiriya School ( UPSHIFT pilot School)",
-        "testimonials_desc_3": "Upshift/ Unisolve is an amazing program that fosters creativity and critical thinking in students. It enables students to actively engage in identifying problems and finding practical, workable solutions through independent and experiential learning. ",
+        "testimonials_desc_3": "UPSHIFT powered by UNISOLVE is an amazing program that fosters creativity and critical thinking in students. It enables students to actively engage in identifying problems and finding practical, workable solutions through independent and experiential learning. ",
         "testimonials_name_3": "Abdulla Didi",
         "testimonials_title_3": "Principal at Dharumavantha School ( UPSHIFT- Pilot School)",
         "testimonials_desc_4": "21st century is the century of innovation, development and ideation. When we say preparing students for life, it means putting greater focus on developing skills that are essential for modern workplace.  Therefore, I believe that UPSHIFT program can offer and develop these transferable skills and increase student’s social engagement. It uses a methodology called Human Centered Design which offers a more holistic and community-driven approach to problem-solving. It starts with people and ends with innovative solutions that are tailor-made to suit their needs. When you understand the people, you’re trying to reach, design from their perspective, not only will you arrive at unexpected answers, but you’ll come up with ideas that they’ll accept. These activities will help students to develop empathy, creativity, critical thinking, communication, civic engagement and entrepreneurship.",
@@ -273,16 +273,24 @@
         "testimonials_desc_5": "UPSHIFT program helps our young people to show their potentials by developing the skills needed for active participation in the society. So far, the children have enjoyed learning in UPSHIFT Boot Camps.",
         "testimonials_name_5": "Aishath Zuhurubaan",
         "testimonials_title_5": "Senior Curriculum Development Analyst - The National Institute of Education / UPSHIFT Training coordinator",
-        "faq_qn_1": "What is the Upshift powered by Unisolve?",
-        "faq_ans_1": "<p>To promote the culture of innovation and creative problem solving, Ministry of Education in partnership with UNICEF and partners proposes to conduct a school-level innovation challenge for schools across Bhutan. The of the Upshift powered by Unisolve is to introduce the children to the Design Thinking and Innovation as a approach to problem-solving.</p>",
-        "faq_qn_2": "Which students can take part in this Challenge?",
-        "faq_ans_2": "<ul><li><p>SIC is for students of primary, lower, middle, and higher secondary schools including colleges and out of school youth</p></li><li><p>Students in a team can be from different grades.</p></li><li><p>Interested students irrespective of academic performance can take part in the Upshift powered by Unisolve.</p></li></ul>",
+        "faq_qn_1": "What is the UPSHIFT powered by UNISOLVE?",
+        "faq_ans_1": "<p>To promote a culture of innovation and creative problem solving among  the state government in partnership with key stakeholders launched the UPSHIFT, UNISOLVE to inculcate the spirit of innovation amongst the school children.</p><p>Objective of the program is to inspire students to solve problems by using a simple design thinking process as a method to innovate, collaborate and obtain 21st century skills and leadership skills.</p>",
+        "faq_qn_2": "Who can participate in this program?",
+        "faq_ans_2": "<p>Guidelines about the schools eligible for participation will be rolled out by the Ministry of Education/National Institute of Education. All the eligible schools can register on the portal and participate using the Unique Teacher Code.</p><p>Students from all Government High Schools and Higher Secondary Schools are eligible to participate in the program. This is a team based program and schools/mentors are requested to support in registration of the participants on to the portal and in this learning journey.</p>",
         "faq_qn_3": "How many teams and teachers/mentors can participate in the program?",
-        "faq_ans_3": "<p>The platform does not have any limitation in terms of the number of teams or students. But it is suggested that teacher/mentor:teams ratio be maintained as 1:5.</p>",
+        "faq_ans_3": "<p>It is suggested that each teacher should handle only up to 50 students (2-5 students in a team). Each teacher can register up to 50 students on the platform.</p>",
         "faq_qn_4": "How to register your institution for this program?",
-        "faq_ans_4": "<p>Open the website and click register. Register your school/Institution there by entering the Unique Code/Unique ID and then filling in all required details. Once the registration process is completed, you can log in to your account by entering a password.<p/>",
+        "faq_ans_4": "<p>Open the website and click register. Register your school/Institution thereby entering the Unique Teacher Code and then filling in all required details. Once the registration process is completed, you can log in to your account either by entering a password.</p>",
         "faq_qn_5": "What are the next steps involved after registering my school on the website?",
-        "faq_ans_5": "<p>The following are the next steps involved after you register your school/institution:</p><ol><li><p>Identify students who can participate in the program.</p></li><li><p>Form teams with the interested or nominated participant group.</p></li><li><p>Students have to log in to the website and start doing the online course with the team.</p></li><li><p>Teams will complete the learning course and submit one idea as their challenge project. </p></li></ol>",
+        "faq_ans_5": "<p>The following are the next steps involved after you register your school/institution:</p><ol><li><p>Identify students who can participate in the program.</p></li><li><p>Form teams of 2-5 students with the interested participant and register them on the platform. </p></li><li><p>Students have to log in to the website and start doing the online course with the team.</p></li><li><p>Teams will complete the learning course and submit one idea as their challenge project. </p></li></ol>",
+        "faq_qn_6":"How many students per school can participate in the UPSHIFT program?",
+        "faq_ans_6":"<p>There is no restriction as such but it is highly recommended that each teacher should handle only up to 50 students.</p>",
+        "faq_qn_7":"How can students start doing the course? Can they directly login and start doing ?",
+        "faq_ans_7":"<p>Students have to login using their respective username as registered by the teachers. They can login by entering the password set by the teacher. They can proceed to the course after that.</p><p>Note:</p><ol><li><p>Please make sure that students are aware of their username and password</p></li><li><p>You can also check each team’s progress on the dashboard as you can clearly see the percentage in the above picture</p></li></ol>",
+        "faq_qn_8":"Can we use the portal on mobile devices?",
+        "faq_ans_8":"<p>Yes, the website has been designed keeping mobile users in mind. It works smoothly on both mobile devices and computers.</p>",
+        "faq_qn_9":"How can I change/edit team details ?",
+        "faq_ans_9":"<ol><li><p>Only teachers can edit the team details. Log in to the website and click teams</p></li><li><p>You’ll find the edit button beside each team.</p></li><li><p>Click that and change whatever details you need to change</p></li></ol>",
         "roadmpa_heading": "Road Map",
         "roadmpa_one": "AWARENESS",
         "roadmpa_one_desc": "<p>Learners become aware of Program, its goals and process through various channels like : <ol><li><p class='my-0'>Institution management</p></li><li><p class='my-0'>Digital and print media</p></li><li><p class='my-0'>Peer Groups</p></li></ol></p>",
@@ -305,10 +313,12 @@
         "search_school": "Search your school here...",
         "search_btn": "Search",
         "step": "Step",
-        "section_heading": "<h2 class='mb-5 sub-heading'>Maldives National Curriculum & UNISOLVE </h2>",
-        "section_desc": "<p>The NCF alignes with UNISOLVE to promotes holistic approach to education, placing equal emphasis on the development of knowledge, understanding, skills, values and attitudes.</p> <p>The National Curriculum envisions the development of  successful individuals who are motivated to explore and create knowledge, are confident and competent and have a firm belief in Islam, a strong sense of self and national identity and are Responsible and productive contributors to their own family, local community and the global society.</p> <p>It strive to develop a sense of value in The NCF  and places great emphasis on encouraging children and young people to adopt deeply held values shared within our society. </p>",
+        "section_heading": "<h2 class='mb-5 sub-heading'>Maldives National Curriculum & <span class='blue'>UNISOLVE </span></h2>",
+        "section_desc": "<p>The NCF alignes with UNISOLVE to promotes holistic approach to education, placing equal emphasis on the development of knowledge, understanding, skills, values and attitudes.</p> <p>The National Curriculum envisions the development of  successful individuals who are motivated to explore and create knowledge, are confident and competent and have a firm belief in Islam, a strong sense of self and national identity and are Responsible and productive contributors to their own family, local community and the global society.</p> <p>It strives to develop a sense of value in The NCF  and places great emphasis on encouraging children and young people to adopt deeply held values shared within our society. </p>",
         "clutureDesc":"<h5>Keeping in mind the values and culture of Maldives, the program focus on developing the following key competencies among the student </h5>",
-        "project_sample_desc":"<p><b>Name of team:</b> Friends</br><b>Hiraa School:</b> Addu City</p><p><b>Team members:</b> Nashwa Fahumy, Fathimath Tharaf Ali Zareef, Aishath Sarah Ahmed, Mohamed Ayub Ameen, Aishath Hashma Hassan and Dheenam Mohamed</p><p><b>Problem:</b> Adolescents and young people, especially those in the islands do not have adequate access to quality an confidential mental health services, including opportunities for sharing of experiences by young people. </p><p><b>Solution: </b> A website that can serve as a platform to engage in discourse on mental health mong adolescents and to mobilize resources for mental health interventions.   We plan to include the following features and services in the website: -</p><ul><li><p><b>One on one – </b>This service provides teenagers with professional help from licensed psychologists.</p></li><li><p><b>Forum –</b> This service provides a platform where people can ask for advice and talk with people who are going through the same concerns or similar situations. </p></li><li><p><b>Blogs –</b> This service allows people to write down their personal experiences or read others experience and be an inspiration for each other. </p></li><li><p><b>Donations –</b> This service also encourages people to donate for the website, where the money from donation will be utilized to provide medical assistance to clients who have a severe condition. </p></li><li><p><b>Volunteer programmes –</b> Create parent- teen series with common conflicts and how to avoid them. </p></li><li><p><b>Counselling team for students</b> </p></li></ul>"
+        "project_sample_team_title":"Meet the Team <b>'Friends'</b> from Addu City",
+        "project_sample_team":"<p><b>Team members:</b> Nashwa Fahumy, Fathimath Tharaf Ali Zareef, Aishath Sarah Ahmed, Mohamed Ayub Ameen, Aishath Hashma Hassan and Dheenam Mohamed</p>",
+        "project_sample_desc":"<p><b>Problem:</b> Adolescents and young people, especially those in the islands do not have adequate access to quality an confidential mental health services, including opportunities for sharing of experiences by young people. </p><p><b>Solution: </b> A website that can serve as a platform to engage in discourse on mental health mong adolescents and to mobilize resources for mental health interventions.   We plan to include the following features and services in the website: -</p>"
     },
     "get_started": {
         "heading": "Welcome Students!",
@@ -333,8 +343,8 @@
         "refer_video":"Refer Video"
     },
     "teacher_get_started": {
-        "heading": "Welcome Unisolve School Head/Guide Teacher!",
-        "desc": "<p>We are glad that you have signed-up to Unisolve 2022-23 and joined us in this exciting journey of nurturing an experience of learning, skilling and innovation for the school children. As you are aware you will be playing a role of guide and mentor for the participants in their learning journey.</p><p>This portal gives you an experience of learning modules and important resources for supporting the participants. You can also create and track progress of your student teams using the dashboard.</p><p>Your journey as a Unisolve School Head/Guide Teacher will involve the following key milestones: </p><ul><li><p class='my-0'>Step-1: Take Pre-Survey.</p></li><li><p class='my-0'>Step-2: Complete the course and reading material.</p></li><li><p class='my-0'>Step-3: Creating Teams and Register the students.</p></li><li><p class='my-0'>Step-4: Support the participants in completing the learning journey.</p></li><li><p class='my-0'>Step-5: Support the participants in challenge/idea submission.</p></li><li><p class='my-0'>Step-6: Complete the post survey.</p></li><li><p class='my-0'>Step-7: Get awarded with the completion certificate.</p></li></ul><p>We hope you and your teams will have a great learning experience and wish you all the best for this project.</p>",
+        "heading": "Welcome Teachers and Mentors! ",
+        "desc": "<p>We are glad that you have signed-up to this program and joined us in this exciting journey of nurturing an experience of learning, skilling and innovation for the young people. As you are aware you will be playing a role of guide and mentor for the participants in their learning journey.</p><p>This portal gives you an experience of learning modules and important resources for supporting the participants. You can also register and track progress of your teams using the dashboard.</p><p>Your journey as a teacher/mentor will involve the following key milestones:</p><ul><li><p class='my-0'>Step-1: Take Pre-Survey.</p></li><li><p class='my-0'>Step-2: Complete the course and reading material.</p></li><li><p class='my-0'>Step-3: Register the teams</p></li><li><p class='my-0'>Step-4: Support the participants in completing the learning journey.</p></li><li><p class='my-0'>Step-5: Support the participants in challenge/idea submission.</p></li><li><p class='my-0'>Step-6: Complete the post survey.</p></li></ul><p>We hope you and your teams will have a great learning experience and wish you all the best for this program!</p>",
         "btn": "START JOURNEY",
         "pre": "Pre survey has been submitted"
     },
@@ -349,7 +359,7 @@
     },
     "student" : {
         "profile": "My Profile",
-        "worksheet":"<p>Dear Student,</p><p>Step-1: Download and print this worksheet or get a copy from your Unisolve guide teacher.</p><p>Step-2: Complete this worksheet along with your team members.</p><p>Step-3: Handover the worksheet to your guide teacher once your team completes the worksheet without fail. This needs to be submitted to District Coordinator during regional level boot-camp.</p><p>Step-4: Continue to next lesson only after you complete the worksheet.</p><p>Hope you and your team learn new things and enjoy completing this worksheet.</p>",
+        "worksheet":"<p>Dear Student,</p><p>Step-1: Download and print this worksheet or get a copy from your Unisolve guide teacher.</p><p>Step-2: Complete this worksheet along with your team members.</p><p>Step-3: Upload the worksheets onto the portal using the 'Upload File' button. You can upload multiple documents as images or documents. Only one team member from the team needs to upload the Worksheet. If needed, you can ask for your Guide teachers support in doing this.</p><p>Step-4: Continue to next lessons only after your team has completed and uploaded the worksheet.</p><p>Hope you and your team learn new things and enjoy completing this worksheet.</p>",
         "download_worksheet":"Download Worksheet",
         "continue":"Continue",
         "w_sheet":"Worksheet",
@@ -379,7 +389,9 @@
         "post_survey":"Post Survey",
         "idea_submitted_desc":"<h2>Congratulations for successfully submitting the idea</h2>.</br><p>Please click continue to complete your post survey and get your certificate.</p>",
         "post_survey_desc":"Congratulations! your Unisolve journey for 2022-23 is complete.",
-        "click_button_post_survey":"Your certificate will be ready soon and you can download it from ‘My Certificate Page’"
+        "click_button_post_survey":"Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
+        "max_length_msg1":"Maximum length of characters is ",
+        "max_length_msg2":" only..."
     },
     "teacher_presurvey": {
         "completed_text": "Your survey has been successfully submitted!"
@@ -391,7 +403,8 @@
         "certificate": "Course Completion Certificate",
         "certificate_desc": "Please Download Certificate...",
         "part_certificate_desc": "Please Download Participate Certificate...",
-        "complete_postsurvey": "Please complete post survey to get course completion certificate"
+        "complete_postsurvey": "Please complete post survey to get course completion certificate",
+        "complete_post_survey_default":"Thank you for completing the journey and supporting your students in successful completion of the course and idea submission. Your certificate will be enabled soon."
     },
     "teacher_header": {
         "profile": "My Profile",
@@ -468,7 +481,8 @@
         "btn_ok":"ok",
         "cancelled":"Cancelled",
         "logged_in":"You are Logged in",
-        "submit_idea":"You are attempting to submit your idea Which is not revertable"
+        "submit_idea":"You are attempting to submit your idea Which is not revertable",
+        "idea_sub_cancelled":"Idea Submission Cancelled"
     },
     "teacehr_red": {
         "heading": "REGISTER",
@@ -498,9 +512,9 @@
     },
     "dummytext":{
         "student_idea_sub":"Dear Student, idea submission will be active once you and your team members complete the learning journey. Your guide teacher will support you with this.",
-        "student_my_cer":"<p>Dear Student, your certificate will be available once you complete the course and submit the idea.</p><p>If you have completed these, your certificate will be ready shortly.</p><p>All the best for your exams! :)</p>",
+        "student_my_cer":"<p>Dear Student, your certificate will be available once you complete the course and submit the idea.</p><p>If you have completed these, your certificate will be ready shortly.</p>",
         "student_post_survey":"Dear Students, Post-Survey will be active once you complete the course and your team submits the idea. Hope you and your team are learning a lot of new things. :)",        
-        "student_course":"Dear Student, your Unisolve learning journey will begin soon. Please discuss with your School Unisolve Head cum Guide Teacher and prepare yourself for this journey. All the best 🙂" ,
+        "student_course":"Dear Student, your Unisolve learning journey will begin soon. Please discuss with your School Unisolve Head cum Guide Teacher and prepare yourself for this journey." ,
         "certificate_msg":"Your certificate will be printed with the above details. If there are any changes to the above follow the steps below:</br>1. If there is any spelling mistake, request your guide teacher to correct the spelling in Teams Page of Teacher Log-In</br>2. If your Initial, Full Name is missing or incorrect request your guide teacher to update the name in Teams Page of Teacher Login</br>(There should NOT be any ‘.’ in the name. Example: If your full name is  K. Vijay Kumar it should be added as K Vijay Kumar with out any .(dot) or special characters)</br></br>Note:",
         "name":"Name : ",
         "school":"</br>School : "      
@@ -527,7 +541,17 @@
         "sdg":"Which Sustainable development Goal (SDG) are you targeting with your solution ?",
         "sdg_desc":"(You can refer to the SDGs sheet from FIND Module and pick the right option )",
         "others":"If you picked the option ‘others’ in the above question, write down which SDG or theme is your solution targeting.",
-        "chars":"Characters Remaining"
+        "chars":"Characters Remaining",
+        "idea_submission":"Idea Submission",
+        "idea_submission_msg1":"Idea submission is",
+        "idea_status1":" initiated by ",
+        "idea_status2":" submitted by ",
+        "idea_submission_msg2":"your teammate ",
+        "idea_submission_msg3":" on ",
+        "idea_submission_date_com_desc":"Dear Students, the final date for idea submission is completed. Please complete your course and  post survey.",
+        "go_to_course_button":"Go to course",
+        "go_to_post_survey_button":"Go to Post Survey"
+
     },
     "translation":{
         "tamil":"ml Content :-",

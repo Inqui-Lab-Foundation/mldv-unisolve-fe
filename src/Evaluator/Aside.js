@@ -7,7 +7,7 @@ import {
     SidebarHeader,
     SidebarContent
 } from 'react-pro-sidebar';
-import { FaBars, FaLightbulb } from 'react-icons/fa';
+import { FaBars, FaLightbulb, FaInfo } from 'react-icons/fa';
 
 import 'react-pro-sidebar/dist/css/styles.css';
 import { useLocation } from 'react-router-dom';
@@ -106,6 +106,17 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         </NavLink>
                     </MenuItem> */}
                     <MenuItem
+                        icon={ <FaInfo />}
+                        className={
+                            location.pathname === '/evaluator/instructions' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink exact={true} to={'/evaluator/instructions'}>
+                            Instructions
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
                         icon={ <FaLightbulb />}
                         className={
                             location.pathname === '/evaluator/submitted-ideas' &&
@@ -113,7 +124,18 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         }
                     >
                         <NavLink exact={true} to={'/evaluator/submitted-ideas'}>
-                            Submitted Ideas
+                            Evaluation
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={ <FaLightbulb />}
+                        className={
+                            location.pathname === '/evaluator/evaluated-ideas' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink exact={true} to={'/evaluator/evaluated-ideas'}>
+                            Evaluated Ideas
                         </NavLink>
                     </MenuItem>
                     <MenuItem

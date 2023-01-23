@@ -1,13 +1,14 @@
+/* eslint-disable indent */
 /* eslint-disable no-unused-vars */
-import React, {  useState } from "react";
-import "./Header.scss";
-import { FaBars } from "react-icons/fa";
-import { Row, Col, Navbar } from "reactstrap";
+import React, { useState } from 'react';
+import './Header.scss';
+import { FaBars } from 'react-icons/fa';
+import { Row, Col, Navbar } from 'reactstrap';
 // import { NavLink } from "react-router-dom";
-import { useHistory } from "react-router-dom";
-import { CommonDropDownComp } from "./stories/CommonDropdown/CommonDropdownComp";
+import { useHistory } from 'react-router-dom';
+import { CommonDropDownComp } from './stories/CommonDropdown/CommonDropdownComp';
 // import LanguageSelectorComp from "./components/LanguageSelectorComp";
-import { logout } from "./helpers/Utils";
+import { logout } from './helpers/Utils';
 
 // import {
 //     FaTachometerAlt,
@@ -17,12 +18,12 @@ import { logout } from "./helpers/Utils";
 //     FaRegLaughWink,
 //     FaHeart,
 // } from "react-icons/fa";
-import { VscBell } from "react-icons/vsc";
-import AvatarImg from "./assets/img/Avatar.png";
+import { VscBell } from 'react-icons/vsc';
+import AvatarImg from './assets/img/Avatar.png';
 
-import { InputWithSearch } from "./stories/InputWithSearch/InputWithSearch.stories";
+import { InputWithSearch } from './stories/InputWithSearch/InputWithSearch.stories';
 // import { DropDownComp } from "./stories/DropdownComp/DropdownComp";
-import {  Badge } from "antd";
+import { Badge } from 'antd';
 // import LogoutView from "./Pages/LogoutView";
 
 const Header = (props) => {
@@ -30,25 +31,27 @@ const Header = (props) => {
     // const headerOptions = ["Home", "My Profile", "My Settings", "Logout"];
     const profileOpt = {
         options: [
-            { name: "Home", path: "/dashboard" },
-            { name: "My Profile", path: "/my-profile" },
-            { name: "My Settings", path: "/settings" },
-            { name: "Logout", path: "", onClick: () => logout(history) },
+            { name: 'Home', path: '/dashboard' },
+            { name: 'My Profile', path: '/my-profile' },
+            { name: 'My Settings', path: '/settings' },
+            { name: 'Logout', path: '', onClick: () => logout(history) }
         ],
-        name: "Ritu",
-        img: AvatarImg,
+        name: 'Ritu',
+        img: AvatarImg
     };
     const notifyOpt = {
-        options: [{ name: "You have a new Notification", path: "/notification" }],
-        Icon: VscBell,
+        options: [
+            { name: 'You have a new Notification', path: '/notification' }
+        ],
+        Icon: VscBell
     };
 
-    const [selectedOption, setSelectedOption] = useState("");
-    const option = JSON.parse(localStorage.getItem("headerOption"));
+    const [selectedOption, setSelectedOption] = useState('');
+    const option = JSON.parse(localStorage.getItem('headerOption'));
     const headerProps = {
-        size: "large",
-        placeholder: "Search",
-        isLogin: false,
+        size: 'large',
+        placeholder: 'Search',
+        isLogin: false
     };
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
@@ -62,29 +65,27 @@ const Header = (props) => {
     };
 
     window.onunload = function () {
-        localStorage.setItem("headerOption", JSON.stringify("Home"));
+        localStorage.setItem('headerOption', JSON.stringify('Home'));
     };
 
     const handleSelect = async (e) => {
-        console.log("============", e.target.value);
-        localStorage.setItem("headerOption", JSON.stringify(e.target.value));
+        localStorage.setItem('headerOption', JSON.stringify(e.target.value));
         const responce = await e.target.value;
-        console.log("=====responce=======", responce);
         setSelectedOption(responce);
         switch (e.target.value) {
-        case "Home":
-            history.push("/dashboard");
-            break;
-        case "My Profile":
-            history.push("/my-profile");
-            break;
-        case "My Settings":
-            history.push("/settings");
-            break;
-        case "Logout":
-            history.push("/logout");
-            break;
-        default:
+            case 'Home':
+                history.push('/dashboard');
+                break;
+            case 'My Profile':
+                history.push('/my-profile');
+                break;
+            case 'My Settings':
+                history.push('/settings');
+                break;
+            case 'Logout':
+                history.push('/logout');
+                break;
+            default:
         }
     };
 
@@ -105,7 +106,11 @@ const Header = (props) => {
                                     <InputWithSearch {...headerProps} />
                                 </Col>
                                 <Col md={6} className="d-flex profile-section">
-                                    <Badge status="success" count={1} className="notify-sec">
+                                    <Badge
+                                        status="success"
+                                        count={1}
+                                        className="notify-sec"
+                                    >
                                         <CommonDropDownComp {...notifyOpt} />
                                         {/* <NavLink exact to={"/notification"}>
                       <VscBell />

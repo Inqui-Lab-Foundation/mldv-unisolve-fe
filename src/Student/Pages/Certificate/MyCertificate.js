@@ -4,11 +4,12 @@ import { Button } from '../../../stories/Button';
 import Layout from '../../Layout';
 import jsPDF from 'jspdf';
 import { getCurrentUser } from '../../../helpers/Utils';
-import courseCompletionCertificate from '../../../assets/media/img/certificates/TN_Course+Completion+Certficate.png';
-import ideaSubmissionCertificate from '../../../assets/media/img/certificates/TN+Idea+Submission.png';
+import courseCompletionCertificate from '../../../assets/media/img/certificates/TN-SIDP-Certificates-signed-2-1.png';
+import ideaSubmissionCertificate from '../../../assets/media/img/certificates/TN-SIDP-Certificates-signed-3-1.png';
 import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+    getStudentChallengeSubmittedResponse,
     getStudentDashboardStatus,
     studentPostSurveyCertificate,
     updateStudentBadges,
@@ -32,10 +33,11 @@ const Certificate = ({
     const handleCertificateDownload = () => {
         const content = type ? partRef.current : pdfRef.current;
         const badge = 'the_finisher';
-        const size = type ? [210, 297] : [298, 200];
-        const orientation = type ? 'l' : 'p';
+        const size = type ? [298, 220] : [298, 220];
+        // const size = type ? [210, 297] : [298, 200];
+        const orientation = type ? 'l' : 'l';
         const doc = new jsPDF(orientation, 'px', size);
-        const certName = `${currentUser.data[0].full_name}_${
+        const certName = `${currentUser?.data[0]?.full_name}_${
             type ? 'idea_certificate' : 'course_certificate'
         }`;
         doc.html(content, {
@@ -47,7 +49,7 @@ const Certificate = ({
             dispatch(
                 updateStudentBadges(
                     { badge_slugs: [badge] },
-                    currentUser.data[0].user_id,
+                    currentUser?.data[0]?.user_id,
                     language,
                     t
                 )
@@ -58,14 +60,11 @@ const Certificate = ({
             );
     };
     const certDateCheck = () => {
-        const check = type
+        const check = type !=='participate'
             ? certDate?.course_completed_date &&
-              moment(certDate?.course_completed_date).format('DD-MM-YYYY')
-            : certDate?.post_survey_completed_date &&
-              moment(certDate?.post_survey_completed_date).format('DD-MM-YYYY');
+            moment(certDate?.course_completed_date).format('DD-MM-YYYY'):'';
         return check ? ' on ' + check : '';
     };
-    console.log(type);
     return (
         <Card
             className="course-sec-basic p-5 m-4 w-100"
@@ -89,12 +88,28 @@ const Certificate = ({
                             className="text-capitalize"
                             style={{
                                 position: 'absolute',
-                                top: `${type ? '9rem' : '12.8rem'}`,
-                                left: `${type ? '10.3rem' : '6.5rem'}`,
-                                fontSize: '0.8rem'
+                                top: `${type ? '8.1rem' : '7.4rem'}`,
+                                left: `${type ? '10.3rem' : '10rem'}`,
+                                // top: `${type ? '9rem' : '12.8rem'}`,
+                                // left: `${type ? '10.3rem' : '6.5rem'}`,
+                                fontSize: '0.8rem',
+                                fontFamily:"Times New Roman"
+                                
                             }}
                         >
-                            {currentUser?.data[0]?.full_name + certDateCheck()}
+                            {currentUser?.data[0]?.full_name}
+                        </span>
+                        <span
+                            className="text-capitalize"
+                            style={{
+                                position: 'absolute',
+                                top: `${type ? '9.5rem' : '8.8rem'}`,
+                                left: `${type ? '5rem' : '5rem'}`,
+                                fontSize: '0.8rem',
+                                fontFamily:"Times New Roman"
+                            }}
+                        >
+                            {currentUser?.data[0]?.organization_name + certDateCheck()}
                         </span>
                         <img
                             src={
@@ -105,8 +120,10 @@ const Certificate = ({
                             alt="certificate"
                             className="img-fluid mx-auto"
                             style={{
-                                width: `${type ? '297px' : '200px'}`,
-                                height: `${type ? '209px' : '297px'}`,
+                                width:'297px',
+                                height:'210px',
+                                // width: `${type ? '297px' : '200px'}`,
+                                // height: `${type ? '209px' : '297px'}`,
                                 border: '1px solid #cccccc'
                             }}
                         />
@@ -147,6 +164,12 @@ const MyCertificate = () => {
     const dashboardStatus = useSelector(
         (state) => state?.studentRegistration?.dashboardStatus
     );
+    const ideaSubmissionStatus = useSelector(
+        (state) => state?.studentRegistration.ideaSubmissionStatus
+    );
+    const ideaSubmissionsSubmittedAt = useSelector(
+        (state) => state?.studentRegistration?.challengesSubmittedResponse[0]
+    );
     let { all_topics_count, topics_completed_count } = dashboardStatus
         ? dashboardStatus
         : { all_topics_count: null, topics_completed_count: null };
@@ -155,13 +178,29 @@ const MyCertificate = () => {
     useLayoutEffect(() => {
         if (!dashboardStatus)
             dispatch(
-                getStudentDashboardStatus(currentUser.data[0].user_id, language)
+                getStudentDashboardStatus(
+                    currentUser?.data[0]?.user_id,
+                    language
+                )
+            );
+        if (!ideaSubmissionStatus)
+            dispatch(
+                getStudentChallengeSubmittedResponse(
+                    currentUser?.data[0]?.team_id,
+                    language
+                )
+            );
+        if (!ideaSubmissionsSubmittedAt)
+            dispatch(
+                getStudentChallengeSubmittedResponse(
+                    currentUser?.data[0]?.team_id,
+                    language
+                )
             );
         if (!postSurveyStatusGl)
             dispatch(studentPostSurveyCertificate(language));
     }, [language]);
-    const enablePostSurvey =
-        postSurveyStatusGl && postSurveyStatusGl === 'COMPLETED';
+    const enablePostSurvey = ideaSubmissionStatus === 'SUBMITTED';
     return (
         <Layout>
             <Container className="presuervey mb-50 mt-5 ">
@@ -174,7 +213,8 @@ const MyCertificate = () => {
                                     type={'participate'}
                                     currentUser={currentUser}
                                     postSurveyStatus={enablePostSurvey}
-                                    certDate={dashboardStatus}
+                                    //certDate={ideaSubmissionsSubmittedAt}
+                                    ideaDate={ideaSubmissionsSubmittedAt}
                                     language={language}
                                 />
                                 <Certificate
@@ -201,8 +241,9 @@ const MyCertificate = () => {
                                 <h6
                                     dangerouslySetInnerHTML={{
                                         __html:
-                                            t('dummytext.name') + currentUser?.data[0].full_name
-                                            // t('dummytext.school') + teamMember.team?.mentor?.organization?.organization_name
+                                            t('dummytext.name') +
+                                            currentUser?.data[0].full_name
+                                        // t('dummytext.school') + teamMember.team?.mentor?.organization?.organization_name
                                     }}
                                 ></h6>
                                 <p

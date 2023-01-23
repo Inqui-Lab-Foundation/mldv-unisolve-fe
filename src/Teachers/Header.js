@@ -34,7 +34,7 @@ const Header = (props) => {
     //         // { name: "My Settings", path: "/teacher/settings" },
     //         { name: t("teacher_header.logout"), path: '', onClick: () => logout(history, t) }
     //     ],
-    //     name: currentUser.data[0].full_name,
+    //     name: currentUser?.data[0]?.full_name,
     //     img: AvatarImg
     // };
     // const notifyOpt = {

@@ -34,7 +34,7 @@ const DetaledQuiz = (props) => {
     const [qst, SetQst] = useState({});
     const language = useSelector((state) => state?.studentRegistration?.studentLanguage);
     // const currentUser = getCurrentUser('current_user');
-    // const role = currentUser.data[0].role;
+    // const role = currentUser?.data[0]?.role;
     useEffect(() => {
         props.getAdminQuizQuestionsActions(quizId, language);
     }, [props.quizId, language]);

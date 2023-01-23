@@ -1,38 +1,38 @@
-import React from "react";
-import { Row, Col,  Form, Label } from "reactstrap";
+/* eslint-disable indent */
+import React from 'react';
+import { Row, Col, Form, Label } from 'reactstrap';
 // import { Breadcrumb } from "antd";
-import { InputBox } from "../../../stories/InputBox/InputBox.jsx";
+import { InputBox } from '../../../stories/InputBox/InputBox.jsx';
 // import { TextArea } from "../../stories/TextArea/TextArea";
 // import { Attachments } from "../../stories/Attachments/Attachments";
-import { Button } from "../../../stories/Button.jsx";
+import { Button } from '../../../stories/Button.jsx';
 // import { Link, withRouter } from "react-router-dom";
-import "./style.scss";
-import "../Student.scss";
+import './style.scss';
+import '../Student.scss';
 // import { GoChevronRight } from "react-icons/go";
-import { AiOutlineInfoCircle } from "react-icons/ai";
+import { AiOutlineInfoCircle } from 'react-icons/ai';
 // import { BsPlusLg } from "react-icons/bs";
 // import { Accordion } from "react-bootstrap";
-import Layout from "../../Layout.jsx";
-import { BreadcrumbTwo } from "../../../stories/BreadcrumbTwo/BreadcrumbTwo.jsx";
-import { useHistory } from "react-router-dom";
+import Layout from '../../Layout.jsx';
+import { BreadcrumbTwo } from '../../../stories/BreadcrumbTwo/BreadcrumbTwo.jsx';
+import { useHistory } from 'react-router-dom';
 
-import { useFormik } from "formik";
-import * as Yup from "yup";
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
 
 // import i18next from "i18next";
-import { useTranslation } from "react-i18next";
-import { mentorsEdit } from "../../../redux/actions.js";
-import { connect } from "react-redux";
+import { useTranslation } from 'react-i18next';
+import { mentorsEdit } from '../../../redux/actions.js';
+import { connect } from 'react-redux';
 
 const EditMember = (props) => {
     const { t } = useTranslation();
     // const [queryProps, setQueryProps] = useState([{ title: "Teammate 1" }]);
     const history = useHistory();
     const data = (history && history.location && history.location.item) || {};
-    console.log("=======", data);
     const courseId1 = data && data.id;
     const finalName = data.mentor_name;
-    const finalName1 = finalName.split(".");
+    const finalName1 = finalName.split('.');
     // const serachprops = {
     //     placholder: "Enter teammmates first name",
     //     className: "default",
@@ -49,46 +49,44 @@ const EditMember = (props) => {
     // };
     // const optionItems = queryProps;
     const headingDetails = {
-        title: "Edit Teammates details",
+        title: 'Edit Teammates details',
 
         options: [
             {
-                title: "Teams & Mentor",
-                path: "/teams",
+                title: 'Teams & Mentor',
+                path: '/teams'
             },
             {
-                title: "Edit member",
-                path: "/editMember",
-            },
-        ],
+                title: 'Edit member',
+                path: '/editMember'
+            }
+        ]
     };
 
     const formik = useFormik({
         initialValues: {
             firstName: finalName1[0],
             lastName: finalName1[1],
-            email: data.email,
+            email: data.email
         },
 
         validationSchema: Yup.object({
-            firstName: Yup.string().required(t("login.error_required")),
-            lastName: Yup.string().required(t("login.error_required")),
-            email: Yup.string().required(t("login.error_required")),
+            firstName: Yup.string().required(t('login.error_required')),
+            lastName: Yup.string().required(t('login.error_required')),
+            email: Yup.string().required(t('login.error_required'))
         }),
 
         onSubmit: (values) => {
-            const mentor_name1 = values.firstName + "." + values.lastName;
+            const mentor_name1 = values.firstName + '.' + values.lastName;
             const email1 = values.email;
-            console.log("========", mentor_name1);
             const courseId = courseId1;
             const body = JSON.stringify({
                 mentor_name: mentor_name1,
                 email: email1,
-                status: data.status,
+                status: data.status
             });
-            console.log("", body);
             props.mentorEditAction(courseId, body, history);
-        },
+        }
     });
 
     return (
@@ -133,12 +131,15 @@ const EditMember = (props) => {
                                 <div className="create-ticket">
                                     <Row>
                                         <Col md={6} className="mb-5 mb-xl-0">
-                                            <Label className="name-req" htmlFor="firstName">
-                        First name (required){" "}
+                                            <Label
+                                                className="name-req"
+                                                htmlFor="firstName"
+                                            >
+                                                First name (required){' '}
                                             </Label>
 
                                             <InputBox
-                                                className={"defaultInput"}
+                                                className={'defaultInput'}
                                                 placeholder="Enter teammmates first name"
                                                 id="firstName"
                                                 name="firstName"
@@ -147,18 +148,22 @@ const EditMember = (props) => {
                                                 value={formik.values.firstName}
                                             />
 
-                                            {formik.touched.firstName && formik.errors.firstName ? (
+                                            {formik.touched.firstName &&
+                                            formik.errors.firstName ? (
                                                 <small className="error-cls">
                                                     {formik.errors.firstName}
                                                 </small>
                                             ) : null}
                                         </Col>
                                         <Col md={6}>
-                                            <Label className="name-req" htmlFor="lastName">
-                        Last name (required)
+                                            <Label
+                                                className="name-req"
+                                                htmlFor="lastName"
+                                            >
+                                                Last name (required)
                                             </Label>
                                             <InputBox
-                                                className={"defaultInput"}
+                                                className={'defaultInput'}
                                                 placeholder="Enter teammmates first name"
                                                 id="lastName"
                                                 name="lastName"
@@ -166,7 +171,8 @@ const EditMember = (props) => {
                                                 onBlur={formik.handleBlur}
                                                 value={formik.values.lastName}
                                             />
-                                            {formik.touched.lastName && formik.errors.lastName ? (
+                                            {formik.touched.lastName &&
+                                            formik.errors.lastName ? (
                                                 <small className="error-cls">
                                                     {formik.errors.lastName}
                                                 </small>
@@ -174,12 +180,15 @@ const EditMember = (props) => {
                                         </Col>
                                     </Row>
 
-                                    <Label className="name-req mt-5" htmlFor="email">
-                    Email address(required)
+                                    <Label
+                                        className="name-req mt-5"
+                                        htmlFor="email"
+                                    >
+                                        Email address(required)
                                     </Label>
 
                                     <InputBox
-                                        className={"defaultInput"}
+                                        className={'defaultInput'}
                                         placeholder="Enter teammmates email address"
                                         id="email"
                                         name="email"
@@ -187,12 +196,16 @@ const EditMember = (props) => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.email}
                                     />
-                                    {formik.touched.email && formik.errors.email ? (
-                                        <small className="error-cls">{formik.errors.email}</small>
+                                    {formik.touched.email &&
+                                    formik.errors.email ? (
+                                        <small className="error-cls">
+                                            {formik.errors.email}
+                                        </small>
                                     ) : null}
                                     <span className="que-text">
-                                        <AiOutlineInfoCircle /> Note: Official login credentials
-                    will be sent to your teammate on this email.
+                                        <AiOutlineInfoCircle /> Note: Official
+                                        login credentials will be sent to your
+                                        teammate on this email.
                                     </span>
                                 </div>
 
@@ -298,7 +311,9 @@ const EditMember = (props) => {
                                             label="Discard"
                                             btnClass="secondary"
                                             size="small"
-                                            onClick={() => props.history.push("/teams")}
+                                            onClick={() =>
+                                                props.history.push('/teams')
+                                            }
                                         />
                                     </Col>
                                     <Col className="submit-btn col-xs-12 col-sm-6">
@@ -306,9 +321,12 @@ const EditMember = (props) => {
                                             label="Update details"
                                             type="submit"
                                             btnClass={
-                                                !(formik.dirty && formik.isValid)
-                                                    ? "default"
-                                                    : "primary"
+                                                !(
+                                                    formik.dirty &&
+                                                    formik.isValid
+                                                )
+                                                    ? 'default'
+                                                    : 'primary'
                                             }
                                             size="small"
                                         />
@@ -331,5 +349,5 @@ const mapStateToProps = () => {
 };
 
 export default connect(mapStateToProps, {
-    mentorEditAction: mentorsEdit,
+    mentorEditAction: mentorsEdit
 })(EditMember);

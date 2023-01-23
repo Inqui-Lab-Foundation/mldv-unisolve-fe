@@ -6,7 +6,12 @@ import { Button } from '../stories/Button';
 import { useTranslation } from 'react-i18next';
 import { useHistory } from 'react-router-dom';
 
-const CommonPage = ({ text, showButton, showChallenges }) => {
+const CommonPage = ({
+    text,
+    showButton,
+    showChallenges,
+    ideaSubmissionComButton
+}) => {
     const { t } = useTranslation();
     const history = useHistory();
     const handleClick = () => {
@@ -47,6 +52,23 @@ const CommonPage = ({ text, showButton, showChallenges }) => {
                             />
                             <Button
                                 label={t('student.continue')}
+                                btnClass="primary mt-4 mx-4"
+                                size="small"
+                                onClick={() => handleClick()}
+                            />
+                        </div>
+                    )}
+                    {ideaSubmissionComButton && (
+                        <div className="d-sm-flex justify-content-between mb-3 text-center">
+                            <Button
+                                type="button"
+                                btnClass="primary mt-4 mx-4"
+                                onClick={() => history.push(`/playCourse/${1}`)}
+                                size="small"
+                                label={t('student_course.go_to_course_button')}
+                            />
+                            <Button
+                                label={t('student_course.go_to_post_survey_button')}
                                 btnClass="primary mt-4 mx-4"
                                 size="small"
                                 onClick={() => handleClick()}

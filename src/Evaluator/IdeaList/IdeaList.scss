@@ -64,7 +64,7 @@
   .scalability::-webkit-slider-runnable-track{
     background-color: var(--color-red);
   }
-  .affordability::-webkit-slider-runnable-track{
+  .sustainability::-webkit-slider-runnable-track{
     background-color: var(--color-yellow-light-1);
   }
   
@@ -133,4 +133,41 @@
     border: none;
   }
   
+}
+//---number rating--
+.rating-btn{
+  padding: 0.7rem 2.6rem;
+  @media (max-width:500px) {
+    padding: 0.5rem 2rem;
+  }
+  @media (max-width:460px) {
+    padding: 0.5rem 1.4rem;
+  }
+}
+.desc-text-1{
+  width: 38.5rem;
+  @media (max-width:500px) {
+    width: 31rem;
+  }
+  @media (max-width:460px) {
+    width: 24rem;
+  }
+}
+.desc-text-3, .desc-text-2{
+  min-width: 13rem;
+  @media (max-width:500px) {
+    min-width: 10rem;
+  }
+  @media (max-width:500px) {
+    min-width: 8rem;
+  }
+}
+.desc-text-1{
+border-top: 2px solid red;
+}
+.desc-text-2{
+  border-top: 2px solid rgb(255, 213, 0);
+}
+.desc-text-3{
+  border-top: 2px solid green;
 }

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Descriptions } from 'antd';
 import React, { useState } from 'react';
 import { Button } from '../../../stories/Button';
@@ -19,7 +20,6 @@ const FilterCard = () => {
 
     const handleDownload = () => {
         setLoading(true);
-        console.log(district);
         let temp = [...type];
         let params = {};
         temp.forEach((element) => {
@@ -27,7 +27,7 @@ const FilterCard = () => {
         });
         params.rs = status;
         dispatch(getMentorReport(params)).then(() => {
-            const element = document.getElementById("CSVButton");
+            const element = document.getElementById('CSVButton');
             element.click();
             setLoading(false);
         });
@@ -67,7 +67,7 @@ const FilterCard = () => {
             <div className="m-3 common-flex">
                 <CSVLink
                     style={{ display: 'none' }}
-                    id={"CSVButton"}
+                    id={'CSVButton'}
                     data={mentorReport}
                     filename="Teacher-report.csv"
                 />

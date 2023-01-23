@@ -1,6 +1,11 @@
 import axios from 'axios';
 
-import { LOGIN_USER, LOGIN_USER_SUCCESS, LOGIN_USER_ERROR, STEP_TWO_DATA } from '../actions';
+import {
+    LOGIN_USER,
+    LOGIN_USER_SUCCESS,
+    LOGIN_USER_ERROR,
+    STEP_TWO_DATA
+} from '../actions';
 import { URL, KEY } from '../../constants/defaultValues';
 import {
     setCurrentUser,
@@ -27,8 +32,7 @@ export const loginUserError = (message) => async (dispatch) => {
     });
 };
 
-export const loginUser = (data, history,module) => async (dispatch) => {
-    console.log('========data', URL.login);
+export const loginUser = (data, history, module) => async (dispatch) => {
     try {
         const loginData = {
             ...data,
@@ -45,17 +49,13 @@ export const loginUser = (data, history,module) => async (dispatch) => {
             });
         if (result && result.status === 200) {
             const item = result.data;
-            console.log('============', item);
             setCurrentUser(item);
-            localStorage.setItem("module",module);
+            localStorage.setItem('module', module);
             dispatch(loginUserSuccess(result));
             history.push('/dashboard');
         } else {
             dispatch(loginUserError(result.statusText));
-            openNotificationWithIcon(
-                'error',
-                'Enter the correct credentials'
-            );
+            openNotificationWithIcon('error', 'Enter the correct credentials');
         }
     } catch (error) {
         dispatch(loginUserError({}));

@@ -1,24 +1,24 @@
-import React, { useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Row, Col } from 'react-bootstrap';
 // import { InputWithSearchComp } from "../../stories/InputWithSearch/InputWithSearch";
 // import { DropDownComp } from "../../stories/DropdownComp/DropdownComp";
-import {   BsPlusLg } from "react-icons/bs";
+import { BsPlusLg } from 'react-icons/bs';
 // import { HiDotsHorizontal } from "react-icons/hi";
-import { Button } from "../../stories/Button";
+import { Button } from '../../stories/Button';
 // import { Tag } from "antd";
-import {  withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 // import { BsThreeDots } from "react-icons/bs";
 // import { BiEditAlt } from "react-icons/bi";
 // import { AiFillDelete } from "react-icons/ai";
 // import { Dropdown } from "react-bootstrap";
 // import { CommonDropDownComp } from "../../stories/CommonDropdown/CommonDropdownComp";
-import { TableComponent } from "../../stories/TableComponent/TableComponent";
+import { TableComponent } from '../../stories/TableComponent/TableComponent';
 
 // import iconImport from "../../media/iconImport.png";
 // import iconExport from "../../media/iconExport.png";
 
 const TicketDataTable = (props) => {
-    // console.log(props, ":::::::::::123");
+    // props, ":::::::::::123");
     const [tableShow] = useState(true);
     // const [actionDropdown, setActionDropdown] = useState(false);
     // const [ setActionIndex] = useState("");
@@ -31,7 +31,6 @@ const TicketDataTable = (props) => {
     //         setActionDropdown(false);
     //     }
     // };
-    // console.log(actionDropdown, "actionDropdown", actionIndex);
 
     // const typeProps = {
     //     name: "type: All",
@@ -81,22 +80,24 @@ const TicketDataTable = (props) => {
     // };
     return (
         <div>
-            <div className='tableActionTemplate'>
+            <div className="tableActionTemplate">
                 <Row>
                     <Col md={12}>
-                        <div className='ticket-table'>
+                        <div className="ticket-table">
                             {tableShow ? (
                                 <TableComponent {...props} />
                             ) : (
-                                <div className='add-ticket'>
+                                <div className="add-ticket">
                                     <Button
-                                        btnClass='primary'
-                                        size='small'
-                                        shape='btn-circle'
+                                        btnClass="primary"
+                                        size="small"
+                                        shape="btn-circle"
                                         Icon={BsPlusLg}
-                                        onClick={() => props.history.push("/NewTicket")}
+                                        onClick={() =>
+                                            props.history.push('/NewTicket')
+                                        }
                                     />
-                                    <p className='text'>Add a Ticket</p>
+                                    <p className="text">Add a Ticket</p>
                                 </div>
                             )}
                         </div>

@@ -50,7 +50,11 @@ const EditTeamMember = (props) => {
             fullName: Yup.string()
                 .required('Please Enter valid Full Name')
                 .max(40)
-                .matches(/^[A-Za-z0-9 ]*$/, 'Please enter only alphanumeric characters').trim(),
+                .matches(
+                    /^[A-Za-z0-9 ]*$/,
+                    'Please enter only alphanumeric characters'
+                )
+                .trim(),
             age: Yup.number()
                 .integer()
                 .min(10, 'Min age is 10')
@@ -80,7 +84,7 @@ const EditTeamMember = (props) => {
                     teamMemberData.student_id,
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${currentUser.data[0].token}`
+                    Authorization: `Bearer ${currentUser?.data[0]?.token}`
                 },
                 data: body
             };
@@ -114,7 +118,6 @@ const EditTeamMember = (props) => {
             item: item
         });
     };
-    console.log(formik);
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -310,9 +313,7 @@ const EditTeamMember = (props) => {
                                                     ? 'default'
                                                     : 'primary'
                                             }
-                                            disabled={ (
-                                                !formik.dirty
-                                            )}
+                                            disabled={!formik.dirty}
                                             size="small"
                                         />
                                     </Col>

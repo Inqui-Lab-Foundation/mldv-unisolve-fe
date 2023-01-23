@@ -1,18 +1,18 @@
-import React, {useState} from 'react';
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
 import { Col, Label } from 'reactstrap';
 import { RichText } from '../../stories/RichText/RichText';
 import { InputBox } from '../../stories/InputBox/InputBox';
 import deleteIcon from '../../assets/media/img/red-trash.svg';
 
 const deleteFaq = (faqID) => {
-    console.log(faqID);
+    // console.log(faqID);
 };
 
 export const FaqCollapseComp = (props) => {
-   
     const [faqData, setFaqData] = useState([]);
 
-    console.log('faqData: ', faqData);
+    // console.log('faqData: ', faqData);
 
     return (
         <>
@@ -35,7 +35,11 @@ export const FaqCollapseComp = (props) => {
                 <Label className="mb-2 mt-5">FAQ answer</Label>
                 <Col className="form-group" md={12}>
                     <div style={{ height: '211px' }}>
-                        <RichText value={props?.answer} name="" onChange={(data) => setFaqData(data)} />
+                        <RichText
+                            value={props?.answer}
+                            name=""
+                            onChange={(data) => setFaqData(data)}
+                        />
                     </div>
                 </Col>
             </Col>
@@ -56,6 +60,6 @@ export const getCollapseObj = (faqData, index) => {
         query: `FAQ Question ${index + 1}`,
         icon: deleteIcon,
         iconAction: deleteFaq,
-        unqID: faqData.faq_id,
+        unqID: faqData.faq_id
     };
 };

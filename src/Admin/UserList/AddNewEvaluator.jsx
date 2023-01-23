@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
@@ -80,13 +82,12 @@ const AddNewEvaluator = (props) => {
         onSubmit: (values) => {
             const mentor_name1 = values.firstName + '.' + values.lastName;
             const email1 = values.email;
-            console.log('========', mentor_name1);
             const body = JSON.stringify({
                 mentor_name: mentor_name1,
                 email: email1
                 // mobile: 9010923117,
             });
-            console.log(body);
+            // console.log(body);
             // props.mentorCreateAction(body, history);
         }
     });
@@ -133,10 +134,10 @@ const AddNewEvaluator = (props) => {
 
                                             {formik.touched.firstName &&
                                             formik.errors.firstName ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.firstName}
-                                                    </small>
-                                                ) : null}
+                                                <small className="error-cls">
+                                                    {formik.errors.firstName}
+                                                </small>
+                                            ) : null}
                                         </Col>
                                         <Col md={6}>
                                             <Label
@@ -156,10 +157,10 @@ const AddNewEvaluator = (props) => {
                                             />
                                             {formik.touched.lastName &&
                                             formik.errors.lastName ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.lastName}
-                                                    </small>
-                                                ) : null}
+                                                <small className="error-cls">
+                                                    {formik.errors.lastName}
+                                                </small>
+                                            ) : null}
                                         </Col>
                                     </Row>
                                     <Row>
@@ -173,10 +174,10 @@ const AddNewEvaluator = (props) => {
                                             <CalendarDropdownComp />
                                             {formik.touched.lastName &&
                                             formik.errors.lastName ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.lastName}
-                                                    </small>
-                                                ) : null}
+                                                <small className="error-cls">
+                                                    {formik.errors.lastName}
+                                                </small>
+                                            ) : null}
                                         </Col>
                                     </Row>
 
@@ -202,10 +203,10 @@ const AddNewEvaluator = (props) => {
 
                                             {formik.touched.email &&
                                             formik.errors.email ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.email}
-                                                    </small>
-                                                ) : null}
+                                                <small className="error-cls">
+                                                    {formik.errors.email}
+                                                </small>
+                                            ) : null}
                                         </Col>
                                         <Col md={6}>
                                             <Label
@@ -225,10 +226,10 @@ const AddNewEvaluator = (props) => {
                                             />
                                             {formik.touched.mobile &&
                                             formik.errors.mobile ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.mobile}
-                                                    </small>
-                                                ) : null}
+                                                <small className="error-cls">
+                                                    {formik.errors.mobile}
+                                                </small>
+                                            ) : null}
                                         </Col>
                                     </Row>
 
@@ -257,10 +258,10 @@ const AddNewEvaluator = (props) => {
 
                                             {formik.touched.email &&
                                             formik.errors.organisation ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.organisation}
-                                                    </small>
-                                                ) : null}
+                                                <small className="error-cls">
+                                                    {formik.errors.organisation}
+                                                </small>
+                                            ) : null}
                                         </Col>
                                         <Col md={6}>
                                             <Label
@@ -272,10 +273,10 @@ const AddNewEvaluator = (props) => {
                                             <DropDownComp {...selectDistrict} />
                                             {formik.touched.city &&
                                             formik.errors.city ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.city}
-                                                    </small>
-                                                ) : null}
+                                                <small className="error-cls">
+                                                    {formik.errors.city}
+                                                </small>
+                                            ) : null}
                                         </Col>
                                     </Row>
 
@@ -292,10 +293,10 @@ const AddNewEvaluator = (props) => {
 
                                             {formik.touched.email &&
                                             formik.errors.organisation ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.organisation}
-                                                    </small>
-                                                ) : null}
+                                                <small className="error-cls">
+                                                    {formik.errors.organisation}
+                                                </small>
+                                            ) : null}
                                         </Col>
                                         <Col md={6}>
                                             <Label
@@ -307,10 +308,10 @@ const AddNewEvaluator = (props) => {
                                             <DropDownComp {...selectCountry} />
                                             {formik.touched.city &&
                                             formik.errors.city ? (
-                                                    <small className="error-cls">
-                                                        {formik.errors.city}
-                                                    </small>
-                                                ) : null}
+                                                <small className="error-cls">
+                                                    {formik.errors.city}
+                                                </small>
+                                            ) : null}
                                         </Col>
                                     </Row>
                                 </div>

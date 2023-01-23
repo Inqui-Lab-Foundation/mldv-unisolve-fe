@@ -1,4 +1,4 @@
-import React, {useState , useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import Layout from '../Layout';
 import { Container, Row, Col, Card, Label, Form } from 'reactstrap';
 import { Button } from '../../stories/Button';
@@ -19,15 +19,13 @@ const EditTranslation = (props) => {
     const [editorStateOfToValue, setEditorStateOfToValue] = useState();
 
     useEffect(() => {
-        setEditorStateOfToValue(
-            translationData && translationData.value
-        );
+        setEditorStateOfToValue(translationData && translationData.value);
     }, []);
 
     const handleEditorChangeOfToValue = (state) => {
-        console.log(state.target.value);
+        // console.log(state.target.value);
         setEditorStateOfToValue(state.target.value);
-        formik.setFieldValue('value',state.target.value);
+        formik.setFieldValue('value', state.target.value);
     };
 
     const formik = useFormik({
@@ -59,7 +57,7 @@ const EditTranslation = (props) => {
                     translationData.translation_id,
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${currentUser.data[0].token}`
+                    Authorization: `Bearer ${currentUser?.data[0]?.token}`
                 },
                 data: body
             };
@@ -108,7 +106,9 @@ const EditTranslation = (props) => {
                                     value={formik.values.from_key}
                                     style={{ fontSize: '2rem' }}
                                 ></textarea> */}
-                                <p style={{fontSize: '2rem'}} className="p-3">{formik.values.key}</p>
+                                <p style={{ fontSize: '2rem' }} className="p-3">
+                                    {formik.values.key}
+                                </p>
                             </Col>
                         </Card>
                     </Row>
@@ -123,9 +123,10 @@ const EditTranslation = (props) => {
                                     className="form-control form-control-lg"
                                     rows="5"
                                     value={editorStateOfToValue}
-                                    onChange={(e)=>handleEditorChangeOfToValue(e)}
+                                    onChange={(e) =>
+                                        handleEditorChangeOfToValue(e)
+                                    }
                                     style={{ fontSize: '2rem' }}
-                                    
                                 ></textarea>
                                 {formik.errors.to_value ? (
                                     <small className="error-cls">

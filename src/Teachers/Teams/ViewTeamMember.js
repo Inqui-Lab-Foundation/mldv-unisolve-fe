@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'reactstrap';
@@ -12,7 +13,8 @@ import { useHistory } from 'react-router-dom';
 // import dummyCSV from '../../media/basic-csv.csv';
 import {
     // getAdminTeamsList,
-    getAdminTeamMembersList, studentResetPassword
+    getAdminTeamMembersList,
+    studentResetPassword
 } from '../../redux/actions';
 import axios from 'axios';
 import { openNotificationWithIcon, getCurrentUser } from '../../helpers/Utils';
@@ -76,17 +78,20 @@ const ViewTeamMember = () => {
                 '?status=ACTIVE',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log('response.data.data', response.data.data);
-                    const updatedWithKey = response.data && response.data.data.map((item, i) => {
-                        const upd = { ...item }; upd["key"] = i + 1;
-                        return upd;
-                    });
+                    // console.log('response.data.data', response.data.data);
+                    const updatedWithKey =
+                        response.data &&
+                        response.data.data.map((item, i) => {
+                            const upd = { ...item };
+                            upd['key'] = i + 1;
+                            return upd;
+                        });
                     setTeamsMemers(updatedWithKey && updatedWithKey);
                 }
             })
@@ -106,26 +111,31 @@ const ViewTeamMember = () => {
 
         swalWithBootstrapButtons
             .fire({
-                title: "You are attempting to reset the password",
-                text: "Are you sure?",
+                title: 'You are attempting to reset the password',
+                text: 'Are you sure?',
                 imageUrl: `${logout}`,
                 showCloseButton: true,
-                confirmButtonText: "Reset Password",
+                confirmButtonText: 'Reset Password',
                 showCancelButton: true,
                 cancelButtonText: t('general_req.btn_cancel'),
                 reverseButtons: false
             })
             .then((result) => {
                 if (result.isConfirmed) {
-                    dispatch(studentResetPassword({ user_id: data.user_id.toString() }));
+                    dispatch(
+                        studentResetPassword({
+                            user_id: data.user_id.toString()
+                        })
+                    );
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
-                        "Cancelled",
-                        "Reset password is cancelled",
+                        'Cancelled',
+                        'Reset password is cancelled',
                         'error'
                     );
                 }
-            }).catch(err => console.log(err.response));
+            })
+            .catch((err) => console.log(err.response));
     };
     var adminTeamMembersList = {
         data: teamsMembersList.length > 0 && teamsMembersList,
@@ -151,7 +161,7 @@ const ViewTeamMember = () => {
                 width: '16%'
             },
             {
-                name: "Class",
+                name: 'Class',
                 selector: 'Grade',
                 width: '10%'
             },
@@ -178,11 +188,14 @@ const ViewTeamMember = () => {
                             />
                         </a>,
                         <a onClick={() => handleDeleteTeamMember(params)}>
-                            {teamsMembersList && teamsMembersList.length > 2 && <i
-                                key={params.team_id}
-                                className="fa fa-trash"
-                                style={{ marginRight: '10px' }}
-                            />}
+                            {teamsMembersList &&
+                                teamsMembersList.length > 2 && (
+                                    <i
+                                        key={params.team_id}
+                                        className="fa fa-trash"
+                                        style={{ marginRight: '10px' }}
+                                    />
+                                )}
                         </a>,
                         <a onClick={() => handleResetPassword(params)}>
                             <i key={params.team_id} className="fa fa-key" />
@@ -239,7 +252,7 @@ const ViewTeamMember = () => {
                             item.student_id,
                         headers: {
                             'Content-Type': 'application/json',
-                            Authorization: `Bearer ${currentUser.data[0].token}`
+                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
                     axios(config)
@@ -300,23 +313,28 @@ const ViewTeamMember = () => {
                     </p> */}
                     <div className="ticket-data">
                         <Tabs defaultActiveKey="1">
-                            {teamsMembersList && !teamsMembersList.length > 0 ? <DoubleBounce /> : <div className="my-2">
-                                <DataTableExtensions
-                                    print={false}
-                                    export={false}
-                                    {...adminTeamMembersList}
-                                >
-                                    <DataTable
-                                        data={rows}
-                                        defaultSortField="id"
-                                        defaultSortAsc={false}
-                                        // pagination
-                                        highlightOnHover
-                                        fixedHeader
-                                        subHeaderAlign={Alignment.Center}
-                                    />
-                                </DataTableExtensions>
-                            </div>}
+                            {teamsMembersList &&
+                            !teamsMembersList.length > 0 ? (
+                                <DoubleBounce />
+                            ) : (
+                                <div className="my-2">
+                                    <DataTableExtensions
+                                        print={false}
+                                        export={false}
+                                        {...adminTeamMembersList}
+                                    >
+                                        <DataTable
+                                            data={rows}
+                                            defaultSortField="id"
+                                            defaultSortAsc={false}
+                                            // pagination
+                                            highlightOnHover
+                                            fixedHeader
+                                            subHeaderAlign={Alignment.Center}
+                                        />
+                                    </DataTableExtensions>
+                                </div>
+                            )}
                         </Tabs>
                     </div>
                 </Row>

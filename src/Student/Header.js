@@ -24,7 +24,7 @@ const Header = (props) => {
         (state) => state?.studentRegistration?.studentLanguage
     );
     useLayoutEffect(() => {
-        if(!presuveyStatusGl)
+        if(!presuveyStatusGl && currentUser)
             dispatch(getPresurveyData(language));
     }, [presuveyStatusGl,language,dispatch]);
     
@@ -39,7 +39,7 @@ const Header = (props) => {
     window.onunload = function () {
         localStorage.setItem('headerOption', JSON.stringify('Home'));
     };
-
+    
     return (
         <header>
             <div className="header-comp sticky-top py-4">

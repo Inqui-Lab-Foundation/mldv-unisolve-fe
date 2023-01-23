@@ -16,7 +16,8 @@ import {
     GET_STUDENT_DASHBOARD_TUTORIALS,
     SET_PRESURVEY_STATUS,
     SET_POSTSURVEY_STATUS,
-    SET_FILE_SUCCESS
+    SET_FILE_SUCCESS,
+    GET_DISTRICTS
 } from '../actions';
 import { URL, KEY } from '../../constants/defaultValues';
 import {
@@ -70,23 +71,48 @@ export const getStudentRegistationData = (studentType) => async (dispatch) => {
                 });
         } else {
             result = await axios
-                .get(`${URL.getStudents}`, axiosConfig)
+                .get(`${URL.getStudents}?status=ALL&district=${studentType}`, axiosConfig)
                 .then((user) => user)
                 .catch((err) => {
                     return err.response;
                 });
         }
         if (result && result.status === 200) {
-            const data =
-                result.data &&
-                result.data.data[0] &&
-                result.data.data[0].dataValues;
+            const data = result.data?.data[0]?.dataValues || [];
+            data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
             dispatch(getStudentListSuccess(data));
         } else {
             dispatch(getStudentListError(result.statusText));
         }
     } catch (error) {
         dispatch(getStudentListError({}));
+    }
+};
+export const getDistrictsSuccess = (data) => async (dispatch) => {
+    dispatch({
+        type: GET_DISTRICTS,
+        payload: data
+    });
+};
+export const getDistrictData = () => async (dispatch) => {
+    try {
+        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+        let result;
+        result = await axios
+            .get(`${URL.getDistrictsOnly}`, axiosConfig)
+            .then((data) => data)
+            .catch((err) => {
+                return err.response;
+            });
+        if (result && result.status === 200) {
+            const data =
+                result.data.data.length>0 ? result.data.data :[];
+            dispatch(getDistrictsSuccess(data));
+        } else {
+            dispatch(getDistrictsSuccess([]));
+        }
+    } catch (error) {
+        dispatch(getDistrictsSuccess([]));
     }
 };
 export const getStudentByIdData = (id) => async (dispatch) => {
@@ -116,7 +142,7 @@ export const updateStudentStatus = (data, id) => async (dispatch) => {
         dispatch({ type: UPDATE_STUDENT_STATUS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .put(`${URL.updateStudentStatus + id}`, data, axiosConfig)
+            .put(`${URL.updateStudentStatus +"/"+ id}`, data, axiosConfig)
             .then((user) => console.log(user))
             .catch((err) => {
                 return err.response;

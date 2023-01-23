@@ -21,15 +21,15 @@ const EditTeam = (props) => {
     const teamId = data && data.team_id;
     const teamsName = data.team_name;
     const headingDetails = {
-        title: t("teacher_teams.edit_team_details"),
+        title: t('teacher_teams.edit_team_details'),
 
         options: [
             {
-                title: t("teacher_teams.teamslist"),
+                title: t('teacher_teams.teamslist'),
                 path: '/teacher/teamlist'
             },
             {
-                title: t("teacher_teams.edit_team")
+                title: t('teacher_teams.edit_team')
             }
         ]
     };
@@ -43,7 +43,12 @@ const EditTeam = (props) => {
             teamName: Yup.string()
                 // .matches(/^[A-Za-z ]*$/, 'Please enter Team name')
                 .max(40)
-                .required("Please enter Team name").matches(/^[A-Za-z0-9 ]*$/, 'Please enter only alphanumeric characters').trim()
+                .required('Please enter Team name')
+                .matches(
+                    /^[A-Za-z0-9 ]*$/,
+                    'Please enter only alphanumeric characters'
+                )
+                .trim()
         }),
 
         onSubmit: (values) => {
@@ -57,13 +62,12 @@ const EditTeam = (props) => {
                 headers: {
                     'Content-Type': 'application/json',
                     // Accept: "application/json",
-                    Authorization: `Bearer ${currentUser.data[0].token}`
+                    Authorization: `Bearer ${currentUser?.data[0]?.token}`
                 },
                 data: body
             };
             axios(config)
                 .then(function (response) {
-                    console.log(response);
                     if (response.status === 200) {
                         openNotificationWithIcon(
                             'success',
@@ -99,7 +103,7 @@ const EditTeam = (props) => {
                                                 className="name-req"
                                                 htmlFor="firstName"
                                             >
-                                               {t("teacher_teams.team_name")}
+                                                {t('teacher_teams.team_name')}
                                             </Label>
 
                                             <InputBox
@@ -126,7 +130,7 @@ const EditTeam = (props) => {
                                 <Row>
                                     <Col className="col-xs-12 col-sm-6">
                                         <Button
-                                            label={t("teacher_teams.discard")}
+                                            label={t('teacher_teams.discard')}
                                             btnClass="secondary"
                                             size="small"
                                             onClick={() =>
@@ -138,7 +142,7 @@ const EditTeam = (props) => {
                                     </Col>
                                     <Col className="submit-btn col-xs-12 col-sm-6">
                                         <Button
-                                            label={t("teacher_teams.submit")}
+                                            label={t('teacher_teams.submit')}
                                             type="submit"
                                             btnClass={
                                                 !(
@@ -149,7 +153,12 @@ const EditTeam = (props) => {
                                                     : 'primary'
                                             }
                                             size="small"
-                                            disabled={!(formik.dirty && formik.isValid)}
+                                            disabled={
+                                                !(
+                                                    formik.dirty &&
+                                                    formik.isValid
+                                                )
+                                            }
                                         />
                                     </Col>
                                 </Row>
