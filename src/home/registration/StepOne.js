@@ -39,33 +39,22 @@ function StepOne({
 
         onSubmit: async (values) => {
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-            const organization = JSON.stringify({organization_code:values.organization_code.trim()});
+            const organization = JSON.stringify({
+                organization_code: values.organization_code.trim()
+            });
             //setDiscCode(values.organization_code);
             await axios
-                .post(
-                    `${URL.checkOrg}`,
-                    organization,
-                    axiosConfig
-                )
+                .post(`${URL.checkOrg}`, organization, axiosConfig)
                 .then((checkOrgRes) => {
                     if (checkOrgRes?.status == 200) {
-                        if (checkOrgRes?.data?.data[0].mentor == null) {
-                            if (
-                                Object.keys(checkOrgRes?.data?.data[0]).length
-                            ) {
-                                setOrgData(checkOrgRes?.data?.data[0]);
-                                setHideOne(false);
-                                setHideTwo(true);
-                            } else {
-                                formik.setErrors({
-                                    organization_code:
-                                        'Oops..! Unique Code seems incorrect'
-                                });
-                            }
+                        if (Object.keys(checkOrgRes?.data?.data[0]).length) {
+                            setOrgData(checkOrgRes?.data?.data[0]);
+                            setHideOne(false);
+                            setHideTwo(true);
                         } else {
                             formik.setErrors({
                                 organization_code:
-                                    'Another Teacher is already registered in given School'
+                                    'Oops..! Unique Code seems incorrect'
                             });
                         }
                     } else {

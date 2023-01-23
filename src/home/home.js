@@ -72,6 +72,7 @@ import { getSchedulesForTeacherAndStudents } from '../redux/schedules/actions';
 import { compareDates } from '../helpers/Utils';
 import i18next from 'i18next';
 import MaldivesMap from '../components/MapCard/MaldivesMap';
+import Livechart from './Livechart';
 // new push
 const Home = () => {
     const { t } = useTranslation();
@@ -996,6 +997,15 @@ const Home = () => {
                         </div>
                     </div>
                 </div>
+            </section>
+            
+            <section className='mt-5 pt-5'>
+            <div className="heading">
+                    <h2 className="sub-heading text-center">
+                        Student Login Data
+                    </h2>
+                </div>
+                <Livechart/>
             </section>
             <section className="state-map" id="impact">
                 <div className="heading">
