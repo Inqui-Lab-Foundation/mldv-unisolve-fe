@@ -27,7 +27,7 @@ import {
     getStudentDashboardTeamProgressStatus,
     getStudentDashboardTutorialVideos
 } from '../../../redux/studentRegistration/actions.js';
-//import LanguageSelectorComp from '../../../components/LanguageSelectorComp/index.js';
+import LanguageSelectorComp from '../../../components/LanguageSelectorComp/index.js';
 
 const Dashboard = () => {
     const language = useSelector(
@@ -237,10 +237,10 @@ const Dashboard = () => {
             <Container className="dashboard-wrapper">
                 <div className="d-flex justify-content-between align-items-center">
                     <h2>Dashboard</h2>
-                    {/* <div className='bg-white rounded p-3 d-flex align-items-center' style={{width:"max-content"}}>
+                    <div className='bg-white rounded p-3 d-flex align-items-center' style={{width:"max-content"}}>
                         <p>Preferred Language : </p>
                         <LanguageSelectorComp module="student" />
-                    </div> */}
+                    </div>
                 </div>
                 <hr />
                 <Row className="d-flex flex-start mb-5" style={{ gap: '1rem' }}>

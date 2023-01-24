@@ -29,7 +29,6 @@ import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
 import logout from '../../assets/media/badge.png';
 
-
 export const getStudentListSuccess = (user) => async (dispatch) => {
     dispatch({
         type: GET_STUDENTS_LIST_SUCCESS,
@@ -71,7 +70,10 @@ export const getStudentRegistationData = (studentType) => async (dispatch) => {
                 });
         } else {
             result = await axios
-                .get(`${URL.getStudents}?status=ALL&district=${studentType}`, axiosConfig)
+                .get(
+                    `${URL.getStudents}?status=ALL&district=${studentType}`,
+                    axiosConfig
+                )
                 .then((user) => user)
                 .catch((err) => {
                     return err.response;
@@ -105,8 +107,7 @@ export const getDistrictData = () => async (dispatch) => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            const data =
-                result.data.data.length>0 ? result.data.data :[];
+            const data = result.data.data.length > 0 ? result.data.data : [];
             dispatch(getDistrictsSuccess(data));
         } else {
             dispatch(getDistrictsSuccess([]));
@@ -142,7 +143,7 @@ export const updateStudentStatus = (data, id) => async (dispatch) => {
         dispatch({ type: UPDATE_STUDENT_STATUS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .put(`${URL.updateStudentStatus +"/"+ id}`, data, axiosConfig)
+            .put(`${URL.updateStudentStatus + '/' + id}`, data, axiosConfig)
             .then((user) => console.log(user))
             .catch((err) => {
                 return err.response;
@@ -235,7 +236,7 @@ export const getStudentChallengeSubmittedResponse =
         }
     };
 
-export const initiateIdea = async (  
+export const initiateIdea = async (
     id,
     language,
     history,
@@ -573,7 +574,11 @@ export const getPresurveyData = (language) => async (dispatch) => {
             .then((preSurveyRes) => {
                 if (preSurveyRes?.status == 200) {
                     dispatch(
-                        setPresurveyStatus(preSurveyRes.data?.data[0] ? preSurveyRes.data?.data[0] :null)
+                        setPresurveyStatus(
+                            preSurveyRes.data?.data[0]
+                                ? preSurveyRes.data?.data[0]
+                                : null
+                        )
                     );
                 }
             })
@@ -584,9 +589,21 @@ export const getPresurveyData = (language) => async (dispatch) => {
         dispatch(setPresurveyStatus(null));
     }
 };
-export const userLogout =
-    () => async (dispatch) => {
-        dispatch({
-            type: 'USER_LOGOUT',
+export const userLogout = () => async (dispatch) => {
+    dispatch({
+        type: 'USER_LOGOUT'
+    });
+};
+
+export const getlogout = () => async () => {
+    try {
+        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+        axios.get(`${URL.getlogout}`, axiosConfig).then((Res) => {
+            if (Res?.status == 200) {
+                console.log(Res);
+            }
         });
-    };
+    } catch (error) {
+        console.log(error);
+    }
+};
