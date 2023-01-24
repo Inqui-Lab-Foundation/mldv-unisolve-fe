@@ -2,7 +2,7 @@
 import { notification } from 'antd';
 import moment from 'moment';
 import Swal from 'sweetalert2/dist/sweetalert2.js';
-import { userLogout } from '../redux/studentRegistration/actions';
+import { getlogout, userLogout } from '../redux/studentRegistration/actions';
 // import { useTranslation } from 'react-i18next';
 
 export const getCurrentUser = () => {
@@ -105,6 +105,7 @@ export const logout = (history, t, module, dispatch) => {
         .then((result) => {
             if (result.isConfirmed) {
                 if (result.isConfirmed) {
+                    if (dispatch) dispatch(getlogout());
                     localStorage.clear();
                     if (module) localStorage.removeItem('module');
                     if (dispatch) dispatch(userLogout());

@@ -5,11 +5,11 @@ export const languageOptions = [
         country_code: 'in'
     },
 
-    // {
-    //     code: 'ta',
-    //     name: 'Tamil',
-    //     country_code: 'in'
-    // },
+    {
+        code: 'tn',
+        name: 'Dhivehi',
+        country_code: 'in'
+    },
     // {
     //     code: 'hi',
     //     name: 'Hindi',

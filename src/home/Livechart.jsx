@@ -104,7 +104,7 @@ const Livechart = () => {
                         <ScrollableFeed>
                             {userloginData.map((user, i) => (
                                 <Card key={i} className="p-3 m-2">
-                                    {user.full_name} Logged In
+                                    {user.full_name} Logged In From {user.organization_name}
                                 </Card>
                             ))}
                         </ScrollableFeed>
