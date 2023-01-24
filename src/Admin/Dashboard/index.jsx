@@ -163,7 +163,7 @@ const Dashboard = () => {
             pathname: '/admin/edit-user-profile',
             data: {
                 full_name: orgData.mentor?.full_name,
-                mobile: orgData.mentor?.mobile,
+                // mobile: orgData.mentor?.mobile,
                 username: orgData.mentor?.user?.username,
                 mentor_id: orgData.mentor?.mentor_id,
                 where: 'Dashbord',
@@ -457,7 +457,7 @@ const Dashboard = () => {
                                                                 }
                                                             </p>
                                                         </li>
-                                                        <li className="d-flex justify-content-between">
+                                                        {/* <li className="d-flex justify-content-between">
                                                             Mentor Mobile:{' '}
                                                             <p>
                                                                 {
@@ -466,7 +466,7 @@ const Dashboard = () => {
                                                                         ?.mobile
                                                                 }
                                                             </p>
-                                                        </li>
+                                                        </li> */}
                                                         <li className="d-flex justify-content-between">
                                                             Mentor email:{' '}
                                                             <p>
@@ -583,9 +583,10 @@ const Dashboard = () => {
                             {!diesCode && (
                                 // <Card className="mt-3 p-4">
 
-                                <div className='d-flex  mt-3 p-4 justify-content-center align-items-center'>
-                                    <span className='text-primary fs-highlight'>Enter Unique Code</span>
-                                    
+                                <div className="d-flex  mt-3 p-4 justify-content-center align-items-center">
+                                    <span className="text-primary fs-highlight">
+                                        Enter Unique Code
+                                    </span>
                                 </div>
                                 // </Card>
                             )}

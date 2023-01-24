@@ -313,7 +313,7 @@ const TicketsPage = (props) => {
                         const obj = {
                             full_name: all.full_name,
                             username: all.username,
-                            mobile: all.mobile,
+                            // mobile: all.mobile,
                             status
                         };
                         handleStatusUpdateInAdmin({ obj }, id);
@@ -329,7 +329,7 @@ const TicketsPage = (props) => {
                         const obj = {
                             full_name: all.full_name,
                             username: all.username,
-                            mobile: all.mobile,
+                            // mobile: all.mobile,
                             status
                         };
                         props.mentorStatusUpdate(obj, id);
@@ -385,11 +385,11 @@ const TicketsPage = (props) => {
                 selector: 'username',
                 width: '22%'
             },
-            {
-                name: 'Phone',
-                selector: 'mobile',
-                width: '10%'
-            },
+            // {
+            //     name: 'Phone',
+            //     selector: 'mobile',
+            //     width: '10%'
+            // },
             {
                 name: 'Status',
                 cell: (row) => [
@@ -565,11 +565,11 @@ const TicketsPage = (props) => {
                 selector: 'user.username',
                 width: '25%'
             },
-            {
-                name: 'Mobile',
-                selector: 'mobile',
-                width: '11%'
-            },
+            // {
+            //     name: 'Mobile',
+            //     selector: 'mobile',
+            //     width: '11%'
+            // },
             {
                 name: 'District',
                 selector: 'district',
@@ -763,7 +763,7 @@ const TicketsPage = (props) => {
                 <Row className="mt-0 pt-3">
                     <h2>User List</h2>
                     {/* <h2 onClick={handleDelete}>User List</h2> */}
-                        <div className="ticket-data">
+                    <div className="ticket-data">
                         <Tabs
                             defaultActiveKey={
                                 localStorage.getItem('tab')
@@ -1000,7 +1000,7 @@ const TicketsPage = (props) => {
                                 </div>
                             </TabPane>
                         </Tabs>
-                        </div>
+                    </div>
                 </Row>
             </Container>
             <ImportPopup

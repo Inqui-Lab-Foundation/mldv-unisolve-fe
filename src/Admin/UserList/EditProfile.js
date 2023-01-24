@@ -38,8 +38,8 @@ const EditProfile = (props) => {
         ]
     };
 
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    // const phoneRegExp =
+    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
     const getValidationSchema = (data) => {
         const adminValidation = Yup.object({
@@ -51,12 +51,12 @@ const EditProfile = (props) => {
                 .email('Invalid email address format')
                 .required('Email is required')
         });
-        if (data?.mentor_id)
-            adminValidation['phone'] = Yup.string()
-                .matches(phoneRegExp, 'Mobile number is not valid')
-                .min(10, 'Enter a valid mobile number')
-                .max(10, 'Enter a valid mobile number')
-                .required('Mobile Number is Required');
+        // if (data?.mentor_id)
+        //     adminValidation['phone'] = Yup.string()
+        //         .matches(phoneRegExp, 'Mobile number is not valid')
+        //         .min(10, 'Enter a valid mobile number')
+        //         .max(10, 'Enter a valid mobile number')
+        //         .required('Mobile Number is Required');
         if (data?.evaluator_id)
             adminValidation['district'] = Yup.string()
                 .matches(/^[aA-zZ\s]+$/, 'Invalid District Name ')
@@ -82,11 +82,11 @@ const EditProfile = (props) => {
         onSubmit: (values) => {
             const full_name = values.name;
             const email = values.email;
-            const mobile = values.phone;
+            // const mobile = values.phone;
             const district = values.district;
             const body = JSON.stringify({
                 full_name: full_name,
-                mobile: mobile,
+                // mobile: mobile,
                 username: email,
                 district: district
             });
@@ -208,7 +208,7 @@ const EditProfile = (props) => {
                                         <div className="w-100" />
                                         {!mentorData?.admin_id && (
                                             <>
-                                                <Col md={6}>
+                                                {/* <Col md={6}>
                                                     <Label
                                                         className="name-req mt-5"
                                                         htmlFor="phone"
@@ -241,7 +241,7 @@ const EditProfile = (props) => {
                                                             }
                                                         </small>
                                                     ) : null}
-                                                </Col>
+                                                </Col> */}
                                                 <div className="w-100" />
                                                 {!mentorData?.mentor_id && (
                                                     <Col md={6}>

@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useLayoutEffect } from 'react';
 import {
     Container,
@@ -175,7 +176,7 @@ const MyProfile = () => {
                                                                     </b>
                                                                 </Col>
                                                             </Row>
-                                                            <Row className="pt-3 pb-3">
+                                                            {/* <Row className="pt-3 pb-3">
                                                                 <Col
                                                                     md={5}
                                                                     className="my-auto profile-detail"
@@ -197,7 +198,7 @@ const MyProfile = () => {
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
-                                                            </Row>
+                                                            </Row> */}
                                                         </CardText>
                                                     </Col>
                                                 </Row>
@@ -220,7 +221,6 @@ const MyProfile = () => {
                                                         md={7}
                                                         className="my-auto profile-detail w-100"
                                                     >
-
                                                         <CardText>
                                                             <Row className="pt-3 pb-3">
                                                                 <Col
@@ -261,8 +261,12 @@ const MyProfile = () => {
                                                                     className="my-auto profile-detail"
                                                                 >
                                                                     <b>
-                                                                        {teacher.organization?.organization_name
-                                                                            ? teacher.organization?.organization_name
+                                                                        {teacher
+                                                                            .organization
+                                                                            ?.organization_name
+                                                                            ? teacher
+                                                                                  .organization
+                                                                                  ?.organization_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -289,7 +293,9 @@ const MyProfile = () => {
                                                                         {teacher
                                                                             .organization
                                                                             ?.principal_name
-                                                                            ? teacher.organization?.principal_name
+                                                                            ? teacher
+                                                                                  .organization
+                                                                                  ?.principal_name
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -315,13 +321,15 @@ const MyProfile = () => {
                                                                         {teacher
                                                                             .organization
                                                                             ?.principal_email
-                                                                            ? teacher.organization?.principal_email
+                                                                            ? teacher
+                                                                                  .organization
+                                                                                  ?.principal_email
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
                                                             </Row>
 
-                                                            <Row className="pt-3 pb-3">
+                                                            {/* <Row className="pt-3 pb-3">
                                                                 <Col
                                                                     md={5}
                                                                     className="my-auto profile-detail"
@@ -342,11 +350,13 @@ const MyProfile = () => {
                                                                         {teacher
                                                                             .organization
                                                                             ?.principal_mobile
-                                                                            ? teacher.organization?.principal_mobile  
+                                                                            ? teacher
+                                                                                  .organization
+                                                                                  ?.principal_mobile
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
-                                                            </Row>
+                                                            </Row> */}
 
                                                             <Row className="pt-3 pb-3">
                                                                 <Col
@@ -366,7 +376,9 @@ const MyProfile = () => {
                                                                         {teacher
                                                                             .organization
                                                                             ?.city
-                                                                            ? teacher.organization?.city 
+                                                                            ? teacher
+                                                                                  .organization
+                                                                                  ?.city
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -391,7 +403,9 @@ const MyProfile = () => {
                                                                         {teacher
                                                                             .organization
                                                                             ?.district
-                                                                            ? teacher.organization?.district  
+                                                                            ? teacher
+                                                                                  .organization
+                                                                                  ?.district
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
@@ -415,7 +429,9 @@ const MyProfile = () => {
                                                                         {teacher
                                                                             .organization
                                                                             ?.state
-                                                                            ? teacher.organization?.state
+                                                                            ? teacher
+                                                                                  .organization
+                                                                                  ?.state
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
