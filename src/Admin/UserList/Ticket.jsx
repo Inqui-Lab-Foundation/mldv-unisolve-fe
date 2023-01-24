@@ -4,6 +4,7 @@ import { Container, Row, Col, Card } from 'reactstrap';
 import { Tabs } from 'antd';
 import Layout from '../../Admin/Layout';
 import { Link } from 'react-router-dom';
+
 import {
     // BsPlusLg,
     BsUpload
@@ -22,7 +23,11 @@ import {
 import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues.js';
 
-import { getNormalHeaders } from '../../helpers/Utils';
+import {
+    getNormalHeaders,
+    getCurrentUser,
+    openNotificationWithIcon
+} from '../../helpers/Utils';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
 import 'sweetalert2/src/sweetalert2.scss';
@@ -83,6 +88,7 @@ const SelectDists = ({ getDistrictsListAction, dists, tab, setDist }) => {
     );
 };
 const TicketsPage = (props) => {
+    const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
     const [showImportPopup, setImportPopup] = useState(false);
     const [menter, activeMenter] = useState(false);
@@ -216,6 +222,36 @@ const TicketsPage = (props) => {
             data: item
         });
         localStorage.setItem('mentor', JSON.stringify(item));
+    };
+    const handleReset = (item) => {
+        const body = JSON.stringify({
+            organization_code: item.organization_code,
+            otp: false,
+            mentor_id: item.mentor_id
+        });
+        var config = {
+            method: 'put',
+            url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: body
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 202) {
+                    console.log(response);
+                    openNotificationWithIcon(
+                        'success',
+                        'Reset Password Successfully Update!',
+                        ''
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
     };
     // const handleDelete = () => {
     //     const swalWithBootstrapButtons = Swal.mixin({
@@ -407,8 +443,16 @@ const TicketsPage = (props) => {
             {
                 name: 'Actions',
                 selector: 'action',
-                width: '20%',
+                width: '35%',
                 cell: (record) => [
+                    <Link
+                        exact="true"
+                        key={record.id}
+                        onClick={() => handleReset(record)}
+                        style={{ marginRight: '10px' }}
+                    >
+                        <div className="btn btn-success btn-lg">RESET</div>
+                    </Link>,
                     <Link
                         exact="true"
                         key={record.id}

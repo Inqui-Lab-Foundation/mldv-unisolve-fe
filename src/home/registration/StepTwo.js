@@ -21,14 +21,14 @@ function StepTwo({
     setHideFive
 }) {
     const { t } = useTranslation();
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    // const phoneRegExp =
+    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
-    const inputPhone = {
-        type: 'text',
-        placeholder: `${t('teacehr_red.faculty_ph')}`,
-        className: 'defaultInput'
-    };
+    // const inputPhone = {
+    //     type: 'text',
+    //     placeholder: `${t('teacehr_red.faculty_ph')}`,
+    //     className: 'defaultInput'
+    // };
 
     const inputEmail = {
         type: 'email',
@@ -49,7 +49,7 @@ function StepTwo({
     const formik = useFormik({
         initialValues: {
             full_name: '',
-            mobile: '',
+            mobile: 'null',
             username: '',
             organization_code: orgData?.organization_code,
             role: 'MENTOR',
@@ -64,12 +64,12 @@ function StepTwo({
                 .min(2, 'Enter Name')
                 .matches(/^[aA-zZ\s]+$/, 'Special Characters are Not allowed')
                 .required('Required'),
-            mobile: Yup.string()
-                .required('required')
-                .trim()
-                .matches(phoneRegExp, 'Phone number is not valid')
-                .min(10, 'Please enter valid number')
-                .max(10, 'Please enter valid number'),
+            // mobile: Yup.string()
+            //     .required('required')
+            //     .trim()
+            //     .matches(phoneRegExp, 'Phone number is not valid')
+            //     .min(10, 'Please enter valid number')
+            //     .max(10, 'Please enter valid number'),
             username: Yup.string()
                 .trim()
                 .email('Invalid username format')
@@ -166,28 +166,26 @@ function StepTwo({
                             </small>
                         ) : null}
                     </FormGroup>
-                    <FormGroup className="form-group" md={12}>
+                    {/* <FormGroup className="form-group" md={12}>
                         <Label className="mb-2" htmlFor="mobile">
                             {t('teacehr_red.faculty_ph')}
                         </Label>
                         {/* <InputWithMobileNoComp {...inputPhone} id='mobile' name='mobile' /> */}
-                        <InputBox
+                    {/* <InputBox
                             {...inputPhone}
                             id="mobile"
                             name="mobile"
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
                             value={formik.values.mobile}
-                        />
-
-                        {formik.touched.mobile && formik.errors.mobile ? (
+                        /> */}
+                    {/* {formik.touched.mobile && formik.errors.mobile ? (
                             <small className="error-cls">
                                 {formik.errors.mobile}
                             </small>
                         ) : null}
-                    </FormGroup>
-
-                    <FormGroup className="form-group mt-5" md={12}>
+                    </FormGroup> */}
+                    <FormGroup className="form-group mb-5" md={12}>
                         <Label className="mb-2" htmlFor="username">
                             {t('teacehr_red.faculty_email')}
                         </Label>
@@ -207,7 +205,7 @@ function StepTwo({
                             </small>
                         ) : null}
                     </FormGroup>
-                    <FormGroup className="form-group mt-5" md={12}>
+                    <FormGroup className="form-group mb-5" md={12}>
                         <Label className="mb-2" htmlFor="new_password">
                             {t('teacehr_red.enter_pass')}
                         </Label>
@@ -260,20 +258,18 @@ function StepTwo({
                             </small>
                         ) : null}
                     </FormGroup>
-                    <div className="mt-5">
+                    <div className="mb-5">
                         <Button
                             label={t('teacehr_red.continue')}
                             // btnClass='primary w-100'
                             btnClass={
-                                !(formik.dirty && formik.isValid) 
+                                !(formik.dirty && formik.isValid)
                                     ? 'default'
                                     : 'primary'
                             }
                             size="large "
                             type="submit"
-                            disabled={
-                                !(formik.dirty && formik.isValid)
-                            }
+                            disabled={!(formik.dirty && formik.isValid)}
                         />
                     </div>
                 </Form>

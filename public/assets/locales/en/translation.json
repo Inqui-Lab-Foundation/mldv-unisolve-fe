@@ -191,11 +191,10 @@
         "banner_new_creativity": "Changemakers",
         "banner_new_description": "Nurture a culture of social innovation and build skills while inspiring young people to become transformative leaders.",
         "get_new_Started": "Register",
-        "badges":"Badges",
-        "idea_submission":"Idea Submission",
-        "my_profile":"My Profile",
-        "change_pass":"Change Password"
-
+        "badges": "Badges",
+        "idea_submission": "Idea Submission",
+        "my_profile": "My Profile",
+        "change_pass": "Change Password"
     },
     "home_tl1": {
         "Hero_section-header": "Creating Change Makers of Tomorrow with <span className='green'>21st Century Skills</span>",
@@ -283,14 +282,14 @@
         "faq_ans_4": "<p>Open the website and click register. Register your school/Institution thereby entering the Unique Teacher Code and then filling in all required details. Once the registration process is completed, you can log in to your account either by entering a password.</p>",
         "faq_qn_5": "What are the next steps involved after registering my school on the website?",
         "faq_ans_5": "<p>The following are the next steps involved after you register your school/institution:</p><ol><li><p>Identify students who can participate in the program.</p></li><li><p>Form teams of 2-5 students with the interested participant and register them on the platform. </p></li><li><p>Students have to log in to the website and start doing the online course with the team.</p></li><li><p>Teams will complete the learning course and submit one idea as their challenge project. </p></li></ol>",
-        "faq_qn_6":"How many students per school can participate in the UPSHIFT program?",
-        "faq_ans_6":"<p>There is no restriction as such but it is highly recommended that each teacher should handle only up to 50 students.</p>",
-        "faq_qn_7":"How can students start doing the course? Can they directly login and start doing ?",
-        "faq_ans_7":"<p>Students have to login using their respective username as registered by the teachers. They can login by entering the password set by the teacher. They can proceed to the course after that.</p><p>Note:</p><ol><li><p>Please make sure that students are aware of their username and password</p></li><li><p>You can also check each team’s progress on the dashboard as you can clearly see the percentage in the above picture</p></li></ol>",
-        "faq_qn_8":"Can we use the portal on mobile devices?",
-        "faq_ans_8":"<p>Yes, the website has been designed keeping mobile users in mind. It works smoothly on both mobile devices and computers.</p>",
-        "faq_qn_9":"How can I change/edit team details ?",
-        "faq_ans_9":"<ol><li><p>Only teachers can edit the team details. Log in to the website and click teams</p></li><li><p>You’ll find the edit button beside each team.</p></li><li><p>Click that and change whatever details you need to change</p></li></ol>",
+        "faq_qn_6": "How many students per school can participate in the UPSHIFT program?",
+        "faq_ans_6": "<p>There is no restriction as such but it is highly recommended that each teacher should handle only up to 50 students.</p>",
+        "faq_qn_7": "How can students start doing the course? Can they directly login and start doing ?",
+        "faq_ans_7": "<p>Students have to login using their respective username as registered by the teachers. They can login by entering the password set by the teacher. They can proceed to the course after that.</p><p>Note:</p><ol><li><p>Please make sure that students are aware of their username and password</p></li><li><p>You can also check each team’s progress on the dashboard as you can clearly see the percentage in the above picture</p></li></ol>",
+        "faq_qn_8": "Can we use the portal on mobile devices?",
+        "faq_ans_8": "<p>Yes, the website has been designed keeping mobile users in mind. It works smoothly on both mobile devices and computers.</p>",
+        "faq_qn_9": "How can I change/edit team details ?",
+        "faq_ans_9": "<ol><li><p>Only teachers can edit the team details. Log in to the website and click teams</p></li><li><p>You’ll find the edit button beside each team.</p></li><li><p>Click that and change whatever details you need to change</p></li></ol>",
         "roadmpa_heading": "Road Map",
         "roadmpa_one": "AWARENESS",
         "roadmpa_one_desc": "<p>Learners become aware of Program, its goals and process through various channels like : <ol><li><p class='my-0'>Institution management</p></li><li><p class='my-0'>Digital and print media</p></li><li><p class='my-0'>Peer Groups</p></li></ol></p>",
@@ -315,10 +314,10 @@
         "step": "Step",
         "section_heading": "<h2 class='mb-5 sub-heading'>Maldives National Curriculum & <span class='blue'>UNISOLVE </span></h2>",
         "section_desc": "<p>The NCF alignes with UNISOLVE to promotes holistic approach to education, placing equal emphasis on the development of knowledge, understanding, skills, values and attitudes.</p> <p>The National Curriculum envisions the development of  successful individuals who are motivated to explore and create knowledge, are confident and competent and have a firm belief in Islam, a strong sense of self and national identity and are Responsible and productive contributors to their own family, local community and the global society.</p> <p>It strives to develop a sense of value in The NCF  and places great emphasis on encouraging children and young people to adopt deeply held values shared within our society. </p>",
-        "clutureDesc":"<h5>Keeping in mind the values and culture of Maldives, the program focus on developing the following key competencies among the student </h5>",
-        "project_sample_team_title":"Meet the Team <b>'Friends'</b> from Addu City",
-        "project_sample_team":"<p><b>Team members:</b> Nashwa Fahumy, Fathimath Tharaf Ali Zareef, Aishath Sarah Ahmed, Mohamed Ayub Ameen, Aishath Hashma Hassan and Dheenam Mohamed</p>",
-        "project_sample_desc":"<p><b>Problem:</b> Adolescents and young people, especially those in the islands do not have adequate access to quality an confidential mental health services, including opportunities for sharing of experiences by young people. </p><p><b>Solution: </b> A website that can serve as a platform to engage in discourse on mental health mong adolescents and to mobilize resources for mental health interventions.   We plan to include the following features and services in the website: -</p>"
+        "clutureDesc": "<h5>Keeping in mind the values and culture of Maldives, the program focus on developing the following key competencies among the student </h5>",
+        "project_sample_team_title": "Meet the Team <b>'Friends'</b> from Addu City",
+        "project_sample_team": "<p><b>Team members:</b> Nashwa Fahumy, Fathimath Tharaf Ali Zareef, Aishath Sarah Ahmed, Mohamed Ayub Ameen, Aishath Hashma Hassan and Dheenam Mohamed</p>",
+        "project_sample_desc": "<p><b>Problem:</b> Adolescents and young people, especially those in the islands do not have adequate access to quality an confidential mental health services, including opportunities for sharing of experiences by young people. </p><p><b>Solution: </b> A website that can serve as a platform to engage in discourse on mental health mong adolescents and to mobilize resources for mental health interventions.   We plan to include the following features and services in the website: -</p>"
     },
     "get_started": {
         "heading": "Welcome Students!",
@@ -340,7 +339,7 @@
         "question": "Question",
         "submit": "Submit",
         "continue": "Continue",
-        "refer_video":"Refer Video"
+        "refer_video": "Refer Video"
     },
     "teacher_get_started": {
         "heading": "Welcome Teachers and Mentors! ",
@@ -355,43 +354,43 @@
         "pre": "Pre survey has been submitted"
     },
     "student_presurvey": {
-        "submit" : "Submit"
+        "submit": "Submit"
     },
-    "student" : {
+    "student": {
         "profile": "My Profile",
-        "worksheet":"<p>Dear Student,</p><p>Step-1: Download and print this worksheet or get a copy from your Unisolve guide teacher.</p><p>Step-2: Complete this worksheet along with your team members.</p><p>Step-3: Upload the worksheets onto the portal using the 'Upload File' button. You can upload multiple documents as images or documents. Only one team member from the team needs to upload the Worksheet. If needed, you can ask for your Guide teachers support in doing this.</p><p>Step-4: Continue to next lessons only after your team has completed and uploaded the worksheet.</p><p>Hope you and your team learn new things and enjoy completing this worksheet.</p>",
-        "download_worksheet":"Download Worksheet",
-        "continue":"Continue",
-        "w_sheet":"Worksheet",
-        "quiz_heading":"Ready for a quick test?",
-        "take_challenge":"Test your course skills in a short test challenge!",
-        "questions":"Questions",
-        "minutes":"Minutes",
-        "lets_start":"Let's Start",
-        "videos":"Videos",
-        "backto_quiz":"Back to Quiz",
-        "quiz_completed":"Quiz Successfully Completed",
-        "ref_quiz_heading":"Let's think about a few things you learnt in the video",
-        "idea_submitted":"Your idea has been submitted successfully",
-        "idea_draft":"Your idea has been submitted as draft",
-        "attempt_all_questions":"Please Attempt All Questions..!!",
-        "idea_init_succ":"Idea initiated successfully",
-        "please_com_postsurvey_for_certificate":"Please complete the following post survey to get course completion certificate.",
-        "view_idea":"View Idea",
-        "presurver_scc_sub":"Presurvey has been submitted successfully",
-        "postsurver_scc_sub":"PostSurvey has been submitted successfully..!!",
-        "save_draft":"Save as Draft",
+        "worksheet": "<p>Dear Student,</p><p>Step-1: Download and print this worksheet or get a copy from your Unisolve guide teacher.</p><p>Step-2: Complete this worksheet along with your team members.</p><p>Step-3: Upload the worksheets onto the portal using the 'Upload File' button. You can upload multiple documents as images or documents. Only one team member from the team needs to upload the Worksheet. If needed, you can ask for your Guide teachers support in doing this.</p><p>Step-4: Continue to next lessons only after your team has completed and uploaded the worksheet.</p><p>Hope you and your team learn new things and enjoy completing this worksheet.</p>",
+        "download_worksheet": "Download Worksheet",
+        "continue": "Continue",
+        "w_sheet": "Worksheet",
+        "quiz_heading": "Ready for a quick test?",
+        "take_challenge": "Test your course skills in a short test challenge!",
+        "questions": "Questions",
+        "minutes": "Minutes",
+        "lets_start": "Let's Start",
+        "videos": "Videos",
+        "backto_quiz": "Back to Quiz",
+        "quiz_completed": "Quiz Successfully Completed",
+        "ref_quiz_heading": "Let's think about a few things you learnt in the video",
+        "idea_submitted": "Your idea has been submitted successfully",
+        "idea_draft": "Your idea has been submitted as draft",
+        "attempt_all_questions": "Please Attempt All Questions..!!",
+        "idea_init_succ": "Idea initiated successfully",
+        "please_com_postsurvey_for_certificate": "Please complete the following post survey to get course completion certificate.",
+        "view_idea": "View Idea",
+        "presurver_scc_sub": "Presurvey has been submitted successfully",
+        "postsurver_scc_sub": "PostSurvey has been submitted successfully..!!",
+        "save_draft": "Save as Draft",
         "discard": "Discard",
-        "upload_file":"Upload File",
-        "less_20MB":"Please upload file less than 20MB",
-        "please_com_all":"Please complete all the fields before submitting",
-        "not_allowed":"Not Allowed",
-        "post_survey":"Post Survey",
-        "idea_submitted_desc":"<h2>Congratulations for successfully submitting the idea</h2>.</br><p>Please click continue to complete your post survey and get your certificate.</p>",
-        "post_survey_desc":"Congratulations! your Unisolve journey for 2022-23 is complete.",
-        "click_button_post_survey":"Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
-        "max_length_msg1":"Maximum length of characters is ",
-        "max_length_msg2":" only..."
+        "upload_file": "Upload File",
+        "less_20MB": "Please upload file less than 20MB",
+        "please_com_all": "Please complete all the fields before submitting",
+        "not_allowed": "Not Allowed",
+        "post_survey": "Post Survey",
+        "idea_submitted_desc": "<h2>Congratulations for successfully submitting the idea</h2>.</br><p>Please click continue to complete your post survey and get your certificate.</p>",
+        "post_survey_desc": "Congratulations! your Unisolve journey for 2022-23 is complete.",
+        "click_button_post_survey": "Your certificate will be ready soon and you can download it from ‘My Certificate Page’",
+        "max_length_msg1": "Maximum length of characters is ",
+        "max_length_msg2": " only..."
     },
     "teacher_presurvey": {
         "completed_text": "Your survey has been successfully submitted!"
@@ -404,7 +403,7 @@
         "certificate_desc": "Please Download Certificate...",
         "part_certificate_desc": "Please Download Participate Certificate...",
         "complete_postsurvey": "Please complete post survey to get course completion certificate",
-        "complete_post_survey_default":"Thank you for completing the journey and supporting your students in successful completion of the course and idea submission. Your certificate will be enabled soon."
+        "complete_post_survey_default": "Thank you for completing the journey and supporting your students in successful completion of the course and idea submission. Your certificate will be enabled soon."
     },
     "teacher_header": {
         "profile": "My Profile",
@@ -460,9 +459,9 @@
         "male": "Male",
         "female": "Female",
         "others": "Others",
-        "edit_idea":"Edit Idea Submission",
-        "draft":"Save as Draft",
-        "loading":"Loading"
+        "edit_idea": "Edit Idea Submission",
+        "draft": "Save as Draft",
+        "loading": "Loading"
     },
     "home_nav_links": {
         "about": "About",
@@ -478,11 +477,11 @@
         "are_you_sure": "Are you sure?",
         "btn_logout": "Logout",
         "btn_cancel": "Cancel",
-        "btn_ok":"ok",
-        "cancelled":"Cancelled",
-        "logged_in":"You are Logged in",
-        "submit_idea":"You are attempting to submit your idea Which is not revertable",
-        "idea_sub_cancelled":"Idea Submission Cancelled"
+        "btn_ok": "ok",
+        "cancelled": "Cancelled",
+        "logged_in": "You are Logged in",
+        "submit_idea": "You are attempting to submit your idea Which is not revertable",
+        "idea_sub_cancelled": "Idea Submission Cancelled"
     },
     "teacehr_red": {
         "heading": "REGISTER",
@@ -496,8 +495,6 @@
         "district": "District",
         "faculty_name": "Faculty Name",
         "faculty_name_pl": "Enter full name",
-        "faculty_ph": "Faculty Phone Number",
-        "faculty_ph_pl": "Faculty phone number",
         "faculty_email": "Faculty Email Address",
         "faculty_email_pl": "Faculty email address",
         "otp_me": "OTP has been sent to",
@@ -510,51 +507,49 @@
         "hand_book": "UNISOLVE Hand Book",
         "please_download": "Please Download Handbook..."
     },
-    "dummytext":{
-        "student_idea_sub":"Dear Student, idea submission will be active once you and your team members complete the learning journey. Your guide teacher will support you with this.",
-        "student_my_cer":"<p>Dear Student, your certificate will be available once you complete the course and submit the idea.</p><p>If you have completed these, your certificate will be ready shortly.</p>",
-        "student_post_survey":"Dear Students, Post-Survey will be active once you complete the course and your team submits the idea. Hope you and your team are learning a lot of new things. :)",        
-        "student_course":"Dear Student, your Unisolve learning journey will begin soon. Please discuss with your School Unisolve Head cum Guide Teacher and prepare yourself for this journey." ,
-        "certificate_msg":"Your certificate will be printed with the above details. If there are any changes to the above follow the steps below:</br>1. If there is any spelling mistake, request your guide teacher to correct the spelling in Teams Page of Teacher Log-In</br>2. If your Initial, Full Name is missing or incorrect request your guide teacher to update the name in Teams Page of Teacher Login</br>(There should NOT be any ‘.’ in the name. Example: If your full name is  K. Vijay Kumar it should be added as K Vijay Kumar with out any .(dot) or special characters)</br></br>Note:",
-        "name":"Name : ",
-        "school":"</br>School : "      
-
+    "dummytext": {
+        "student_idea_sub": "Dear Student, idea submission will be active once you and your team members complete the learning journey. Your guide teacher will support you with this.",
+        "student_my_cer": "<p>Dear Student, your certificate will be available once you complete the course and submit the idea.</p><p>If you have completed these, your certificate will be ready shortly.</p>",
+        "student_post_survey": "Dear Students, Post-Survey will be active once you complete the course and your team submits the idea. Hope you and your team are learning a lot of new things. :)",
+        "student_course": "Dear Student, your Unisolve learning journey will begin soon. Please discuss with your School Unisolve Head cum Guide Teacher and prepare yourself for this journey.",
+        "certificate_msg": "Your certificate will be printed with the above details. If there are any changes to the above follow the steps below:</br>1. If there is any spelling mistake, request your guide teacher to correct the spelling in Teams Page of Teacher Log-In</br>2. If your Initial, Full Name is missing or incorrect request your guide teacher to update the name in Teams Page of Teacher Login</br>(There should NOT be any ‘.’ in the name. Example: If your full name is  K. Vijay Kumar it should be added as K Vijay Kumar with out any .(dot) or special characters)</br></br>Note:",
+        "name": "Name : ",
+        "school": "</br>School : "
     },
-    "badges":{
-        "congratulations":"Congratulations",
-        "earn":"you've just earned a new badge",
-        "ok":"OK"
+    "badges": {
+        "congratulations": "Congratulations",
+        "earn": "you've just earned a new badge",
+        "ok": "OK"
     },
-    "student_course":{
-        "modules":"Modules",
-        "videos":"Videos",
-        "start course":"Start Course",
-        "full screen":"Full Screen",
-        "lessons":"Lessons",
-        "continue course":"Continue Course",
-        "exitfullscreen":"Exit Full Screen",
-        "quiz_completed":"Successfully Completed!",
-        "go_idea_submission":"Continue",
-        "go_certificate":"Go to My Certificate",
-        "course_completed_succ":"Congratulations for successful completion of all the lessons!",
-        "continue_to_idea":"Click on continue to proceed to Idea Submission.",
-        "sdg":"Which Sustainable development Goal (SDG) are you targeting with your solution ?",
-        "sdg_desc":"(You can refer to the SDGs sheet from FIND Module and pick the right option )",
-        "others":"If you picked the option ‘others’ in the above question, write down which SDG or theme is your solution targeting.",
-        "chars":"Characters Remaining",
-        "idea_submission":"Idea Submission",
-        "idea_submission_msg1":"Idea submission is",
-        "idea_status1":" initiated by ",
-        "idea_status2":" submitted by ",
-        "idea_submission_msg2":"your teammate ",
-        "idea_submission_msg3":" on ",
-        "idea_submission_date_com_desc":"Dear Students, the final date for idea submission is completed. Please complete your course and  post survey.",
-        "go_to_course_button":"Go to course",
-        "go_to_post_survey_button":"Go to Post Survey"
-
+    "student_course": {
+        "modules": "Modules",
+        "videos": "Videos",
+        "start course": "Start Course",
+        "full screen": "Full Screen",
+        "lessons": "Lessons",
+        "continue course": "Continue Course",
+        "exitfullscreen": "Exit Full Screen",
+        "quiz_completed": "Successfully Completed!",
+        "go_idea_submission": "Continue",
+        "go_certificate": "Go to My Certificate",
+        "course_completed_succ": "Congratulations for successful completion of all the lessons!",
+        "continue_to_idea": "Click on continue to proceed to Idea Submission.",
+        "sdg": "Which Sustainable development Goal (SDG) are you targeting with your solution ?",
+        "sdg_desc": "(You can refer to the SDGs sheet from FIND Module and pick the right option )",
+        "others": "If you picked the option ‘others’ in the above question, write down which SDG or theme is your solution targeting.",
+        "chars": "Characters Remaining",
+        "idea_submission": "Idea Submission",
+        "idea_submission_msg1": "Idea submission is",
+        "idea_status1": " initiated by ",
+        "idea_status2": " submitted by ",
+        "idea_submission_msg2": "your teammate ",
+        "idea_submission_msg3": " on ",
+        "idea_submission_date_com_desc": "Dear Students, the final date for idea submission is completed. Please complete your course and  post survey.",
+        "go_to_course_button": "Go to course",
+        "go_to_post_survey_button": "Go to Post Survey"
     },
-    "translation":{
-        "tamil":"ml Content :-",
-        "tamil_to":"tn"
+    "translation": {
+        "tamil": "ml Content :-",
+        "tamil_to": "tn"
     }
 }
