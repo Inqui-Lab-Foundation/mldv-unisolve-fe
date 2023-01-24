@@ -19,17 +19,21 @@ function ForgotPassword(props) {
         props.setShow(false);
     };
 
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    // const phoneRegExp =
+    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const formik = useFormik({
         initialValues: {
-            mobile: ''
+            email: ''
+            // password: ''
         },
 
         validationSchema: Yup.object({
-            mobile: Yup.string()
-                .matches(phoneRegExp, 'Phone Number is not valid')
-                .required('Phone Number is Required')
+            email: Yup.string().required('Required email id')
+            // password: Yup.string().required('Required password')
+            // validationSchema: Yup.object({
+            //     email: Yup.string()
+            //         .matches(phoneRegExp, 'Phone Number is not valid')
+            //         .required('Phone Number is Required')
         }),
 
         onSubmit: async (values) => {
@@ -84,21 +88,21 @@ function ForgotPassword(props) {
                     isSubmitting
                 >
                     <FormGroup className="form-group" md={12}>
-                        <Label className="mb-2" htmlFor="mobile">
-                            Enter Mobile Number
+                        <Label className="mb-2" htmlFor="email">
+                            Enter Email Address
                         </Label>
                         <InputBox
                             {...inputMob}
-                            id="mobile"
-                            name="mobile"
-                            placeholder=" Enter the Registered mobile number"
+                            id="email"
+                            name="email"
+                            placeholder=" Enter the Registered email "
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.mobile}
+                            value={formik.values.email}
                         />
-                        {formik.touched.mobile && formik.errors.mobile ? (
+                        {formik.touched.email && formik.errors.email ? (
                             <small className="error-cls">
-                                {formik.errors.mobile}
+                                {formik.errors.email}
                             </small>
                         ) : null}
                     </FormGroup>
