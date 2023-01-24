@@ -44,8 +44,8 @@ const EditSchool = (props) => {
         type: 'text',
         className: 'defaultInput'
     };
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    // const phoneRegExp =
+    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const headingDetails = {
         title: 'Edit Institutions Details',
 
@@ -64,7 +64,7 @@ const EditSchool = (props) => {
     const formik = useFormik({
         initialValues: {
             principal_name: listId && listId.principal_name,
-            principal_mobile: listId && listId.principal_mobile,
+            // principal_mobile: listId && listId.principal_mobile,
             principal_email: listId && listId.principal_email,
             organization_name: listId && listId.organization_name,
             organization_code: listId && listId.organization_code,
@@ -75,10 +75,10 @@ const EditSchool = (props) => {
         },
 
         validationSchema: Yup.object({
-            principal_mobile: Yup.string()
-                .matches(phoneRegExp, 'Mobile number is not valid')
-                .min(10, 'Enter a valid mobile number')
-                .max(10, 'Enter a valid mobile number'),
+            // principal_mobile: Yup.string()
+            //     .matches(phoneRegExp, 'Mobile number is not valid')
+            //     .min(10, 'Enter a valid mobile number')
+            //     .max(10, 'Enter a valid mobile number'),
             principal_email: Yup.string().email('Invalid email address format'),
             principal_name: Yup.string().matches(
                 /^[aA-zZ\s]+$/,
@@ -88,7 +88,10 @@ const EditSchool = (props) => {
                 'Organization  Name is Required'
             ),
             organization_code: Yup.string()
-                .matches(/^[A-Za-z0-9 ]*$/, 'Please enter only alphanumeric characters')
+                .matches(
+                    /^[A-Za-z0-9 ]*$/,
+                    'Please enter only alphanumeric characters'
+                )
                 .required('UDISE  Code is Required'),
             city: Yup.string().matches(/^[aA-zZ\s]+$/, 'Invalid City'),
 
@@ -265,7 +268,7 @@ const EditSchool = (props) => {
                                                 {formik.errors.principal_name}
                                             </small>
                                         ) : null}
-                                        <Label
+                                        {/* <Label
                                             className="mb-2"
                                             htmlFor="principal_mobile"
                                         >
@@ -287,7 +290,7 @@ const EditSchool = (props) => {
                                             <small className="error-cls">
                                                 {formik.errors.principal_mobile}
                                             </small>
-                                        ) : null}
+                                        ) : null} */}
                                         <Label
                                             className="mb-2"
                                             htmlFor="principal_email"

@@ -269,7 +269,7 @@ const TicketsPage = (props) => {
                 name: 'Institution Name',
                 selector: 'organization_name',
                 cellExport: (row) => row.organization_name,
-                width: '19%'
+                width: '27%'
             },
             {
                 name: 'Principal Name',
@@ -277,12 +277,12 @@ const TicketsPage = (props) => {
                 cellExport: (row) => row.principal_name,
                 width: '15%'
             },
-            {
-                name: 'Mobile',
-                selector: 'principal_mobile',
-                cellExport: (row) => row.principal_mobile,
-                width: '12%'
-            },
+            // {
+            //     name: 'Mobile',
+            //     selector: 'principal_mobile',
+            //     cellExport: (row) => row.principal_mobile,
+            //     width: '12%'
+            // },
             {
                 name: 'Status',
                 cellExport: (row) => row.status,
@@ -301,7 +301,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Actions',
                 selector: 'action',
-                width: '23%',
+                width: '20%',
                 center: true,
                 cellExport: (row) => {},
                 cell: (record) => [
@@ -363,7 +363,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Institution Name',
                 selector: (row) => row.organization_name,
-                width: '19%'
+                width: '27%'
                 // center: true,
             },
             {
@@ -371,11 +371,11 @@ const TicketsPage = (props) => {
                 selector: 'principal_name',
                 width: '15%'
             },
-            {
-                name: 'Mobile',
-                selector: 'principal_mobile',
-                width: '12%'
-            },
+            // {
+            //     name: 'Mobile',
+            //     selector: 'principal_mobile',
+            //     width: '12%'
+            // },
             {
                 name: 'Status',
                 cell: (row) => [
@@ -390,7 +390,7 @@ const TicketsPage = (props) => {
                 name: 'Actions',
                 selector: 'action',
                 center: true,
-                width: '23%',
+                width: '20%',
                 cell: (record) => [
                     <>
                         <Link
@@ -441,18 +441,18 @@ const TicketsPage = (props) => {
             {
                 name: 'Institution Name',
                 selector: 'organization_name',
-                width: '19%'
+                width: '27%'
             },
             {
                 name: 'Principal Name',
                 selector: 'principal_name',
                 width: '15%'
             },
-            {
-                name: 'Mobile',
-                selector: 'principal_mobile',
-                width: '12%'
-            },
+            // {
+            //     name: 'Mobile',
+            //     selector: 'principal_mobile',
+            //     width: '12%'
+            // },
 
             // {
             //     name: 'State',
@@ -474,7 +474,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Actions',
                 selector: 'action',
-                width: '23%',
+                width: '20%',
                 center: true,
                 cell: (record) => [
                     <>

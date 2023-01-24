@@ -16,7 +16,7 @@ const ViewMore = () => {
     };
     var teamId = [];
     teamId.push({ mentor_id: orgDaTa.mentor.mentor_id });
-    
+
     const handleBack = () => {
         history.push({
             pathname: '/admin/dashboard'
@@ -55,12 +55,12 @@ const ViewMore = () => {
                                 </span>
                                 <b>{orgDaTa.principal_name}</b>
                             </CardText>
-                            <CardText>
+                            {/* <CardText>
                                 <span className="mx-3">
                                     <b>principal Mobile :</b>
                                 </span>
                                 <b>{orgDaTa.principal_mobile}</b>
-                            </CardText>
+                            </CardText> */}
                             <CardText>
                                 <span className="mx-3">
                                     <b>principal Email :</b>
@@ -121,12 +121,12 @@ const ViewMore = () => {
                                     </span>
                                     <b>{orgDaTa.mentor.mentor_id}</b>
                                 </CardText>
-                                <CardText>
+                                {/* <CardText>
                                     <span className="mx-3">
                                         <b>Mentor Mobile :</b>
                                     </span>
                                     <b>{orgDaTa.mentor.mobile}</b>
-                                </CardText>
+                                </CardText> */}
                             </CardBody>
                         </Card>
                     </Row>

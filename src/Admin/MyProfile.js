@@ -187,7 +187,7 @@ const MyProfile = () => {
                                                         <CardText>
                                                             <span>state :</span>{' '}
                                                             {/* {data.state} */}
-                                                            <b>Tamilnadu</b>
+                                                            <b>Maldives</b>
                                                             {/* <p>
                                                                 {
                                                                     currentUser.State
