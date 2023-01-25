@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
 import { Label } from 'reactstrap';
 import { InputBox } from '../stories/InputBox/InputBox';
@@ -11,6 +11,7 @@ import { URL, KEY } from '../constants/defaultValues';
 import { getNormalHeaders, openNotificationWithIcon } from '../helpers/Utils';
 import axios from 'axios';
 function ForgotPassword(props) {
+    const [errorMsg,seterrorMsg] = useState('');
     const inputMob = {
         type: 'text',
         className: 'defaultInput'
@@ -55,10 +56,7 @@ function ForgotPassword(props) {
                     }
                 })
                 .catch((err) => {
-                    openNotificationWithIcon(
-                        'error',
-                        'Opps... something went wrong'
-                    );
+                    seterrorMsg(err.response.data.message);
                     return err.response;
                 });
         }
@@ -106,7 +104,8 @@ function ForgotPassword(props) {
                             </small>
                         ) : null}
                     </FormGroup>
-                    <div className="mt-5">
+                    {errorMsg === 'User not found' && <b className='text-danger m-3'>Please enter valid email ID</b>}
+                    <div className="mt-3">
                         {/* <Link
                             exact='true'
                             // onSubmit={formik.handleSubmit}

@@ -28,17 +28,19 @@ const Livechart = () => {
     const [userloginData, setuserloginData] = useState([]);
     const [labels, setlabels] = useState([]);
     const [dataValues, setdataValues] = useState([]);
-    const [ min ,setmin] = useState(0); 
-    const [ max ,setmax] = useState(7); 
+    const [min, setmin] = useState(0);
+    const [max, setmax] = useState(7);
 
     useEffect(() => {
-        if(timelist && datalist){
+        if (timelist && datalist) {
             handleuserlogindata();
         }
-        setInterval(() => {
-            handleuserlogindata();
-        }, 10000);
-    }, []);
+        if(window.location.pathname === '/'){
+            setInterval(() => {
+                handleuserlogindata();
+            }, 10000);
+        }
+    }, [ ]);
 
     async function handleuserlogindata() {
         var config = {
@@ -59,7 +61,7 @@ const Livechart = () => {
                     setuserloginData(response.data.data[0].rows);
                     datalist.push(response.data.data[0].count);
                     setdataValues(datalist);
-                    if(timelist.length>7){
+                    if (timelist.length > 7) {
                         setmax(timelist.length);
                         setmin(timelist.length - 7);
                     }
@@ -71,7 +73,7 @@ const Livechart = () => {
     }
 
     return (
-        <Container>
+        <Container className='mb-5 pb-5'>
             <Row>
                 <Col>
                     <Line
@@ -87,12 +89,19 @@ const Livechart = () => {
                                 }
                             ]
                         }}
-                        options={{ scales: {
-                            x: {
-                                min:min,
-                                max:max
+                        options={{
+                            plugins: {
+                                legend: {
+                                    display: false
+                                }
+                            },
+                            scales: {
+                                x: {
+                                    min: min,
+                                    max: max
+                                }
                             }
-                        }}}
+                        }}
                     />
                 </Col>
                 <Col>
@@ -104,7 +113,8 @@ const Livechart = () => {
                         <ScrollableFeed>
                             {userloginData.map((user, i) => (
                                 <Card key={i} className="p-3 m-2">
-                                    {user.full_name} Logged In From {user.organization_name}
+                                    {user.full_name} Logged In From{' '}
+                                    {user.organization_name}
                                 </Card>
                             ))}
                         </ScrollableFeed>

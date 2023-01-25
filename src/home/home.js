@@ -998,21 +998,13 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-            
-            <section className='mt-5 pt-5'>
-            <div className="heading">
-                    <h2 className="sub-heading text-center">
-                        Student Login Data
-                    </h2>
-                </div>
-                <Livechart/>
-            </section>
             <section className="state-map" id="impact">
                 <div className="heading">
                     <h2 className="sub-heading text-center">
                         {t('home_tl.engagement')}
                     </h2>
                 </div>
+                <Livechart/>
                 <MaldivesMap/>
             </section>
             {/* <section className="blog">
