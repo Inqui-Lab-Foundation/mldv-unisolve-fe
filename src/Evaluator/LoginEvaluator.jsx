@@ -82,7 +82,6 @@ const LoginEvaluator = (props) => {
                 role: 'EVALUATOR'
             };
             props.evaluatorLoginUserAction(body, history, 'EVALUATOR');
-            // console.log('======', body);
             // history.push('/evaluator/submitted-ideas');
         }
     });

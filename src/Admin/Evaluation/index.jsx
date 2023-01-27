@@ -14,7 +14,6 @@ const eadmindashboard = () => {
 
     useEffect(() => {
         handlecountvalue();
-        
     }, []);
 
     async function handlecountvalue() {
@@ -34,7 +33,6 @@ const eadmindashboard = () => {
                 console.log(error);
             });
     }
-    console.log(dateCount);
     return (
         <Layout>
             <div className="container dashboard-wrapper mt-5 mb-5">

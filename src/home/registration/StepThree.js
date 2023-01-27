@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import { Col } from 'react-bootstrap';
 import { Label } from 'reactstrap';
@@ -7,12 +8,11 @@ import { FaPencilAlt } from 'react-icons/fa';
 import { getNormalHeaders } from '../../helpers/Utils';
 import { URL, KEY } from '../../constants/defaultValues';
 import axios from 'axios';
-import { withTranslation  } from 'react-i18next';
+import { withTranslation } from 'react-i18next';
 class StepThree extends React.Component {
-    
     constructor(props) {
         super(props);
-       
+
         this.state = {
             otp: '',
             numInputs: 6,
@@ -72,12 +72,12 @@ class StepThree extends React.Component {
 
     handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(
-            'Sending OTP ',
-            this.state.otp,
-            'User data ',
-            this.state.userData
-        );
+        // console.log(
+        //     'Sending OTP ',
+        //     this.state.otp,
+        //     'User data ',
+        //     this.state.userData
+        // );
         this.setState({ hasErrored: false });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
@@ -87,10 +87,10 @@ class StepThree extends React.Component {
                 axiosConfig
             )
             .then((mentorOTPRes) => {
-                console.log(
-                    '🚀 ~ file: StepThree.js ~ line 82 ~ StepThree ~ .then ~ mentorOTPRes',
-                    mentorOTPRes
-                );
+                // console.log(
+                //     '🚀 ~ file: StepThree.js ~ line 82 ~ StepThree ~ .then ~ mentorOTPRes',
+                //     mentorOTPRes
+                // );
                 this.props.setOldPassword(this.state.otp);
                 this.props.setHideThree(false);
                 this.props.setHideFour(true);

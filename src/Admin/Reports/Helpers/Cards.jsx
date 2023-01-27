@@ -30,7 +30,6 @@ const Cards = ({ heading, list, reports, props, distList }) => {
             Contact: '9801775505'
         }
     ];
-    console.log(distList);
 
     const handleDownload = (item) => {
         setMsg(item);
@@ -193,7 +192,7 @@ const Cards = ({ heading, list, reports, props, distList }) => {
                 <div className="App">
                     <table>
                         <tr className="th-background-color">
-                            <th className="column-size">DistrictWise Count</th>
+                            <th className="column-size">Challenges Reports</th>
                             <th>Actions</th>
                         </tr>
                         {distList.map((val, key) => {

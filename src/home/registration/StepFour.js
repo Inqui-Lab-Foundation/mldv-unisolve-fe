@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
@@ -73,10 +74,10 @@ function StepFour({ userData, setHideFour, setHideFive }) {
                     axiosConfig
                 )
                 .then((mentorChangePwdRes) => {
-                    console.log(
-                        '🚀 ~ file: StepTwo.js ~ line 56 ~ .then ~ mentorChangePwdRes?.data[0]',
-                        mentorChangePwdRes
-                    );
+                    // console.log(
+                    //     '🚀 ~ file: StepTwo.js ~ line 56 ~ .then ~ mentorChangePwdRes?.data[0]',
+                    //     mentorChangePwdRes
+                    // );
                     setHideFour(false);
                     setHideFive(true);
                 })

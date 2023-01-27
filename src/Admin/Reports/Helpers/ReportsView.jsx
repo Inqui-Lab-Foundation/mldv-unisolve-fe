@@ -4,16 +4,16 @@ import { getNormalHeaders } from '../../../helpers/Utils';
 import Layout from '../../Layout';
 import { Container, Row, Col } from 'reactstrap';
 import { BreadcrumbTwo } from '../../../stories/BreadcrumbTwo/BreadcrumbTwo';
-// import { Button } from '../../../stories/Button';
+import { Button } from '../../../stories/Button';
 
 import axios from 'axios';
 import DataTable, { Alignment } from 'react-data-table-component';
 import DataTableExtensions from 'react-data-table-component-extensions';
-// import { useHistory } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { URL, KEY } from '../../../constants/defaultValues';
 const ReportsView = () => {
     // const currentUser = getCurrentUser('current_user');
-    // const history = useHistory();
+    const history = useHistory();
     // const [rows, setRows] = React.useState([]);
     const [listData, setListData] = useState([]);
     const disTrict = JSON.parse(localStorage.getItem('district'));
@@ -36,7 +36,6 @@ const ReportsView = () => {
             .get(`${URL.getReportsView}`, axiosConfig)
             .then((res) => {
                 if (res?.status == 200) {
-                    console.log(res);
                     setListData(res && res.data && res.data.data);
                 }
             })
@@ -60,7 +59,6 @@ const ReportsView = () => {
             }
         ]
     };
-    console.log(listData);
     return (
         <Layout>
             <Container className="ReportsView pt-3 pt-xl-5">
@@ -69,7 +67,7 @@ const ReportsView = () => {
                         <Col className="col-auto">
                             <BreadcrumbTwo {...headingDetails} />
                         </Col>
-                        {/* <Col className="text-right">
+                        <Col className="text-right">
                             <Button
                                 label="Back"
                                 btnClass="primary mx-3"
@@ -77,7 +75,7 @@ const ReportsView = () => {
                                 shape="btn-square"
                                 onClick={() => history.push('/admin/reports')}
                             />
-                        </Col> */}
+                        </Col>
                     </Row>
                     <Col>
                         <div className="my-2">

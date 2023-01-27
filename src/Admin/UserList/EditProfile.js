@@ -124,7 +124,7 @@ const EditProfile = (props) => {
                             props.history.push(
                                 mentorData.where === 'Dashbord'
                                     ? '/admin/dashboard'
-                                    : '/admin/userlist'
+                                    : '/admin/userprofile'
                             );
                         }, 200);
                     }
@@ -139,7 +139,7 @@ const EditProfile = (props) => {
         props.history.push(
             mentorData.where === 'Dashbord'
                 ? '/admin/dashboard'
-                : '/admin/userlist'
+                : '/admin/userprofile'
         );
         localStorage.setItem(
             'organization_code',

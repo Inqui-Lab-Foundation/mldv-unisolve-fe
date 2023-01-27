@@ -24,9 +24,9 @@ import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues.js';
 
 import {
-    getNormalHeaders,
-    getCurrentUser,
-    openNotificationWithIcon
+    getNormalHeaders
+    // getCurrentUser,
+    // openNotificationWithIcon
 } from '../../helpers/Utils';
 
 import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -56,8 +56,6 @@ const SelectDists = ({ getDistrictsListAction, dists, tab, setDist }) => {
     useEffect(async () => {
         const dist = localStorage.getItem('dist');
         await setNewDist(dist);
-        // console.log(dist, 'dsts');
-        // console.log(dsts, 'dsts');
     }, [localStorage.getItem('dist')]);
     useEffect(() => {
         if (tab && (tab == 1 || tab == 2)) getDistrictsListAction();
@@ -88,7 +86,7 @@ const SelectDists = ({ getDistrictsListAction, dists, tab, setDist }) => {
     );
 };
 const TicketsPage = (props) => {
-    const currentUser = getCurrentUser('current_user');
+    // const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
     const [showImportPopup, setImportPopup] = useState(false);
     const [menter, activeMenter] = useState(false);
@@ -109,8 +107,6 @@ const TicketsPage = (props) => {
 
     useEffect(() => {
         if (Number(tab) === 1 && studentDist !== '') {
-            console.log('1');
-            console.log(studentDist);
             props.getStudentListAction(studentDist);
         }
     }, [tab, studentDist]);
@@ -178,7 +174,6 @@ const TicketsPage = (props) => {
                 let dist = localStorage.getItem('dist');
                 setmentorDist(dist);
                 setNewDists(dist);
-                console.log(newDist);
                 props.getAdminMentorsListAction('ALL', mentorDist);
             } else {
                 let dist = localStorage.getItem('dist');
@@ -223,36 +218,35 @@ const TicketsPage = (props) => {
         });
         localStorage.setItem('mentor', JSON.stringify(item));
     };
-    const handleReset = (item) => {
-        const body = JSON.stringify({
-            organization_code: item.organization_code,
-            otp: false,
-            mentor_id: item.mentor_id
-        });
-        var config = {
-            method: 'put',
-            url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser?.data[0]?.token}`
-            },
-            data: body
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 202) {
-                    console.log(response);
-                    openNotificationWithIcon(
-                        'success',
-                        'Reset Password Successfully Update!',
-                        ''
-                    );
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    };
+    // const handleReset = (item) => {
+    //     const body = JSON.stringify({
+    //         organization_code: item.organization_code,
+    //         otp: false,
+    //         mentor_id: item.mentor_id
+    //     });
+    //     var config = {
+    //         method: 'put',
+    //         url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
+    //         },
+    //         data: body
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 202) {
+    //                 openNotificationWithIcon(
+    //                     'success',
+    //                     'Reset Password Successfully Update!',
+    //                     ''
+    //                 );
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // };
     // const handleDelete = () => {
     //     const swalWithBootstrapButtons = Swal.mixin({
     //         customClass: {
@@ -345,7 +339,6 @@ const TicketsPage = (props) => {
                             props.getEvaluatorListAction();
                         }, 500);
                     } else if (type && type === 'admin') {
-                        console.log(all);
                         const obj = {
                             full_name: all.full_name,
                             username: all.username,
@@ -445,14 +438,14 @@ const TicketsPage = (props) => {
                 selector: 'action',
                 width: '35%',
                 cell: (record) => [
-                    <Link
-                        exact="true"
-                        key={record.id}
-                        onClick={() => handleReset(record)}
-                        style={{ marginRight: '10px' }}
-                    >
-                        <div className="btn btn-success btn-lg">RESET</div>
-                    </Link>,
+                    // <Link
+                    //     exact="true"
+                    //     key={record.id}
+                    //     onClick={() => handleReset(record)}
+                    //     style={{ marginRight: '10px' }}
+                    // >
+                    //     <div className="btn btn-success btn-lg">RESET</div>
+                    // </Link>,
                     <Link
                         exact="true"
                         key={record.id}
@@ -461,14 +454,14 @@ const TicketsPage = (props) => {
                     >
                         <div className="btn btn-primary btn-lg">VIEW</div>
                     </Link>,
-                    <Link
-                        exact="true"
-                        key={record.id}
-                        onClick={() => handleEdit(record)}
-                        style={{ marginRight: '10px' }}
-                    >
-                        <div className="btn btn-warning btn-lg">EDIT</div>
-                    </Link>,
+                    // <Link
+                    //     exact="true"
+                    //     key={record.id}
+                    //     onClick={() => handleEdit(record)}
+                    //     style={{ marginRight: '10px' }}
+                    // >
+                    //     <div className="btn btn-warning btn-lg">EDIT</div>
+                    // </Link>,
                     <Link
                         exact="true"
                         key={record.id}
@@ -795,7 +788,6 @@ const TicketsPage = (props) => {
             }
         ]
     };
-    // console.log(adminData);
 
     // const handleEvaluatorStatus=(status,id)=>{
     //     console.warn(status,id);

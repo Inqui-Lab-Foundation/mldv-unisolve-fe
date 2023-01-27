@@ -104,7 +104,6 @@ const ViewSelectedIdea = () => {
             )
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response.data.data, '----response.data');
                     const updatedWithKey =
                         response.data &&
                         response.data.data.map((item, i) => {
@@ -122,7 +121,6 @@ const ViewSelectedIdea = () => {
             });
     }
     // const average = arr => arr.reduce((p,c) => p+c,0)/arr.length;
-    console.log(tableData, '----------tableData');
     const evaluatedIdeafinal = {
         data: tableData && tableData.length > 0 ? tableData : [],
         columns: [
