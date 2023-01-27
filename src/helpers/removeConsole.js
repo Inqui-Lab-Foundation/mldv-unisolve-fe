@@ -11,7 +11,7 @@ export const GlobalDebug = (function () {
         if (debugOn === false) {
             // supress the default console functionality
             console = {};
-            console.log = function () {};
+            // console.log = function () {};
             // supress all type of consoles
             if (suppress) {
                 console.info = function () {};

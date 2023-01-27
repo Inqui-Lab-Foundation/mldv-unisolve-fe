@@ -26,10 +26,12 @@ const EditEvalProcess = (props) => {
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
-        
+
     useEffect(() => {
         evalID && evalID.district
-            ? (evalID.district.split(',').length === fullDistrictsNames.length-1 && !evalID.district.includes('All Districts')) 
+            ? evalID.district.split(',').length ===
+                  fullDistrictsNames.length - 1 &&
+              !evalID.district.includes('All Districts')
                 ? setselectedDistricts(fullDistrictsNames)
                 : setselectedDistricts(evalID.district.split(','))
             : '';
@@ -42,15 +44,18 @@ const EditEvalProcess = (props) => {
             } else {
                 setselectedDistricts([]);
             }
-        } else if (clickedValue.name && clickedValue.name !== 'All Districts' && selectedDistricts.length === fullDistrictsNames.length-1 && !selectedDistricts.includes('All Districts')) {
+        } else if (
+            clickedValue.name &&
+            clickedValue.name !== 'All Districts' &&
+            selectedDistricts.length === fullDistrictsNames.length - 1 &&
+            !selectedDistricts.includes('All Districts')
+        ) {
             setselectedDistricts(fullDistrictsNames);
-        }
-        else if (clickedValue.name && clickedValue.name !== 'All Districts') {
+        } else if (clickedValue.name && clickedValue.name !== 'All Districts') {
             setselectedDistricts(
                 selectedDistricts?.filter((item) => item !== 'All Districts')
             );
-        } 
-
+        }
     }, [clickedValue]);
 
     async function handledistricts(value) {
@@ -62,7 +67,6 @@ const EditEvalProcess = (props) => {
                 axiosConfig
             )
             .then((response) => {
-                console.log(response);
                 if (response.status == 200) {
                     openNotificationWithIcon(
                         'success',
@@ -79,7 +83,9 @@ const EditEvalProcess = (props) => {
     const handleclick = () => {
         const value = { district: '' };
         selectedDistricts.includes('All Districts')
-            ? (value.district = selectedDistricts?.filter((item) => item !== 'All Districts').toString())
+            ? (value.district = selectedDistricts
+                  ?.filter((item) => item !== 'All Districts')
+                  .toString())
             : (value.district = selectedDistricts.toString());
         handledistricts(value);
     };

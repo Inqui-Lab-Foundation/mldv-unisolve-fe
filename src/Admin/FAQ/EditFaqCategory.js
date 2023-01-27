@@ -26,7 +26,6 @@ const EditFaqCategory = (props) => {
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const faqCate = props.location.data;
-    // console.log("line 37",faqCate);
     const headingDetails = {
         title: 'Edit FAQ Category',
 

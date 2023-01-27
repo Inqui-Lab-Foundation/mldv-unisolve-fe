@@ -4,10 +4,17 @@ import { useHistory, withRouter } from 'react-router-dom';
 import { Container, Row, Card, CardBody, CardText } from 'reactstrap';
 import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { Button } from '../../stories/Button';
+import {
+    // getNormalHeaders,
+    getCurrentUser,
+    openNotificationWithIcon
+} from '../../helpers/Utils';
+import axios from 'axios';
 
 const CommonUserProfile = (props) => {
-    // console.log('props.location', props.location);
+    console.log('props', props);
     const history = useHistory();
+    const currentUser = getCurrentUser('current_user');
 
     const headingDetails = {
         title: 'User List Details',
@@ -23,7 +30,6 @@ const CommonUserProfile = (props) => {
             }
         ]
     };
-    // localStorage.setItem('mentor', JSON.stringify(item));
 
     const handleViewBack = () => {
         history.push({
@@ -36,6 +42,52 @@ const CommonUserProfile = (props) => {
         //     JSON.stringify(mentor.organization_code)
         // );
     };
+    const handleReset = () => {
+        // alert('111');
+        const body = JSON.stringify({
+            organization_code:
+                props.location.data && props.location.data?.organization_code,
+            mentor_id: props.location.data && props.location.data.mentor_id,
+            otp: false
+        });
+        var config = {
+            method: 'put',
+            url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
+            headers: {
+                'Content-Type': 'application/json',
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
+            },
+            data: body
+        };
+        axios(config)
+            .then(function (response) {
+                if (response.status === 202) {
+                    openNotificationWithIcon(
+                        'success',
+                        'Reset Password Successfully Update!',
+                        ''
+                    );
+                }
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+    };
+    const handleEdit = () => {
+        history.push({
+            pathname: '/admin/edit-user-profile',
+            data: {
+                username: props.location.data && props.location.data.username,
+                full_name: props.location.data && props.location.data.full_name,
+                organization_code:
+                    props.location.data &&
+                    props.location.data?.organization_code,
+                mentor_id: props.location.data && props.location.data.mentor_id
+                // where: 'Dashbord'
+            }
+        });
+    };
+
     return (
         <Layout>
             <Container className="mt-5 pt-5 dynamic-form">
@@ -44,6 +96,33 @@ const CommonUserProfile = (props) => {
                         <BreadcrumbTwo {...headingDetails} />
                     </div>
                     <div className="col-6 text-end">
+                        <Button
+                            btnClass="btn btn-primary"
+                            size="small"
+                            label="Edit"
+                            onClick={handleEdit}
+                        />
+                        <Button
+                            btnClass="btn btn-success"
+                            size="small"
+                            label="Reset"
+                            onClick={handleReset}
+                        />
+                        {/* <Button
+                            btnClass="btn btn-info"
+                            size="small"
+                            label="Download"
+                        /> */}
+                        {/* <Button
+                            btnClass="btn btn-success"
+                            size="small"
+                            label="View Details"
+                        /> */}
+                        {/* <Button
+                            btnClass="btn btn-danger"
+                            size="small"
+                            label="Delete"
+                        /> */}
                         <Button
                             btnClass={'primary'}
                             size="small"

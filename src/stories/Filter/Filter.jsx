@@ -1,8 +1,8 @@
 /* eslint-disable react/jsx-key */
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import "./Filter.scss";
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import './Filter.scss';
 /**
  * Primary UI component for user interaction
  */
@@ -16,7 +16,6 @@ export const Filter = ({ options }) => {
         const filterArrayIndex = selectedOptions
             ? selectedOptions.findIndex((x) => x === item)
             : -1;
-        console.log("=filterArrayIndex==", filterArrayIndex);
         if (filterArrayIndex === -1) {
             setSelectedOptions([...selectedOptions, item]);
         }
@@ -28,19 +27,26 @@ export const Filter = ({ options }) => {
         setSelectedOptions(todos);
     };
 
-    console.log("=========", selectedOptions);
+    console.log('=========', selectedOptions);
 
     return (
         <div className="filter">
             <div>
-                <button className="filterBox" onClick={() => SetButton(!Button)}>
-          Filters
+                <button
+                    className="filterBox"
+                    onClick={() => SetButton(!Button)}
+                >
+                    Filters
                 </button>
             </div>
             {selectedOptions !== [] ? (
                 <ul>
                     {selectedOptions.map((item, index) => {
-                        return <li onClick={() => handleRemoveItem(item)}>{item}</li>;
+                        return (
+                            <li onClick={() => handleRemoveItem(item)}>
+                                {item}
+                            </li>
+                        );
                     })}
                 </ul>
             ) : null}
@@ -49,7 +55,10 @@ export const Filter = ({ options }) => {
                     <ul>
                         {optionsList.map((item, index) => {
                             return (
-                                <li onClick={() => selectFilters(item)} key={index}>
+                                <li
+                                    onClick={() => selectFilters(item)}
+                                    key={index}
+                                >
                                     {item}
                                 </li>
                             );
@@ -63,31 +72,31 @@ export const Filter = ({ options }) => {
 
 Filter.propTypes = {
     /**
-   * Is this the principal call to action on the page?
-   */
+     * Is this the principal call to action on the page?
+     */
     SingleSelectDropdown: PropTypes.bool,
     /**
-   * What background color to use
-   */
+     * What background color to use
+     */
     backgroundColor: PropTypes.string,
     /**
-   * How large should the button be?
-   */
-    size: PropTypes.oneOf(["small", "medium", "large"]),
+     * How large should the button be?
+     */
+    size: PropTypes.oneOf(['small', 'medium', 'large']),
     /**
-   * Button contents
-   */
+     * Button contents
+     */
     label: PropTypes.string.isRequired,
     /**
-   * Optional click handler
-   */
-    onClick: PropTypes.func,
+     * Optional click handler
+     */
+    onClick: PropTypes.func
 };
 
 Filter.defaultProps = {
     backgroundColor: null,
-    size: "medium",
+    size: 'medium',
     onClick: undefined,
-    label: "Dropdown",
-    options: ["Garde 1", "Garde 2", "Garde 3", "Garde 4", "Garde 5", "Garde 6"],
+    label: 'Dropdown',
+    options: ['Garde 1', 'Garde 2', 'Garde 3', 'Garde 4', 'Garde 5', 'Garde 6']
 };

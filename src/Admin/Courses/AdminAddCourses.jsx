@@ -118,10 +118,10 @@ const AdminAddCourses = (props) => {
 
     const changeHandler = (event) => {
         // setError("");
-        console.log(
-            '========event.target.files===',
-            event.target.files[0].name
-        );
+        // console.log(
+        //     '========event.target.files===',
+        //     event.target.files[0].name
+        // );
         if (event.target.files && event.target.files[0]) {
             let img = event.target.files[0];
             setUrl(URL.createObjectURL(img));

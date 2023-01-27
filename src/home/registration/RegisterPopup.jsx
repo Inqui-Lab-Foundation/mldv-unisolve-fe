@@ -27,10 +27,10 @@ function RegisterPopup(props) {
     const [oldPassword, setOldPassword] = useState();
 
     useEffect(() => {
-        console.log(
-            '🚀 ~ file: RegisterPopup.jsx ~ line 25 ~ RegisterPopup ~ orgData',
-            orgData
-        );
+        // console.log(
+        //     '🚀 ~ file: RegisterPopup.jsx ~ line 25 ~ RegisterPopup ~ orgData',
+        //     orgData
+        // );
     }, [orgData]);
 
     const handleClose = () => {

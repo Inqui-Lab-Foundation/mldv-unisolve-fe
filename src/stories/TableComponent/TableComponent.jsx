@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 import PropTypes from 'prop-types';
 import './style.scss';
@@ -10,11 +11,11 @@ import { getAdminMentorsList, updatePageSize } from '../../redux/actions';
 // rowSelection object indicates the need for row selection
 const rowSelection = {
     onChange: (selectedRowKeys, selectedRows) => {
-        console.log(
-            `selectedRowKeys: ${selectedRowKeys}`,
-            'selectedRows: ',
-            selectedRows
-        );
+        // console.log(
+        //     `selectedRowKeys: ${selectedRowKeys}`,
+        //     'selectedRows: ',
+        //     selectedRows
+        // );
     }
     //   getCheckboxProps: (record) => ({
     //     disabled: record.name === "Disabled User",
@@ -32,7 +33,7 @@ export const TableComponent = ({
     selectionType,
     totalItems
 }) => {
-    const dispatch =useDispatch();
+    const dispatch = useDispatch();
     return (
         <div>
             {showRowSelction ? (
@@ -69,12 +70,15 @@ export const TableComponent = ({
             )}
 
             <div className="pt-5 common-pagination">
-                <Pagination 
-                    defaultCurrent={1} 
-                    total={totalItems ? totalItems :data.length} 
-                    onChange={(page, pageSize)=>dispatch(getAdminMentorsList(page-1,pageSize))}
-                    onShowSizeChange={(current, size)=>dispatch(updatePageSize(size))}
-
+                <Pagination
+                    defaultCurrent={1}
+                    total={totalItems ? totalItems : data.length}
+                    onChange={(page, pageSize) =>
+                        dispatch(getAdminMentorsList(page - 1, pageSize))
+                    }
+                    onShowSizeChange={(current, size) =>
+                        dispatch(updatePageSize(size))
+                    }
                 />
             </div>
         </div>
