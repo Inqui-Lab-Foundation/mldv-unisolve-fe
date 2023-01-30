@@ -18,7 +18,8 @@ const MyCertificate = () => {
     const currentUser = getCurrentUser('current_user');
     const language = useSelector((state) => state?.mentors.mentorLanguage);
     const [postSurveyStatus, setPostSurveyStatus] = useState('');
-    let tempVar = postSurveyStatus ==="COMPLETED";
+    //let tempVar = postSurveyStatus ==="COMPLETED";
+    let tempVar = false ;
     const handleCertificateDownload = () => {
         const content = pdfRef.current;
         const doc = new jsPDF('l', 'px', [211,298]);
@@ -55,7 +56,7 @@ const MyCertificate = () => {
             <Container className="presuervey mb-50 mt-5 ">
                 <Fragment>
                     <Card className="course-sec-basic p-5">
-                        {!tempVar ? (
+                        {tempVar ? (
                             <CardBody>
                                 <CardTitle
                                     className=" text-left pt-4 pb-4"

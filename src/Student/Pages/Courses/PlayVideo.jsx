@@ -246,7 +246,7 @@ const PlayVideoCourses = (props) => {
             setOpen(id);
         }
     };
-
+    
     useEffect(() => {
         props.getAdminCourseDetailsActions(course_id, language);
     }, [course_id, language]);
@@ -322,7 +322,7 @@ const PlayVideoCourses = (props) => {
                 Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
-        axios(config)
+        await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
                     SetWorksheetResponce(response.data.data[0]);
@@ -654,9 +654,7 @@ const PlayVideoCourses = (props) => {
         setFileName();
         setUrl();
     };
-    console.log(worksheetId,"----------worksheetId");
     const handleSubmit = (e) => {
-        
         if(files){
             console.log(files,"---files");
         const formData = new FormData();
@@ -1310,13 +1308,13 @@ const PlayVideoCourses = (props) => {
                                                                                     /> */}
 
                                                                                     {worksheetResponce.response !=
-                                                                                        null &&
-                                                                                    worksheetResponce.worksheet_id !==
-                                                                                        setTopicArrays[
-                                                                                            setTopicArrays?.length -
-                                                                                                1
-                                                                                        ]
-                                                                                            ?.topic_type_id ? (
+                                                                                        null && (
+                                                                                    // worksheetResponce.worksheet_id !==
+                                                                                    //     setTopicArrays[
+                                                                                    //         setTopicArrays?.length - 
+                                                                                    //         1
+                                                                                    //     ]
+                                                                                    //         ?.topic_type_id ? (
                                                                                         <Button
                                                                                             label="Go to Next Course"
                                                                                             btnClass="primary w-auto"
@@ -1345,7 +1343,7 @@ const PlayVideoCourses = (props) => {
                                                                                                 );
                                                                                             }}
                                                                                         />
-                                                                                    ) : null}
+                                                                                    )}
                                                                                 </div>
                                                                             </div>
                                                                       
