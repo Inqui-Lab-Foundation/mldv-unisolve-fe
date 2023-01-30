@@ -104,7 +104,7 @@ function ForgotPassword(props) {
                             </small>
                         ) : null}
                     </FormGroup>
-                    {errorMsg === 'User not found' && <b className='text-danger m-3'>Please enter valid email ID</b>}
+                    {errorMsg === 'User not found' && <b className='text-danger m-3'>Please enter registered email ID</b>}
                     <div className="mt-3">
                         {/* <Link
                             exact='true'

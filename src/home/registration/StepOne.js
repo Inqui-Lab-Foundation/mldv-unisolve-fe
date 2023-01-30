@@ -47,20 +47,29 @@ function StepOne({
                 .post(`${URL.checkOrg}`, organization, axiosConfig)
                 .then((checkOrgRes) => {
                     if (checkOrgRes?.status == 200) {
-                        if (Object.keys(checkOrgRes?.data?.data[0]).length) {
-                            setOrgData(checkOrgRes?.data?.data[0]);
-                            setHideOne(false);
-                            setHideTwo(true);
+                        if (checkOrgRes?.data?.data[0].mentor == null) {
+                            if (
+                                Object.keys(checkOrgRes?.data?.data[0]).length
+                            ) {
+                                setOrgData(checkOrgRes?.data?.data[0]);
+                                setHideOne(false);
+                                setHideTwo(true);
+                            } else {
+                                formik.setErrors({
+                                    organization_code:
+                                        'Oops..! UDISE Code seems incorrect'
+                                });
+                            }
                         } else {
                             formik.setErrors({
                                 organization_code:
-                                    'Oops..! Unique Code seems incorrect'
+                                    'Another Teacher is already registered in given School'
                             });
                         }
                     } else {
                         formik.setErrors({
                             organization_code:
-                                'Oops..! Unique Code seems incorrect 2'
+                                'Oops..! UDISE Code seems incorrect 2'
                         });
                     }
                 })
