@@ -39,7 +39,7 @@ const SampleCourseList = (props) => {
                 console.log(error);
             });
     }, []);
-    console.log('========', list.product);
+    // console.log('========', list.product);
     return (
         <div>
             <table>

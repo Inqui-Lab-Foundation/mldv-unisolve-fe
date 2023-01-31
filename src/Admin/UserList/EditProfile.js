@@ -146,7 +146,7 @@ const EditProfile = (props) => {
             JSON.stringify(mentorData.organization_code)
         );
     };
-    console.log(mentorData);
+    // console.log(mentorData);
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
