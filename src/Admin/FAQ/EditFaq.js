@@ -147,7 +147,7 @@ const EditFaq = (props) => {
             .then((categoryListRes) => {
                 if (categoryListRes?.status == 200) {
                     let dataValue = categoryListRes?.data?.data[0]?.dataValues;
-                    console.log('Data value ', dataValue);
+                    // console.log('Data value ', dataValue);
                     if (dataValue) {
                         let categoriesOptions = [];
                         dataValue.map((item) => {

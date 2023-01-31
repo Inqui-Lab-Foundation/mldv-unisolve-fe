@@ -600,7 +600,7 @@ export const getlogout = () => async () => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         axios.get(`${URL.getlogout}`, axiosConfig).then((Res) => {
             if (Res?.status == 200) {
-                console.log(Res);
+                // console.log(Res);
             }
         });
     } catch (error) {
