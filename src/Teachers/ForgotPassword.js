@@ -11,7 +11,7 @@ import { URL, KEY } from '../constants/defaultValues';
 import { getNormalHeaders, openNotificationWithIcon } from '../helpers/Utils';
 import axios from 'axios';
 function ForgotPassword(props) {
-    const [errorMsg,seterrorMsg] = useState('');
+    const [errorMsg, seterrorMsg] = useState('');
     const inputMob = {
         type: 'text',
         className: 'defaultInput'
@@ -38,7 +38,7 @@ function ForgotPassword(props) {
         }),
 
         onSubmit: async (values) => {
-            console.log(JSON.stringify(values));
+            // console.log(JSON.stringify(values));
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             await axios
                 .put(
@@ -104,7 +104,11 @@ function ForgotPassword(props) {
                             </small>
                         ) : null}
                     </FormGroup>
-                    {errorMsg === 'User not found' && <b className='text-danger m-3'>Please enter registered email ID</b>}
+                    {errorMsg === 'User not found' && (
+                        <b className="text-danger m-3">
+                            Please enter registered email ID
+                        </b>
+                    )}
                     <div className="mt-3">
                         {/* <Link
                             exact='true'

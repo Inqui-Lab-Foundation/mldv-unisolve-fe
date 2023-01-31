@@ -226,60 +226,60 @@ const Dashboard = () => {
         });
         localStorage.setItem('orgData', JSON.stringify(orgData));
     };
-    // const MentorsData = {
-    //     data: mentorTeam,
-    //     columns: [
-    //         {
-    //             name: 'No',
-    //             selector: 'key',
-    //             width: '12%'
-    //         },
-    //         {
-    //             name: 'Team Name',
-    //             selector: 'team_name',
-    //             sortable: true,
-    //             center: true,
-    //             width: '25%'
-    //         },
-    //         {
-    //             name: 'Student Count',
-    //             selector: 'student_count',
-    //             center: true,
-    //             width: '20%'
-    //         },
-    //         {
-    //             name: 'Idea Sub Status',
-    //             selector: 'ideaStatus',
-    //             center: true,
-    //             width: '25%'
-    //         },
-    //         {
-    //             name: 'Actions',
-    //             cell: (params) => {
-    //                 return [
-    //                     <Link
-    //                         key={params}
-    //                         exact="true"
-    //                         onClick={() =>
-    //                             handleRevoke(
-    //                                 params.challenge_response_id,
-    //                                 params.ideaStatus
-    //                             )
-    //                         }
-    //                     >
-    //                         {params.ideaStatus == 'SUBMITTED' && (
-    //                             <div className="btn btn-success btn-lg mr-5 mx-2">
-    //                                 Revoke
-    //                             </div>
-    //                         )}
-    //                     </Link>
-    //                 ];
-    //             },
-    //             width: '20%',
-    //             center: true
-    //         }
-    //     ]
-    // };
+    const MentorsData = {
+        data: mentorTeam,
+        columns: [
+            {
+                name: 'No',
+                selector: 'key',
+                width: '12%'
+            },
+            {
+                name: 'Team Name',
+                selector: 'team_name',
+                sortable: true,
+                center: true,
+                width: '25%'
+            },
+            {
+                name: 'Student Count',
+                selector: 'student_count',
+                center: true,
+                width: '20%'
+            },
+            {
+                name: 'Idea Sub Status',
+                selector: 'ideaStatus',
+                center: true,
+                width: '25%'
+            },
+            {
+                name: 'Actions',
+                cell: (params) => {
+                    return [
+                        <Link
+                            key={params}
+                            exact="true"
+                            onClick={() =>
+                                handleRevoke(
+                                    params.challenge_response_id,
+                                    params.ideaStatus
+                                )
+                            }
+                        >
+                            {params.ideaStatus == 'SUBMITTED' && (
+                                <div className="btn btn-success btn-lg mr-5 mx-2">
+                                    Revoke
+                                </div>
+                            )}
+                        </Link>
+                    ];
+                },
+                width: '20%',
+                center: true
+            }
+        ]
+    };
     const handleRevoke = async (id, type) => {
         let submitData = {
             status: type == 'DRAFT' ? 'SUBMITTED' : 'DRAFT'
@@ -483,14 +483,14 @@ const Dashboard = () => {
                                         </div>
                                     </div>
                                     <div className="d-flex justify-content-between">
-                                        {/* <button
+                                        <button
                                             onClick={handleEdit}
                                             // onClick={() => handleEdit()}
                                             className="btn btn-warning btn-lg"
                                         >
                                             Edit
-                                        </button> */}
-                                        {/* <button
+                                        </button>
+                                        <button
                                             onClick={() =>
                                                 handleresetpassword(
                                                     orgData.mentor?.mobile
@@ -512,7 +512,7 @@ const Dashboard = () => {
                                             onClick={viewDetails}
                                             className="btn btn-success rounded-pill px-4 btn-lg"
                                         >
-                                            View More
+                                            View Details
                                         </button>
                                         <button
                                             onClick={() => {
@@ -523,10 +523,10 @@ const Dashboard = () => {
                                             className="btn btn-danger btn-lg"
                                         >
                                             Delete
-                                        </button> */}
+                                        </button>
                                     </div>
 
-                                    {/* <div className="mb-5 p-3">
+                                    <div className="mb-5 p-3">
                                         <div className="container-fluid card shadow border">
                                             <div className="row">
                                                 <div className="col">
@@ -559,7 +559,7 @@ const Dashboard = () => {
                                                 </DataTableExtensions>
                                             </div>
                                         </div>
-                                    </div> */}
+                                    </div>
                                 </>
                             ) : (
                                 // !error &&

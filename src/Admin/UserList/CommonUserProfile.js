@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React from 'react';
 import Layout from '../../Admin/Layout';
 import { useHistory, withRouter } from 'react-router-dom';
@@ -12,7 +13,7 @@ import {
 import axios from 'axios';
 
 const CommonUserProfile = (props) => {
-    console.log('props', props);
+    // console.log('props', props);
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
 
@@ -144,6 +145,7 @@ const CommonUserProfile = (props) => {
                                 <b>
                                     {props.location.data &&
                                     props.location.data.full_name
+                                    
                                         ? props.location.data &&
                                           props.location.data.full_name
                                         : '-'}
@@ -166,10 +168,16 @@ const CommonUserProfile = (props) => {
                                     <b>Email:</b>
                                 </span>
                                 <b>
+                                    {/* {props.location.data.organization &&
+                                    props.location.data.organization.username
+                                        ? props.location.data.organization &&
+                                          props.location.data.organization
+                                              .username
+                                        : '-'} */}
                                     {props.location.data &&
-                                    props.location.data?.email
+                                    props.location.data?.username
                                         ? props.location.data &&
-                                          props.location.data?.email
+                                          props.location.data?.username
                                         : '-'}
                                 </b>
                             </CardText>
@@ -259,12 +267,22 @@ const CommonUserProfile = (props) => {
                                 <span className="mx-3">
                                     <b>School Name:</b>
                                 </span>
+
                                 <b>
                                     {props.location.data &&
+                                    props.location.data.organization &&
+                                    props.location.data.organization
+                                        .organization_name
+                                        ? props.location.data.organization
+                                              .organization_name
+                                        : '-'}
+
+                                    {/* {props.location.data &&
                                     props.location.data?.organization_name
                                         ? props.location.data &&
-                                          props.location.name?.organization_code
-                                        : '-'}
+                                          props.location.organization
+                                              ?.organization_name
+                                        : '-'} */}
                                 </b>
                             </CardText>
                             <CardText>
@@ -285,9 +303,10 @@ const CommonUserProfile = (props) => {
                                 </span>
                                 <b>
                                     {props.location.data &&
-                                    props.location.data?.district
-                                        ? props.location.data &&
-                                          props.location.name?.district
+                                    props.location.data.organization &&
+                                    props.location.data.organization.district
+                                        ? props.location.data.organization
+                                              .district
                                         : '-'}
                                 </b>
                             </CardText>
