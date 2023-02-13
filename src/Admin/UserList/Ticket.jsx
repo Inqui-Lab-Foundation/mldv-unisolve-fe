@@ -1,69 +1,123 @@
-import React, { useState, useEffect } from "react";
-import { Container, Row, Col } from "reactstrap";
-import { Tabs } from "antd";
-import Layout from "../../Admin/Layout";
-import { Link } from "react-router-dom";
-import {
-    BsPlusLg,
-    BsUpload,
-    BsGraphUp,
-} from "react-icons/bs";
-import { Button } from "../../stories/Button";
-import { connect } from "react-redux";
-import { useHistory } from "react-router-dom";
-import dummyCSV from "../../assets/media/basic-csv.csv";
-import {
-    // getEvaluatorsBulkUploadList,
-    getAdminMentorsList,
-    updateMentorStatus,
-} from "../../redux/actions";
+/* eslint-disable indent */
+import React, { useState, useEffect } from 'react';
+import { Container, Row, Col, Card } from 'reactstrap';
+import { Tabs } from 'antd';
+import Layout from '../../Admin/Layout';
+import { Link } from 'react-router-dom';
 
-import Swal from "sweetalert2/dist/sweetalert2.js";
-import "sweetalert2/src/sweetalert2.scss";
-import logout from "../../assets/media/logout.svg";
-import ImportPopup from "./ImportPopup";
-import DataTable, { Alignment } from "react-data-table-component";
-import DataTableExtensions from "react-data-table-component-extensions";
-import "react-data-table-component-extensions/dist/index.css";
-import { getStudentRegistationData, updateStudentStatus } from "../../redux/studentRegistration/actions";
-import { Badge } from "react-bootstrap";
+import {
+    // BsPlusLg,
+    BsUpload
+    // BsGraphUp
+} from 'react-icons/bs';
+import { Button } from '../../stories/Button';
+import { connect } from 'react-redux';
+// import dummyCSV from '../../assets/media/basic-csv.csv';
+import {
+    getAdmin,
+    getAdminEvalutorsList,
+    getAdminMentorsList,
+    getAdminMentorsListSuccess,
+    updateMentorStatus
+} from '../../redux/actions';
+import axios from 'axios';
+import { URL, KEY } from '../../constants/defaultValues.js';
+
+import {
+    getNormalHeaders
+    // getCurrentUser,
+    // openNotificationWithIcon
+} from '../../helpers/Utils';
+
+import Swal from 'sweetalert2/dist/sweetalert2.js';
+import 'sweetalert2/src/sweetalert2.scss';
+import logout from '../../assets/media/logout.svg';
+import ImportPopup from './ImportPopup';
+import DataTable, { Alignment } from 'react-data-table-component';
+import DataTableExtensions from 'react-data-table-component-extensions';
+import 'react-data-table-component-extensions/dist/index.css';
+import {
+    getDistrictData,
+    getStudentListSuccess,
+    getStudentRegistationData,
+    updateStudentStatus
+} from '../../redux/studentRegistration/actions';
+import { Badge } from 'react-bootstrap';
+import CommonPage from '../../components/CommonPage';
+import { updateEvaluator } from '../../redux/actions';
+import { useDispatch } from 'react-redux';
+import Register from '../../Evaluator/Register';
 
 const { TabPane } = Tabs;
 
-const TicketsPage = (props) => {
-    const [showImportPopup, setImportPopup] = useState(false);
+const SelectDists = ({ getDistrictsListAction, dists, tab, setDist }) => {
+    const [dsts, setNewDist] = useState('');
 
-    const history = useHistory();
-    // const [student, activeStudent] = useState(false);
-    const [menter, activeMenter] = useState(false);
-    const [evaluater, activeEvaluater] = useState(false);
-    const [tab, setTab] = useState("1");
-
-    // const [file] = useState();
-    // const [fileName, setFileName] = useState("");
-    // const currentUser = getCurrentUser("current_user");
-    // const [ setSuccessResponse] = useState("");
-    // const [ setErrorResponse] = useState("");
-    // const [status, setStatus] = useState("");
-    // const [studentType, setStudentType] = React.useState("below");
-    // const callback = () => {};
-    // useEffect(() => {
-    //     props.getEvaluatorsBulkUploadListAction("i");
-    // }, []);
+    useEffect(async () => {
+        const dist = localStorage.getItem('dist');
+        await setNewDist(dist);
+    }, [localStorage.getItem('dist')]);
     useEffect(() => {
-        console.log(tab);
-        if(Number(tab) === 1){
-            props.getStudentListAction("i");
-        }else if(tab===2){
-            props.getAdminMentorsListAction("ACTIVE");
+        if (tab && (tab == 1 || tab == 2)) getDistrictsListAction();
+    }, [tab]);
+    const handleDists = (e) => {
+        setNewDist(e.target.value);
+        setDist(e.target.value);
+    };
+    return (
+        <select
+            onChange={handleDists}
+            name="districts"
+            id="districts"
+            value={dsts}
+            className="text-capitalize"
+        >
+            <option value="">Select District</option>
+            {dists && dists.length > 0 ? (
+                dists.map((item, i) => (
+                    <option key={i} value={item}>
+                        {item}
+                    </option>
+                ))
+            ) : (
+                <option value="">There are no Districts</option>
+            )}
+        </select>
+    );
+};
+const TicketsPage = (props) => {
+    // const currentUser = getCurrentUser('current_user');
+    const dispatch = useDispatch();
+    const [showImportPopup, setImportPopup] = useState(false);
+    const [menter, activeMenter] = useState(false);
+    // const [admin, activeAdmin] = useState(false);
+    const [evaluater, activeEvaluater] = useState(false);
+    const [tab, setTab] = useState('1');
+    const [studentDist, setstudentDist] = useState('');
+    const [mentorDist, setmentorDist] = useState('');
+    const [newDist, setNewDists] = useState('');
+    const [registerModalShow, setRegisterModalShow] = useState(false);
+    useEffect(() => {
+        if (tab === 3) {
+            props.getEvaluatorListAction();
+        } else if (tab === 4) {
+            props.getAdminListAction();
         }
     }, [tab]);
-    
+
+    useEffect(() => {
+        if (Number(tab) === 1 && studentDist !== '') {
+            props.getStudentListAction(studentDist);
+        }
+    }, [tab, studentDist]);
+    useEffect(() => {
+        if (Number(tab) === 2 && mentorDist !== '') {
+            props.getAdminMentorsListAction('ALL', mentorDist);
+        }
+    }, [tab, mentorDist]);
 
     const [rows, setRows] = React.useState([]);
     const [mentorRows, setMentorRows] = React.useState([]);
-    // const [mentorActiveRows, setMentorActiveRows] = React.useState([]);
-    // const [mentorInactiveRows, setMentorInactiveRows] = React.useState([]);
 
     useEffect(() => {
         const mentorTimeout = setTimeout(() => {
@@ -71,775 +125,302 @@ const TicketsPage = (props) => {
         }, 2000);
         return () => clearTimeout(mentorTimeout);
     }, []);
-    // useEffect(() => {
-    //     const mentorActiveTimeout = setTimeout(() => {
-    //         setMentorActiveRows(TableMentorsActiveProps.data);
-    //     }, 2000);
-    //     return () => clearTimeout(mentorActiveTimeout);
-    // }, []);
-    // useEffect(() => {
-    //     const mentorInactiveTimeout = setTimeout(() => {
-    //         setMentorInactiveRows(TableMentorsInactiveProps.data);
-    //     }, 2000);
-    //     return () => clearTimeout(mentorInactiveTimeout);
-    // }, []);
     useEffect(() => {
         const timeout = setTimeout(() => {
             setRows(StudentsData.data);
         }, 2000);
         return () => clearTimeout(timeout);
     }, []);
-    // const changeMentorTab = (e) => {
-    //     if (e === "3") {
-    //         setStatus("INACTIVE");
-    //     } else if (e === "2") {
-    //         setStatus("ACTIVE");
-    //     } else {
-    //         setStatus("");
-    //     }
-    // };
-    // const changeStudentTab = (e) => {
-    //     if (e === "2") {
-    //         setStudentType("above");
-    //     } else {
-    //         setStudentType("below");
-    //     }
-    // };
-
-    // const handleSubmit = (e) => {
-    //     const data = new FormData();
-    //     data.append("file", file);
-
-    //     var config = {
-    //         method: "post",
-    //         url: "http://15.207.254.154:3002/api/v1/crud/evaluater",
-    //         headers: {
-    //             "Content-Type": "application/json",
-    //             // Accept: "application/json",
-    //             Authorization: `Bearer ${currentUser.data[0].token}`,
-    //         },
-    //         data: data,
-    //     };
-
-    //     axios(config)
-    //         .then(function (response) {
-    //             if (response.status === 200) {
-    //                 setSuccessResponse("Successfully uploaded");
-    //                 setTimeout(() => {
-    //                     setSuccessResponse();
-    //                     props.setImportPopup(false);
-    //                 }, 7000);
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             if (error.response.data.status === 400) {
-    //                 setErrorResponse("File already exist");
-    //                 setTimeout(() => {
-    //                     setErrorResponse();
-    //                 }, 7000);
-    //             }
-    //         });
-    // };
-
-    // const TableProps = {
-    //     data: [
-    //         {
-    //             key: "1",
-    //             // profile: "#2021-3454",
-    //             profile:
-    //       "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    //             name: "Ken Khoi",
-    //             id: "US–0017",
-    //             class: "Class - 4",
-    //             age: "9 yrs",
-    //             email: "manhhachkt08@gmail.com",
-    //             gender: "Male",
-    //             action: <HiDotsHorizontal />,
-    //         },
-    //         {
-    //             key: "2",
-    //             profile:
-    //       "https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp",
-    //             name: "Zach Swat",
-    //             id: "US–0018",
-    //             class: "Class - 2",
-    //             age: "10 yrs",
-    //             email: "trungkienspktnd@gamail.com",
-    //             gender: "Male",
-    //             action: <HiDotsHorizontal />,
-    //         },
-    //         {
-    //             key: "3",
-    //             profile:
-    //       "https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp",
-    //             name: "Jane Coper",
-    //             id: "US–0019",
-    //             class: "Class - 7",
-    //             age: "10 yrs",
-    //             email: "danghoang87hl@gmail.com",
-    //             gender: "Female",
-    //             action: <HiDotsHorizontal />,
-    //         },
-    //         {
-    //             key: "4",
-    //             profile:
-    //       "https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp",
-    //             name: "Jenny Bell",
-    //             id: "US–0020",
-    //             class: "Class - 9",
-    //             age: "14 yrs",
-    //             email: "trungkienspktnd@gamail.com",
-    //             gender: "Female",
-    //             action: <HiDotsHorizontal />,
-    //         },
-    //     ],
-    //     columns: [
-    //         {
-    //             title: "PROFILE",
-    //             dataIndex: "profile",
-    //             key: "image",
-    //             render: (text, record) => {
-    //                 return (
-    //                     <div>
-    //                         {/* <img src={record.profile} alt={record.profile} /> */}
-    //                         <Avatar src={record.profile} size={50} />
-    //                     </div>
-    //                 );
-    //             },
-    //         },
-    //         {
-    //             title: "NAME",
-    //             dataIndex: "name",
-    //         },
-    //         {
-    //             title: "ID",
-    //             dataIndex: "id",
-    //         },
-    //         {
-    //             title: "CLASS",
-    //             dataIndex: "class",
-    //         },
-    //         {
-    //             title: "AGE",
-    //             dataIndex: "age",
-    //         },
-    //         {
-    //             title: "EMAIL",
-    //             dataIndex: "email",
-    //         },
-    //         {
-    //             title: "GENDER",
-    //             dataIndex: "gender",
-    //         },
-
-    //         {
-    //             title: "ACTIONS",
-    //             dataIndex: "action",
-    //             render: (text) => (
-    //                 <CommonDropDownComp
-    //                     className='action-dropdown'
-    //                     {...filterDropProps}
-    //                 />
-    //             ),
-    //         },
-    //     ],
-    //     addBtn: 0,
-    // };
-    // const filterDropProps = {
-    //     name: "",
-    //     Icon: HiDotsHorizontal,
-    //     options: [
-    //         { name: " Mark as Solved", path: "" },
-    //         { name: "Edit Ticket", path: "" },
-    //         { name: "Delete Ticket", path: "" },
-    //     ],
-    // };
-
-    // const TableOpenProps = {
-    //     data: [
-    //         {
-    //             key: "1",
-    //             profile:
-    //       "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    //             name: "Aydin Khan",
-    //             id: "UM–0017",
-    //             isActive: ["Draft"],
-    //             age: "29 yrs",
-    //             email: "manhhachkt08@gmail.com",
-    //             gender: "Female",
-    //             action: <HiDotsHorizontal />,
-    //         },
-    //         {
-    //             key: "2",
-    //             profile:
-    //       "https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp",
-    //             name: "Zaid Sawant",
-    //             id: "UM–0019",
-    //             isActive: ["Open"],
-    //             age: "32 yrs",
-    //             email: "trungkienspktnd@gamail.com",
-    //             gender: "Female",
-    //             action: <HiDotsHorizontal />,
-    //         },
-    //         {
-    //             key: "3",
-    //             profile:
-    //       "https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp",
-    //             name: "Abigail Coper",
-    //             id: "UM–0015",
-    //             isActive: ["Solved"],
-    //             age: "35 yrs",
-    //             email: "ckctm12@gmail.com",
-    //             gender: "Female",
-    //             action: <HiDotsHorizontal />,
-    //         },
-    //         {
-    //             key: "4",
-    //             profile:
-    //       "https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp",
-    //             name: "Taniya Bell",
-    //             id: "UM–0018",
-    //             isActive: ["Solved"],
-    //             age: "45 yrs",
-    //             email: "manhhachkt08@gmail.com",
-    //             gender: "Male",
-    //             action: <HiDotsHorizontal />,
-    //         },
-    //     ],
-    //     columns: [
-    //         {
-    //             title: "PROFILE",
-    //             dataIndex: "profile",
-    //             key: "image",
-    //             render: (text, record) => {
-    //                 return (
-    //                     <div>
-    //                         {/* <img src={record.profile} alt={record.profile} /> */}
-    //                         <Avatar src={record.profile} size={50} />
-    //                     </div>
-    //                 );
-    //             },
-    //         },
-    //         {
-    //             title: "NAME",
-    //             dataIndex: "name",
-    //         },
-    //         {
-    //             title: "ID",
-    //             dataIndex: "id",
-    //         },
-    //         {
-    //             title: "STATUS",
-    //             dataIndex: "isActive",
-    //             render: (status) => (
-    //                 <span>
-    //                     {status.map((tag) => {
-    //                         let color = "gold";
-    //                         if (tag === "Solved") {
-    //                             color = "green";
-    //                         }
-    //                         if (tag === "Draft") {
-    //                             color = "red";
-    //                         }
-    //                         return (
-    //                             <Tag color={color} key={tag}>
-    //                                 {tag.toUpperCase()}
-    //                             </Tag>
-    //                         );
-    //                     })}
-    //                 </span>
-    //             ),
-    //         },
-    //         {
-    //             title: "AGE",
-    //             dataIndex: "age",
-    //         },
-    //         {
-    //             title: "EMAIL",
-    //             dataIndex: "email",
-    //         },
-    //         {
-    //             title: "GENDER",
-    //             dataIndex: "gender",
-    //         },
-    //         {
-    //             title: "ACTIONS",
-    //             dataIndex: "action",
-    //             render: (text) => (
-    //                 <Dropdown
-    //                     className='action-dropdown'
-    //                     onClick={(e) => {
-    //                         // setActionHandler(e, data);
-    //                     }}
-    //                 >
-    //                     <Dropdown.Toggle id='dropdown-action'>
-    //                         <div>
-    //                             <BsThreeDots
-    //                                 color={"#7C7C7C"}
-    //                                 style={{
-    //                                     backgroundColor: `${"#EEEEEE"}`,
-    //                                     height: "26px",
-    //                                 }}
-    //                             />
-    //                         </div>
-    //                     </Dropdown.Toggle>
-
-    //                     <Dropdown.Menu>
-    //                         <Dropdown.Item
-    //                             href='#/action-2'
-    //                             // onClick={() => setRescheduleShow(true)}
-    //                         >
-    //             Mark as Solved
-    //                         </Dropdown.Item>
-    //                         <Dropdown.Item
-    //                             href='#/action-2'
-    //                             // onClick={() => setRescheduleShow(true)}
-    //                         >
-    //             Edit Ticket
-    //                         </Dropdown.Item>
-    //                         <Dropdown.Item
-    //                             href='#/action-1'
-    //                             // onClick={() => setCancelShow(true)}
-    //                         >
-    //             Delete Ticket
-    //                         </Dropdown.Item>
-    //                     </Dropdown.Menu>
-    //                 </Dropdown>
-    //             ),
-    //         },
-    //     ],
-    //     addBtn: 1,
-    //     addMentor: true,
-    // };
-    // const TableSolvedProps = {
-    //     data: [
-    //         {
-    //             key: "1",
-    //             profile:
-    //       "https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png",
-    //             name: "Aydin Khan",
-    //             id: "UM–0017",
-    //             isActive: ["Draft"],
-    //             age: "29 yrs",
-    //             email: "manhhachkt08@gmail.com",
-    //             gender: "Female",
-    //             action: <HiDotsHorizontal />,
-    //         },
-    //         {
-    //             key: "2",
-    //             profile:
-    //       "https://gw.alipayobjects.com/zos/antfincdn/cV16ZqzMjW/photo-1473091540282-9b846e7965e3.webp",
-    //             name: "Zaid Sawant",
-    //             id: "UM–0019",
-    //             isActive: ["Open"],
-    //             age: "32 yrs",
-    //             email: "trungkienspktnd@gamail.com",
-    //             gender: "Female",
-    //             action: <HiDotsHorizontal />,
-    //         },
-    //         {
-    //             key: "3",
-    //             profile:
-    //       "https://gw.alipayobjects.com/zos/antfincdn/LlvErxo8H9/photo-1503185912284-5271ff81b9a8.webp",
-    //             name: "Abigail Coper",
-    //             id: "UM–0015",
-    //             isActive: ["Solved"],
-    //             age: "35 yrs",
-    //             email: "ckctm12@gmail.com",
-    //             gender: "Female",
-    //             action: <HiDotsHorizontal />,
-    //         },
-    //         {
-    //             key: "4",
-    //             profile:
-    //       "https://gw.alipayobjects.com/zos/antfincdn/x43I27A55%26/photo-1438109491414-7198515b166b.webp",
-    //             name: "Taniya Bell",
-    //             id: "UM–0018",
-    //             isActive: ["Solved"],
-    //             age: "45 yrs",
-    //             email: "manhhachkt08@gmail.com",
-    //             gender: "Male",
-    //             action: <HiDotsHorizontal />,
-    //         },
-    //     ],
-    //     columns: [
-    //         {
-    //             title: "PROFILE",
-    //             dataIndex: "profile",
-    //             key: "image",
-    //             render: (text, record) => {
-    //                 return (
-    //                     <div>
-    //                         {/* <img src={record.profile} alt={record.profile} /> */}
-    //                         <Avatar src={record.profile} size={50} />
-    //                     </div>
-    //                 );
-    //             },
-    //         },
-    //         {
-    //             title: "NAME",
-    //             dataIndex: "name",
-    //         },
-    //         {
-    //             title: "ID",
-    //             dataIndex: "id",
-    //         },
-    //         {
-    //             title: "STATUS",
-    //             dataIndex: "isActive",
-    //             render: (status) => (
-    //                 <span>
-    //                     {status.map((tag) => {
-    //                         let color = "gold";
-    //                         if (tag === "Solved") {
-    //                             color = "green";
-    //                         }
-    //                         if (tag === "Draft") {
-    //                             color = "red";
-    //                         }
-    //                         return (
-    //                             <Tag color={color} key={tag}>
-    //                                 {tag.toUpperCase()}
-    //                             </Tag>
-    //                         );
-    //                     })}
-    //                 </span>
-    //             ),
-    //         },
-    //         {
-    //             title: "AGE",
-    //             dataIndex: "age",
-    //         },
-    //         {
-    //             title: "EMAIL",
-    //             dataIndex: "email",
-    //         },
-    //         {
-    //             title: "GENDER",
-    //             dataIndex: "gender",
-    //         },
-    //         {
-    //             title: "ACTIONS",
-    //             dataIndex: "action",
-    //             render: (text) => (
-    //                 <Dropdown
-    //                     className='action-dropdown'
-    //                     onClick={(e) => {
-    //                         // setActionHandler(e, data);
-    //                     }}
-    //                 >
-    //                     <Dropdown.Toggle id='dropdown-action'>
-    //                         <div>
-    //                             <BsThreeDots
-    //                                 color={"#7C7C7C"}
-    //                                 style={{
-    //                                     backgroundColor: `${"#EEEEEE"}`,
-    //                                     height: "26px",
-    //                                 }}
-    //                             />
-    //                         </div>
-    //                     </Dropdown.Toggle>
-
-    //                     <Dropdown.Menu>
-    //                         <Dropdown.Item
-    //                             href='#/action-2'
-    //                             // onClick={() => setRescheduleShow(true)}
-    //                         >
-    //             Mark as Solved
-    //                         </Dropdown.Item>
-    //                         <Dropdown.Item
-    //                             href='#/action-2'
-    //                             // onClick={() => setRescheduleShow(true)}
-    //                         >
-    //             Edit Ticket
-    //                         </Dropdown.Item>
-    //                         <Dropdown.Item
-    //                             href='#/action-1'
-    //                             // onClick={() => setCancelShow(true)}
-    //                         >
-    //             Delete Ticket
-    //                         </Dropdown.Item>
-    //                     </Dropdown.Menu>
-    //                 </Dropdown>
-    //             ),
-    //         },
-    //     ],
-    //     addBtn: 1,
-    //     addEvaluator: true,
-    // };
-
-    // const typeProps = {
-    //     name: "type: All",
-
-    //     options: [
-    //         { name: "type: All", path: "" },
-    //         { name: "type: 1", path: "" },
-    //         { name: "type: 2", path: "" },
-    //     ],
-    // };
-
-    // const statusFilter = {
-    //     name: "Status: All",
-    //     options: [
-    //         { name: "All", path: "" },
-    //         { name: "Open", path: "" },
-    //         { name: "Draft", path: "" },
-    //         { name: "Solved", path: "" },
-    //     ],
-    // };
-    // const filterDropProps1 = {
-    //     name: "Filter by",
-    //     Icon: BsFilter,
-    //     options: [
-    //         { name: "Course - 1", path: "/playCourse" },
-    //         { name: "Course - 2", path: "/playCourse" },
-    //     ],
-    // };
-
-    // const addImport = {
-    //     name: "Import",
-    //     Icon: BsUpload,
-    //     options: [
-    //         { name: "CSV", path: "" },
-    //         { name: "XLV", path: "" },
-    //     ],
-    // };
-    // const addExport = {
-    //     name: "Export",
-    //     Icon: BsFilter,
-    //     options: [
-    //         { name: "All", path: "" },
-    //         { name: "Open", path: "" },
-    //         { name: "Draft", path: "" },
-    //         { name: "Solved", path: "" },
-    //     ],
-    // };
-
     const changeTab = (e) => {
-        localStorage.setItem("tab",e);
-        if (e === "3") {
-            activeEvaluater(!evaluater);
-            props.getAdminEvalutorsListAction(history);
+        setmentorDist('');
+        setNewDists('');
+        // localStorage.removeItem('dist');
+        // localStorage.removeItem('num');
+        setstudentDist('');
+        localStorage.setItem('tab', e);
+        if (e === '4') {
             activeMenter(false);
-        } else if (e === "2") {
-            props.getAdminMentorsListAction("ACTIVE");
+            activeEvaluater(false);
+            props.getAdminListAction();
+            // activeAdmin(true);
+        } else if (e === '3') {
+            activeEvaluater(!evaluater);
+            props.getEvaluatorListAction();
+            activeMenter(false);
+            // activeAdmin(false);
+            activeEvaluater(true);
+        } else if (e === '2') {
+            //props.getAdminMentorsListAction('ALL',mentorDist);
+            dispatch(getAdminMentorsListSuccess([], 0));
             activeMenter(!menter);
+            // activeAdmin(false);
             activeEvaluater(false);
         } else {
             activeEvaluater(false);
             activeMenter(false);
+            dispatch(getStudentListSuccess([]));
         }
     };
-    useEffect(() => {       
-        if(localStorage.getItem("tab")){
-            setTab(localStorage.getItem("tab"));
+    useEffect(() => {
+        if (localStorage.getItem('tab')) {
+            setTab(localStorage.getItem('tab'));
         }
-    }, [localStorage.getItem("tab")]);
-    
-    const handleSelect = (item) => {
-        props.history.push({
-            pathname: `/admin/userprofile`,
-            data: item,
-        });
+    }, [localStorage.getItem('tab')]);
+
+    useEffect(() => {
+        if (localStorage.getItem('dist')) {
+            const number = localStorage.getItem('num');
+            if (number == '2') {
+                let dist = localStorage.getItem('dist');
+                setmentorDist(dist);
+                setNewDists(dist);
+                props.getAdminMentorsListAction('ALL', mentorDist);
+            } else {
+                let dist = localStorage.getItem('dist');
+                setstudentDist(dist);
+                setNewDists(dist);
+                props.getStudentListAction(studentDist);
+            }
+        }
+    }, [localStorage.getItem('dist')]);
+
+    // const viewDetail = (item) => {
+    //     props.history.push({
+    //         pathname: '/admin/userprofile',
+    //         data: item
+    //     });
+    //     // localStorage.setItem('mentor', JSON.stringify(item));
+    // };
+    const handleSelect = (item, num) => {
+        localStorage.removeItem('dist');
+        localStorage.removeItem('num');
+        if (num == '1') {
+            props.history.push({
+                pathname: `/admin/userprofile`,
+                data: item,
+                dist: studentDist,
+                num: num
+            });
+        } else {
+            props.history.push({
+                pathname: `/admin/userprofile`,
+                data: item,
+                dist: mentorDist,
+                num: num
+            });
+        }
+        localStorage.setItem('mentor', JSON.stringify(item));
     };
     const handleEdit = (item) => {
         props.history.push({
             pathname: `/admin/edit-user-profile`,
-            data: item,
+            data: item
         });
         localStorage.setItem('mentor', JSON.stringify(item));
     };
-    const handleDelete = () => {
-        const swalWithBootstrapButtons = Swal.mixin({
-            customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger",
-            },
-            buttonsStyling: false,
-        });
+    // const handleReset = (item) => {
+    //     const body = JSON.stringify({
+    //         organization_code: item.organization_code,
+    //         otp: false,
+    //         mentor_id: item.mentor_id
+    //     });
+    //     var config = {
+    //         method: 'put',
+    //         url: process.env.REACT_APP_API_BASE_URL + '/mentors/resetPassword',
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Authorization: `Bearer ${currentUser?.data[0]?.token}`
+    //         },
+    //         data: body
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 202) {
+    //                 openNotificationWithIcon(
+    //                     'success',
+    //                     'Reset Password Successfully Update!',
+    //                     ''
+    //                 );
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // };
+    // const handleDelete = () => {
+    //     const swalWithBootstrapButtons = Swal.mixin({
+    //         customClass: {
+    //             confirmButton: 'btn btn-success',
+    //             cancelButton: 'btn btn-danger'
+    //         },
+    //         buttonsStyling: false
+    //     });
 
-        swalWithBootstrapButtons
-            .fire({
-                title: "You are attempting to delete Evalauaor.",
-                text: "Are you sure?",
-                imageUrl: `${logout}`,
-                showCloseButton: true,
-                confirmButtonText: "Delete",
-                showCancelButton: true,
-                cancelButtonText: "Cancel",
-                reverseButtons: false,
-            })
-            .then((result) => {
-                if (result.isConfirmed) {
-                    swalWithBootstrapButtons.fire(
-                        "Loged out!",
-                        "Successfully deleted.",
-                        "success"
-                    );
-                } else if (result.dismiss === Swal.DismissReason.cancel) {
-                    swalWithBootstrapButtons.fire(
-                        "Cancelled",
-                        "You are Logged in",
-                        "error"
-                    );
-                }
+    //     swalWithBootstrapButtons
+    //         .fire({
+    //             title: 'You are attempting to delete Evalauaor.',
+    //             text: 'Are you sure?',
+    //             imageUrl: `${logout}`,
+    //             showCloseButton: true,
+    //             confirmButtonText: 'Delete',
+    //             showCancelButton: true,
+    //             cancelButtonText: 'Cancel',
+    //             reverseButtons: false
+    //         })
+    //         .then((result) => {
+    //             if (result.isConfirmed) {
+    //                 swalWithBootstrapButtons.fire(
+    //                     'Loged out!',
+    //                     'Successfully deleted.',
+    //                     'success'
+    //                 );
+    //             } else if (result.dismiss === Swal.DismissReason.cancel) {
+    //                 swalWithBootstrapButtons.fire(
+    //                     'Cancelled',
+    //                     'You are Logged in',
+    //                     'error'
+    //                 );
+    //             }
+    //         });
+    // };
+    const handleStatusUpdateInAdmin = async (data, id) => {
+        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+        await axios
+            .put(`${URL.updateMentorStatus + '/' + id}`, data, axiosConfig)
+            .then((user) => console.log(user))
+            .catch((err) => {
+                console.log('error', err);
             });
     };
-    const handleStatus = (status,id,type=undefined) => {
+
+    const handleStatus = (status, id, type = undefined, all = undefined) => {
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
-                confirmButton: "btn btn-success",
-                cancelButton: "btn btn-danger",
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
             },
-            buttonsStyling: false,
+            buttonsStyling: false
         });
 
         swalWithBootstrapButtons
             .fire({
-                title: `You are attempting to ${status.toLowerCase() ==="active" ? "activate":"inactivate"} ${type && type ==="student" ? "Student" : "Mentor"}.`,
-                text: "Are you sure?",
+                title: `You are attempting to ${
+                    status.toLowerCase() === 'active'
+                        ? 'activate'
+                        : 'inactivate'
+                } ${
+                    type && type === 'student'
+                        ? 'Student'
+                        : type && type === 'evaluator'
+                        ? 'evaluator'
+                        : type && type === 'admin'
+                        ? 'Admin'
+                        : 'Mentor'
+                }.`,
+                text: 'Are you sure?',
                 imageUrl: `${logout}`,
                 showCloseButton: true,
                 confirmButtonText: status,
                 showCancelButton: true,
-                cancelButtonText: "Cancel",
-                reverseButtons: false,
+                cancelButtonText: 'Cancel',
+                reverseButtons: false
             })
             .then((result) => {
                 if (result.isConfirmed) {
-                    if(type && type ==="student"){
-                        props.studentStatusUpdate({status},id);
+                    if (type && type === 'student') {
+                        props.studentStatusUpdate({ status }, id);
                         setTimeout(() => {
-                            props.getStudentListAction();
+                            props.getStudentListAction(studentDist);
                         }, 500);
-                    }else{
-                        props.mentorStatusUpdate({status},id);
+                    } else if (type && type === 'evaluator') {
+                        console.warn(status, id, type);
+                        dispatch(updateEvaluator({ status }, id));
                         setTimeout(() => {
-                            props.getAdminMentorsListAction(status);
+                            props.getEvaluatorListAction();
+                        }, 500);
+                    } else if (type && type === 'admin') {
+                        const obj = {
+                            full_name: all.full_name,
+                            username: all.username,
+                            // mobile: all.mobile,
+                            status
+                        };
+                        handleStatusUpdateInAdmin({ obj }, id);
+                        // dispatch(updateAdmin({ status }, id));
+                        setTimeout(() => {
+                            props.getAdminListAction();
+                        }, 500);
+
+                        // setTimeout(() => {
+                        //     props.getEvaluatorListAction();
+                        // }, 500);
+                    } else {
+                        const obj = {
+                            full_name: all.full_name,
+                            username: all.username,
+                            // mobile: all.mobile,
+                            status
+                        };
+                        props.mentorStatusUpdate(obj, id);
+                        setTimeout(() => {
+                            props.getAdminMentorsListAction('ALL', mentorDist);
                         }, 500);
                     }
                     swalWithBootstrapButtons.fire(
-                        `${type && type ==="student" ? "Student" : "Mentor"} Status has been changed!`,
-                        "Successfully updated.",
-                        "success"
+                        `${
+                            type && type === 'student'
+                                ? 'Student'
+                                : type && type === 'evaluator'
+                                ? 'evaluator'
+                                : type && type === 'admin'
+                                ? 'Admin'
+                                : 'Mentor'
+                        } Status has been changed!`,
+                        'Successfully updated.',
+                        'success'
                     );
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
-                        "Cancelled",
-                        "Not updated successfully",
-                        "error"
+                        'Cancelled',
+                        'Not updated successfully',
+                        'error'
                     );
                 }
             });
     };
-
-    // const filterDropPropsEvaluator = {
-    //     name: "",
-    //     Icon: HiDotsHorizontal,
-    //     options: [
-    //         { name: "Edit Ticket", path: "/admin/edit-evaluator" },
-    //         {
-    //             name: "Delete Ticket 123",
-    //             value: "delete",
-    //             // path: { handleDelete },
-    //             // onClick: { handleDelete },
-    //         },
-    //     ],
-    // };
-
-    // const TableEvaluaterProps = {
-    //     data: props.evaluatorsBulkUploadList,
-    //     columns: [
-    //         {
-    //             title: "User Profile ID",
-    //             dataIndex: "user_profile_id",
-    //         },
-    //         {
-    //             title: "Full Name",
-    //             dataIndex: "full_name",
-    //         },
-    //         {
-    //             title: "Status",
-    //             dataIndex: "status",
-    //         },
-    //         {
-    //             title: "DOB",
-    //             dataIndex: "date_of_birth",
-    //         },
-    //         {
-    //             title: "Organization Name",
-    //             dataIndex: "organization_name",
-    //         },
-    //         {
-    //             title: "Qualification",
-    //             dataIndex: "qualification",
-    //         },
-    //         {
-    //             title: "City",
-    //             dataIndex: "city",
-    //         },
-    //         {
-    //             title: "District",
-    //             dataIndex: "district",
-    //         },
-    //         {
-    //             title: "State",
-    //             dataIndex: "state",
-    //         },
-    //         {
-    //             title: "Country",
-    //             dataIndex: "country",
-    //         },
-    //         {
-    //             title: "ACTIONS",
-    //             dataIndex: "action",
-    //             render: (text, record) => (
-    //                 <Space size='small'>
-    //                     <Link exact='true' to='/admin/edit-evaluator' className='mr-5'>
-    //                         <i className='fa fa-edit' />
-    //                     </Link>
-
-    //                     <Link exact='true' onClick={handleDelete} className='mr-5'>
-    //                         <i className='fa fa-trash' />
-    //                     </Link>
-    //                 </Space>
-    //             ),
-    //         },
-    //     ],
-    // };
     const TableMentorsProps = {
         data: props.mentorsList,
-        totalItems:props.totalItems,
+        totalItems: props.totalItems,
         columns: [
             {
-                name: "S.No",
-                selector: "mentor_id",
-                width:"8%"
+                name: 'No',
+                selector: 'id',
+                width: '6%'
             },
             {
-                name: "UDISE  Code",
-                selector: "organization_code",
-                width:"10%"
+                name: 'UDISE',
+                selector: 'organization_code',
+                width: '13%'
             },
-            
+
             {
-                name: "Teacher Name",
-                selector: "full_name",
-                width:"12%"
+                name: 'Teacher Name',
+                selector: 'full_name',
+                width: '21%'
             },
-            
+
             {
-                name: "Email",
-                selector: "username",
-                width:"20%"
+                name: 'Email',
+                selector: 'username',
+                width: '22%'
             },
+            // {
+            //     name: 'Phone',
+            //     selector: 'mobile',
+            //     width: '10%'
+            // },
             {
-                name: "Phone",
-                selector: "mobile",
-                width:"20%"
-            },
-            {
-                name: "Status",
+                name: 'Status',
                 cell: (row) => [
                     <Badge
                         key={row.mentor_id}
@@ -850,319 +431,482 @@ const TicketsPage = (props) => {
                         {row.status}
                     </Badge>
                 ],
-                width:"8%"
+                width: '9%'
             },
-            
-            // {
-            //     name: "Qualification",
-            //     selector: "qualification",
-            //     width:"11%"
-            // },
-            // {
-            //     name: "City",
-            //     selector: "city",
-            //     width:"10%"
-            // },
-            // {
-            //     name: "District",
-            //     selector: "district",
-            //     width:"10%"
-            // },
-            // {
-            //     name: "State",
-            //     selector: "state",
-            //     width:"8%"
-            // },
-            // {
-            //     name: "Country",
-            //     selector: "country",
-            //     width:"8%"
-            // },
             {
-                name: "ACTIONS",
-                selector: "action",
-                width:"20%",
+                name: 'Actions',
+                selector: 'action',
+                width: '35%',
                 cell: (record) => [
+                    // <Link
+                    //     exact="true"
+                    //     key={record.id}
+                    //     onClick={() => handleReset(record)}
+                    //     style={{ marginRight: '10px' }}
+                    // >
+                    //     <div className="btn btn-success btn-lg">RESET</div>
+                    // </Link>,
                     <Link
-                        exact='true'
+                        exact="true"
                         key={record.id}
-                        onClick={() => handleSelect(record)}
-                        style={{marginRight:"10px"}}
+                        onClick={() => handleSelect(record, '2')}
+                        style={{ marginRight: '10px' }}
                     >
-                        <div className="btn btn-primary btn-lg">View</div>
+                        <div className="btn btn-primary btn-lg">VIEW</div>
                     </Link>,
+                    // <Link
+                    //     exact="true"
+                    //     key={record.id}
+                    //     onClick={() => handleEdit(record)}
+                    //     style={{ marginRight: '10px' }}
+                    // >
+                    //     <div className="btn btn-warning btn-lg">EDIT</div>
+                    // </Link>,
                     <Link
-                        exact='true'
+                        exact="true"
                         key={record.id}
-                        onClick={() => handleEdit(record)}
-                        style={{marginRight:"10px"}}
-                    >
-                        <div className="btn btn-warning btn-lg">Edit</div>
-                    </Link>,
-                    <Link 
-                        exact='true' 
-                        key={record.id}
-                        className='mr-5' 
+                        className="mr-5"
                         onClick={() => {
-                            let status = record?.status === "ACTIVE" ? "INACTIVE":"ACTIVE";
-                            handleStatus(status,record?.mentor_id);
-                        }}>
-                        {record?.status === "ACTIVE" ?<div className="btn btn-danger btn-lg">Inactive</div> : <div className="btn btn-secondary btn-lg">Active</div>}
+                            let status =
+                                record?.status === 'ACTIVE'
+                                    ? 'INACTIVE'
+                                    : 'ACTIVE';
+                            handleStatus(
+                                status,
+                                record?.mentor_id,
+                                undefined,
+                                record
+                            );
+                        }}
+                    >
+                        {record?.status === 'ACTIVE' ? (
+                            <div className="btn btn-danger btn-lg">
+                                INACTIVE
+                            </div>
+                        ) : (
+                            <div className="btn btn-success btn-lg">ACTIVE</div>
+                        )}
                     </Link>
-                ],
-            },
-        ],
+                ]
+            }
+        ]
     };
-    // const TableMentorsInactiveProps = {
-    //     data: props.mentorsList,
-    //     totalItems:props.totalItems,
-    //     columns: [
-    //         {
-    //             name: "S.No",
-    //             selector: "mentor_id",
-    //             width:"8%"
-    //         },
-    //         {
-    //             name: "Teacher Name",
-    //             selector: "full_name",
-    //             width:"12%"
-    //         },
-    //         {
-    //             name: "Status",
-    //             selector: "status",
-    //             width:"8%"
-    //         },
-    //         {
-    //             name: "UDISE  Code",
-    //             selector: "organization_code",
-    //             width:"10%"
-    //         },
-    //         {
-    //             name: "Qualification",
-    //             selector: "qualification",
-    //             width:"11%"
-    //         },
-    //         {
-    //             name: "City",
-    //             selector: "city",
-    //             width:"10%"
-    //         },
-    //         {
-    //             name: "District",
-    //             selector: "district",
-    //             width:"10%"
-    //         },
-    //         {
-    //             name: "State",
-    //             selector: "state",
-    //             width:"8%"
-    //         },
-    //         {
-    //             name: "Country",
-    //             selector: "country",
-    //             width:"8%"
-    //         },
-    //         {
-    //             name: "ACTIONS",
-    //             selector: "action",
-    //             width:"15%",
-    //             cell: ( record) => [
-    //                 <Link
-    //                     exact='true'
-    //                     onClick={() => handleSelect(record)}
-    //                     style={{marginRight:"10px"}}
-    //                     key={record.id}
-    //                 >
-    //                     <div className="btn btn-primary btn-lg">View</div>
-    //                 </Link>,
-    //                 <Link 
-    //                     exact='true' 
-    //                     className='mr-5' 
-    //                     key={record.id}
-    //                     onClick={() => {
-    //                         let status = record?.status === "ACTIVE" ? "INACTIVE":"ACTIVE";
-    //                         handleStatus(status,record?.mentor_id);
-    //                     }}>
-    //                     {record?.status === "ACTIVE" ?<div className="btn btn-danger btn-lg">Inactive</div> : <div className="btn btn-secondary btn-lg">Active</div>}
-    //                 </Link>
-    //             ],
-    //         },
-    //     ],
-    // };
-    // const TableMentorsActiveProps = {
-    //     data: props.mentorsList,
-    //     totalItems:props.totalItems,        
-    //     columns: [
-    //         {
-    //             name: "S.No",
-    //             selector: "mentor_id",
-    //             width:"8%"
-    //         },
-    //         {
-    //             name: "Teacher Name",
-    //             selector: "full_name",
-    //             width:"12%"
-    //         },
-    //         {
-    //             name: "Status",
-    //             selector: "status",
-    //             width:"8%"
-    //         },
-    //         {
-    //             name: "UDISE  Code",
-    //             selector: "organization_code",
-    //             width:"10%"
-    //         },
-    //         {
-    //             name: "Qualification",
-    //             selector: "qualification",
-    //             width:"11%"
-    //         },
-    //         {
-    //             name: "City",
-    //             selector: "city",
-    //             width:"10%"
-    //         },
-    //         {
-    //             name: "District",
-    //             selector: "district",
-    //             width:"10%"
-    //         },
-    //         {
-    //             name: "State",
-    //             selector: "state",
-    //             width:"8%"
-    //         },
-    //         {
-    //             name: "Country",
-    //             selector: "country",
-    //             width:"8%"
-    //         },
-    //         {
-    //             name: "ACTIONS",
-    //             selector: "action",
-    //             width:"15%",
-    //             cell: (record) => [
-    //                 <Link
-    //                     exact='true'
-    //                     key={record.id}
-    //                     onClick={() => handleSelect(record)}
-    //                     style={{marginRight:"10px"}}
-    //                 >
-    //                     <div className="btn btn-primary btn-lg">View</div>
-    //                 </Link>,
-    //                 <Link 
-    //                     exact='true' 
-    //                     key={record.id}
-    //                     className='mr-5' 
-    //                     onClick={() => {
-    //                         let status = record?.status === "ACTIVE" ? "INACTIVE":"ACTIVE";
-    //                         handleStatus(status,record?.mentor_id);
-    //                     }}>
-    //                     {record?.status === "ACTIVE" ?<div className="btn btn-danger btn-lg">Inactive</div> : <div className="btn btn-secondary btn-lg">Active</div>}
-    //                 </Link>
-    //             ],
-    //         },
-    //     ],
-    // };
     const StudentsData = {
         data: props.studentList,
         columns: [
             {
-                name: "S.No.",
-                selector: "student_id",
-                width: "10%",
+                name: 'No',
+                selector: 'id',
+                width: '6%'
                 // center: true,
             },
             {
-                name: "Team Code",
-                selector: "team_id",
+                name: 'Team Name',
+                selector: 'team.team_name',
                 // sortable: true,
-                width: "20%",
+                width: '17%'
                 // center: true,
             },
             {
-                name: "Student Name",
-                selector: "full_name",
-                width: "21%",
+                name: 'Student Name',
+                selector: 'full_name',
+                width: '20%'
                 // center: true,
             },
             {
-                name: "Institute",
-                selector: "institute_name",
-                width: "20%",
+                name: 'Grade',
+                selector: 'Grade',
+                width: '9%'
                 // center: right,
             },
             {
-                name: "Qualification",
-                selector: "qualification",
-                width: "15%",
+                name: 'Age',
+                selector: 'Age',
+                width: '8%'
                 // center: right,
             },
             {
-                name: "Action",
+                name: 'Gender',
+                selector: 'Gender',
+                width: '10%'
+                // center: right,
+            },
+            {
+                name: 'Status',
+                cell: (row) => [
+                    <Badge
+                        key={row.mentor_id}
+                        bg={`${
+                            row.status === 'ACTIVE' ? 'secondary' : 'danger'
+                        }`}
+                    >
+                        {row.status}
+                    </Badge>
+                ],
+                width: '8%'
+            },
+            {
+                name: 'Actions',
                 sortable: false,
-                selector: "null",
-                width: "14%",
+                selector: 'null',
+                width: '19%',
                 cell: (record) => [
                     <Link
                         key={record.id}
-                        exact='true'
-                        onClick={() => handleSelect(record)}
-                        style={{marginRight:"10px"}}
+                        exact="true"
+                        // onClick={viewDetail}
+                        onClick={() => handleSelect(record, '1')}
+                        style={{ marginRight: '10px' }}
                     >
-                        <div className="btn btn-primary btn-lg mr-5">View</div>
+                        <div className="btn btn-primary btn-lg mr-5">VIEW</div>
                     </Link>,
                     <Link
                         key={record.id}
-                        exact='true'
+                        exact="true"
+                        style={{ marginRight: '10px' }}
                         onClick={() => {
-                            let status = record?.status === "ACTIVE" ? "INACTIVE":"ACTIVE";
-                            handleStatus(status,record?.student_id,"student");
+                            let status =
+                                record?.status === 'ACTIVE'
+                                    ? 'INACTIVE'
+                                    : 'ACTIVE';
+                            handleStatus(status, record?.student_id, 'student');
                         }}
                     >
-                        {record?.status === "ACTIVE" ?<div className="btn btn-danger btn-lg">Inactive</div> : <div className="btn btn-secondary btn-lg">Active</div>}
+                        {record?.status === 'ACTIVE' ? (
+                            <div className="btn btn-danger btn-lg">
+                                INACTIVE
+                            </div>
+                        ) : (
+                            <div className="btn btn-warning btn-lg">ACTIVE</div>
+                        )}
                     </Link>
                 ]
             }
-        ],
+        ]
     };
+    const evaluatorsData = {
+        data: props.evalutorsList,
+        columns: [
+            {
+                name: 'No',
+                selector: 'id',
+                width: '6%'
+            },
+            {
+                name: 'Evaluator Name',
+                selector: 'user.full_name',
+                width: '20%'
+            },
+            {
+                name: 'Email',
+                selector: 'user.username',
+                width: '25%'
+            },
+            // {
+            //     name: 'Mobile',
+            //     selector: 'mobile',
+            //     width: '11%'
+            // },
+            {
+                name: 'District',
+                selector: 'district',
+                width: '11%'
+            },
+            {
+                name: 'Status',
+                cell: (row) => [
+                    <Badge
+                        key={row.mentor_id}
+                        bg={`${
+                            row.status === 'ACTIVE' ? 'secondary' : 'danger'
+                        }`}
+                    >
+                        {row.status}
+                    </Badge>
+                ],
+                width: '10%'
+            },
+            {
+                name: 'Actions',
+                sortable: false,
+                selector: 'null',
+                width: '15%',
+                cell: (record) => [
+                    // <Link
+                    //     key={record.id}
+                    //     exact="true"
+                    //     onClick={() => handleSelect(record)}
+                    //     style={{ marginRight: '10px' }}
+                    // >
+                    //     <div className="btn btn-primary btn-lg mr-5">View</div>
+                    // </Link>,
+                    <Link
+                        exact="true"
+                        key={record.id}
+                        onClick={() => handleEdit(record)}
+                        style={{ marginRight: '10px' }}
+                    >
+                        <div className="btn btn-primary btn-lg">EDIT</div>
+                    </Link>,
+                    <Link
+                        exact="true"
+                        key={record.id}
+                        className="mr-5"
+                        onClick={() => {
+                            let status =
+                                record?.status === 'ACTIVE'
+                                    ? 'INACTIVE'
+                                    : 'ACTIVE';
+                            handleStatus(
+                                status,
+                                record?.evaluator_id,
+                                'evaluator'
+                            );
+                        }}
+                    >
+                        {record?.status === 'ACTIVE' ? (
+                            <div className="btn btn-danger btn-lg">
+                                INACTIVE
+                            </div>
+                        ) : (
+                            <div className="btn btn-warning btn-lg">ACTIVE</div>
+                        )}
+                    </Link>
+                ]
+            }
+        ]
+    };
+    const adminData = {
+        data:
+            props.adminData && props.adminData.length > 0
+                ? props.adminData
+                : [],
+        columns: [
+            {
+                name: 'No',
+                selector: (row) => row?.id,
+                width: '6%'
+            },
+            {
+                name: 'Admin Name',
+                selector: (row) => row?.user?.full_name,
+                width: '17%'
+            },
+            {
+                name: 'Email',
+                selector: (row) => row?.user?.username,
+                width: '27%'
+            },
+            {
+                name: 'Role',
+                selector: (row) => row?.user?.role,
+                width: '15%',
+                cell: (params) => [
+                    params.user.role === 'ADMIN' ? (
+                        <span className="py-2 px-4 rounded-pill bg-danger bg-opacity-25 text-danger fw-bold">
+                            ADMIN
+                        </span>
+                    ) : params.user.role === 'EADMIN' ? (
+                        <span className="py-2 px-4 rounded-pill bg-success bg-opacity-25 text-info fw-bold">
+                            EADMIN
+                        </span>
+                    ) : params.user.role === 'STUDENT' ? (
+                        <span className="bg-success bg-opacity-25 px-4 py-2 rounded-pill text-success fw-bold">
+                            STUDENT
+                        </span>
+                    ) : (
+                        ''
+                    )
+                ]
+            },
+            {
+                name: 'Status',
+                cell: (row) => [
+                    <Badge
+                        key={row.mentor_id}
+                        bg={`${
+                            row.status === 'ACTIVE' ? 'secondary' : 'danger'
+                        }`}
+                    >
+                        {row.status}
+                    </Badge>
+                ],
+                width: '10%'
+            },
+            {
+                name: 'Actions',
+                sortable: false,
+                selector: 'null',
+
+                width: '25%',
+                cell: (record) => [
+                    <Link
+                        exact="true"
+                        className="mr-5"
+                        key={record?.id}
+                        onClick={() => handleEdit(record)}
+                        style={{ marginRight: '10px' }}
+                    >
+                        <div className="btn btn-primary btn-lg">EDIT</div>
+                    </Link>,
+                    <Link
+                        exact="true"
+                        key={record.id}
+                        style={{ marginRight: '10px' }}
+                        onClick={() => {
+                            let status =
+                                record?.status === 'ACTIVE'
+                                    ? 'INACTIVE'
+                                    : 'ACTIVE';
+                            handleStatus(
+                                status,
+                                record?.admin_id,
+                                'admin',
+                                record
+                            );
+                        }}
+                    >
+                        {record?.status === 'ACTIVE' ? (
+                            <div className="btn btn-danger btn-lg">
+                                INACTIVE
+                            </div>
+                        ) : (
+                            <div className="btn btn-secondary btn-lg">
+                                ACTIVE
+                            </div>
+                        )}
+                    </Link>
+                    // <Link
+                    //     key={record?.id}
+                    //     exact="true"
+                    //     onClick={() => handleSelect(record)}
+                    //     style={{ marginRight: '10px' }}
+                    // >
+                    //     <div className="btn btn-primary btn-lg mr-5">View</div>
+                    // </Link>,
+                ]
+            }
+        ]
+    };
+
+    // const handleEvaluatorStatus=(status,id)=>{
+    //     console.warn(status,id);
+    // };
+
     return (
         <Layout>
-            <Container className='ticket-page mb-50 userlist'>
-                <Row className='mt-0 pt-3'>
-                    <h2 onClick={handleDelete}>User List</h2>
-                    <div className='ticket-data'>
-                        <Tabs defaultActiveKey={localStorage.getItem("tab")} onChange={(key) => changeTab(key)}>
-                            <Row className='mt-0'>                                
-                                <Col className='ticket-btn col ml-auto  '>
-                                    <div className='d-flex justify-content-end'>
-                                        <Button
-                                            label='Import'
-                                            btnClass='primary-outlined'
-                                            size='small'
-                                            shape='btn-square'
-                                            Icon={BsUpload}
-                                            onClick={() => setImportPopup(true)}
-                                        />
-
-                                        <a
-                                            href={dummyCSV}
-                                            target='_blank'
-                                            rel='noreferrer'
-                                            className='primary'
-                                        >
+            <Container className="ticket-page mt-5 mb-50 userlist">
+                <Row className="mt-0 pt-3">
+                    <h2>User List</h2>
+                    {/* <h2 onClick={handleDelete}>User List</h2> */}
+                    <div className="ticket-data">
+                        <Tabs
+                            defaultActiveKey={
+                                localStorage.getItem('tab')
+                                    ? localStorage.getItem('tab')
+                                    : '1'
+                            }
+                            onChange={(key) => changeTab(key)}
+                        >
+                            <Row className="mt-0">
+                                <Col className="ticket-btn col ml-auto  ">
+                                    <div
+                                        className={`d-flex ${
+                                            tab == 1 || tab == 2
+                                                ? ''
+                                                : 'justify-content-end'
+                                        }`}
+                                    >
+                                        {tab && tab == 1 && (
+                                            <>
+                                                <SelectDists
+                                                    getDistrictsListAction={
+                                                        props.getDistrictsListAction
+                                                    }
+                                                    setDist={setstudentDist}
+                                                    newDist={newDist}
+                                                    dists={props.dists}
+                                                    tab={tab}
+                                                />
+                                                {studentDist && (
+                                                    <Card className="ms-3 p-3">
+                                                        Total Students :{' '}
+                                                        {
+                                                            props.studentList
+                                                                .length
+                                                        }
+                                                    </Card>
+                                                )}
+                                            </>
+                                        )}
+                                        {tab && tab == 2 && (
+                                            <>
+                                                <SelectDists
+                                                    getDistrictsListAction={
+                                                        props.getDistrictsListAction
+                                                    }
+                                                    setDist={setmentorDist}
+                                                    newDist={newDist}
+                                                    dists={props.dists}
+                                                    tab={tab}
+                                                />
+                                                {mentorDist && (
+                                                    <Card className="ms-3 p-3">
+                                                        Total Teachers :{' '}
+                                                        {
+                                                            props.mentorsList
+                                                                .length
+                                                        }
+                                                    </Card>
+                                                )}
+                                            </>
+                                        )}
+                                        {tab && (tab == 3 || tab == 4) && (
                                             <Button
-                                                label='Export'
-                                                btnClass='primary-outlined mx-2'
-                                                size='small'
-                                                shape='btn-square'
-                                                Icon={BsGraphUp}
-                                                style={{ color: "#231f20" }}
+                                                label={
+                                                    tab == 3
+                                                        ? 'Add New Evaluator'
+                                                        : 'Add New Admin'
+                                                }
+                                                btnClass="primary"
+                                                size="small"
+                                                shape="btn-square"
+                                                Icon={BsUpload}
+                                                onClick={() =>
+                                                    setRegisterModalShow(true)
+                                                }
                                             />
-                                        </a>
+                                        )}
+                                        {/* <div>
+                                            <Button
+                                                label="Import"
+                                                btnClass="primary-outlined"
+                                                size="small"
+                                                shape="btn-square"
+                                                Icon={BsUpload}
+                                                onClick={() =>
+                                                    setImportPopup(true)
+                                                }
+                                            />
 
-                                        {menter === true ? (
+                                            <a
+                                                href={dummyCSV}
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                className="primary"
+                                            >
+                                                <Button
+                                                    label="Export"
+                                                    btnClass="primary-outlined mx-2"
+                                                    size="small"
+                                                    shape="btn-square"
+                                                    Icon={BsGraphUp}
+                                                    style={{ color: '#231f20' }}
+                                                />
+                                            </a>
+                                        </div> */}
+
+                                        {/* {menter === true ? (
                                             <Button
                                                 label='Add Mentor'
                                                 btnClass='primary ml-2'
@@ -1182,65 +926,83 @@ const TicketsPage = (props) => {
                                                     props.history.push("/admin/add-evaluator")
                                                 }
                                             />
-                                        ) : null}
+                                        ) : null} */}
                                     </div>
                                 </Col>
                             </Row>
                             <TabPane
-                                tab='Students'
-                                key='1'
-                                className='bg-white p-3 mt-2 sub-tab'
+                                tab="Students"
+                                key="1"
+                                className="bg-white p-3 mt-2 sub-tab"
                                 tabId="1"
                             >
-                                {/* <p className='mt-2 mb-0 text-bold'>Students management</p> */}
-
-                                {/* <Tabs defaultActiveKey='1' onChange={(key)=>changeStudentTab(key)}> */}
-                                {/* <TabPane tab='School' key='1'> */}
-                                <div className='my-5'>
-                                    <DataTableExtensions {...StudentsData} exportHeaders>
-                                        <DataTable
-                                            data={rows}
-                                            defaultSortField='id'
-                                            defaultSortAsc={false}
-                                            pagination
-                                            highlightOnHover
-                                            fixedHeader
-                                            subHeaderAlign={Alignment.Center}
-                                        />
-                                    </DataTableExtensions>
-                                </div>
-                                {/* </TabPane>
-                                    <TabPane tab='University/Adult learner' key='2'>
-                                        <div className='my-5'>
-                                            <DataTableExtensions {...StudentsData} exportHeaders>
-                                                <DataTable
-                                                    data={rows}
-                                                    defaultSortField='id'
-                                                    defaultSortAsc={false}
-                                                    pagination
-                                                    highlightOnHover
-                                                    fixedHeader
-                                                    subHeaderAlign={Alignment.Center}
-                                                />
-                                            </DataTableExtensions>
-                                        </div>
-                                    </TabPane> */}
-                                {/* </Tabs> */}
+                                {studentDist === '' ? (
+                                    <CommonPage text="Please select a district" />
+                                ) : (
+                                    <div className="my-5">
+                                        <DataTableExtensions
+                                            {...StudentsData}
+                                            exportHeaders
+                                        >
+                                            <DataTable
+                                                data={rows}
+                                                defaultSortField="id"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                )}
                             </TabPane>
                             <TabPane
-                                tab='Teachers'
-                                key='2'
-                                className='bg-white p-3 mt-2 sub-tab'
+                                tab="Teachers"
+                                key="2"
+                                className="bg-white p-3 mt-2 sub-tab"
                                 tabId="2"
                             >
-                                {/* <p className='mt-2 mb-0 text-bold'>Teachers management</p> */}
-                                {/* <Tabs defaultActiveKey='1' onChange={(key)=>changeMentorTab(key)}> */}
-                                {/* <TabPane tab='All' key='1'> */}
-                                <div className='my-5'>
-                                    <DataTableExtensions {...TableMentorsProps} exportHeaders>
+                                {mentorDist === '' ? (
+                                    <CommonPage text="Please select a district" />
+                                ) : (
+                                    <div className="my-5">
+                                        <DataTableExtensions
+                                            {...TableMentorsProps}
+                                            exportHeaders
+                                        >
+                                            <DataTable
+                                                data={mentorRows}
+                                                defaultSortField="id"
+                                                defaultSortAsc={false}
+                                                pagination
+                                                highlightOnHover
+                                                fixedHeader
+                                                subHeaderAlign={
+                                                    Alignment.Center
+                                                }
+                                            />
+                                        </DataTableExtensions>
+                                    </div>
+                                )}
+                            </TabPane>
+                            <TabPane
+                                tab="Evaluators"
+                                key="3"
+                                className="bg-white p-3 mt-2 sub-tab"
+                                tabId="3"
+                            >
+                                <div className="my-5">
+                                    <DataTableExtensions
+                                        {...evaluatorsData}
+                                        exportHeaders
+                                    >
                                         <DataTable
-                                            data={mentorRows}
-                                            defaultSortField='id'
+                                            responsive={true}
+                                            data={props.evalutorsList}
+                                            defaultSortField="id"
                                             defaultSortAsc={false}
                                             pagination
                                             highlightOnHover
@@ -1249,69 +1011,29 @@ const TicketsPage = (props) => {
                                         />
                                     </DataTableExtensions>
                                 </div>
-                                {/* </TabPane> */}
-                                {/* <TabPane tab='Active' key='2'>
-                                    <div className='my-5'>
-                                        <DataTableExtensions {...TableMentorsActiveProps} exportHeaders>
-                                            <DataTable
-                                                data={mentorActiveRows}
-                                                defaultSortField='id'
-                                                defaultSortAsc={false}
-                                                pagination
-                                                highlightOnHover
-                                                fixedHeader
-                                                subHeaderAlign={Alignment.Center}
-                                            />
-                                        </DataTableExtensions>
-                                    </div>
-                                </TabPane>
-                                <TabPane tab='Inactive' key='3'>
-                                    <div className='my-5'>
-                                        <DataTableExtensions {...TableMentorsInactiveProps} exportHeaders>
-                                            <DataTable
-                                                data={mentorInactiveRows}
-                                                defaultSortField='id'
-                                                defaultSortAsc={false}
-                                                pagination
-                                                highlightOnHover
-                                                fixedHeader
-                                                subHeaderAlign={Alignment.Center}
-                                            />
-                                        </DataTableExtensions>
-                                    </div>
-                                </TabPane> */}
-                                {/* </Tabs> */}
                             </TabPane>
                             <TabPane
-                                tab='Evaluators'
-                                key='3'
-                                className='bg-white p-3 mt-2 sub-tab'
-                                tabId="3"
-                            >
-                                {/* <Tabs defaultActiveKey='1' onChange={callback}>
-                                <TabPane tab='All' key='1'> */}
-                                {/* <TicketDataTable {...TableEvaluaterProps} /> */}
-                                <h2 className='py-5 w-100 text-center'>
-                                    PAGE UNDER CONSTRUCTION
-                                </h2>
-                                {/* </TabPane>
-                                </Tabs> */}
-                            </TabPane>
-                            <TabPane
-                                tab='Admins'
-                                key='4'
-                                className='bg-white p-3 mt-2 sub-tab'
+                                tab="Admins"
+                                key="4"
+                                className="bg-white p-3 mt-2 sub-tab"
                                 tabId="4"
-                                
                             >
-                                {/* <Tabs defaultActiveKey='1' onChange={callback}>
-                                <TabPane tab='All' key='1'> */}
-                                {/* <TicketDataTable {...TableEvaluaterProps} /> */}
-                                <h2 className='py-5 w-100 text-center'>
-                                    PAGE UNDER CONSTRUCTION
-                                </h2>
-                                {/* </TabPane>
-                                </Tabs> */}
+                                <div className="my-5">
+                                    <DataTableExtensions
+                                        {...adminData}
+                                        exportHeaders
+                                    >
+                                        <DataTable
+                                            data={props.adminData}
+                                            defaultSortField="id"
+                                            defaultSortAsc={false}
+                                            pagination
+                                            highlightOnHover
+                                            fixedHeader
+                                            subHeaderAlign={Alignment.Center}
+                                        />
+                                    </DataTableExtensions>
+                                </div>
                             </TabPane>
                         </Tabs>
                     </div>
@@ -1322,21 +1044,46 @@ const TicketsPage = (props) => {
                 setImportPopup={setImportPopup}
                 onHide={() => setImportPopup(false)}
             />
+            {registerModalShow && (
+                <Register
+                    show={registerModalShow}
+                    setShow={setRegisterModalShow}
+                    onHide={() => setRegisterModalShow(false)}
+                    roleToBeAdded={
+                        tab &&
+                        (tab == 3 ? 'EVALUATOR' : tab == 4 ? 'ADMIN' : null)
+                    }
+                />
+            )}
         </Layout>
     );
 };
 
-const mapStateToProps = ({ evaluatorsBulkUpload, adminMentors,studentRegistration }) => {
-    const { evaluatorsBulkUploadList } = evaluatorsBulkUpload;
-    const { mentorsList,totalItems } = adminMentors;
-    const { studentList } = studentRegistration;
-    return { evaluatorsBulkUploadList, mentorsList,totalItems,studentList };
+const mapStateToProps = ({
+    adminEvalutors,
+    adminMentors,
+    studentRegistration,
+    admin
+}) => {
+    const { evalutorsList } = adminEvalutors;
+    const { adminData } = admin;
+    const { mentorsList, totalItems } = adminMentors;
+    const { studentList, dists } = studentRegistration;
+    return {
+        evalutorsList,
+        adminData,
+        mentorsList,
+        totalItems,
+        studentList,
+        dists
+    };
 };
 export default connect(mapStateToProps, {
-    // getEvaluatorsBulkUploadListAction: getEvaluatorsBulkUploadList,
     getAdminMentorsListAction: getAdminMentorsList,
     getStudentListAction: getStudentRegistationData,
+    getDistrictsListAction: getDistrictData,
+    getEvaluatorListAction: getAdminEvalutorsList,
+    getAdminListAction: getAdmin,
     mentorStatusUpdate: updateMentorStatus,
-    studentStatusUpdate: updateStudentStatus,
+    studentStatusUpdate: updateStudentStatus
 })(TicketsPage);
-// export default TicketsPage;

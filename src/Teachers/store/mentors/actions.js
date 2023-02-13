@@ -18,7 +18,8 @@ import {
     MENTORS_GET_SUPPORT_TICKETS,
     MENTORS_GET_SUPPORT_TICKETS_BY_ID,
     MENTORS_GET_SUPPORT_TICKETS_RESPONSES_BY_ID,
-    MENTORS_SUPPORT_TICKETS_STATUS
+    MENTORS_SUPPORT_TICKETS_STATUS,
+    GET_TEACHERS_PRESURVEY_STATUS
     // MENTORS_CREATE_SUPPORT_TICKETS
 } from '../../../redux/actions.js';
 import { URL, KEY } from '../../../constants/defaultValues.js';
@@ -179,7 +180,6 @@ export const mentorsEditError = (message) => async (dispatch) => {
 };
 
 export const mentorsEdit = (courseId, data, history) => async (dispatch) => {
-    console.log('-------------', data);
     try {
         dispatch({ type: MENTORS_EDIT });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -189,7 +189,6 @@ export const mentorsEdit = (courseId, data, history) => async (dispatch) => {
             .catch((err) => {
                 return err.response;
             });
-        // console.log('========result', result);
         if (result && result.status === 200) {
             // const data = result.data.text;
             // dispatch(mentorsEditSuccess(data));
@@ -207,11 +206,11 @@ export const getSupportTicketsSuccess = (tickets) => async (dispatch) => {
         payload: tickets
     });
 };
-export const getSupportTickets = (lang) => async (dispatch) => {
+export const getSupportTickets = (lang,user) => async (dispatch) => {
     try {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .get(`${URL.getMentorSupportTickets}?${getLanguage(lang)}`, axiosConfig)
+            .get(`${URL.getMentorSupportTickets}?user_id=${user.user_id}&${getLanguage(lang)}`, axiosConfig)
             .then((user) => user)
             .catch((err) => {
                 return err.response;
@@ -285,7 +284,6 @@ export const getSupportTicketById = (id,lang) => async (dispatch) => {
             .get(`${URL.getMentorSupportTicketsById}${id}?${getLanguage(lang)}`,  axiosConfig)
             .then((user) => user)
             .catch((err) => {
-                console.log(err);
                 return err.response;
             });
         
@@ -301,9 +299,7 @@ export const getSupportTicketById = (id,lang) => async (dispatch) => {
     } catch (error) {
         openNotificationWithIcon('error',
             'Something went wrong!456',
-            '');
-        console.log('----305', error);
-        
+            '');        
     }
 };
 
@@ -324,13 +320,11 @@ export const getSupportResponsesTicketById = () => async (dispatch) => {
         const result = await axios.get(`${URL.getMentorSupportTicketResponsesById}`,  axiosConfig)
             .then((user) => user)
             .catch((err) => {
-                console.log(err);
                 return err.response;
             });
         
         if (result && result.status === 200) {
             const data = result.data.data[0];
-            console.log("Hello world",data);
             dispatch(getSupportResponseTicketById(data));
            
         } else {
@@ -345,10 +339,34 @@ export const getSupportResponsesTicketById = () => async (dispatch) => {
         
     }
 };
+export const getTeacherPresurveyStatusSuccess = (data) => async (dispatch) => {
+    dispatch({
+        type: GET_TEACHERS_PRESURVEY_STATUS,
+        payload: data
+    });
+};
+
+export const getTeacherPresurveyStatus = () => async (dispatch) => {
+    try {
+        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+        const result = await axios
+            .get(`${URL.getPreSurveyList}?role=TEACHER`, axiosConfig)
+            .then((res) => res)
+            .catch((err) => {
+                return err.response;
+            });
+        if (result && result.status === 200) {
+            dispatch(getTeacherPresurveyStatusSuccess(result));
+        } else {
+            dispatch(getTeacherPresurveyStatusSuccess(null));
+        }
+    } catch (error) {
+        dispatch(getTeacherPresurveyStatusSuccess(null));
+    }
+};
 
 
 export const createSupportTicketResponse = (data) => async () => {
-    console.log("348===",data);
     try {
        
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -387,7 +405,6 @@ export const SupportTicketStatus = (message) => async (dispatch) => {
 };
 
 export const SupportTicketStatusChange = (id, data) => async (dispatch) => {
-    console.log('-------------', data);
     try {
         dispatch({ type: MENTORS_SUPPORT_TICKETS_STATUS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -397,7 +414,6 @@ export const SupportTicketStatusChange = (id, data) => async (dispatch) => {
             .catch((err) => {
                 return err.response;
             });
-        // console.log('========result', result);
         // if (result && result.status === 200) {
         //     // const data = result.data.text;
         //     // dispatch(mentorsEditSuccess(data));

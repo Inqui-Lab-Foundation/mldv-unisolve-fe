@@ -282,7 +282,6 @@ const Home = () => {
             desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi.'
         }
     ];
-    console.log(modalShow);
     return (
         <div className="home-main">
             {/* Mobile menu */}
@@ -342,7 +341,9 @@ const Home = () => {
                                     {/* <span> {t('home.banner_creativity')} </span>{' '}
                                     {t('home.banner_and')}{' '} */}
                                     {/* <span>{t('home.banner_innovation')}</span> */}
-                                    <span>{t('home.banner_new_creativity')}</span>
+                                    <span>
+                                        {t('home.banner_new_creativity')}
+                                    </span>
                                 </h1>
 
                                 {/* <p>{t('home.banner_description')}</p> */}

@@ -3,7 +3,7 @@ import { Row, Col } from "react-bootstrap";
 import {  withRouter } from "react-router-dom";
 import "./style.scss";
 import { InputWithSearchComp } from "../../../stories/InputWithSearch/InputWithSearch";
-import { BsChevronRight, BsFilter } from "react-icons/bs";
+import { BsFilter } from "react-icons/bs";
 import { FaMedal } from "react-icons/fa";
 import { ImageCardComp } from "../../../stories/ImageCard/ImageCard";
 import { CommonDropDownComp } from "../../../stories/CommonDropdown/CommonDropdownComp";
@@ -35,9 +35,9 @@ const CourseView = (props) => {
             <div className="courses-page">
                 <Row className="courses-head view-head py-5">
                     <Col md={12} lg={6} className="mb-5 mb-md-5 mb-lg-0">
-                        <p className="course-breadcrum">
+                        {/* <p className="course-breadcrum">
               Courses <BsChevronRight /> Courses details
-                        </p>
+                        </p> */}
                         <div className="courses-type">
                             <BsLayoutTextSidebarReverse />
                             <span className="card-type">Health</span>

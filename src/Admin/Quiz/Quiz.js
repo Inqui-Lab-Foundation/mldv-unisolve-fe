@@ -1,7 +1,6 @@
 import { React, useEffect, useState } from 'react';
 import { Card, Row, Col } from 'reactstrap';
 import { Fragment } from 'react';
-// import { QuizContext } from '../../context/quiz.context';
 import Question from './Question';
 import { Button } from '../../stories/Button';
 import './quiz.scss';
@@ -15,18 +14,18 @@ import {
     getAdminRfQuizResponce,
     getAdminRefQuizQst
 } from '../../redux/actions';
+import { useTranslation } from 'react-i18next';
+import succesImg from "../../assets/media/success1.jpeg";
 
 const Quiz = (props) => {
-    // const [dispatch] = useContext(QuizContext);
-
+    const { t } = useTranslation();
     const [selectOption, SetSelectOption] = useState('');
     const [type, SetType] = useState('');
     const [video] = useState(true);
-    const language = useSelector(state=>state?.admin?.adminLanguage);
+    const language = useSelector(state=>state?.studentRegistration?.studentLanguage);
 
 
     useEffect(() => {
-        // dispatch({ type: 'LATEST' });
         props.getAdminRefQuizQstActions(props.refQstId,language);
     }, [props.refQstId,language]);
 
@@ -135,8 +134,7 @@ const Quiz = (props) => {
                                             <Button
                                                 btnClass="primary px-5"
                                                 size="small"
-                                                // Icon={BsPlusLg}
-                                                label="Continue"
+                                                label={t('student.continue')}
                                                 onClick={(e) => handleNxtQst(e)}
                                             />
                                         </Col>
@@ -147,7 +145,7 @@ const Quiz = (props) => {
                                         .is_correct === false && (
                                         <Col md={12} className="text-right">
                                             <Button
-                                                btnClass="primary px-5 mx-3"
+                                                btnClass="primary px-5 mx-sm-3 mx-1 mb-3"
                                                 size="small"
                                                 // Icon={BsPlusLg}
                                                 label="Refer Video"
@@ -159,7 +157,7 @@ const Quiz = (props) => {
                                                 btnClass="primary px-5"
                                                 size="small"
                                                 // Icon={BsPlusLg}
-                                                label="Continue"
+                                                label={t('student.continue')}
                                                 onClick={(e) => handleNxtQst(e)}
                                             />
                                         </Col>
@@ -178,13 +176,16 @@ const Quiz = (props) => {
                                             <img src={ResultStar} alt="star" />
                                         </div>
                                         <div className="congratulations">
-                                    Successfully Completed !
+                                            <div className="success_img text-center w-100">
+                                                <img src={succesImg} alt=".." /><br />
+                                            </div>
+                                            {t('student_course.quiz_completed')}
                                         </div>
                                        
                                         <Button
                                             onClick={() => props.handleClose(false)}
                                             button="submit"
-                                            label="Continue Course"
+                                            label={t('student_course.continue course')}
                                             btnClass="primary mt-5 quiz-end"
                                             size="small"
                                         />
@@ -196,15 +197,6 @@ const Quiz = (props) => {
                     props.adminRefQuizQst.status === 200 && (
                                 <Fragment>
                                     <div className="question-section">
-                                        {/* <div className="score">
-                                            <span className="">
-                                        Question #{' '}
-                                                {props.adminRefQuizQst.data &&
-                                            props.adminRefQuizQst.data[0] &&
-                                            props.adminRefQuizQst.data[0]
-                                                .question_no}
-                                            </span>
-                                        </div> */}
                                         <Question
                                             qsts={props.adminRefQuizQst.data}
                                             onSelectAnswer={handleSelect}
@@ -215,7 +207,7 @@ const Quiz = (props) => {
                                             <Col md={12} className="text-right">
                                                 <Button
                                                     size="small"
-                                                    label="Submit"
+                                                    label={t('teacher_teams.submit')}
                                                     onClick={(e) =>  !selectOption ? null :handleSubmit(e)}
                                                     btnClass={
                                                         !selectOption

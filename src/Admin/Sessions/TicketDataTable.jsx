@@ -8,7 +8,6 @@ import { CommonDropDownComp } from '../../stories/CommonDropdown/CommonDropdownC
 
 import { TableComponent } from '../../stories/TableComponent/TableComponent';
 const TicketDataTable = (props) => {
-    console.log(props, ':::::::::::');
     const [tableShow] = useState(true);
     // const [actionDropdown, setActionDropdown] = useState(false);
     // const [actionIndex, setActionIndex] = useState('');

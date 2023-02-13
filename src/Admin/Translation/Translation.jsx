@@ -31,7 +31,7 @@ const Translation = (props) => {
                 '/translations',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
         await axios(config)
@@ -45,7 +45,7 @@ const Translation = (props) => {
             });
     }
     var translationsListArray = {
-        data: translationList.length > 0 && translationList,
+        data: translationList && translationList.length > 0 ? translationList : [],
         columns: [
             {
                 name: 'From',
@@ -134,7 +134,7 @@ const Translation = (props) => {
                             item.translation_id,
                         headers: {
                             'Content-Type': 'application/json',
-                            Authorization: `Bearer ${currentUser.data[0].token}`
+                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         },
                     };
                     axios(config)
@@ -194,7 +194,7 @@ const Translation = (props) => {
                                 data={rows}
                                 defaultSortField="id"
                                 defaultSortAsc={false}
-                                // pagination
+                                pagination
                                 highlightOnHover
                                 fixedHeader
                                 subHeaderAlign={Alignment.Center}

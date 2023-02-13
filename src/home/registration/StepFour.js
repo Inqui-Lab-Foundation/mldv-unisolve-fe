@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
@@ -40,10 +41,7 @@ function StepFour({ userData, setHideFour, setHideFive }) {
             new_password: Yup.string()
                 .required('Password is required')
                 .min(5, 'Your password should be minimum 5 characters')
-                .matches(
-                    /[a-zA-Z0-9]/,
-                    'Password should be only alphanumeric'
-                ),
+                .matches(/[a-zA-Z0-9]/, 'Password should be only alphanumeric'),
             confirmpassword: Yup.string().oneOf(
                 [Yup.ref('new_password'), null],
                 'Passwords must match'
@@ -61,7 +59,6 @@ function StepFour({ userData, setHideFour, setHideFive }) {
                 iv: iv,
                 padding: CryptoJS.pad.NoPadding
             }).toString();
-            console.log(encrypted);
             const body = {
                 new_password: encrypted,
                 old_password: values.old_password,
@@ -77,10 +74,10 @@ function StepFour({ userData, setHideFour, setHideFive }) {
                     axiosConfig
                 )
                 .then((mentorChangePwdRes) => {
-                    console.log(
-                        '🚀 ~ file: StepTwo.js ~ line 56 ~ .then ~ mentorChangePwdRes?.data[0]',
-                        mentorChangePwdRes
-                    );
+                    // console.log(
+                    //     '🚀 ~ file: StepTwo.js ~ line 56 ~ .then ~ mentorChangePwdRes?.data[0]',
+                    //     mentorChangePwdRes
+                    // );
                     setHideFour(false);
                     setHideFive(true);
                 })

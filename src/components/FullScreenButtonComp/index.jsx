@@ -1,12 +1,14 @@
 import React from 'react';
 import { Button } from '../../stories/Button';
+import { useTranslation } from 'react-i18next';
 
 const FullScreenButton = ({fullScreen,setFullScreen}) => {
+    const { t } = useTranslation();
     return (
         <div className="d-flex justify-content-end">
             <Button
                 label={`${
-                    fullScreen.isFullSCreen ? 'Exit Full Screen' : 'Full Screen'
+                    fullScreen.isFullSCreen ? t('student_course.exitfullscreen') : t('student_course.full screen')
                 }`}
                 btnClass="primary mt-4 mb-3"
                 size="small"

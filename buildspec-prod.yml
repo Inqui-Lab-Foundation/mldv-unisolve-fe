@@ -14,6 +14,7 @@ phases:
         commands:
             - npm run build:prod
             - cp .htaccess build
+            - chmod +x ./scripts/*.sh
     post_build:
         commands:
             - echo Build completed on `date`

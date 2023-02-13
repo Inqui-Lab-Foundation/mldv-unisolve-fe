@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import './SignUp.scss';
 import React, { useState, memo, useEffect } from 'react';
 import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
@@ -79,8 +80,6 @@ const SignUpNew = () => {
                 console.log(error);
             });
     }, []);
-
-    console.log(signUpDetails);
 
     const inputEmail = {
         types: 'email',
@@ -198,148 +197,148 @@ const SignUpNew = () => {
                                         {signUpDetails &&
                                         signUpDetails.studentName &&
                                         signUpDetails.studentName ? (
-                                                <FormGroup className="row mb-5">
-                                                    <Col
-                                                        className="form-group"
-                                                        xs={12}
-                                                        sm={6}
-                                                        md={6}
-                                                        xl={8}
+                                            <FormGroup className="row mb-5">
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={6}
+                                                    md={6}
+                                                    xl={8}
+                                                >
+                                                    <Label
+                                                        htmlFor="studentName"
+                                                        className="mb-2"
                                                     >
-                                                        <Label
-                                                            htmlFor="studentName"
-                                                            className="mb-2"
-                                                        >
-                                                            {'Student Name'}
-                                                        </Label>
-                                                        <InputBox
-                                                            {...studentName}
-                                                            id="studentName"
-                                                            name="studentName"
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                            value={
-                                                                formik.values
-                                                                    .studentName
-                                                            }
-                                                        />
-                                                        {formik.touched
-                                                            .studentName &&
+                                                        {'Student Name'}
+                                                    </Label>
+                                                    <InputBox
+                                                        {...studentName}
+                                                        id="studentName"
+                                                        name="studentName"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values
+                                                                .studentName
+                                                        }
+                                                    />
+                                                    {formik.touched
+                                                        .studentName &&
                                                     formik.errors
                                                         .studentName ? (
-                                                                <small className="error-cls">
-                                                                    {
-                                                                        formik.errors
-                                                                            .studentName
-                                                                    }
-                                                                </small>
-                                                            ) : null}
-                                                        <small className="mb-5 mb-sm-0 mb-md-0">
-                                                            {t(
-                                                                'login.name_certificate'
-                                                            )}
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .studentName
+                                                            }
                                                         </small>
-                                                    </Col>
-                                                </FormGroup>
-                                            ) : null}
+                                                    ) : null}
+                                                    <small className="mb-5 mb-sm-0 mb-md-0">
+                                                        {t(
+                                                            'login.name_certificate'
+                                                        )}
+                                                    </small>
+                                                </Col>
+                                            </FormGroup>
+                                        ) : null}
                                         <div className="w-100 clearfix" />
                                         <FormGroup className="form-row row mb-5">
                                             {signUpDetails &&
                                             signUpDetails.phNumber &&
                                             signUpDetails.phNumber ? (
-                                                    <Col
-                                                        className="form-group"
-                                                        xs={12}
-                                                        sm={6}
-                                                        md={6}
-                                                        xl={8}
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={6}
+                                                    md={6}
+                                                    xl={8}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="phone"
                                                     >
-                                                        <Label
-                                                            className="mb-2"
-                                                            htmlFor="phone"
-                                                        >
                                                         Phone Number
-                                                        </Label>
-                                                        <InputBox
-                                                            {...inputPhone}
-                                                            id="phone"
-                                                            name="phone"
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                            value={
-                                                                formik.values.phone
-                                                            }
-                                                        />
-                                                        <small className="mt-2">
-                                                            {t(
-                                                                'login.otp_verify_text'
-                                                            )}
-                                                        </small>
-                                                        {formik.touched.phone &&
+                                                    </Label>
+                                                    <InputBox
+                                                        {...inputPhone}
+                                                        id="phone"
+                                                        name="phone"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.phone
+                                                        }
+                                                    />
+                                                    <small className="mt-2">
+                                                        {t(
+                                                            'login.otp_verify_text'
+                                                        )}
+                                                    </small>
+                                                    {formik.touched.phone &&
                                                     formik.errors.phone ? (
-                                                                <small className="error-cls">
-                                                                    {
-                                                                        formik.errors
-                                                                            .phone
-                                                                    }
-                                                                </small>
-                                                            ) : null}
-                                                    </Col>
-                                                ) : null}
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .phone
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                            ) : null}
                                             {signUpDetails &&
                                             signUpDetails.email &&
                                             signUpDetails.email ? (
-                                                    <Col
-                                                        className="form-group"
-                                                        xs={12}
-                                                        sm={6}
-                                                        md={6}
-                                                        xl={8}
+                                                <Col
+                                                    className="form-group"
+                                                    xs={12}
+                                                    sm={6}
+                                                    md={6}
+                                                    xl={8}
+                                                >
+                                                    <Label
+                                                        className="mb-2"
+                                                        htmlFor="email"
                                                     >
-                                                        <Label
-                                                            className="mb-2"
-                                                            htmlFor="email"
-                                                        >
                                                         Email
-                                                        </Label>
-                                                        <InputBox
-                                                            {...inputEmail}
-                                                            id="email"
-                                                            name="email"
-                                                            onChange={
-                                                                formik.handleChange
-                                                            }
-                                                            onBlur={
-                                                                formik.handleBlur
-                                                            }
-                                                            value={
-                                                                formik.values.email
-                                                            }
-                                                        />
-                                                        <small className="mt-2">
-                                                            {t(
-                                                                'login.otp_verify_text'
-                                                            )}
-                                                        </small>
-                                                        {formik.touched.email &&
+                                                    </Label>
+                                                    <InputBox
+                                                        {...inputEmail}
+                                                        id="email"
+                                                        name="email"
+                                                        onChange={
+                                                            formik.handleChange
+                                                        }
+                                                        onBlur={
+                                                            formik.handleBlur
+                                                        }
+                                                        value={
+                                                            formik.values.email
+                                                        }
+                                                    />
+                                                    <small className="mt-2">
+                                                        {t(
+                                                            'login.otp_verify_text'
+                                                        )}
+                                                    </small>
+                                                    {formik.touched.email &&
                                                     formik.errors.email ? (
-                                                                <small className="error-cls">
-                                                                    {
-                                                                        formik.errors
-                                                                            .email
-                                                                    }
-                                                                </small>
-                                                            ) : null}
-                                                    </Col>
-                                                ) : null}
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .email
+                                                            }
+                                                        </small>
+                                                    ) : null}
+                                                </Col>
+                                            ) : null}
                                         </FormGroup>
 
                                         <FormGroup check className="mb-4">
@@ -358,13 +357,13 @@ const SignUpNew = () => {
                                             </small>
                                             {formik.touched.acceptedTerms &&
                                             formik.errors.acceptedTerms ? (
-                                                    <small className="error-cls">
-                                                        {
-                                                            formik.errors
-                                                                .acceptedTerms
-                                                        }
-                                                    </small>
-                                                ) : null}
+                                                <small className="error-cls">
+                                                    {
+                                                        formik.errors
+                                                            .acceptedTerms
+                                                    }
+                                                </small>
+                                            ) : null}
                                         </FormGroup>
                                         <div className="form-row row mb-4">
                                             <Col

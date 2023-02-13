@@ -32,7 +32,6 @@ export const getAdminNotificationsList = () => async (dispatch) => {
             .catch((err) => {
                 return err.response;
             });
-        // console.log("----", result);
         if (result && result.status === 200) {
             const data = result.data;
             dispatch(getAdminNotificationsListSuccess(data));

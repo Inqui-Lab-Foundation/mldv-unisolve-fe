@@ -1,39 +1,38 @@
 /* eslint-disable no-unused-vars */
-import React, { useState, useEffect } from "react";
-import { Row, Col } from "react-bootstrap";
-import { InputWithSearchComp } from "../../stories/InputWithSearch/InputWithSearch";
+import React, { useState, useEffect } from 'react';
+import { Row, Col } from 'react-bootstrap';
+import { InputWithSearchComp } from '../../stories/InputWithSearch/InputWithSearch';
 // import { DropDownComp } from "../../stories/DropdownComp/DropdownComp";
 import {
     // BsChevronRight,
     BsFilter,
     BsPlusLg,
     BsGraphUp,
-    BsUpload,
-} from "react-icons/bs";
+    BsUpload
+} from 'react-icons/bs';
 // import { HiDotsHorizontal } from "react-icons/hi";
-import { Button } from "../../stories/Button";
+import { Button } from '../../stories/Button';
 // import { Tag } from "antd";
 // import { Link, withRouter } from "react-router-dom";
 // import { BsThreeDots } from "react-icons/bs";
 // import { BiEditAlt } from "react-icons/bi";
 // import { AiFillDelete } from "react-icons/ai";
 // import { Dropdown } from "react-bootstrap";
-import { CommonDropDownComp } from "../../stories/CommonDropdown/CommonDropdownComp";
-import { connect } from "react-redux";
+import { CommonDropDownComp } from '../../stories/CommonDropdown/CommonDropdownComp';
+import { connect } from 'react-redux';
 
-import { TableComponent } from "../../stories/TableComponent/TableComponent";
-import ImportPopup from "./ImportPopup";
-import { getSchoolRegistationBulkUploadList } from "../../redux/actions";
-import { useHistory } from "react-router-dom";
-import dummyCSV from "../../assets/media/basic-csv.csv";
+import { TableComponent } from '../../stories/TableComponent/TableComponent';
+import ImportPopup from './ImportPopup';
+import { getSchoolRegistationBulkUploadList } from '../../redux/actions';
+import { useHistory } from 'react-router-dom';
+import dummyCSV from '../../assets/media/basic-csv.csv';
 
 const TicketDataTable = (props) => {
     const history = useHistory();
     const [showImportPopup, setImportPopup] = useState(false);
-    // console.log(props, ":::::::::::");
     const [tableShow, setTableShow] = useState(true);
     const [actionDropdown, setActionDropdown] = useState(false);
-    const [actionIndex, setActionIndex] = useState("");
+    const [actionIndex, setActionIndex] = useState('');
 
     const handleAction = (index) => {
         setActionIndex(index.key);
@@ -43,67 +42,66 @@ const TicketDataTable = (props) => {
             setActionDropdown(false);
         }
     };
-    console.log(actionDropdown, "actionDropdown", actionIndex);
 
     useEffect(() => {
-        props.getSchoolRegistationBulkUploadActions("i");
+        props.getSchoolRegistationBulkUploadActions('i');
     }, []);
 
     const typeProps = {
-        name: "type: All",
+        name: 'type: All',
 
         options: [
-            { name: "type: All", path: "" },
-            { name: "type: 1", path: "" },
-            { name: "type: 2", path: "" },
-        ],
+            { name: 'type: All', path: '' },
+            { name: 'type: 1', path: '' },
+            { name: 'type: 2', path: '' }
+        ]
     };
 
     const statusFilter = {
-        name: "Status: All",
+        name: 'Status: All',
         options: [
-            { name: "All", path: "" },
-            { name: "Open", path: "" },
-            { name: "Draft", path: "" },
-            { name: "Solved", path: "" },
-        ],
+            { name: 'All', path: '' },
+            { name: 'Open', path: '' },
+            { name: 'Draft', path: '' },
+            { name: 'Solved', path: '' }
+        ]
     };
     const filterDropProps = {
-        name: "Filter by",
+        name: 'Filter by',
         Icon: BsFilter,
         options: [
-            { name: "Course - 1", path: "/playCourse" },
-            { name: "Course - 2", path: "/playCourse" },
-        ],
+            { name: 'Course - 1', path: '/playCourse' },
+            { name: 'Course - 2', path: '/playCourse' }
+        ]
     };
     const addImport = {
-        name: "Import",
+        name: 'Import',
         Icon: BsUpload,
         options: [
-            { name: "CSV", path: "" },
-            { name: "XLV", path: "" },
-        ],
+            { name: 'CSV', path: '' },
+            { name: 'XLV', path: '' }
+        ]
     };
     const TableProps = {
         data: props.schoolsRegistrationList,
         columns: [
             {
-                title: "Organization Name",
-                dataIndex: "organization_name",
+                title: 'Organization Name',
+                dataIndex: 'organization_name'
             },
             {
-                title: "Status",
-                dataIndex: "status",
+                title: 'Status',
+                dataIndex: 'status'
             },
             {
-                title: "organization Code",
-                dataIndex: "organization_code",
+                title: 'organization Code',
+                dataIndex: 'organization_code'
             },
             {
-                title: "Details",
-                dataIndex: "details",
-            },
-        ],
+                title: 'Details',
+                dataIndex: 'details'
+            }
+        ]
     };
 
     // console.log(
@@ -112,72 +110,79 @@ const TicketDataTable = (props) => {
     // );
     return (
         <div>
-            <div className='tableActionTemplate'>
+            <div className="tableActionTemplate">
                 <Row>
-                    <Col sm={12} md={12} lg={3} className='mb-5 mb-sm-5 mb-md-5 mb-lg-0'>
-                        <InputWithSearchComp placeholder='Search ticket' />
+                    <Col
+                        sm={12}
+                        md={12}
+                        lg={3}
+                        className="mb-5 mb-sm-5 mb-md-5 mb-lg-0"
+                    >
+                        <InputWithSearchComp placeholder="Search ticket" />
                     </Col>
-                    <Col className='col-auto mb-5 mb-sm-5 mb-md-5 mb-lg-0'>
-                        <div className='d-flex action-drops'>
+                    <Col className="col-auto mb-5 mb-sm-5 mb-md-5 mb-lg-0">
+                        <div className="d-flex action-drops">
                             <CommonDropDownComp {...typeProps} />
                             <CommonDropDownComp {...statusFilter} />
                             <CommonDropDownComp {...filterDropProps} />
                         </div>
                     </Col>
 
-                    <Col className='ticket-btn col ml-auto '>
-                        <div className='d-flex justify-content-end'>
+                    <Col className="ticket-btn col ml-auto ">
+                        <div className="d-flex justify-content-end">
                             <Button
-                                label='Import'
-                                btnClass='primary-outlined'
-                                size='small'
-                                shape='btn-square'
+                                label="Import"
+                                btnClass="primary-outlined"
+                                size="small"
+                                shape="btn-square"
                                 Icon={BsUpload}
                                 onClick={() => setImportPopup(true)}
                             />
                             <a
                                 href={dummyCSV}
-                                target='_blank'
-                                rel='noreferrer'
-                                className='primary'
+                                target="_blank"
+                                rel="noreferrer"
+                                className="primary"
                             >
                                 {/* <p className='primary mt-4'>Download</p> */}
                                 <Button
-                                    label='Export'
-                                    btnClass='primary-outlined mx-2'
-                                    size='small'
-                                    shape='btn-square'
+                                    label="Export"
+                                    btnClass="primary-outlined mx-2"
+                                    size="small"
+                                    shape="btn-square"
                                     Icon={BsGraphUp}
-                                    style={{ color: "#231f20" }}
+                                    style={{ color: '#231f20' }}
                                 />
                             </a>
 
                             <Button
-                                label='Add New School'
-                                btnClass='primary'
-                                size='small'
-                                shape='btn-square'
+                                label="Add New School"
+                                btnClass="primary"
+                                size="small"
+                                shape="btn-square"
                                 Icon={BsPlusLg}
-                                onClick={() => history.push("/admin/register-new-schools")}
+                                onClick={() =>
+                                    history.push('/admin/register-new-schools')
+                                }
                             />
                         </div>
                     </Col>
                 </Row>
                 <Row>
                     <Col md={12}>
-                        <div className='ticket-table'>
+                        <div className="ticket-table">
                             {tableShow ? (
                                 <TableComponent {...TableProps} />
                             ) : (
-                                <div className='add-ticket'>
+                                <div className="add-ticket">
                                     <Button
-                                        btnClass='primary'
-                                        size='small'
-                                        shape='btn-circle'
+                                        btnClass="primary"
+                                        size="small"
+                                        shape="btn-circle"
                                         Icon={BsPlusLg}
                                         // onClick={() => props.history.push("/NewTicket")}
                                     />
-                                    <p className='text'>Register School</p>
+                                    <p className="text">Register School</p>
                                 </div>
                             )}
                         </div>
@@ -199,6 +204,6 @@ const mapStateToProps = ({ schoolRegistration }) => {
 };
 
 export default connect(mapStateToProps, {
-    getSchoolRegistationBulkUploadActions: getSchoolRegistationBulkUploadList,
+    getSchoolRegistationBulkUploadActions: getSchoolRegistationBulkUploadList
 })(TicketDataTable);
 // export default withRouter(TicketDataTable);

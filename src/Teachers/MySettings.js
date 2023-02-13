@@ -185,8 +185,7 @@ const MySettings = () => {
                                                     </CardTitle>
                                                     <CardText>
                                                         {
-                                                            currentUser.data[0]
-                                                                .user_id
+                                                            currentUser?.data[0]?.user_id
                                                         }
                                                     </CardText>
                                                 </Col>
@@ -198,8 +197,7 @@ const MySettings = () => {
                                                     </CardTitle>
                                                     <CardText>
                                                         {
-                                                            currentUser.data[0]
-                                                                .name
+                                                            currentUser?.data[0]?.name
                                                         }
                                                     </CardText>
                                                 </Col>

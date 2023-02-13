@@ -8,7 +8,7 @@ const ReportFilter = () => {
     const history = useHistory();
     const queryParams = new URLSearchParams(window.location.search);
     const report = queryParams.get('report');
-
+    
     return (
         <Layout>
             <Container
@@ -28,11 +28,11 @@ const ReportFilter = () => {
                         />
                     </Col>
                 </Row>
-                <Row className="justify-content-center align-content-center">
+                <Row className="justify-content-center align-content-center filter-card">
                     <Col md={4}>
                         <Card>
                             <h3 className="text-muted px-3 pt-3 text-center">Teacher Report</h3>
-                            <FilterCard/>
+                            <FilterCard />
                         </Card>
                     </Col>
                 </Row>

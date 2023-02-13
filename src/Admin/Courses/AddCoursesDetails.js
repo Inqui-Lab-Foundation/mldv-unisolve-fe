@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable react/jsx-key */
 import React, { useState } from 'react';
 import { Row, Col, Card, CardBody, Form } from 'reactstrap';
@@ -22,7 +23,6 @@ const AddCoursesDetails = () => {
     const [modulesList, setModulesList] = useState([]);
     const history = useHistory();
     const data = (history && history.location && history.location.item) || {};
-    console.log('===============', data);
 
     const headingDetails = {
         title: 'Add course details',
@@ -57,8 +57,6 @@ const AddCoursesDetails = () => {
         setVideosList(list);
     };
 
-    // console.log("=================++++++", videosList);
-
     const handleVideosRemove = (e, index) => {
         const list = [...videosList];
         list.splice(index, 1);
@@ -77,8 +75,6 @@ const AddCoursesDetails = () => {
         list[index][name] = value;
         setModulesList(list);
     };
-
-    // console.log("=================++++++", modulesList);
 
     const handleModulesRemove = (e, index) => {
         alert('uuuuuu');
@@ -189,210 +185,210 @@ const AddCoursesDetails = () => {
                                     <Col md={12}>
                                         {videoClick == true
                                             ? videosList.map((video, index) => (
-                                                <Card className="w-100  mb-5 p-4">
-                                                    <CardBody>
-                                                        <div className="create-ticket">
-                                                            <p className="m-0 question">
+                                                  <Card className="w-100  mb-5 p-4">
+                                                      <CardBody>
+                                                          <div className="create-ticket">
+                                                              <p className="m-0 question">
                                                                   Video lession
                                                                   title
-                                                            </p>
-                                                            <span className="que-text mb-2">
+                                                              </p>
+                                                              <span className="que-text mb-2">
                                                                   Lorem ipsum
                                                                   dolor sit
                                                                   amet,
                                                                   consectetur
                                                                   adipiscing
                                                                   elit.
-                                                            </span>
-                                                            <input
-                                                                name="videoTitle"
-                                                                type="text"
-                                                                id="videoTitle"
-                                                                placeholder="videoTitle"
-                                                                value={
-                                                                    video.videoTitle
-                                                                }
-                                                                onChange={(
-                                                                    e
-                                                                ) =>
-                                                                    handleVideosChange(
-                                                                        e,
-                                                                        index
-                                                                    )
-                                                                }
-                                                            />
-                                                        </div>
-                                                        <div className="create-ticket my-5">
-                                                            <p className="m-0 question">
+                                                              </span>
+                                                              <input
+                                                                  name="videoTitle"
+                                                                  type="text"
+                                                                  id="videoTitle"
+                                                                  placeholder="videoTitle"
+                                                                  value={
+                                                                      video.videoTitle
+                                                                  }
+                                                                  onChange={(
+                                                                      e
+                                                                  ) =>
+                                                                      handleVideosChange(
+                                                                          e,
+                                                                          index
+                                                                      )
+                                                                  }
+                                                              />
+                                                          </div>
+                                                          <div className="create-ticket my-5">
+                                                              <p className="m-0 question">
                                                                   Video lesson
                                                                   link
-                                                            </p>
-                                                            <span className="que-text">
+                                                              </p>
+                                                              <span className="que-text">
                                                                   Lorem ipsum
                                                                   dolor sit
                                                                   amet,
                                                                   consectetur
                                                                   adipiscing
                                                                   elit.
-                                                            </span>
-                                                            <input
-                                                                name="videoLink"
-                                                                type="text"
-                                                                id="videoLink"
-                                                                placeholder="videoLink"
-                                                                value={
-                                                                    video.videoLink
-                                                                }
-                                                                onChange={(
-                                                                    e
-                                                                ) =>
-                                                                    handleVideosChange(
-                                                                        e,
-                                                                        index
-                                                                    )
-                                                                }
-                                                            />
-                                                            <Col className="mx-4">
-                                                                <Button
-                                                                    label="Remove"
-                                                                    btnClass="primary"
-                                                                    size="small"
-                                                                    onClick={(
-                                                                        e
-                                                                    ) =>
-                                                                        handleVideosRemove(
-                                                                            e,
-                                                                            index
-                                                                        )
-                                                                    }
-                                                                />
-                                                            </Col>
-                                                        </div>
-                                                    </CardBody>
-                                                </Card>
-                                            ))
+                                                              </span>
+                                                              <input
+                                                                  name="videoLink"
+                                                                  type="text"
+                                                                  id="videoLink"
+                                                                  placeholder="videoLink"
+                                                                  value={
+                                                                      video.videoLink
+                                                                  }
+                                                                  onChange={(
+                                                                      e
+                                                                  ) =>
+                                                                      handleVideosChange(
+                                                                          e,
+                                                                          index
+                                                                      )
+                                                                  }
+                                                              />
+                                                              <Col className="mx-4">
+                                                                  <Button
+                                                                      label="Remove"
+                                                                      btnClass="primary"
+                                                                      size="small"
+                                                                      onClick={(
+                                                                          e
+                                                                      ) =>
+                                                                          handleVideosRemove(
+                                                                              e,
+                                                                              index
+                                                                          )
+                                                                      }
+                                                                  />
+                                                              </Col>
+                                                          </div>
+                                                      </CardBody>
+                                                  </Card>
+                                              ))
                                             : null}
                                         {moduleClick == true
                                             ? modulesList.map((val, i) => (
-                                                <Col
-                                                    md={12}
-                                                    className="choice-module"
-                                                >
-                                                    <h2>
+                                                  <Col
+                                                      md={12}
+                                                      className="choice-module"
+                                                  >
+                                                      <h2>
                                                           Module Assessement
-                                                    </h2>
-                                                    <div
-                                                        key={i}
-                                                        className="w-100  mb-5 p-4 bg-white"
-                                                    >
-                                                        <Accordion defaultActiveKey="0">
-                                                            <Accordion.Item eventKey="0">
-                                                                <Row>
-                                                                    <Col
-                                                                        md={
-                                                                            12
-                                                                        }
-                                                                    >
-                                                                        <p className="m-0 question">
+                                                      </h2>
+                                                      <div
+                                                          key={i}
+                                                          className="w-100  mb-5 p-4 bg-white"
+                                                      >
+                                                          <Accordion defaultActiveKey="0">
+                                                              <Accordion.Item eventKey="0">
+                                                                  <Row>
+                                                                      <Col
+                                                                          md={
+                                                                              12
+                                                                          }
+                                                                      >
+                                                                          <p className="m-0 question">
                                                                               Choices
-                                                                        </p>
-                                                                        <Accordion.Header>
+                                                                          </p>
+                                                                          <Accordion.Header>
                                                                               Question{' '}
-                                                                            {1 +
+                                                                              {1 +
                                                                                   i}
-                                                                        </Accordion.Header>
-                                                                        <Button
-                                                                            label="Remove"
-                                                                            btnClass="primary"
-                                                                            size="small"
-                                                                            onClick={(
-                                                                                e
-                                                                            ) =>
-                                                                                handleModulesRemove(
-                                                                                    e,
-                                                                                    i
-                                                                                )
-                                                                            }
-                                                                        />
-                                                                    </Col>
-                                                                </Row>
+                                                                          </Accordion.Header>
+                                                                          <Button
+                                                                              label="Remove"
+                                                                              btnClass="primary"
+                                                                              size="small"
+                                                                              onClick={(
+                                                                                  e
+                                                                              ) =>
+                                                                                  handleModulesRemove(
+                                                                                      e,
+                                                                                      i
+                                                                                  )
+                                                                              }
+                                                                          />
+                                                                      </Col>
+                                                                  </Row>
 
-                                                                <Accordion.Body>
-                                                                    <div className="create-ticket">
-                                                                        <p className="m-0 question">
+                                                                  <Accordion.Body>
+                                                                      <div className="create-ticket">
+                                                                          <p className="m-0 question">
                                                                               Question
                                                                               type
-                                                                        </p>
-                                                                        {/* <SearchDropdown {...questionType} /> */}
-                                                                        <input
-                                                                            name="qstType"
-                                                                            type="text"
-                                                                            id="qstType"
-                                                                            placeholder="qstType"
-                                                                            value={
-                                                                                val.qstType
-                                                                            }
-                                                                            onChange={(
-                                                                                e
-                                                                            ) =>
-                                                                                handleModulesChange(
-                                                                                    e,
-                                                                                    i
-                                                                                )
-                                                                            }
-                                                                        />
-                                                                    </div>
-                                                                    <div className="create-ticket my-5">
-                                                                        <p className="m-0 question">
+                                                                          </p>
+                                                                          {/* <SearchDropdown {...questionType} /> */}
+                                                                          <input
+                                                                              name="qstType"
+                                                                              type="text"
+                                                                              id="qstType"
+                                                                              placeholder="qstType"
+                                                                              value={
+                                                                                  val.qstType
+                                                                              }
+                                                                              onChange={(
+                                                                                  e
+                                                                              ) =>
+                                                                                  handleModulesChange(
+                                                                                      e,
+                                                                                      i
+                                                                                  )
+                                                                              }
+                                                                          />
+                                                                      </div>
+                                                                      <div className="create-ticket my-5">
+                                                                          <p className="m-0 question">
                                                                               Question
-                                                                        </p>
-                                                                        <input
-                                                                            name="qst"
-                                                                            type="text"
-                                                                            id="qst"
-                                                                            placeholder="qst"
-                                                                            value={
-                                                                                val.qst
-                                                                            }
-                                                                            onChange={(
-                                                                                e
-                                                                            ) =>
-                                                                                handleModulesChange(
-                                                                                    e,
-                                                                                    i
-                                                                                )
-                                                                            }
-                                                                        />
-                                                                    </div>
-                                                                    <div className="create-ticket ">
-                                                                        <p className="m-0 question">
+                                                                          </p>
+                                                                          <input
+                                                                              name="qst"
+                                                                              type="text"
+                                                                              id="qst"
+                                                                              placeholder="qst"
+                                                                              value={
+                                                                                  val.qst
+                                                                              }
+                                                                              onChange={(
+                                                                                  e
+                                                                              ) =>
+                                                                                  handleModulesChange(
+                                                                                      e,
+                                                                                      i
+                                                                                  )
+                                                                              }
+                                                                          />
+                                                                      </div>
+                                                                      <div className="create-ticket ">
+                                                                          <p className="m-0 question">
                                                                               Choice
                                                                               1
-                                                                        </p>
-                                                                        <input
-                                                                            name="ans"
-                                                                            type="text"
-                                                                            id="ans"
-                                                                            placeholder="ans"
-                                                                            value={
-                                                                                val.ans
-                                                                            }
-                                                                            onChange={(
-                                                                                e
-                                                                            ) =>
-                                                                                handleModulesChange(
-                                                                                    e,
-                                                                                    i
-                                                                                )
-                                                                            }
-                                                                        />
-                                                                    </div>
-                                                                </Accordion.Body>
-                                                            </Accordion.Item>
-                                                        </Accordion>
-                                                    </div>
-                                                </Col>
-                                            ))
+                                                                          </p>
+                                                                          <input
+                                                                              name="ans"
+                                                                              type="text"
+                                                                              id="ans"
+                                                                              placeholder="ans"
+                                                                              value={
+                                                                                  val.ans
+                                                                              }
+                                                                              onChange={(
+                                                                                  e
+                                                                              ) =>
+                                                                                  handleModulesChange(
+                                                                                      e,
+                                                                                      i
+                                                                                  )
+                                                                              }
+                                                                          />
+                                                                      </div>
+                                                                  </Accordion.Body>
+                                                              </Accordion.Item>
+                                                          </Accordion>
+                                                      </div>
+                                                  </Col>
+                                              ))
                                             : null}
                                     </Col>
                                 </Row>

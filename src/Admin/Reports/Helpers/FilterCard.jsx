@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import { Descriptions } from 'antd';
 import React, { useState } from 'react';
 import { Button } from '../../../stories/Button';
@@ -5,38 +6,32 @@ import Checkbox from './Checkbox';
 import { allDistricts, allStatus, allTypes } from './reportConstants';
 import Select from './Select';
 import { CSVLink } from 'react-csv';
+import { useDispatch } from 'react-redux';
+import { getMentorReport } from '../../../redux/reports/actions';
+import { useSelector } from 'react-redux';
 
 const FilterCard = () => {
+    const { mentorReport } = useSelector((state) => state.reports);
     const [district, setDistrict] = useState(null);
     const [type, setType] = useState([]);
     const [status, setStatus] = useState(null);
-    const headers = [
-        { label: 'First Name', key: 'firstname' },
-        { label: 'Last Name', key: 'lastname' },
-        { label: 'Email', key: 'email' }
-    ];
+    const [loading, setLoading] = useState(false);
+    const dispatch = useDispatch();
 
-    const data = [
-        {
-            firstname: 'Ahmed',
-            lastname: 'Tomi',
-            email: 'ah@smthing.co.com'
-        },
-        {
-            firstname: 'Raed',
-            lastname: 'Labes',
-            email: 'rl@smthing.co.com'
-        },
-        {
-            firstname: 'Yezzi',
-            lastname: 'Min l3b',
-            email: 'ymin@cocococo.com'
-        }
-    ];
-    // const handleDownload = () => {
-    console.log(status, district, type);
-
-    // };
+    const handleDownload = () => {
+        setLoading(true);
+        let temp = [...type];
+        let params = {};
+        temp.forEach((element) => {
+            params[element] = 1;
+        });
+        params.rs = status;
+        dispatch(getMentorReport(params)).then(() => {
+            const element = document.getElementById('CSVButton');
+            element.click();
+            setLoading(false);
+        });
+    };
     return (
         <>
             <Descriptions
@@ -45,7 +40,11 @@ const FilterCard = () => {
                 column={{ xxl: 1, xl: 1, lg: 1, md: 3, sm: 2, xs: 1 }}
             >
                 <Descriptions.Item label="District">
-                    <Select list={allDistricts} setValue={setDistrict} />
+                    <Select
+                        placeHolder={'Select District'}
+                        list={allDistricts}
+                        setValue={setDistrict}
+                    />
                 </Descriptions.Item>
                 <Descriptions.Item label="Type">
                     {Object.entries(allTypes).map((item, i) => (
@@ -58,19 +57,27 @@ const FilterCard = () => {
                     ))}
                 </Descriptions.Item>
                 <Descriptions.Item label="Status">
-                    <Select list={allStatus} setValue={setStatus} />
+                    <Select
+                        placeHolder={'Select Status'}
+                        list={allStatus}
+                        setValue={setStatus}
+                    />
                 </Descriptions.Item>
             </Descriptions>
             <div className="m-3 common-flex">
-                <CSVLink data={data} headers={headers}>
-                    <Button
-                        label={'Download Report'}
-                        btnClass="primary"
-                        size={'small'}
-                        type="submit"
-                        // onClick={handleDownload}
-                    />
-                </CSVLink>
+                <CSVLink
+                    style={{ display: 'none' }}
+                    id={'CSVButton'}
+                    data={mentorReport}
+                    filename="Teacher-report.csv"
+                />
+                <Button
+                    onClick={handleDownload}
+                    label={loading ? 'Loading...' : 'Download Report'}
+                    btnClass="primary"
+                    size={'small'}
+                    type="submit"
+                />
             </div>
         </>
     );

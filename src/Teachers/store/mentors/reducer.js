@@ -14,7 +14,8 @@ import {
     GET_TEACHERS,
     MENTORS_GET_SUPPORT_TICKETS,
     MENTORS_GET_SUPPORT_TICKETS_BY_ID,
-    MENTORS_GET_SUPPORT_TICKETS_RESPONSES_BY_ID
+    MENTORS_GET_SUPPORT_TICKETS_RESPONSES_BY_ID,
+    GET_TEACHERS_PRESURVEY_STATUS
 } from '../../../redux/actions.js';
 
 const INIT_STATE = {
@@ -26,7 +27,10 @@ const INIT_STATE = {
     supportTickets:[],
     supportTicket:{},
     supportTicketRespnses:{},
-    mentorLanguage:""
+    mentorLanguage:"",
+    teacherPresurveyStatus:null,
+    preSurveyList:[],
+    quizSurveyId:0
 };
 
 export default (state = INIT_STATE, action) => {
@@ -98,6 +102,14 @@ export default (state = INIT_STATE, action) => {
         return {
             ...state,
             supportTicketRespnses: action.payload,
+        };
+    case GET_TEACHERS_PRESURVEY_STATUS:
+        var data =  action.payload.data?.data[0];
+        return {
+            ...state,
+            teacherPresurveyStatus: data?.dataValues[0]?.progress,
+            preSurveyList:data?.dataValues[0]?.quiz_survey_questions,
+            quizSurveyId:data?.dataValues[0]?.quiz_survey_id
         };
     default:
         return newState;

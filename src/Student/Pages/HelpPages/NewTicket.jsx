@@ -10,8 +10,10 @@ import { Button } from "../../../stories/Button.jsx";
 import {  withRouter } from "react-router-dom";
 import Layout from "../../Layout.jsx";
 import { BreadcrumbTwo } from "../../../stories/BreadcrumbTwo/BreadcrumbTwo.jsx";
+import { useTranslation } from "react-i18next";
 
 const NewTicket = (props) => {
+    const { t } = useTranslation();
     const headingDetails = {
         title: "Raise a new ticket",
 
@@ -95,7 +97,7 @@ const NewTicket = (props) => {
                             <Row>
                                 <Col>
                                     <Button
-                                        label="Discard"
+                                        label={t('student.discard')}
                                         btnClass="secondary"
                                         size="small"
                                         onClick={() => props.history.push("/tickets")}
@@ -103,7 +105,7 @@ const NewTicket = (props) => {
                                 </Col>
                                 <Col className="submit-btn">
                                     <Button
-                                        label="Save as Draft"
+                                        label={t('student.save_draft')}
                                         btnClass="primary-outline"
                                         size="small"
                                     />

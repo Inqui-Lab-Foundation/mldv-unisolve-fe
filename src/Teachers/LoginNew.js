@@ -1,7 +1,7 @@
 /* eslint-disable indent */
 import '../Student/Pages/SignUp.scss';
-import React, { useState } from 'react';
-import { Row, Col, Form, FormGroup, Label, Input } from 'reactstrap';
+import React, { useLayoutEffect, useState } from 'react';
+import { Row, Col, Form, FormGroup, Label, Input} from 'reactstrap';
 import { Link } from 'react-router-dom';
 import { InputBox } from '../stories/InputBox/InputBox';
 import { Button } from '../stories/Button';
@@ -24,12 +24,28 @@ import { teacherLoginUser } from '../redux/actions';
 import CryptoJS from 'crypto-js';
 import ForgotPassword from './ForgotPassword';
 import { openNotificationWithIcon } from '../helpers/Utils';
+import i18next from 'i18next';
 
 const LoginNew = (props) => {
     const { t } = useTranslation();
     const history = useHistory();
     const [password, handlePassword] = useState('password');
     const [showPopUp, setShowPopUp] = useState(false);
+    useLayoutEffect(() => {
+        i18next.changeLanguage('en');
+        const moduleName = localStorage.getItem("module");
+        if (localStorage.getItem("current_user") && localStorage.getItem("module")) {
+            moduleName === 'MENTOR'
+                ? history.push('/teacher/dashboard')
+                : moduleName === 'ADMIN'
+                ? history.push('/admin/dashboard')
+                : moduleName === 'EVALUATOR'
+                ? history.push('/evaluator/submitted-ideas')
+                : moduleName === 'EADMIN'
+                ? history.push('/eadmin/dashboard')
+                : history.push('/dashboard');
+        }
+    }, []);
     
     const formik = useFormik({
         initialValues: {
@@ -299,7 +315,9 @@ const LoginNew = (props) => {
                                                         onClick={handleOnClick}
                                                         className="text-link pt-1"
                                                     >
-                                                        ForgotPassword
+                                                        {t(
+                                                                'loginPage.Forgot_password'
+                                                            )}
                                                     </Link>
                                                 </Col>
                                             </Row>
@@ -336,8 +354,34 @@ const LoginNew = (props) => {
                                     </div>
                                 </Form>
                             </Col>
+                            {/* <Col>
+                            <Label>Reference Videos</Label>
+                                <List>
+                                    <li>
+                                        <a href="https://youtu.be/kO-k0ibR0Ug" target="_blank" rel='noopener noreferrer'>How to register in Web portal</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://youtu.be/0_yokNMN-QM" target="_blank" rel='noopener noreferrer'>(Teacher Login + Forgot Password)</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://youtu.be/94anzpnC4d8" target="_blank" rel='noopener noreferrer'>How to complete Unisolve Teacher Modules</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://youtu.be/VCN232xCmCQ" target="_blank" rel='noopener noreferrer'>How to create teams and add students</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://youtu.be/RaeW9pIAAqg" target="_blank" rel='noopener noreferrer'>How to edit Unisolve Student details/team</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://youtu.be/RaeW9pIAAqg" target="_blank" rel='noopener noreferrer'>How to give Unisolve Login details to the students</a>
+                                    </li>
+                                    <li>
+                                        <a href="https://youtu.be/qdmR-PA1KWc" target="_blank" rel='noopener noreferrer'>How the students can use the Website</a>
+                                    </li>
+                                </List>
+                            </Col> */}
                         </Row>
-                    </Col>
+                    </Col> 
                 </Row>
             </div>
             {showPopUp && (

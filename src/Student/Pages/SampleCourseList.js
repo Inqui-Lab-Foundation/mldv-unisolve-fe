@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable no-unused-vars */
 // import React from "react";
 import React, { useEffect, useState } from 'react';
 import { GetSampleList } from '../../redux/sample/actions.js';
@@ -18,9 +20,7 @@ const SampleCourseList = (props) => {
         name: 'Arshad'
     };
     useEffect(() => {
-        props.GetSampleList(body, function (resObj) {
-            console.log('=========', resObj);
-        });
+        props.GetSampleList(body, function (resObj) {});
     }, []);
 
     useEffect(() => {
@@ -32,14 +32,14 @@ const SampleCourseList = (props) => {
         };
         axios(config)
             .then(function (response) {
-                console.log('-------', JSON.stringify(response.data));
+                // console.log('-------', JSON.stringify(response.data));
                 SetList(response.data);
             })
             .catch(function (error) {
                 console.log(error);
             });
     }, []);
-    console.log('========', list.product);
+    // console.log('========', list.product);
     return (
         <div>
             <table>
@@ -51,19 +51,19 @@ const SampleCourseList = (props) => {
                 </tr>
                 {list.product
                     ? list.product.map((val, key) => {
-                        return (
-                            <tr key={key}>
-                                <td>{val.module}</td>
-                                <td>{val.courser_id}</td>
-                                <td>{val.statue}</td>
-                                <td>
-                                    {moment(val.createdAt).format(
-                                        'Do MMM, YYYY'
-                                    )}
-                                </td>
-                            </tr>
-                        );
-                    })
+                          return (
+                              <tr key={key}>
+                                  <td>{val.module}</td>
+                                  <td>{val.courser_id}</td>
+                                  <td>{val.statue}</td>
+                                  <td>
+                                      {moment(val.createdAt).format(
+                                          'Do MMM, YYYY'
+                                      )}
+                                  </td>
+                              </tr>
+                          );
+                      })
                     : null}
             </table>
         </div>

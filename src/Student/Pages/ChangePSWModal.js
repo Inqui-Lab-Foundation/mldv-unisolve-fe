@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
 
@@ -74,7 +75,7 @@ const ChangePSWModal = (props) => {
                 }).toString();
 
                 const body = JSON.stringify({
-                    user_id: JSON.stringify(currentUser.data[0].user_id),
+                    user_id: JSON.stringify(currentUser?.data[0]?.user_id),
                     old_password: old1,
                     new_password: new1
                 });
@@ -91,8 +92,6 @@ const ChangePSWModal = (props) => {
                 //   newPassword: values.newPassword,
                 // });
 
-                console.log('body1', body);
-
                 var config = {
                     method: 'put',
                     url:
@@ -101,7 +100,7 @@ const ChangePSWModal = (props) => {
                     headers: {
                         'Content-Type': 'application/json',
                         Accept: 'application/json',
-                        Authorization: `Bearer ${currentUser.data[0].token}`
+                        Authorization: `Bearer ${currentUser?.data[0]?.token}`
                     },
                     data: body
                 };
@@ -123,7 +122,7 @@ const ChangePSWModal = (props) => {
     });
     useEffect(() => {
         SetError('');
-        setErrorText("");
+        setErrorText('');
     }, [formik.values]);
 
     const oldPassword = {
@@ -156,9 +155,11 @@ const ChangePSWModal = (props) => {
                             )}
                         </p>
                     </Col>
-                    {errorText && <Col md={12}>
-                        <p>{errorText}</p>
-                    </Col>}
+                    {errorText && (
+                        <Col md={12}>
+                            <p>{errorText}</p>
+                        </Col>
+                    )}
                     <Col md={12}>
                         <Form onSubmit={formik.handleSubmit}>
                             <div className="form-row row mb-5 mt-3">
@@ -181,10 +182,10 @@ const ChangePSWModal = (props) => {
 
                                     {formik.touched.oldPassword &&
                                     formik.errors.oldPassword ? (
-                                            <small className="error-cls">
-                                                {formik.errors.oldPassword}
-                                            </small>
-                                        ) : null}
+                                        <small className="error-cls">
+                                            {formik.errors.oldPassword}
+                                        </small>
+                                    ) : null}
                                 </Col>
                             </div>
                             <div className="w-100 clearfix " />
@@ -212,10 +213,10 @@ const ChangePSWModal = (props) => {
                                     </small>
                                     {formik.touched.newPassword &&
                                     formik.errors.newPassword ? (
-                                            <small className="error-cls">
-                                                {formik.errors.newPassword}
-                                            </small>
-                                        ) : null}
+                                        <small className="error-cls">
+                                            {formik.errors.newPassword}
+                                        </small>
+                                    ) : null}
                                 </Col>
                                 <div className="w-100 clearfix" />
                                 <Col className="form-group mt-5" md={12}>
@@ -236,10 +237,10 @@ const ChangePSWModal = (props) => {
 
                                     {formik.touched.confirmPassword &&
                                     formik.errors.confirmPassword ? (
-                                            <small className="error-cls">
-                                                {formik.errors.confirmPassword}
-                                            </small>
-                                        ) : null}
+                                        <small className="error-cls">
+                                            {formik.errors.confirmPassword}
+                                        </small>
+                                    ) : null}
                                 </Col>
                             </div>
                             {error}

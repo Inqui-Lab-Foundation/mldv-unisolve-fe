@@ -1,5 +1,5 @@
 /* eslint-disable indent */
-import React from 'react';
+import React, { useState } from 'react';
 import { Modal, Form, FormGroup } from 'react-bootstrap';
 import { Label } from 'reactstrap';
 import { InputBox } from '../stories/InputBox/InputBox';
@@ -11,6 +11,7 @@ import { URL, KEY } from '../constants/defaultValues';
 import { getNormalHeaders, openNotificationWithIcon } from '../helpers/Utils';
 import axios from 'axios';
 function ForgotPassword(props) {
+    const [errorMsg, seterrorMsg] = useState('');
     const inputMob = {
         type: 'text',
         className: 'defaultInput'
@@ -19,21 +20,25 @@ function ForgotPassword(props) {
         props.setShow(false);
     };
 
-    const phoneRegExp =
-        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    // const phoneRegExp =
+    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
     const formik = useFormik({
         initialValues: {
-            mobile: ''
+            email: ''
+            // password: ''
         },
 
         validationSchema: Yup.object({
-            mobile: Yup.string()
-                .matches(phoneRegExp, 'Phone Number is not valid')
-                .required('Phone Number is Required')
+            email: Yup.string().required('Required email id')
+            // password: Yup.string().required('Required password')
+            // validationSchema: Yup.object({
+            //     email: Yup.string()
+            //         .matches(phoneRegExp, 'Phone Number is not valid')
+            //         .required('Phone Number is Required')
         }),
 
         onSubmit: async (values) => {
-            console.log(JSON.stringify(values));
+            // console.log(JSON.stringify(values));
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             await axios
                 .put(
@@ -51,10 +56,7 @@ function ForgotPassword(props) {
                     }
                 })
                 .catch((err) => {
-                    openNotificationWithIcon(
-                        'error',
-                        'Opps... something went wrong'
-                    );
+                    seterrorMsg(err.response.data.message);
                     return err.response;
                 });
         }
@@ -84,25 +86,30 @@ function ForgotPassword(props) {
                     isSubmitting
                 >
                     <FormGroup className="form-group" md={12}>
-                        <Label className="mb-2" htmlFor="mobile">
-                            Enter Mobile Number
+                        <Label className="mb-2" htmlFor="email">
+                            Enter Email Address
                         </Label>
                         <InputBox
                             {...inputMob}
-                            id="mobile"
-                            name="mobile"
-                            placeholder="Please enter mobile number"
+                            id="email"
+                            name="email"
+                            placeholder=" Enter the Registered email "
                             onChange={formik.handleChange}
                             onBlur={formik.handleBlur}
-                            value={formik.values.mobile}
+                            value={formik.values.email}
                         />
-                        {formik.touched.mobile && formik.errors.mobile ? (
+                        {formik.touched.email && formik.errors.email ? (
                             <small className="error-cls">
-                                {formik.errors.mobile}
+                                {formik.errors.email}
                             </small>
                         ) : null}
                     </FormGroup>
-                    <div className="mt-5">
+                    {errorMsg === 'User not found' && (
+                        <b className="text-danger m-3">
+                            Please enter registered email ID
+                        </b>
+                    )}
+                    <div className="mt-3">
                         {/* <Link
                             exact='true'
                             // onSubmit={formik.handleSubmit}

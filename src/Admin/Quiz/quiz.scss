@@ -23,11 +23,11 @@
   }
 }
 
-.quiz.card {
-  .new-result {
-    background: linear-gradient(to bottom, #dbebf8 30%, white 70%);
-  }
-}
+// .quiz.card {
+//   .new-result {
+//     background: linear-gradient(to bottom, #dbebf8 30%, white 70%);
+//   }
+// }
 
 .congratulations {
   font-size: 2.5rem;
@@ -162,4 +162,9 @@
 
 .modal-popup {
   z-index: 9999 !important;
+}
+.success_img{
+   img{
+     width: 20rem;
+   }
 }

@@ -5,8 +5,10 @@ import { Modal } from 'react-bootstrap';
 import { Button } from '../../../stories/Button.jsx';
 import ModuleAssesmentImg from '../../../assets/media/moduleAssesmentPopup.svg';
 import Quiz from '../../../Admin/Quiz/Quiz.js';
+import { useTranslation } from 'react-i18next';
 
 function TakeAssesmentPopup(props) {
+    const { t } = useTranslation();
     const reflectedQst = props.refQst;
     const videoId = props.videoId;
     const [showQuiz, setHideQuiz] = useState(false);
@@ -30,7 +32,7 @@ function TakeAssesmentPopup(props) {
                             id="contained-modal-title-vcenter"
                             className="w-100 heading d-block mb-2"
                         >
-                            Let&apos;s think about a few things you learnt in the video
+                            {t('student.ref_quiz_heading')}
                         </Modal.Title>
                     </Modal.Header>
 
@@ -43,7 +45,7 @@ function TakeAssesmentPopup(props) {
                             />
                         </figure>
                         <Button
-                            label="Let's Start"
+                            label={t('student.lets_start')}
                             btnClass="primary mt-4"
                             size="small"
                             onClick={() => setHideQuiz(true)}

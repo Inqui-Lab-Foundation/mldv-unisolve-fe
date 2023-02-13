@@ -47,7 +47,7 @@ export const getDistrictLiveData = () => async (dispatch) => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
         const result = await axios
-            .get(`${URL.getDistrictsLive}`, axiosConfig)
+            .get(`${URL.getDistricts}`, axiosConfig)
             .then((data) => data)
             .catch((err) => {
                 return err.response;

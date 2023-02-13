@@ -12,9 +12,14 @@ import {
     GET_STUDENT_DASHBOARD_STATUS,
     GET_STUDENT_DASHBOARD_CHALLENGES_STATUS,
     GET_STUDENT_DASHBOARD_TEAMPROGRESS,
-    GET_STUDENT_DASHBOARD_TUTORIALS
+    GET_STUDENT_DASHBOARD_TUTORIALS,
+    SET_PRESURVEY_STATUS,
+    SET_POSTSURVEY_STATUS,
+    SET_FILE_SUCCESS,
+    GET_DISTRICTS
 } from '../actions';
 
+const localLang = JSON.parse(localStorage.getItem("s_language"));
 
 const INIT_STATE = {
     loading: false,
@@ -24,12 +29,19 @@ const INIT_STATE = {
     teamMember:{},
     challengeQuestions:[],
     challengesSubmittedResponse:[],
-    studentLanguage:languageOptions[0],
+    studentLanguage:localLang ? localLang :languageOptions[0],
     badges:"",
     dashboardStatus:null,
     dashboardChallengesStatus:null,
     dashboardTeamProgressStatus:null,
-    dashboardTutorials:null
+    dashboardTutorials:null,
+    preSurveyList:[],
+    quizSurveyId:0,
+    presuveyStatusGl :null,
+    postSurveyStatusGl :null,
+    ideaSubmissionStatus:null,
+    fileResponse:null,
+    dists:[]
 };
 
 export default (state = INIT_STATE, action) => {
@@ -69,9 +81,11 @@ export default (state = INIT_STATE, action) => {
             challengeQuestions:action.payload
         };
     case GET_CHALLENGE_SUBMITTED_DATA:
+        var status = action.payload[0]?.status;
         return {
             ...state,
-            challengesSubmittedResponse:action.payload
+            challengesSubmittedResponse:action.payload,
+            ideaSubmissionStatus:status
         };
     case GET_STUDENT_BADGES:
         return {
@@ -97,6 +111,28 @@ export default (state = INIT_STATE, action) => {
         return {
             ...state,
             dashboardTutorials:action.payload
+        };
+    case SET_PRESURVEY_STATUS:
+        return {
+            ...state,
+            presuveyStatusGl:action.payload?.progress,
+            preSurveyList:action.payload?.quiz_survey_questions,
+            quizSurveyId:action.payload?.quiz_survey_id
+        };
+    case SET_POSTSURVEY_STATUS:
+        return {
+            ...state,
+            postSurveyStatusGl:action.payload
+        };
+    case SET_FILE_SUCCESS:
+        return {
+            ...state,
+            fileResponse:action.payload
+        };
+    case GET_DISTRICTS:
+        return {
+            ...state,
+            dists:action.payload
         };
     default:
         return newState;

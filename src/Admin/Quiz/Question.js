@@ -80,7 +80,9 @@ const Question = (props) => {
                     })}
                 </>
             ) : null}
-            <div className="question quiz">{quiz[0] && quiz[0].question}</div>
+            <div className="question quiz" dangerouslySetInnerHTML={{
+                __html: (quiz[0] && quiz[0].question)
+            }}></div>
             {quiz[0] && quiz[0].type == 'TEXT' && (
                 <div className="answers">
                     <label className="my-auto mx-3 ">
@@ -191,7 +193,7 @@ const Question = (props) => {
                                                         alt={answer}
                                                         className="img-fluid"
                                                         style={{
-                                                            width: '80px'
+                                                            height: '12rem'
                                                         }}
                                                     />
                                                 </label>

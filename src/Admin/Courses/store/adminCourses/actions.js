@@ -77,12 +77,16 @@ export const adminCoursesCreateError = (message) => async (dispatch) => {
     });
 };
 
-export const adminCoursesCreate = (data, history,lang) => async (dispatch) => {
+export const adminCoursesCreate = (data, history, lang) => async (dispatch) => {
     try {
         dispatch({ type: ADMIN_COURSES_CREATE });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .post(`${URL.addAdminCourses}?${getLanguage(lang)}`, data, axiosConfig)
+            .post(
+                `${URL.addAdminCourses}?${getLanguage(lang)}`,
+                data,
+                axiosConfig
+            )
             .then((user) => user)
             .catch((err) => {
                 return err.response;
@@ -117,18 +121,19 @@ export const getAdminCourseDetailsError = (message) => async (dispatch) => {
     });
 };
 
-export const getAdminCourseDetails = (courseId,lang) => async (dispatch) => {
-    console.log(lang);
+export const getAdminCourseDetails = (courseId, lang) => async (dispatch) => {
     try {
         dispatch({ type: ADMIN_COURSES_DETAILS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .get(`${URL.getAdminCousesDetails + courseId}?${getLanguage(lang)}`, axiosConfig)
+            .get(
+                `${URL.getAdminCousesDetails + courseId}?${getLanguage(lang)}`,
+                axiosConfig
+            )
             .then((user) => user)
             .catch((err) => {
                 return err.response;
             });
-        console.log('=====---------------', result);
         if (result && result.status === 200) {
             const data = result.data;
             dispatch(getAdminCourseDetailsSuccess(data));
@@ -154,13 +159,15 @@ export const getAdminQuizQuestionsError = (message) => async (dispatch) => {
     });
 };
 
-export const getAdminQuizQuestions = (quizId,lang) => async (dispatch) => {
+export const getAdminQuizQuestions = (quizId, lang) => async (dispatch) => {
     try {
         dispatch({ type: ADMIN_COURSES_QUESTIONS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
             .get(
-                `${URL.getAdminQstList + quizId + '/' + 'nextQuestion'}?${getLanguage(lang)}`,
+                `${
+                    URL.getAdminQstList + quizId + '/' + 'nextQuestion'
+                }?${getLanguage(lang)}`,
                 axiosConfig
             )
             .then((user) => user)
@@ -169,7 +176,6 @@ export const getAdminQuizQuestions = (quizId,lang) => async (dispatch) => {
             });
         if (result && result.status === 200) {
             const data = result;
-            console.log('==========daya==', data);
             dispatch(getAdminQuizQuestionsSuccess(data));
             dispatch(getAdminQuizResponceSuccess({}));
         } else {
@@ -196,31 +202,33 @@ export const getAdminQuizResponceError = (message) => async (dispatch) => {
     });
 };
 
-export const getAdminQuizResponce = (quizId, body,lang) => async (dispatch) => {
-    try {
-        dispatch({ type: ADMIN_COURSES_QUESTIONS_RESPONCE });
-        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const result = await axios
-            .post(
-                `${URL.putAdminQuizResponce + quizId + '/' + 'response'}?${getLanguage(lang)}`,
-                body,
-                axiosConfig
-            )
-            .then((user) => user)
-            .catch((err) => {
-                return err.response;
-            });
-        // console.log("=====---------------", result);
-        if (result && result.status === 200) {
-            const data = result;
-            dispatch(getAdminQuizResponceSuccess(data));
-        } else {
-            dispatch(getAdminQuizResponceError(result.statusText));
+export const getAdminQuizResponce =
+    (quizId, body, lang) => async (dispatch) => {
+        try {
+            dispatch({ type: ADMIN_COURSES_QUESTIONS_RESPONCE });
+            const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+            const result = await axios
+                .post(
+                    `${
+                        URL.putAdminQuizResponce + quizId + '/' + 'response'
+                    }?${getLanguage(lang)}`,
+                    body,
+                    axiosConfig
+                )
+                .then((user) => user)
+                .catch((err) => {
+                    return err.response;
+                });
+            if (result && result.status === 200) {
+                const data = result;
+                dispatch(getAdminQuizResponceSuccess(data));
+            } else {
+                dispatch(getAdminQuizResponceError(result.statusText));
+            }
+        } catch (error) {
+            dispatch(getAdminQuizResponceError({}));
         }
-    } catch (error) {
-        dispatch(getAdminQuizResponceError({}));
-    }
-};
+    };
 
 export const getAdminRfQuizResponceSuccess = (user) => async (dispatch) => {
     dispatch({
@@ -236,31 +244,33 @@ export const getAdminRfQuizResponceError = (message) => async (dispatch) => {
     });
 };
 
-export const getAdminRfQuizResponce = (quizId, body,lang) => async (dispatch) => {
-    try {
-        dispatch({ type: ADMIN_COURSES_REF_QUESTIONS_RESPONCE });
-        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const result = await axios
-            .post(
-                `${URL.postAdminRefQuizResponce + quizId + '/' + 'response'}?${getLanguage(lang)}`,
-                body,
-                axiosConfig
-            )
-            .then((user) => user)
-            .catch((err) => {
-                return err.response;
-            });
-        // console.log("=====---------------", result);
-        if (result && result.status === 200) {
-            const data = result;
-            dispatch(getAdminRfQuizResponceSuccess(data));
-        } else {
-            dispatch(getAdminRfQuizResponceError(result.statusText));
+export const getAdminRfQuizResponce =
+    (quizId, body, lang) => async (dispatch) => {
+        try {
+            dispatch({ type: ADMIN_COURSES_REF_QUESTIONS_RESPONCE });
+            const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+            const result = await axios
+                .post(
+                    `${
+                        URL.postAdminRefQuizResponce + quizId + '/' + 'response'
+                    }?${getLanguage(lang)}`,
+                    body,
+                    axiosConfig
+                )
+                .then((user) => user)
+                .catch((err) => {
+                    return err.response;
+                });
+            if (result && result.status === 200) {
+                const data = result;
+                dispatch(getAdminRfQuizResponceSuccess(data));
+            } else {
+                dispatch(getAdminRfQuizResponceError(result.statusText));
+            }
+        } catch (error) {
+            dispatch(getAdminRfQuizResponceError({}));
         }
-    } catch (error) {
-        dispatch(getAdminRfQuizResponceError({}));
-    }
-};
+    };
 
 export const getAdminRefQuizQstSuccess = (user) => async (dispatch) => {
     dispatch({
@@ -276,13 +286,15 @@ export const getAdminRefQuizQstError = (message) => async (dispatch) => {
     });
 };
 
-export const getAdminRefQuizQst = (refQizId,lang) => async (dispatch) => {
+export const getAdminRefQuizQst = (refQizId, lang) => async (dispatch) => {
     try {
         dispatch({ type: ADMIN_COURSES_REF_QUESTIONS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
             .get(
-                `${URL.getAdminRefQizList + refQizId + '/' + 'nextQuestion'}?${getLanguage(lang)}`,
+                `${
+                    URL.getAdminRefQizList + refQizId + '/' + 'nextQuestion'
+                }?${getLanguage(lang)}`,
                 axiosConfig
             )
             .then((user) => user)

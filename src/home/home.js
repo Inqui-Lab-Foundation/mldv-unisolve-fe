@@ -20,18 +20,26 @@ import {
     NavItem
 } from 'reactstrap';
 import { Button } from '../stories/Button';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
 import { Input } from 'antd';
-import LanguageSelectorComp from '../components/LanguageSelectorComp';
+//import LanguageSelectorComp from '../components/LanguageSelectorComp';
 import { useTranslation } from 'react-i18next';
 import React, { useState, useEffect, useLayoutEffect } from 'react';
 import { slide as Menu } from 'react-burger-menu';
 import Slider from 'react-slick';
-import LearnMentor from '../assets/media/home/learn.svg';
+import LearnMentor from '../assets/media/home/learn.png';
 import upshift from '../assets/media/UPSHIFT-diagram.jpg';
-import testi1 from '../assets/media/home/testi/Herve_Morin_Global_head.jpg';
-import testi2 from '../assets/media/home/testi/Swathi.JPG';
-import IdeaBulb from '../assets/media/home/idea-bulb.png';
+import values from '../assets/media/4values.png';
+import KeyCompetencies from '../assets/media/KeyCompetencies.png';
+import projectimg1 from '../assets/media/Picture1.jpg';
+import projectimg3 from '../assets/media/pro3.png';
+//import projectimg2 from '../assets/media/Picture2.jpg';
+import testi1 from '../assets/media/home/testi/tes1.jpg';
+import testi2 from '../assets/media/home/testi/tes2.jpg';
+import testi3 from '../assets/media/home/testi/tes3.jpg';
+import testi4 from '../assets/media/home/testi/tes4.jpg';
+import testi5 from '../assets/media/home/testi/tes5.jpg';
+//import IdeaBulb from '../assets/media/home/idea-bulb.png';
 
 import map_icon_awa from '../assets/media/home/icon_aweraness.png';
 import map_icon_reg from '../assets/media/home/icon_registration.png';
@@ -41,25 +49,20 @@ import map_icon_pitch from '../assets/media/home/icon_solution_pichting.png';
 import map_icon_incu from '../assets/media/home/icon_incubation.png';
 
 // ta brans
-import SSA_Tamilnadu from '../assets/media/tn-brands/1_SSA_Tamilnadu.jpg';
-import SIDP_tamilnadu from '../assets/media/tn-brands/2_SIDP_tamilnadu.jpg';
-import EDII_tamilnadu from '../assets/media/tn-brands/3_EDII_tamilnadu.jpg';
-import UpShift_Tamilnadu from '../assets/media/tn-brands/4_UpShift_Tamilnadu.png';
-import Yuwaah_Tamilnadu from '../assets/media/tn-brands/5_Yuwaah_Tamilnadu.jpg';
-import IIF_Tamilnadu from '../assets/media/tn-brands/7_IIF_Tamilnadu.png';
-import SS_Tamilnadu from '../assets/media/tn-brands/8_SS_Tamilnadu.jpg';
-import Unicef_OOI_Tamilnadu from '../assets/media/tn-brands/9_Unicef OOI_Tamilnadu.jpg';
-import LogoTn from '../assets/media/tn-brands/UPSHIFT_SIDP_TN_logo.png';
+import Maldives_NIE from '../assets/media/tn-brands/1_NIE.png';
+import unicef from '../assets/media/tn-brands/2_unicef.png';
+import IIF from '../assets/media/tn-brands/3_IIF.jpg';
+import Unicef_OOI from '../assets/media/tn-brands/4_Unicef OOI.jpg';
+import LogoTn from '../assets/media/tn-brands/MV_LOGO.png';
 
-import Blog1 from '../assets/media/home/blog/walker_elders.jpg';
-import Blog2 from '../assets/media/home/blog/agriculture_bag.jpeg';
-import Blog3 from '../assets/media/home/blog/sweeping_machine.png';
+// import Blog1 from '../assets/media/home/blog/walker_elders.jpg';
+// import Blog2 from '../assets/media/home/blog/agriculture_bag.jpeg';
+// import Blog3 from '../assets/media/home/blog/sweeping_machine.png';
 import RegisterPopup from './registration/RegisterPopup';
-import TamilNaduMap from '../components/MapCard/TamilNaduMap';
 import { getDistrictData, getDistrictLiveData } from '../redux/home/actions';
 import { useDispatch, useSelector } from 'react-redux';
 import FancyVideo from 'react-videojs-fancybox';
-import taVideo from '../assets/media/tn-brands/ta-video.mp4';
+import taVideo from '../assets/media/tn-brands/ml-video.m4v';
 import tnVideoCover from '../assets/media/tn-brands/videoCover.png';
 import SchoolRegisterPopup from './SchoolRegisterPopup';
 import axios from 'axios';
@@ -67,16 +70,37 @@ import ScrollToTop from 'react-scroll-to-top';
 import AnchorLink from 'react-anchor-link-smooth-scroll';
 import { getSchedulesForTeacherAndStudents } from '../redux/schedules/actions';
 import { compareDates } from '../helpers/Utils';
-
+import i18next from 'i18next';
+import MaldivesMap from '../components/MapCard/MaldivesMap';
+import Livechart from './Livechart';
+// new push
 const Home = () => {
     const { t } = useTranslation();
     const [open, setOpen] = useState('1');
     const dispatch = useDispatch();
+    const history = useHistory();
     const { schedules } = useSelector((state) => state.schedules);
     const [modalShow, setModalShow] = useState(false);
     // useLayoutEffect(() => {
     //     dispatch(getSchedulesForTeacherAndStudents());
     // }, []);
+    useLayoutEffect(() => {
+        const moduleName = localStorage.getItem('module');
+        if (
+            localStorage.getItem('current_user') &&
+            localStorage.getItem('module')
+        ) {
+            moduleName === 'MENTOR'
+                ? history.push('/teacher/dashboard')
+                : moduleName === 'ADMIN'
+                ? history.push('/admin/dashboard')
+                : moduleName === 'EVALUATOR'
+                ? history.push('/evaluator/submitted-ideas')
+                : moduleName === 'EADMIN'
+                ? history.push('/eadmin/dashboard')
+                : history.push('/dashboard');
+        }
+    }, []);
     const [nav1, setNav1] = useState(null);
     const [nav2, setNav2] = useState(null);
     const [slider1, setSlider1] = useState(null);
@@ -139,7 +163,7 @@ const Home = () => {
 
     useLayoutEffect(() => {
         dispatch(getDistrictData());
-        dispatch(getDistrictLiveData());
+        // dispatch(getDistrictLiveData());
     }, []);
 
     const toggle = (id) => {
@@ -153,68 +177,61 @@ const Home = () => {
     const partners = [
         {
             id: 1,
-            key: 'SSA',
-            // imageUrl: Unicef
-            imageUrl: SSA_Tamilnadu
+            key: 'Maldives_NIE',
+            imageUrl: Maldives_NIE
         },
         {
             id: 2,
-            key: 'SIDP',
-            // imageUrl: Telangana
-            imageUrl: SIDP_tamilnadu
+            key: 'unicef',
+            imageUrl: unicef
         },
         {
             id: 3,
-            key: 'EDII',
-            // imageUrl: Inquilab
-            imageUrl: EDII_tamilnadu
+            key: 'IIF',
+            imageUrl: IIF
         },
         {
             id: 4,
-            key: 'UpShift',
-            // imageUrl: Yuwaah
-            imageUrl: UpShift_Tamilnadu
-        },
-        {
-            id: 5,
-            key: 'Yuwaah',
-            // imageUrl: YoungWarrior
-            imageUrl: Yuwaah_Tamilnadu
-        },
-        {
-            id: 6,
-            key: 'IIF',
-            // imageUrl: Congnizant
-            imageUrl: IIF_Tamilnadu
-        },
-        {
-            id: 6,
-            key: 'SS',
-            // imageUrl: Congnizant
-            imageUrl: SS_Tamilnadu
-        },
-        {
-            id: 6,
             key: 'Unicef',
-            // imageUrl: Congnizant
-            imageUrl: Unicef_OOI_Tamilnadu
+            imageUrl: Unicef_OOI
         }
     ];
 
     const testimonials = [
         {
             id: 1,
-            imageUrl: testi2,
+            imageUrl: testi1,
             desc: `${t('home_tl.testimonials_desc_1')}`,
             name: `${t('home_tl.testimonials_name_1')}`,
             title: `${t('home_tl.testimonials_title_1')}`
         },
         {
             id: 2,
-            imageUrl: testi1,
+            imageUrl: testi2,
             desc: `${t('home_tl.testimonials_desc_2')}`,
             name: `${t('home_tl.testimonials_name_2')}`,
             title: `${t('home_tl.testimonials_title_2')}`
+        },
+        {
+            id: 3,
+            imageUrl: testi3,
+            desc: `${t('home_tl.testimonials_desc_3')}`,
+            name: `${t('home_tl.testimonials_name_3')}`,
+            title: `${t('home_tl.testimonials_title_3')}`
+        },
+        {
+            id: 4,
+            imageUrl: testi4,
+            desc: `${t('home_tl.testimonials_desc_4')}`,
+            name: `${t('home_tl.testimonials_name_4')}`,
+            title: `${t('home_tl.testimonials_title_4')}`
+        },
+        {
+            id: 5,
+            imageUrl: testi5,
+            desc: `${t('home_tl.testimonials_desc_5')}`,
+            name: `${t('home_tl.testimonials_name_5')}`,
+            title: `${t('home_tl.testimonials_title_5')}`
         }
     ];
 
@@ -298,29 +315,49 @@ const Home = () => {
             id: 5,
             title: `${t('home_tl.faq_qn_5')}`,
             desc: `${t('home_tl.faq_ans_5')}`
+        },
+        {
+            id: 6,
+            title: `${t('home_tl.faq_qn_6')}`,
+            desc: `${t('home_tl.faq_ans_6')}`
+        },
+        {
+            id: 7,
+            title: `${t('home_tl.faq_qn_7')}`,
+            desc: `${t('home_tl.faq_ans_7')}`
+        },
+        {
+            id: 8,
+            title: `${t('home_tl.faq_qn_8')}`,
+            desc: `${t('home_tl.faq_ans_8')}`
+        },
+        {
+            id: 9,
+            title: `${t('home_tl.faq_qn_9')}`,
+            desc: `${t('home_tl.faq_ans_9')}`
         }
     ];
 
-    const blogs = [
-        {
-            id: 1,
-            imgUrl: Blog2,
-            title: `${t('home_tl.idea_heading_1')}`,
-            desc: `${t('home_tl.idea_desc_1')}`
-        },
-        {
-            id: 2,
-            imgUrl: Blog3,
-            title: `${t('home_tl.idea_heading_2')}`,
-            desc: `${t('home_tl.idea_desc_2')}`
-        },
-        {
-            id: 3,
-            imgUrl: Blog1,
-            title: `${t('home_tl.idea_heading_3')}`,
-            desc: `${t('home_tl.idea_desc_3')}`
-        }
-    ];
+    // const blogs = [
+    //     {
+    //         id: 1,
+    //         imgUrl: Blog2,
+    //         title: `${t('home_tl.idea_heading_1')}`,
+    //         desc: `${t('home_tl.idea_desc_1')}`
+    //     },
+    //     {
+    //         id: 2,
+    //         imgUrl: Blog3,
+    //         title: `${t('home_tl.idea_heading_2')}`,
+    //         desc: `${t('home_tl.idea_desc_2')}`
+    //     },
+    //     {
+    //         id: 3,
+    //         imgUrl: Blog1,
+    //         title: `${t('home_tl.idea_heading_3')}`,
+    //         desc: `${t('home_tl.idea_desc_3')}`
+    //     }
+    // ];
     // console.log("----379",sidebar);
 
     return (
@@ -332,13 +369,14 @@ const Home = () => {
                 className="landing-menu"
                 isOpen={sidebar}
                 onOpen={() => setSidebar(!sidebar)}
+                onClose={() => setSidebar(!sidebar)}
             >
                 <Link className="menu-item" to="/login">
                     {t('home_nav_links.btn_login')}
                 </Link>
                 <Link className="menu-item" onClick={() => setSidebar(false)}>
                     <Button
-                        label="Register"
+                        label={t('home_tl.register')}
                         btnClass="primary px-0 register"
                         size="small"
                         onClick={() => setModalShow(true)}
@@ -385,20 +423,23 @@ const Home = () => {
                             {t('home_nav_links.faq')}
                         </AnchorLink>
                     </NavItem>
+                     {/* <NavItem className="mt-3 ms-3">
+                        <LanguageSelectorComp module="general" />
+                    </NavItem> */}
                 </Nav>
             </Menu>
             <section className="header ">
                 <div className="home-banner">
                     <Container>
-                        <Row className="justify-content-between  pt-5">
+                        <Row className="justify-content-between fixed-top p-5 pb-lg-0 pb-3 pt-sm-2 mb-5 nav_row">
                             <Col md={5} className="my-auto mobile-menu">
-                                <h2 className="logo">
+                                <h2 className="logo mb-0">
                                     <Link className="" exact="true" to="/">
-                                        <figure>
+                                        <figure className="m-0">
                                             <img
                                                 src={LogoTn}
                                                 alt="logo"
-                                                className="img-fluid w-5 logoImg"
+                                                className="w-5 logoImg"
                                             />
                                         </figure>
                                     </Link>
@@ -407,7 +448,7 @@ const Home = () => {
                             </Col>
                             <Col
                                 md={7}
-                                className="text-right multi-actions main-menu"
+                                className="text-right multi-actions main-menu my-auto"
                             >
                                 <div className="nav p-4 justify-content-end">
                                     <Nav className="ml-auto ">
@@ -451,8 +492,11 @@ const Home = () => {
                                                 {t('home_nav_links.faq')}
                                             </AnchorLink>
                                         </NavItem>
+                                        {/* <NavItem>
+                                            <LanguageSelectorComp module="general" />
+                                        </NavItem> */}
                                     </Nav>
-                                    <LanguageSelectorComp module="general"/>
+                                    {/* <LanguageSelectorComp module="general" /> */}
                                 </div>
                             </Col>
                         </Row>
@@ -503,9 +547,16 @@ const Home = () => {
                                                 to="/teacher"
                                             >
                                                 <Button
-                                                    // label="Login"
                                                     label={t('home_tl.login')}
                                                     btnClass="primary "
+                                                    onClick={() => {
+                                                        history.push(
+                                                            '/teacher'
+                                                        );
+                                                        i18next.changeLanguage(
+                                                            'en'
+                                                        );
+                                                    }}
                                                     size="small"
                                                 />
                                             </Link>
@@ -546,8 +597,8 @@ const Home = () => {
                             </div>
                         </Col>
                     </Row>
-                    <Row>
-                        <Col md={6}>
+                    <Row className="sidp_row p-3">
+                        <Col md={6} className="pe-md-4">
                             <div
                                 dangerouslySetInnerHTML={{
                                     __html: t('home_tl.about_us_desc')
@@ -555,7 +606,7 @@ const Home = () => {
                             ></div>
                         </Col>
                         <Col md={6} className="my-auto ">
-                            <div className="position-relative">
+                            <div className="position-relative sidp_video_box">
                                 <FancyVideo
                                     source={taVideo}
                                     poster={tnVideoCover}
@@ -564,9 +615,11 @@ const Home = () => {
                             </div>
                         </Col>
                     </Row>
-                    <Row className="my-5 py-5">
+                </Container>
+                <div className="bg-white mx-0 p-md-5 p-2">
+                    <Row className="my-5 p-5 upshift p-3 ">
                         <Col md={12} lg={5} className="teacher ">
-                            <figure className="text-left">
+                            <figure className="text-center">
                                 <img
                                     src={upshift}
                                     alt="mentor"
@@ -577,7 +630,7 @@ const Home = () => {
                         <Col
                             md={12}
                             lg={7}
-                            className="my-auto teacher-heading "
+                            className="my-auto teacher-heading pe-md-5"
                         >
                             <div
                                 dangerouslySetInnerHTML={{
@@ -591,35 +644,36 @@ const Home = () => {
                             ></div>
                         </Col>
                     </Row>
-
-                    <Row className="student">
-                        <Col
-                            md={12}
-                            lg={6}
-                            className="my-auto mx-auto student-heading px-5 "
-                        >
-                            <h2 className="mb-5 sub-heading">
-                                UPSHIFT {t('home_tl.power_by')}{' '}
-                                <span className="green">UNISOLVE</span>{' '}
-                            </h2>
-                            <div
-                                dangerouslySetInnerHTML={{
-                                    __html: t('home_tl.upshift_power_desc')
-                                }}
-                            ></div>
-                            {/* <Link
-                                className="landing-page-actions"
-                                exact="true"
-                                to="/login"
+                </div>
+                <Container className="py-md-4 py-2">
+                    <Row className="student py-md-4 py-2">
+                            <Col
+                                md={12}
+                                lg={6}
+                                className="my-auto mx-auto student-heading px-5 "
                             >
-                                <Button
-                                    label={t(
-                                        'home.learners_students_new_button'
-                                    )}
-                                    btnClass="primary mx-3"
-                                    size="small"
-                                />
-                            </Link> */}
+                                <h2 className="mb-5 sub-heading">
+                                    UPSHIFT {t('home_tl.power_by')}{' '}
+                                    <span className="blue">UNISOLVE</span>{' '}
+                                </h2>
+                                <div
+                                    dangerouslySetInnerHTML={{
+                                        __html: t('home_tl.upshift_power_desc')
+                                    }}
+                                ></div>
+                                {/* <Link
+                                    className="landing-page-actions"
+                                    exact="true"
+                                    to="/login"
+                                >
+                                    <Button
+                                        label={t(
+                                            'home.learners_students_new_button'
+                                        )}
+                                        btnClass="primary mx-3"
+                                        size="small"
+                                    />
+                                </Link> */}
                         </Col>
                         <Col md={12} lg={6}>
                             <figure className="my-0">
@@ -631,9 +685,118 @@ const Home = () => {
                             </figure>
                         </Col>
                     </Row>
+                    <Row className="my-5 py-5">
+                        <Col md={12} lg={5} className="teacher my-auto mx-auto">
+                            <figure className="text-left">
+                                <img
+                                    src={values}
+                                    alt="mentor"
+                                    className="img-fluid"
+                                />
+                            </figure>
+                        </Col>
+                        <Col
+                            md={12}
+                            lg={7}
+                            className="my-auto teacher-heading"
+                        >
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: t('home_tl.section_heading')
+                                }}
+                            ></div>
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: t('home_tl.section_desc')
+                                }}
+                            ></div>
+                        </Col>
+                    </Row>
+
+                    <Row className="student">
+                        <Col
+                            md={12}
+                            lg={12}
+                            className="student-heading px-5 pb-5"
+                        >
+                       
+                            <h1
+                                dangerouslySetInnerHTML={{
+                                    __html: t('home_tl.clutureDesc')
+                                }}
+                            ></h1>
+                            
+                        </Col>
+                        <Col md={12} lg={12}>
+                            <figure className="my-0">
+                                <img
+                                    src={KeyCompetencies}
+                                    alt="KeyCompetencies"
+                                    className="img-fluid"
+                                />
+                            </figure>
+                        </Col>
+                    </Row>
+                    
+                    <Row className="student">
+                    <Col md={12} className="text-center pt-5 mt-5">
+                            <div className="heading">
+                            <h2 className="sub-heading">
+                                {t('home.student_ideas')}
+                                <span className="blue">
+                                    {t('home.student_ideas_span')}
+                                </span>
+                                </h2>
+                            </div>
+                    </Col>
+                    <Col md={12} lg={6}>
+                            <figure className="my-0">
+                                <p className='pt-5'
+                                dangerouslySetInnerHTML={{
+                                    __html: t('home_tl.project_sample_team_title')
+                                }}></p>
+                                <img
+                                    src={projectimg1}
+                                    alt="projectimg1"
+                                    className="img-fluid pb-5"
+                                />
+                                {/* <p className='pt-5'>PROTOTYPE OF SOLUTION:</p>
+                                <img
+                                    src={projectimg2}
+                                    alt="projectimg2"
+                                    className="img-fluid"
+                                /> */}
+                                <div
+                                dangerouslySetInnerHTML={{
+                                    __html: t('home_tl.project_sample_team')
+                                }}
+                            ></div>
+                            </figure>
+                        </Col>
+                        <Col
+                            md={12}
+                            lg={6}
+                            className="my-auto mx-auto student-heading px-5 "
+                        >
+                       
+                            <div
+                                dangerouslySetInnerHTML={{
+                                    __html: t('home_tl.project_sample_desc')
+                                }}
+                            ></div>
+                                <figure className="my-0">
+                                <img
+                                    src={projectimg3}
+                                    alt="projectimg3"
+                                    className="img-fluid"
+                                />
+                            </figure>
+                            
+                        </Col>
+                        
+                    </Row>
                 </Container>
             </section>
-
             {/* <section className="mentor-student">
         <Container className="both">
             <Row>
@@ -704,7 +867,6 @@ const Home = () => {
             </Row>
         </Container>
     </section> */}
-
             <section className="road-map" id="roadmap">
                 <div className="heading">
                     <h2 className="sub-heading w-100 text-center">
@@ -836,17 +998,16 @@ const Home = () => {
                     </div>
                 </div>
             </section>
-
             <section className="state-map" id="impact">
                 <div className="heading">
                     <h2 className="sub-heading text-center">
                         {t('home_tl.engagement')}
                     </h2>
                 </div>
-                <TamilNaduMap />
+                <Livechart/>
+                <MaldivesMap/>
             </section>
-
-            <section className="blog">
+            {/* <section className="blog">
                 <Container>
                     <Row className="text-center justify-content-md-center">
                         <div className="heading">
@@ -916,12 +1077,11 @@ const Home = () => {
                         </Col>
                     </Row>
                 </Container>
-            </section>
-
+            </section> */}
             <section className="testimonials ">
                 <Container>
                     <Row className="text-center justify-content-md-center">
-                        <div className="heading">
+                        <div className="heading" style={{zIndex:1}}>
                             <h2 className="sub-heading">
                                 {t('home.testimonials')}
                             </h2>
@@ -963,7 +1123,6 @@ const Home = () => {
                     </Row>
                 </Container>
             </section>
-
             <section className="uni-partners counter" id="partners">
                 <Container className="text-center">
                     <Row className="counter-card">
@@ -973,7 +1132,7 @@ const Home = () => {
                         <Col md={9} className="testimonials-slider">
                             <Slider
                                 dots={false}
-                                slidesToShow={5}
+                                slidesToShow={4}
                                 slidesToScroll={1}
                                 autoplay={true}
                                 autoplaySpeed={3000}
@@ -1014,7 +1173,7 @@ const Home = () => {
                     </Row>
                 </Container>
             </section>
-``
+            ``
             <section className="locate-unisolve">
                 <Container>
                     <Row>
@@ -1092,7 +1251,7 @@ const Home = () => {
                                             <Row>
                                                 <Col className="text-center">
                                                     <span>
-                                                        Entered UDISE Code &
+                                                        Entered Unique Code &
                                                         School details are not
                                                         registered with us.
                                                     </span>
@@ -1129,7 +1288,6 @@ const Home = () => {
                     </Row>
                 </Container>
             </section>
-
             <section className="faq " id="faq">
                 <Container>
                     <Row className="text-center justify-content-md-center">
@@ -1168,7 +1326,6 @@ const Home = () => {
                     </Row>
                 </Container>
             </section>
-
             <footer className="footer">
                 <Container>
                     <Row>
@@ -1240,16 +1397,15 @@ const Home = () => {
                         </Col>
                     </Row>
                 </Container>
-                <Row className="w-100 mt-5 footer-sub">
+                <Row className="w-100 mt-5 mx-0 footer-sub">
                     <Col md={12} className="text-center">
-                        <p className="my-0 py-3 text-white">
+                        <p className="my-0 py-3 text-white text-center">
                             © UNISOLVE, UNICEF {new Date().getFullYear()}.{' '}
                             {t('home_nav_links.rights')}{' '}
                         </p>
                     </Col>
                 </Row>
             </footer>
-
             {modalShow && (
                 <RegisterPopup
                     show={modalShow}

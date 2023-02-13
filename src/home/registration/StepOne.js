@@ -13,15 +13,15 @@ import { useTranslation } from 'react-i18next';
 
 function StepOne({
     setOrgData,
-    setPopUp,
-    setShow,
     setHideOne,
     setHideTwo,
-    disecodes
+    // setPopUp,
+    // setShow,
+    // disecodes
 }) {
     const { t } = useTranslation();
     const [data, setData] = useState(false);
-    const [discCode, setDiscCode] = useState('');
+    //const [discCode, setDiscCode] = useState('');
     const inputDICE = {
         type: 'text',
         placeholder: `${t('teacehr_red.dice_place')}`,
@@ -39,14 +39,12 @@ function StepOne({
 
         onSubmit: async (values) => {
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-            const organization = JSON.stringify({organization_code:values.organization_code.trim()});
-            setDiscCode(values.organization_code);
+            const organization = JSON.stringify({
+                organization_code: values.organization_code.trim()
+            });
+            //setDiscCode(values.organization_code);
             await axios
-                .post(
-                    `${URL.checkOrg}`,
-                    organization,
-                    axiosConfig
-                )
+                .post(`${URL.checkOrg}`, organization, axiosConfig)
                 .then((checkOrgRes) => {
                     if (checkOrgRes?.status == 200) {
                         if (checkOrgRes?.data?.data[0].mentor == null) {
@@ -85,14 +83,14 @@ function StepOne({
         setData(false);
     }, [formik.values.organization_code]);
 
-    const handleOnClick = (e) => {
-        console.log(discCode);
-        console.log(e);
-        disecodes(discCode);
-        setPopUp(true);
-        setHideOne(false);
-        setShow(false);
-    };
+    // const handleOnClick = (e) => {
+    //     console.log(discCode);
+    //     console.log(e);
+    //     disecodes(discCode);
+    //     setPopUp(true);
+    //     setHideOne(false);
+    //     setShow(false);
+    // };
 
     return (
         <Modal.Body>
@@ -120,14 +118,14 @@ function StepOne({
                         </small>
                     ) : data ? (
                         <p>
-                            Entered UDISE Code is Invalid.
-                            <a onClick={(e) => handleOnClick(e)}>
+                            Entered Unique Code is Invalid.
+                            {/* <a onClick={(e) => handleOnClick(e)}>
                                 <u>Click here</u>
                             </a>
-                            {''} to request to Add School Information.
+                            {''} to request to Add School Information. */}
                         </p>
                     ) : null}
-                    {/* <span>Please enter your school UDISE code to continue</span> */}
+                    {/* <span>Please enter your school Unique Code to continue</span> */}
                 </FormGroup>
                 <div className="mt-5">
                     <Button

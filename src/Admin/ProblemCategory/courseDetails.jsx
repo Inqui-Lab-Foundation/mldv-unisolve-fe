@@ -80,9 +80,9 @@ const Courses = (props) => {
       <div className="courses-page">
         <Row className="courses-head view-head w-100 mx-0 bg-white">
           <Col md={12} lg={6} className="mb-5 mb-md-5 mb-lg-0">
-            <p className="course-breadcrum">
+            {/* <p className="course-breadcrum">
               Courses <BsChevronRight /> Courses details
-            </p>
+            </p> */}
             <div className="courses-type">
               <BsLayoutTextSidebarReverse />
               <span className="card-type">Health</span>

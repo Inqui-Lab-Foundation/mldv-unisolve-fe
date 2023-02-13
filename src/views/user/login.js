@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React from 'react';
 // import { useSelector, useDispatch } from "react-redux";
 // import { loadUsersAsync } from "../redux/reducers/users/users.thunk";
@@ -46,7 +47,6 @@ const Login = () => {
     const currentLanguage = languageOptions.find(
         (l) => l.code === currentLanguageCode
     );
-    console.log('=========', currentLanguage);
     const cardProps = {
         primary: true,
         label: 'ImageCardComp',

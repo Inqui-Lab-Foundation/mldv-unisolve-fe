@@ -89,8 +89,9 @@ const Question = (props) => {
                     className="img-fluid"
                     style={{marginRight:"2rem",marginLeft:"2rem",width:"15%"}}
                 />}
-                <span>
-                    {quiz[0] && quiz[0].question}
+                <span dangerouslySetInnerHTML={{
+                    __html: (quiz[0] && quiz[0].question)
+                }}>
                 </span>
             </div>
 

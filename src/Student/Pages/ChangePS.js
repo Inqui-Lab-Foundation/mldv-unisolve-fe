@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import { Row, Col, Form, Label } from 'reactstrap';
@@ -13,6 +14,7 @@ import { useTranslation } from 'react-i18next';
 import 'sweetalert2/src/sweetalert2.scss';
 import Layout from '../Layout';
 import { useHistory } from 'react-router-dom';
+import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 // eslint-disable-next-line no-unused-vars
 const ChangePSW = (props) => {
@@ -61,7 +63,7 @@ const ChangePSW = (props) => {
                 }).toString();
 
                 const body = JSON.stringify({
-                    user_id: JSON.stringify(currentUser.data[0].user_id),
+                    user_id: JSON.stringify(currentUser?.data[0]?.user_id),
                     old_password: old1,
                     new_password: new1
                 });
@@ -72,13 +74,12 @@ const ChangePSW = (props) => {
                         '/students/changePassword',
                     headers: {
                         'Content-Type': 'application/json',
-                        Authorization: `Bearer ${currentUser.data[0].token}`
+                        Authorization: `Bearer ${currentUser?.data[0]?.token}`
                     },
                     data: body
                 };
                 axios(config)
                     .then(function (response) {
-                        console.log(response);
                         SetResponce('Password updated successfully');
                         setTimeout(() => {
                             SetResponce('');
@@ -86,8 +87,7 @@ const ChangePSW = (props) => {
                         }, 1000);
                     })
                     .catch(function (error) {
-                        // setErrorText("User's current password doesn't match");
-                        console.log(error);
+                        SetError(error.response.data.message);
                     });
             }
         }
@@ -96,33 +96,55 @@ const ChangePSW = (props) => {
         SetError('');
         setErrorText('');
     }, [formik.values]);
-
+    //----password fields initial state and hide show password
+    const [oldPassType, setOldPassType] = useState('password');
+    const [newPassType, setNewPassType] = useState('password');
+    const [confirmPassType, setConfirmPassType] = useState('password');
     const oldPassword = {
-        type: 'password',
+        type: oldPassType,
         placeholder: t('changepswd.Enter_current_password_here'),
         className: 'defaultInput'
     };
 
     const newPassword = {
-        type: 'password',
+        type: newPassType,
         placeholder: t('changepswd.Create_new_password_here'),
         className: 'defaultInput'
     };
 
     const confirmPassword = {
-        type: 'password',
+        type: confirmPassType,
         placeholder: t('changepswd.Verify_New_password'),
         className: 'defaultInput'
     };
     const handleOnCancel = () => {
-        history.push('/teacher/dashboard');
+        history.push('/dashboard');
+    };
+    const handleShowPassword = (name) => {
+        switch (name) {
+            case oldPassword:
+                name?.type === 'password'
+                    ? setOldPassType('text')
+                    : setOldPassType('password');
+                break;
+            case newPassword:
+                name?.type === 'password'
+                    ? setNewPassType('text')
+                    : setNewPassType('password');
+                break;
+            case confirmPassword:
+                name?.type === 'password'
+                    ? setConfirmPassType('text')
+                    : setConfirmPassType('password');
+                break;
+        }
     };
     return (
         <Layout>
             <div className="container ChangePSWModal mb-5">
                 <Row className="mt-5 change-password">
                     <Col md={12}>
-                        <h5>{t('changepswd.Change your password')}</h5>
+                        <h2>{t('changepswd.Change your password')}</h2>
                         <p>
                             {t(
                                 'changepswd.password_helps_prevent_unauthorized'
@@ -133,10 +155,18 @@ const ChangePSW = (props) => {
                     <Col md={12}>
                         <Form onSubmit={formik.handleSubmit}>
                             <div className="form-row row mb-5 mt-3">
-                                <Col className="form-group" md={12}>
-                                    <Label className="mb-2" htmlFor="Password">
-                                        {t('changepswd.Current_password')}
-                                    </Label>
+                                <Col
+                                    className="form-group position-relative"
+                                    md={12}
+                                >
+                                    <h3>
+                                        <Label
+                                            className="mb-2"
+                                            htmlFor="Password"
+                                        >
+                                            {t('changepswd.Current_password')}
+                                        </Label>
+                                    </h3>
                                     <InputBox
                                         {...oldPassword}
                                         id="oldPassword"
@@ -145,6 +175,18 @@ const ChangePSW = (props) => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.oldPassword}
                                     />
+                                    <div
+                                        className="pointer position-absolute top-50 end-0 me-4 mt-1"
+                                        onClick={() => {
+                                            handleShowPassword(oldPassword);
+                                        }}
+                                    >
+                                        {oldPassword?.type === 'password' ? (
+                                            <FaEyeSlash size={18} />
+                                        ) : (
+                                            <FaEye size={18} />
+                                        )}
+                                    </div>
                                     {formik.touched.oldPassword &&
                                     formik.errors.oldPassword ? (
                                         <small className="error-cls">
@@ -156,13 +198,18 @@ const ChangePSW = (props) => {
                             <div className="w-100 clearfix " />
 
                             <div className="form-row row  mb-5">
-                                <Col className="form-group" md={12}>
-                                    <Label
-                                        className="mb-2"
-                                        htmlFor="newPassword"
-                                    >
-                                        {t('changepswd.New_password')}
-                                    </Label>
+                                <Col
+                                    className="form-group position-relative"
+                                    md={12}
+                                >
+                                    <h3>
+                                        <Label
+                                            className="mb-2"
+                                            htmlFor="newPassword"
+                                        >
+                                            {t('changepswd.New_password')}
+                                        </Label>
+                                    </h3>
                                     <InputBox
                                         {...newPassword}
                                         id="newPassword"
@@ -171,6 +218,19 @@ const ChangePSW = (props) => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.newPassword}
                                     />
+                                    <div
+                                        className="pointer position-absolute end-0 me-4"
+                                        style={{ bottom: '4rem' }}
+                                        onClick={() => {
+                                            handleShowPassword(newPassword);
+                                        }}
+                                    >
+                                        {newPassword?.type === 'password' ? (
+                                            <FaEyeSlash size={18} />
+                                        ) : (
+                                            <FaEye size={18} />
+                                        )}
+                                    </div>
                                     <small className="mt-2">
                                         {t(
                                             'changepswd.8-charac_minimum_case_sensitive'
@@ -184,13 +244,20 @@ const ChangePSW = (props) => {
                                     ) : null}
                                 </Col>
                                 <div className="w-100 clearfix" />
-                                <Col className="form-group mt-5" md={12}>
-                                    <Label
-                                        className="mb-2"
-                                        htmlFor="confirmPassword"
-                                    >
-                                        {t('changepswd.Verify_New_password')}
-                                    </Label>
+                                <Col
+                                    className="form-group mt-5 position-relative"
+                                    md={12}
+                                >
+                                    <h3>
+                                        <Label
+                                            className="mb-2"
+                                            htmlFor="confirmPassword"
+                                        >
+                                            {t(
+                                                'changepswd.Verify_New_password'
+                                            )}
+                                        </Label>
+                                    </h3>
                                     <InputBox
                                         {...confirmPassword}
                                         id="confirmPassword"
@@ -199,7 +266,19 @@ const ChangePSW = (props) => {
                                         onBlur={formik.handleBlur}
                                         value={formik.values.confirmPassword}
                                     />
-
+                                    <div
+                                        className="pointer position-absolute top-50 end-0 me-4 mt-1"
+                                        onClick={() => {
+                                            handleShowPassword(confirmPassword);
+                                        }}
+                                    >
+                                        {confirmPassword?.type ===
+                                        'password' ? (
+                                            <FaEyeSlash size={18} />
+                                        ) : (
+                                            <FaEye size={18} />
+                                        )}
+                                    </div>
                                     {formik.touched.confirmPassword &&
                                     formik.errors.confirmPassword ? (
                                         <small className="error-cls">
@@ -208,8 +287,8 @@ const ChangePSW = (props) => {
                                     ) : null}
                                 </Col>
                             </div>
-                            {error}
-                            {responce}
+                            <b style={{ color: 'red' }}>{error}</b>
+                            <b style={{ color: '#3BB143' }}>{responce}</b>
                             <div
                                 className="swal2-actions"
                                 style={{

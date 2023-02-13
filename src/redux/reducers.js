@@ -1,6 +1,7 @@
 import { combineReducers } from 'redux';
 import home from './home/reducer';
 import authUser from './auth/reducer';
+import reports from './reports/reducer';
 import admin from '../Admin/store/admin/reducer';
 import teacher from '../Teachers/store/teacher/reducer';
 import sample from './sample/reducers';
@@ -18,6 +19,7 @@ import teacherCourses from '../Teachers/store/courses/reducer';
 import studentRegistration from './studentRegistration/reducers';
 import studentTeam from './teams/reducers';
 import teacherDashBoard from '../Teachers/store/dashboard/reducer';
+import evaluator from '../Evaluator/store/evaluator/reducer';
 
 const reducers = combineReducers({
     authUser,
@@ -38,7 +40,15 @@ const reducers = combineReducers({
     teams,
     studentTeam,
     schedules,
-    teacherDashBoard
+    teacherDashBoard,
+    reports,
+    evaluator
 });
-
-export default reducers;
+const rootReducer = (state, action) => {
+    if (action.type === 'USER_LOGOUT') {
+        return reducers({}, action);
+    }
+  
+    return reducers(state, action);
+};
+export default rootReducer;

@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useEffect, Fragment } from 'react';
 import { Modal } from 'react-bootstrap';
 import { Col, Form } from 'reactstrap';
@@ -9,29 +10,35 @@ import axios from 'axios';
 import { URL, KEY } from '../../constants/defaultValues';
 import {
     getNormalHeaders,
-    openNotificationWithIcon,
+    openNotificationWithIcon
 } from '../../helpers/Utils';
 import { getLanguage } from '../../constants/languageOptions';
 import { useSelector } from 'react-redux';
 
 const AddFaqCategoryModal = (props) => {
-    const language = useSelector(state=>state?.admin?.adminLanguage);
+    const language = useSelector((state) => state?.admin?.adminLanguage);
 
     const formik = useFormik({
         initialValues: {
-            category_name: '',
+            category_name: ''
+            // a
+            // b
         },
 
         validationSchema: Yup.object({
             // dob: Yup.required(t("login.error_required")),
-            category_name: Yup.string().required('required'),
+            category_name: Yup.string().required('required')
         }),
 
         onSubmit: (values) => {
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
 
             axios
-                .post(`${URL.getFaqCategoryList}?${getLanguage(language)}`, values, axiosConfig)
+                .post(
+                    `${URL.getFaqCategoryList}?${getLanguage(language)}`,
+                    values,
+                    axiosConfig
+                )
                 .then((categoryPostRes) => {
                     if (categoryPostRes?.status == 201) {
                         openNotificationWithIcon(
@@ -48,22 +55,22 @@ const AddFaqCategoryModal = (props) => {
                 .catch((err) => {
                     openNotificationWithIcon('error', err.response, '');
                 });
-        },
+        }
     });
 
     useEffect(() => {
-    //whenever modal open reset the erros
+        //whenever modal open reset the erros
         if (props.show) formik.setErrors({});
     }, [props.show]);
 
     return (
         <Modal
             show={props.show}
-            size='lg'
-            aria-labelledby='contained-modal-title-vcenter'
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
             centered
-            className='modal-popup text-center quiz-modal'
-            backdrop='static'
+            className="modal-popup text-center quiz-modal"
+            backdrop="static"
         >
             <Fragment>
                 <Modal.Header
@@ -73,31 +80,32 @@ const AddFaqCategoryModal = (props) => {
 
                 <Modal.Body>
                     <Form onSubmit={formik.handleSubmit}>
-                        <Col className='form-group mb-5  mb-md-0' md={12}>
-                            <Col className='form-group' md={12}>
+                        <Col className="form-group mb-5  mb-md-0" md={12}>
+                            <Col className="form-group" md={12}>
                                 <InputBox
-                                    className='defaultInput'
-                                    label='InputBox'
-                                    name='category_name'
-                                    id='category_name'
+                                    className="defaultInput"
+                                    label="InputBox"
+                                    name="category_name"
+                                    id="category_name"
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                     value={formik.values.category_name}
-                                    placeholder='Enter FAQ Category Name Here...'
+                                    placeholder="Enter FAQ Category Name Here..."
                                 />
 
-                                {formik.touched.category_name && formik.errors.category_name ? (
-                                    <small className='error-cls'>
+                                {formik.touched.category_name &&
+                                formik.errors.category_name ? (
+                                    <small className="error-cls">
                                         {formik.errors.category_name}
                                     </small>
                                 ) : null}
                             </Col>
                         </Col>
                         <Button
-                            label='Create'
-                            btnClass='primary mt-4'
-                            size='small'
-                            type='submit'
+                            label="Create"
+                            btnClass="primary mt-4"
+                            size="small"
+                            type="submit"
                         />
                     </Form>
                 </Modal.Body>

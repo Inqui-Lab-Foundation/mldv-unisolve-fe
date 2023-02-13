@@ -1,6 +1,6 @@
 /* eslint-disable indent */
 import './Student.scss';
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import {
     Container,
     Row,
@@ -8,15 +8,16 @@ import {
     Card,
     // CardTitle,
     CardBody,
-    CardText
+    CardText,
+    Label
     // CardImg
 } from 'reactstrap';
-import { IoIosArrowBack } from 'react-icons/io';
-import { Link } from 'react-router-dom';
+//import { IoIosArrowBack } from 'react-icons/io';
+//import { Link } from 'react-router-dom';
 // import { static_badges } from '../../data/StaticBadges.js';
 // import { ProgressComp } from '../../stories/Progress/Progress.jsx';
 // import { PhotoUpload } from '../../stories/PhotoUpload/PhotoUpload.jsx';
-import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo.jsx';
+//import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo.jsx';
 
 import Layout from '../Layout.jsx';
 // import Swal from 'sweetalert2/dist/sweetalert2.js';
@@ -27,6 +28,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 import { getCurrentUser } from '../../helpers/Utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { getStudentByIdData } from '../../redux/studentRegistration/actions';
+import { t } from 'i18next';
 // import defaultUser from '../../assets/media/img/default-user.png';
 // import moment from 'moment';
 
@@ -41,7 +43,7 @@ import { getStudentByIdData } from '../../redux/studentRegistration/actions';
 // };
 
 const MyProfile = () => {
-    const [profileAction, setProfileAction] = useState(true);
+    //const [profileAction, setProfileAction] = useState(true);
     const currentUser = getCurrentUser('current_user');
 
     // const showFormModal = (values) => {
@@ -77,13 +79,13 @@ const MyProfile = () => {
     //         .then((values) => console.log(values))
     //         .catch(() => console.log('Modal closed'));
     // }
-    useEffect(() => {
-        const search = window.location.search;
+    // useEffect(() => {
+    //     const search = window.location.search;
 
-        if (search === '?id=teams') {
-            setProfileAction(false);
-        }
-    }, []);
+    //     if (search === '?id=teams') {
+    //         setProfileAction(false);
+    //     }
+    // }, []);
 
     const { teamMember } = useSelector((state) => state.studentRegistration);
     const dispatch = useDispatch();
@@ -91,20 +93,20 @@ const MyProfile = () => {
         dispatch(getStudentByIdData(currentUser?.data[0]?.student_id));
     }, [dispatch, currentUser?.data[0]?.student_id]);
 
-    const headingDetails = {
-        title: 'My Profile',
+    // const headingDetails = {
+    //     title: 'My Profile',
 
-        options: [
-            {
-                title: 'Home',
-                path: '/dashboard'
-            },
-            {
-                title: 'My Profile'
-                // path: '/my-profile'
-            }
-        ]
-    };
+    //     options: [
+    //         {
+    //             title: 'Home',
+    //             path: '/dashboard'
+    //         },
+    //         {
+    //             title: 'My Profile'
+    //             // path: '/my-profile'
+    //         }
+    //     ]
+    // };
 
     // const progressBar = {
     //     label: 'Progress',
@@ -140,7 +142,7 @@ const MyProfile = () => {
                 {/* <UsersPage /> */}
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
-                        {profileAction ? (
+                        {/* {profileAction ? (
                             <BreadcrumbTwo {...headingDetails} />
                         ) : (
                             <Link
@@ -150,8 +152,8 @@ const MyProfile = () => {
                                 <IoIosArrowBack />
                                 Go Back
                             </Link>
-                        )}
-
+                        )} */}
+                        <Label>{t('student.profile')}</Label>
                         <Row>
                             <Col md={12}>
                                 <Card className="w-100  mb-5 p-4">
@@ -163,34 +165,95 @@ const MyProfile = () => {
                                                 className="my-auto profile-detail "
                                             >
                                                  <CardText>
-                                                    <span>Name:</span>{' '}
-                                                    <b>
+                                                 <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={3}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>Name</b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={8}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
                                                     {teamMember?.full_name
                                                                 ? teamMember?.full_name
-                                                                : 'N/A'}
+                                                                : '-'}
                                                     </b>
-                                                </CardText>
-                                                <CardText>
-                                                    <span>Class:</span>{' '}
-                                                    <b>
+                                                                </Col>
+                                                            </Row>
+
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={3}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>Class</b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={8}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
                                                         {teamMember?.Grade
                                                             ? teamMember?.Grade
-                                                            : 'N/A'}
+                                                            : '-'}
                                                     </b>
-                                                </CardText>
-                                               
-                                                <CardText>
-                                                    <span>Age:</span>{' '}
-                                                    <b>
+                                                                </Col>
+                                                            </Row>
+
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={3}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>Age</b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={8}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
                                                         {teamMember?.Age
                                                             ? teamMember?.Age
-                                                            : 'N/A'}
+                                                            : '-'}
                                                     </b>
-                                                </CardText>
-                                                
-                                            </Col>
+                                                                </Col>
+                                                            </Row>
 
-                                           
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={3}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>Gender</b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={8}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                        {teamMember?.Gender
+                                                            ? teamMember?.Gender
+                                                            : '-'}
+                                                    </b>
+                                                                </Col>
+                                                            </Row>
+                                                </CardText>  
+                                            </Col>
                                         </Row>
                                        
                                     </CardBody>
@@ -204,37 +267,163 @@ const MyProfile = () => {
                                                 className="my-auto profile-detail"
                                             >
                                                  <CardText>
-                                                    <span>UDISE:</span>{' '}
-                                                    <b>
-                                                    {teamMember.team.mentor?.organization_code
-                                                                ? teamMember.team.mentor?.organization_code
-                                                                : 'N/A'}
+                                                 <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={3}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>UDISE</b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={8}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                    {teamMember.team?.mentor?.organization_code
+                                                                ? teamMember.team?.mentor?.organization_code
+                                                                : '-'}
                                                     </b>
-                                                </CardText>
-                                                 <CardText>
-                                                    <span>Team Name:</span>{' '}
-                                                    <b>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={3}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                        School
+                                                                        Name
+                                                                    </b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={8}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                    {teamMember.team?.mentor?.organization?.organization_name
+                                                                ? teamMember.team?.mentor?.organization?.organization_name
+                                                                : '-'}
+                                                                    </b>
+                                                                </Col>
+                                                            </Row>
+
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={3}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>Team Name</b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={8}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
                                                     {teamMember.team?.team_name
                                                                 ? teamMember.team?.team_name
-                                                                : 'N/A'}
+                                                                : '-'}
                                                     </b>
-                                                </CardText>
-                                                <CardText>
-                                                    <span>Teacher:</span>{' '}
-                                                    <b>
-                                                    {teamMember.team.mentor?.full_name
-                                                                ? teamMember.team.mentor?.full_name
-                                                                : 'N/A'}
-                                                    </b>
-                                                </CardText>
-                                               
-                                               
-                                                
-                                                
-                                            </Col>
+                                                                </Col>
+                                                            </Row>
 
-                                           
-                                            
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={3}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>Teacher Name</b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={8}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                    {teamMember.team?.mentor?.full_name
+                                                                ? teamMember.team?.mentor?.full_name
+                                                                : '-'}
+                                                    </b>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={3}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>City</b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={8}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                    {teamMember.team?.mentor?.organization?.city
+                                                                ? teamMember.team?.mentor?.organization?.city
+                                                                : '-'}
+                                                                    </b>
+                                                                </Col>
+                                                            </Row>
+
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={3}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>District</b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={8}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                    {teamMember.team?.mentor?.organization?.district
+                                                                ? teamMember.team?.mentor?.organization?.district
+                                                                : '-'}
+                                                                    </b>
+                                                                </Col>
+                                                            </Row>
+                                                            <Row className="pt-3 pb-3">
+                                                                <Col
+                                                                    md={3}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>State</b>
+                                                                </Col>
+                                                                <Col md={1}>
+                                                                    :
+                                                                </Col>
+                                                                <Col
+                                                                    md={8}
+                                                                    className="my-auto profile-detail"
+                                                                >
+                                                                    <b>
+                                                                    {teamMember.team?.mentor?.organization?.state
+                                                                ? teamMember.team?.mentor?.organization?.state
+                                                                : '-'}
+                                                                    </b>
+                                                                </Col>
+                                                            </Row>
+                                                            
+                                                </CardText>  
+                                            </Col>
+   
                                         </Row>
                                         
                                     </CardBody>
@@ -287,7 +476,7 @@ const MyProfile = () => {
                                             {personal_details.map((item) => {
                                                 return (
                                                     <Col
-                                                        md={6}
+                                                        md={8}
                                                         className="mb-5"
                                                         key={item.id}
                                                     >
@@ -345,7 +534,7 @@ const MyProfile = () => {
                                                         />
                                                         <span>Level 15</span>
                                                     </Col>
-                                                    <Col md={5}>
+                                                    <Col md={3}>
                                                         <h6>
                                                             Points:{' '}
                                                             <span>300</span>

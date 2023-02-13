@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import '../../Student/Pages/Student.scss';
 import React, { useEffect, useState, Fragment } from 'react';
 import {
@@ -35,12 +36,11 @@ import { getLanguage } from '../../constants/languageOptions';
 import { useSelector } from 'react-redux';
 
 const AddNewFaq = (props) => {
-    const language = useSelector(state=>state?.admin?.adminLanguage);
+    const language = useSelector((state) => state?.admin?.adminLanguage);
     const headingDetails = {
         title: 'Create a new FAQ',
 
         options: [
-           
             {
                 title: 'FAQ’s',
                 path: '/admin/faq'
@@ -62,7 +62,6 @@ const AddNewFaq = (props) => {
     const history = useHistory();
     let query = useQuery();
     const faqID = query.get('faqid');
-    console.log('🚀 ~ file: AddNewFaq.js ~ line 78 ~ AddNewFaq ~ faqID', faqID);
 
     // A custom hook that builds on useLocation to parse
     // the query string for you.
@@ -76,6 +75,7 @@ const AddNewFaq = (props) => {
         setEditorState(state);
         formik.setFieldValue(
             'answer',
+            // a
             state.getCurrentContent().getPlainText()
         );
     };
@@ -140,11 +140,13 @@ const AddNewFaq = (props) => {
     const getFaqCategoryList = async () => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         return await axios
-            .get(`${URL.getFaqCategoryList}?${getLanguage(language)}`, axiosConfig)
+            .get(
+                `${URL.getFaqCategoryList}?${getLanguage(language)}`,
+                axiosConfig
+            )
             .then((categoryListRes) => {
                 if (categoryListRes?.status == 200) {
                     let dataValue = categoryListRes?.data?.data[0]?.dataValues;
-                    console.log('Data value ', dataValue);
                     if (dataValue) {
                         let categoriesOptions = [];
                         dataValue.map((item) => {
@@ -167,13 +169,14 @@ const AddNewFaq = (props) => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         return await axios
             .get(
-                faqID ? `${URL.getFaqList}/${faqID}` : `${URL.getFaqList}?${getLanguage(language)}`,
+                faqID
+                    ? `${URL.getFaqList}/${faqID}`
+                    : `${URL.getFaqList}?${getLanguage(language)}`,
                 axiosConfig
             )
             .then((faqResData) => {
                 if (faqResData?.status == 200) {
                     let dataValue = faqResData?.data?.data[0];
-                    console.log('Data value ', dataValue);
                     if (dataValue) {
                         setFaqData(dataValue);
                         formik.setFieldValue('question', dataValue?.question);
@@ -204,33 +207,33 @@ const AddNewFaq = (props) => {
     };
 
     useEffect(() => {
-        console.log('formik.values ', formik.values, formik.errors);
+        // console.log('formik.values ', formik.values, formik.errors);
     }, [formik.values, formik.errors]);
 
     useEffect(() => {
-        console.log(
-            '🚀 ~ file: AddNewFaq.js ~ line 209 ~ useEffect ~ Object.keys(faqData).length > 0 && categoriesList.length',
-            Object.keys(faqData).length,
-            ' && ',
-            categoriesList.length
-        );
+        // console.log(
+        //     '🚀 ~ file: AddNewFaq.js ~ line 209 ~ useEffect ~ Object.keys(faqData).length > 0 && categoriesList.length',
+        //     Object.keys(faqData).length,
+        //     ' && ',
+        //     categoriesList.length
+        // );
         if (Object.keys(faqData).length > 0 && categoriesList.length > 0) {
             let defaultCategoryValue = categoriesList.find(
                 (eachFaqCat) => eachFaqCat.value == faqData.faq_category_id
             );
-            console.log(
-                '🚀 ~ file: AddNewFaq.js ~ line 213 ~ AddNewFaq ~ defaultCategory',
-                defaultCategoryValue
-            );
+            // console.log(
+            //     '🚀 ~ file: AddNewFaq.js ~ line 213 ~ AddNewFaq ~ defaultCategory',
+            //     defaultCategoryValue
+            // );
             setDefaultCategory(defaultCategoryValue);
         }
     }, [categoriesList, faqData]);
 
     useEffect(() => {
-        console.log(
-            '🚀 ~ file: AddNewFaq.js ~ line 220 ~ AddNewFaq ~ defaultCategory',
-            defaultCategory
-        );
+        // console.log(
+        //     '🚀 ~ file: AddNewFaq.js ~ line 220 ~ AddNewFaq ~ defaultCategory',
+        //     defaultCategory
+        // );
     }, [defaultCategory]);
 
     return (
@@ -289,13 +292,13 @@ const AddNewFaq = (props) => {
 
                                                     {formik.errors
                                                         .faq_category_id ? (
-                                                            <small className="error-cls">
-                                                                {
-                                                                    formik.errors
-                                                                        .faq_category_id
-                                                                }
-                                                            </small>
-                                                        ) : null}
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .faq_category_id
+                                                            }
+                                                        </small>
+                                                    ) : null}
                                                 </Col>
 
                                                 <Col

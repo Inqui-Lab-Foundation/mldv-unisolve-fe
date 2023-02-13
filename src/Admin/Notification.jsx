@@ -6,12 +6,10 @@ import Layout from './Layout';
 const { TabPane } = Tabs;
 
 const Notification = (props) => {
-    console.log(props);
     const callback = () => {};
 
     // const notify =
     //   props.location && props.location.state && props.location.state.item;
-    // console.log("notifu", notify);
     const notify = {
         notifyArrays:
             props.location && props.location.state && props.location.state.item

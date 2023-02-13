@@ -63,7 +63,6 @@ const AdminAddProblemCategory = () => {
             // password: Yup.string().required("Required"),
         }),
         onSubmit: (values) => {
-            console.log('====================submit');
             alert(JSON.stringify(values, null, 2));
         }
     });

@@ -102,10 +102,19 @@ const TeacherPlayVideo = (props) => {
     const [worksheet, setWorksheetByWorkSheetId] = useState([]);
     const [certificate, setCertificate] = useState(false);
     const [instructions, setInstructions] = useState(false);
+    const [continueObj, setContinueObj] = useState([]);
+    const [courseData, setCourseData] = useState(null);
+    const scrollRef = React.createRef();
 
+    const getLastCourseStatus = (data = []) => {
+        const length = data && data.length > 0 ? data.length - 1 : 0;
+        if (length) {
+            return data[length]?.progress === 'INCOMPLETE' ? false : true;
+        }
+        return false;
+    };
     useEffect(() => {
         props.getTeacherCourseDetailsActions(course_id, language);
-        // props.getAdminCourseDetailsActions(course_id);
     }, [course_id, language]);
 
     useLayoutEffect(() => {
@@ -115,6 +124,9 @@ const TeacherPlayVideo = (props) => {
     useEffect(() => {
         var topicArrays = [];
         var firstObjectArray = [];
+        var continueArrays = [];
+        var continueObjectArrays = [];
+
         setAdminCourse(
             props.adminCoursesDetails && props.adminCoursesDetails[0]
         );
@@ -137,9 +149,19 @@ const TeacherPlayVideo = (props) => {
             );
         setTopicArray(topicArrays);
         if (topicArrays.length > 0) {
+            topicArrays.map((item, i) => {
+                if (item.progress == 'COMPLETED') {
+                    continueArrays.push(item);
+                }
+            });
             firstObjectArray.push(topicArrays[0]);
+            continueObjectArrays.push(
+                continueArrays[continueArrays.length - 1]
+            );
+            setContinueObj(continueObjectArrays);
+            firstObjectArray.push(topicArrays[0]);
+            setFirstObj(firstObjectArray);
         }
-        setFirstObj(firstObjectArray);
     }, [props.teaherCoursesDetails]);
 
     async function fetchData(videoId) {
@@ -149,7 +171,7 @@ const TeacherPlayVideo = (props) => {
             url: process.env.REACT_APP_API_BASE_URL + '/videos/' + videoId,
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
         // let response = await axios(config);
@@ -175,16 +197,15 @@ const TeacherPlayVideo = (props) => {
                 worksheetId,
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
         axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log(response.data.data[0]);
-                    SetWorksheetResponce(response.data.data[0]);
                     const worksheet =
-                        response.data.data[0].attachments.split(/[,]/);
+                        response.data.data[0]?.attachments.split('{{}}');
+                    SetWorksheetResponce(worksheet);
                     setWorksheetByWorkSheetId(worksheet[0]);
                 }
             })
@@ -201,7 +222,7 @@ const TeacherPlayVideo = (props) => {
     async function modulesListUpdateApi(courseTopicId) {
         // console.log(courseTopicId);
         const body1 = JSON.stringify({
-            user_id: JSON.stringify(currentUser.data[0].user_id),
+            user_id: JSON.stringify(currentUser?.data[0]?.user_id),
             mentor_course_topic_id: JSON.stringify(courseTopicId),
             status: 'Completed'
         });
@@ -210,7 +231,7 @@ const TeacherPlayVideo = (props) => {
             url: process.env.REACT_APP_API_BASE_URL + '/mentorTopicProgress',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             },
             data: body1
         };
@@ -227,378 +248,6 @@ const TeacherPlayVideo = (props) => {
                 console.log(error);
             });
     }
-
-    const progressBar = {
-        label: 'Progress',
-        options: [{ id: 1, teams: 'CSK', percent: 75, status: 'active' }]
-    };
-
-    const assmentList = [
-        {
-            icon: <VscCheck />,
-            title: '1. Module Name',
-            time: ' 7 mins',
-            id: 115783408
-        }
-    ];
-    const items = [
-        {
-            section: 'Inspiration',
-            info: '1 lectures mins',
-            lectures: [
-                {
-                    name: '1. Inspiration video',
-                    time: '01:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    status: 'done',
-                    compteted: true
-                },
-                {
-                    name: '2. Inspiration video',
-                    time: '11:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    status: 'done',
-                    compteted: true
-                },
-                {
-                    name: '3. Inspiration video',
-                    time: '02:50',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    status: 'done',
-                    compteted: true
-                },
-                {
-                    name: '4. Inspiration video',
-                    time: '04:50',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-
-                    compteted: false
-                },
-                {
-                    name: 'Work Sheet',
-                    time: '00:19',
-                    type: 'doc',
-                    Icon: GrDocument,
-                    status: 'done',
-                    compteted: false
-                },
-                {
-                    name: 'Quiz',
-                    time: '05:00',
-                    type: 'quiz',
-                    Icon: BsQuestionCircle,
-                    status: 'done',
-                    compteted: true
-                }
-            ],
-            sectionLectures: 4,
-            sectionDuration: 18,
-            id: 'one'
-        },
-        {
-            section: 'Me & Us ',
-            info: '1 lectures mins',
-            lectures: [
-                {
-                    name: '5. Me & Us video',
-                    time: '03:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '6. Me & Us video',
-                    time: '15:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: 'Work Sheet',
-                    time: '10:19',
-                    type: 'doc',
-                    Icon: GrDocument,
-                    compteted: false
-                },
-                {
-                    name: 'Quiz',
-                    time: '10:00',
-                    type: 'quiz',
-                    Icon: BsQuestionCircle,
-                    compteted: false
-                },
-                {
-                    name: '',
-                    time: '10:00',
-                    type: 'modal',
-                    Icon: BsQuestionCircle,
-                    compteted: true
-                }
-            ],
-            id: 'two',
-            sectionLectures: 2,
-            sectionDuration: 8
-        },
-        {
-            section: 'Feel and Find ',
-            info: '1 lectures mins',
-            lectures: [
-                {
-                    name: '7. Feel and Find video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '8. Feel and Find video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '9. Feel and Find video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '10. Feel and Find video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: 'Work Sheet',
-                    time: '00:19',
-                    type: 'doc',
-                    Icon: GrDocument,
-                    compteted: false
-                },
-                {
-                    name: 'Quiz',
-                    time: '05:00',
-                    type: 'quiz',
-                    Icon: BsQuestionCircle,
-                    compteted: false
-                }
-            ],
-            id: 'three',
-            sectionLectures: 6,
-            sectionDuration: 20
-        },
-        {
-            section: 'Explore',
-            info: '1 lectures mins',
-            lectures: [
-                {
-                    name: '11. Explore Video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '12. Explore Video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '13. Explore Video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '14. Explore Video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: 'Work Sheet',
-                    time: '10:19',
-                    type: 'doc',
-                    Icon: GrDocument,
-                    compteted: false
-                },
-                {
-                    name: 'Quiz',
-                    time: '05:00',
-                    type: 'quiz',
-                    Icon: BsQuestionCircle,
-                    compteted: false
-                }
-            ],
-            id: 'four',
-            sectionLectures: 4,
-            sectionDuration: 20
-        },
-        {
-            section: 'Give Ideas ',
-            info: '1 lectures mins',
-            lectures: [
-                {
-                    name: '15. Give Ideas video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '16. Give Ideas video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '17. Give Ideas video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '18. Give Ideas video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: 'Work Sheet',
-                    time: '00:19',
-                    type: 'doc',
-                    Icon: GrDocument,
-                    compteted: false
-                },
-                {
-                    name: 'Quiz',
-                    time: '15:00',
-                    type: 'quiz',
-                    Icon: BsQuestionCircle,
-                    compteted: false
-                }
-            ],
-            id: 'five',
-            sectionLectures: 5,
-            sectionDuration: 20
-        },
-        {
-            section: 'Make & Test ',
-            info: '1 lectures mins',
-            lectures: [
-                {
-                    name: '19. Make & Test video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '20. Make & Test video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '21. Make & Test video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '22. Make & Test video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '23. Make & Test video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: 'Work Sheet',
-                    time: '00:19',
-                    type: 'doc',
-                    Icon: GrDocument,
-                    compteted: false
-                },
-                {
-                    name: 'Quiz',
-                    time: '08:00',
-                    type: 'quiz',
-                    Icon: BsQuestionCircle,
-                    compteted: false
-                }
-            ],
-            id: 'six',
-            sectionLectures: 5,
-            sectionDuration: 21
-        },
-        {
-            section: 'Conclusion ',
-            info: '1 lectures mins',
-            lectures: [
-                {
-                    name: '24. Conclusion Video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: '25. Conclusion Video',
-                    time: '05:00',
-                    type: 'video',
-                    Icon: AiFillPlayCircle,
-                    compteted: false
-                },
-                {
-                    name: 'Work Sheet',
-                    time: '00:30',
-                    type: 'doc',
-                    Icon: GrDocument,
-                    compteted: false
-                },
-                {
-                    name: 'Quiz',
-                    time: '10:00',
-                    type: 'quiz',
-                    Icon: BsQuestionCircle,
-                    compteted: false
-                },
-                {
-                    name: 'Assesment',
-                    time: '10:00',
-                    type: 'quiz',
-                    Icon: BsQuestionCircle,
-                    compteted: false
-                }
-            ],
-            id: 'seven',
-            sectionLectures: 2,
-            sectionDuration: 7
-        }
-    ];
 
     const handlePause = (event) => {
         setPaused(event.target.checked);
@@ -622,30 +271,6 @@ const TeacherPlayVideo = (props) => {
     const SearchProps = {
         size: 'small',
         placeholder: 'Search Course'
-    };
-
-    const progressProps = {
-        options: [
-            {
-                name: 'Finish this course to get your certificate.',
-                path: '/playCourse'
-            }
-        ],
-        name: 'Your Progress',
-        Icon: RiAwardFill,
-        progress: true
-    };
-    const filterDropProps = {
-        label: 'Filter by',
-        labelIcon: BsFilter
-    };
-    const ImageCardProps = {
-        label: 'ImageCardComp',
-        imgUrl: 'https://picsum.photos/318/180',
-        title: 'How can I improve self care with Ikigai?',
-        count: '1,288 students',
-        time: '5m',
-        type: 'Health'
     };
 
     const handleItem = (item) => {
@@ -699,7 +324,7 @@ const TeacherPlayVideo = (props) => {
     };
 
     const handleSelect = (topicId, couseId, type) => {
-        console.log(type);
+        scrollRef.current.scrollIntoView();
         setCourseTopicId(couseId);
         const topic_Index =
             setTopicArrays &&
@@ -753,28 +378,6 @@ const TeacherPlayVideo = (props) => {
         }
     };
 
-    const videoType = (type) => {
-        if (type === 'VIDEO') {
-            return <AiFillPlayCircle />;
-            // } else if (type === "WORKSHEET") {
-            //   // return <GrDocument />;
-            // } else if (type === "QUIZ") {
-            // return <BsQuestionCircle />;
-        }
-
-        // if (type === "doc" && status === true) {
-        //   return done;
-        // } else if (type === "doc" && status === false) {
-        //   return notDone;
-        // }
-
-        // if (type === "quiz" && status === true) {
-        //   return done;
-        // } else if (type === "quiz" && status === false) {
-        //   return notDone;
-        // }
-    };
-
     const handleClose = (item) => {
         setItem('WORKSHEET');
         setModalShow(item);
@@ -826,7 +429,7 @@ const TeacherPlayVideo = (props) => {
                 '/response',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             },
             data: data
         };
@@ -854,6 +457,7 @@ const TeacherPlayVideo = (props) => {
     };
 
     const startFirstCourse = (e) => {
+        setCourseData(null);
         modulesListUpdateApi(firstObj[0].mentor_course_topic_id);
         handleSelect(
             firstObj[0].topic_type_id,
@@ -862,10 +466,28 @@ const TeacherPlayVideo = (props) => {
         );
     };
 
+    const startContinueCourse = (e) => {
+        setCourseData(null);
+        modulesListUpdateApi(continueObj[0].course_topic_id);
+        handleSelect(
+            continueObj[0].topic_type_id,
+            continueObj[0].course_topic_id,
+            continueObj[0].topic_type
+        );
+        // toggle(continueObj[0].course_module_id);
+    };
+
+    const handlenextend = () =>{
+        handleVimeoOnEnd();
+        setInstructions(true);
+        setHandbook(false);
+    };
+
     const handleDownload = (path) => {
         let a = document.createElement('a');
         a.target = '_blank';
-        a.href = process.env.REACT_APP_API_IMAGE_BASE_URL + path;
+        //a.href = process.env.REACT_APP_API_IMAGE_BASE_URL + path;
+        a.href = path;
         a.click();
         handleVimeoOnEnd();
         setInstructions(true);
@@ -874,7 +496,8 @@ const TeacherPlayVideo = (props) => {
     const handleInstructionDownload = (path) => {
         let a = document.createElement('a');
         a.target = '_blank';
-        a.href = process.env.REACT_APP_API_IMAGE_BASE_URL + path;
+        //a.href = process.env.REACT_APP_API_IMAGE_BASE_URL + path;
+        a.href = path;
         a.click();
     };
     const handleCertificateDownload = () => {
@@ -888,7 +511,7 @@ const TeacherPlayVideo = (props) => {
     };
     return (
         <Layout>
-            <div className="courses-page">
+            <div className="courses-page" ref={scrollRef}>
                 <div
                     className="pb-5 my-5 px-5 container-fluid"
                     style={{ minHeight: '72vh' }}
@@ -899,7 +522,7 @@ const TeacherPlayVideo = (props) => {
                             className="course-assement order-2 order-xl-1 "
                         >
                             <div className="assement-info">
-                                <p className="content-title">Course Lessons</p>
+                                <p className="content-title">Lessons</p>
                                 <div className="view-head"></div>
                                 <div className="assement-item" id="scrollbar">
                                     {teacherCourseDetails &&
@@ -934,6 +557,9 @@ const TeacherPlayVideo = (props) => {
                                                                 md={12}
                                                                 className="my-auto"
                                                                 onClick={() => {
+                                                                    setCourseData(
+                                                                        course
+                                                                    );
                                                                     handleSelect(
                                                                         course.topic_type_id,
                                                                         course.mentor_course_topic_id,
@@ -1081,71 +707,138 @@ const TeacherPlayVideo = (props) => {
                                     <Card className="course-sec-basic p-5">
                                         <CardBody>
                                             <CardTitle
-                                                className=" text-left pt-4 pb-4"
+                                                className="text-left"
                                                 tag="h2"
                                             >
                                                 {t('teacehr_red.hand_book')}
                                             </CardTitle>
-                                            {worksheetResponce === null && (
-                                                <p>
-                                                    {t(
-                                                        'teacehr_red.please_download'
-                                                    )}
+                                            <CardBody>
+                                                <p className="text-primary">
+                                                    <b>
+                                                        Guidelines for Handbook
+                                                    </b>
                                                 </p>
-                                            )}
+                                                <p>Dear Guide Teachers,</p>
+                                                <p>
+                                                    This handbook is an
+                                                    important document which
+                                                    will help you understand the
+                                                    program objectives and
+                                                    enable you to support your
+                                                    Unisolve student teams better.
+                                                </p>
+                                                <p>
+                                                STEP 1 : Go through pages 1 - 28, to understand about the program before giving the Quiz.
+                                                </p>
+                                                <p>
+                                                STEP 2 : Refer to pages 29 - 38 to roll out the program in your schools and familiarise all the studetns about the program and the course components.
+                                                </p>
+                                                <p>
+                                                STEP 3 : Register the students on the platform and guide then through the journey.
+                                                </p>
+                                                <p className="text-primary text-left">
+                                                    <b>
+                                                        Instructions on Idea
+                                                        Submission
+                                                    </b>
+                                                </p>
+                                                <p>
+                                                    Final IDEA SUBMISSION by the
+                                                    team should happen only
+                                                    after all the students in
+                                                    the team complete the
+                                                    following activities:
+                                                </p>
+                                                <div>
+                                                    <p className="mb-0">
+                                                        A. Watching the videos
+                                                        as team/individually
+                                                    </p>
+                                                    <p className="mb-0">
+                                                        B. Complete the quiz
+                                                        individually{' '}
+                                                    </p>
+                                                    <p className="mb-0">
+                                                        C. Complete the
+                                                        worksheet (as a team)
+                                                    </p>
+                                                </div>
+                                                {/* <br />
+                                                <p>
+                                                    Initial Idea Submission{' '}
+                                                    <b>DOES NOT</b> require a
+                                                    Model or Prototype. Idea
+                                                    submission process includes
+                                                    submission of form with the
+                                                    following details:
+                                                </p>
+                                                <div>
+                                                    <p className="mb-0">
+                                                        1.Real life problem that
+                                                        team has identified{' '}
+                                                    </p>
+                                                    <p className="mb-0">
+                                                        2. Solution details for
+                                                        the identified problem{' '}
+                                                    </p>
+                                                    <p className="mb-0">
+                                                        3. Details about how was
+                                                        the solution arrived
+                                                    </p>
+                                                    <p className="mb-0">
+                                                        4. Upload relevant photo
+                                                        or a document (If
+                                                        applicable)
+                                                    </p>
+                                                </div> */}
+                                            </CardBody>
                                             <div className="text-left mb-2">
-                                                <>
-                                                    <ul>
-                                                        {worksheetResponce?.attachments
-                                                            ?.split('{{}}')
-                                                            .map(
-                                                                (item, i) => (
-                                                                    <li
-                                                                        style={{
-                                                                            cursor: 'pointer',
-                                                                            color: 'black',
-                                                                            textDecoration:
-                                                                                'underline'
-                                                                        }}
-                                                                        onClick={() =>
-                                                                            handleDownload(
-                                                                                item
-                                                                            )
-                                                                        }
-                                                                        key={i}
-                                                                    >
-                                                                        {`Download ${item
-                                                                            .split(
+                                                <div>
+                                                    {worksheetResponce &&
+                                                        worksheetResponce?.length >
+                                                            0 &&
+                                                        worksheetResponce.map(
+                                                            (item, i) => (
+                                                                <Button
+                                                                style={{margin:"5px"}}
+                                                                    key={i}
+                                                                    label={`Download ${item
+                                                                        .split(
+                                                                            '/'
+                                                                        )
+                                                                        [
+                                                                            item.split(
                                                                                 '/'
                                                                             )
-                                                                            [
-                                                                                item.split(
-                                                                                    '/'
-                                                                                )
-                                                                                    .length -
-                                                                                    1
-                                                                            ].split(
-                                                                                '.'
-                                                                            )[0]
-                                                                            .replace(
-                                                                                '_',
-                                                                                ' '
-                                                                            )}`}
-                                                                    </li>
-                                                                )
-                                                                // <Button
-                                                                //     key={i}
-                                                                //     button="submit"
-                                                                //     label={`Download ${item.split("/")[item.split("/").length-1].split('.')[0].replace("_"," ")}`}
-                                                                //     btnClass="primary mt-4"
-                                                                //     size="small"
-                                                                //     style={{ marginRight: "2rem",textTransform:"capitalize"}}
-                                                                //     onClick={()=>handleDownload(item)}
-                                                                // />
-                                                            )}
-                                                    </ul>
-                                                </>
+                                                                                .length -
+                                                                                1
+                                                                        ].split(
+                                                                            '.'
+                                                                        )[0]
+                                                                        .replace(
+                                                                            '_',
+                                                                            ' '
+                                                                        )}`}
+                                                                    btnClass="secondary mx-2"
+                                                                    size="small"
+                                                                    onClick={() =>
+                                                                        handleDownload(
+                                                                            item
+                                                                        )
+                                                                    }
+                                                                />
+                                                            )
+                                                        )}
+                                                </div>   
                                             </div>
+                                            <Col className='text-right'>
+                                            <Button 
+                                            label={"Continue"}
+                                            onClick={()=> handlenextend()}
+                                            btnClass="primary mt-4 mb-2"
+                                            size="small"
+                                            />
+                                            </Col>
                                         </CardBody>
                                     </Card>
                                 </Fragment>
@@ -1189,23 +882,58 @@ const TeacherPlayVideo = (props) => {
                                         <Card className="course-sec-basic p-5">
                                             <CardBody>
                                                 <text
-                                                    // style={{
-                                                    //     whiteSpace: 'pre-wrap'
-                                                    // }}
+                                                // style={{
+                                                //     whiteSpace: 'pre-wrap'
+                                                // }}
                                                 >
-                                                    <div dangerouslySetInnerHTML={{ __html: teacherCourse &&
-                                                        teacherCourse.description }}></div>
+                                                    <div
+                                                        dangerouslySetInnerHTML={{
+                                                            __html:
+                                                                teacherCourse &&
+                                                                teacherCourse.description
+                                                        }}
+                                                    ></div>
                                                 </text>
-                                                <div>
-                                                    <Button
-                                                        label="START COURSE"
-                                                        btnClass="primary mt-4"
-                                                        size="small"
-                                                        onClick={(e) =>
-                                                            startFirstCourse(e)
-                                                        }
-                                                    />
-                                                </div>
+                                                {firstObj[0] &&
+                                                firstObj[0].progress ==
+                                                    'INCOMPLETE' ? (
+                                                    <div>
+                                                        <Button
+                                                            label="START COURSE"
+                                                            btnClass="primary mt-4"
+                                                            size="small"
+                                                            onClick={(e) =>
+                                                                startFirstCourse(
+                                                                    e
+                                                                )
+                                                            }
+                                                        />
+                                                    </div>
+                                                ) : (
+                                                    <div>
+                                                        {getLastCourseStatus(
+                                                            teacherCourseDetails
+                                                        ) ? (
+                                                            <h2 className="text-success text-center">
+                                                                Congratulations
+                                                                ! your course
+                                                                completed
+                                                                successfully !
+                                                            </h2>
+                                                        ) : (
+                                                            <Button
+                                                                label={`CONTINUE COURSE`}
+                                                                btnClass={`primary mt-4`}
+                                                                size="small"
+                                                                onClick={(e) =>
+                                                                    startContinueCourse(
+                                                                        e
+                                                                    )
+                                                                }
+                                                            />
+                                                        )}
+                                                    </div>
+                                                )}
                                             </CardBody>
                                         </Card>
                                     </Fragment>
@@ -1243,90 +971,154 @@ const TeacherPlayVideo = (props) => {
                                                     className=" text-left pt-4 pb-4"
                                                     tag="h2"
                                                 >
-                                                    Unisolve Instructions
+                                                    Unisolve Worksheets
                                                 </CardTitle>
-                                                {worksheetResponce.response ===
-                                                    null && (
+                                                <CardBody>
+                                                    {/* <p className="text-primary">
+                                                        <b>
+                                                            Additional Resources
+                                                        </b>
+                                                    </p> */}
+                                                    <p>Dear Guide Teachers,</p>
                                                     <p>
-                                                        Please Download
-                                                        Instructions...
+                                                        In addition to the
+                                                        teacher handbook there
+                                                        are worksheets and additional readings
+                                                        for your student teams
+                                                        which will aid in this
+                                                        Unisolve learning journey:
                                                     </p>
-                                                )}
-                                                <div className="text-left mb-2">
-                                                    <>
-                                                        <ul>
-                                                            {worksheetResponce?.attachments
-                                                                ?.split('{{}}')
-                                                                .map(
-                                                                    (
-                                                                        item,
-                                                                        i
-                                                                    ) => (
-                                                                        <li
-                                                                            key={
-                                                                                i
-                                                                            }
-                                                                            style={{
-                                                                                cursor: 'pointer',
-                                                                                color: 'black',
-                                                                                textDecoration:
-                                                                                    'underline'
-                                                                            }}
-                                                                            onClick={() =>
-                                                                                handleInstructionDownload(
-                                                                                    item
-                                                                                )
-                                                                            }
-                                                                        >
-                                                                            {`Download ${item
-                                                                                .split(
+                                                    {/* <p className="mb-0">
+                                                        A. Worksheets
+                                                    </p>
+                                                    <p className="mb-3">
+                                                        B. Additional Readings
+                                                    </p>
+
+                                                    <p className="text-decoration-underline">
+                                                        <b>A.Worksheets </b>
+                                                    </p> */}
+                                                    <h3>WORKSHEETS</h3>
+                                                    <p className="mb-0">
+                                                        1.  This document had one set of Worksheet per Module.
+                                                    </p>
+                                                    <p className="mb-0">
+                                                        2. Respective worksheets are required to be completed/filled by the Unisolve Students (as a TEAM) after they watch each lesson from lesson 1 to lesson 6.
+                                                    </p>
+                                                    <p className="mb-0">
+                                                        3. Download, Print/Xerox
+                                                        this worksheets and hand
+                                                        over one set per team.{' '}
+                                                    </p>
+                                                    <p className="mb-0">
+                                                        4. Support/Mentor/Guide
+                                                        Unisolve students to
+                                                        complete the worksheets
+                                                        if they need help.
+                                                    </p>
+                                                    <p className="mb-0">
+                                                        5. Guide the teams to upload their worksheets on the portal after they complete it.
+                                                    </p>
+                                                    <br></br>
+                                                    <h3>ADDITIONAL READINGS</h3>
+                                                    <p>Print and provide the related pages from the Additional Reading document to each student while they watch the respective video to support their learning.</p>
+                                                </CardBody>
+                                                <div className="text-left mb-5">
+                                                    {worksheetResponce &&
+                                                        worksheetResponce?.length >
+                                                            0 &&
+                                                        worksheetResponce.map(
+                                                            (item, i) =>
+                                                                i > 1 && (
+                                                                    <Button
+                                                                    style={{margin:"5px"}}
+                                                                        key={i}
+                                                                        label={`Download ${item
+                                                                            .split(
+                                                                                '/'
+                                                                            )
+                                                                            [
+                                                                                item.split(
                                                                                     '/'
                                                                                 )
-                                                                                [
-                                                                                    item.split(
-                                                                                        '/'
-                                                                                    )
-                                                                                        .length -
-                                                                                        1
-                                                                                ].split(
-                                                                                    '.'
-                                                                                )[0]
-                                                                                .replace(
-                                                                                    '_',
-                                                                                    ' '
-                                                                                )}`}
-                                                                        </li>
-                                                                    )
+                                                                                    .length -
+                                                                                    1
+                                                                            ].split(
+                                                                                '.'
+                                                                            )[0]
+                                                                            .replace(
+                                                                                '_',
+                                                                                ' '
+                                                                            )}`}
+                                                                        btnClass="secondary mx-2"
+                                                                        size="small"
+                                                                        onClick={() =>
+                                                                            handleInstructionDownload(
+                                                                                item
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                )
+                                                        )}
+                                                </div>
 
-                                                                    // <Button
-                                                                    //     key={i}
-                                                                    //     button="submit"
-                                                                    //     label={`Download ${item.split("/")[item.split("/").length-1].split('.')[0].replace("_"," ")}`}
-                                                                    //     btnClass="primary mt-4"
-                                                                    //     size="small"
-                                                                    //     style={{ marginRight: "2rem",textTransform:"capitalize"}}
-                                                                    //     onClick={()=>handleInstructionDownload(item)}
-                                                                    // />
-                                                                )}
-                                                        </ul>
-                                                    </>
-                                                    {/* <Button
-                                                    button="submit"
-                                                    label={"Continue"}
-                                                    btnClass="primary mt-4"
-                                                    size="small"
-                                                    style={{ marginRight: "2rem"}}
-                                                    onClick={()=>{
-                                                        modulesListUpdateApi(topicObj.mentor_course_topic_id);
-                                                        handleSelect(
-                                                            topicObj.topic_type_id,
-                                                            topicObj.mentor_course_topic_id,
-                                                            topicObj.topic_type
-                                                        );
-                                                        setCertificate(true);
-                                                        setItem("CERTIFICATE");                                                
-                                                    }}
-                                                /> */}
+                                                {/* <p className="text-decoration-underline">
+                                                    <b>
+                                                        B. Additional Readings{' '}
+                                                    </b>
+                                                </p>
+                                                <p>
+                                                    These are additional reading
+                                                    material for the students
+                                                    after each lesson. This
+                                                    document contains more
+                                                    information and examples on
+                                                    the topics covered in each
+                                                    lesson.
+                                                </p>
+                                                <p>
+                                                    This can be shared with Unisolve
+                                                    students. We recommend to
+                                                    share the soft copy or print
+                                                    it for future reference.
+                                                </p> */}
+                                                <div className="text-left mb-5">
+                                                    {worksheetResponce &&
+                                                        worksheetResponce?.length >
+                                                            0 &&
+                                                        worksheetResponce.map(
+                                                            (item, i) =>
+                                                                i <= 1 && (
+                                                                    <Button 
+                                                                    style={{margin:"5px"}}
+                                                                        key={i}
+                                                                        label={`Download ${item
+                                                                            .split(
+                                                                                '/'
+                                                                            )
+                                                                            [
+                                                                                item.split(
+                                                                                    '/'
+                                                                                )
+                                                                                    .length -
+                                                                                    1
+                                                                            ].split(
+                                                                                '.'
+                                                                            )[0]
+                                                                            .replace(
+                                                                                '_',
+                                                                                ' '
+                                                                            )}`}
+                                                                        btnClass="secondary mx-2"
+                                                                        size="small"
+                                                                        onClick={() =>
+                                                                            handleInstructionDownload(
+                                                                                item
+                                                                            )
+                                                                        }
+                                                                    />
+                                                                )
+                                                        )}
                                                 </div>
                                             </CardBody>
                                         </Card>

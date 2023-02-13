@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Dropdown, DropdownButton } from 'react-bootstrap';
 import './style.scss';
 import i18next from 'i18next';
@@ -17,25 +17,45 @@ const LanguageSelectorComp = ({ module }) => {
     const selectedLanguage = useSelector(
         (state) => state?.mentors.mentorLanguage
     );
+    const studentLanguage = useSelector(
+        (state) => state?.studentRegistration?.studentLanguage
+    );
     const globalLang = useSelector((state) => state?.home.globalLanguage);
-    const [language, setLanguage] = useState(
+    const [language, setLanguage] = useState(module === 'student' ? studentLanguage.name :
         selectedLanguage && selectedLanguage?.name
             ? selectedLanguage?.name
             : globalLang?.name
     );
+    const localLang = JSON.parse(localStorage.getItem("s_language"));
+    useEffect(() => {
+        if(localLang){
+            i18next.changeLanguage(localLang.code);
+            dispatch(getStudentGlobalLanguage(localLang));
+        }
+    }, []);
+    
     const handleSelector = (item) => {
+        let forMentor;
+        if (item && item.code !== "en") {
+            forMentor = { ...item };
+            forMentor.code = "en";
+            forMentor.name = "English";
+        }
         setLanguage(item.name);
         i18next.changeLanguage(item.code);
         if (module === 'admin') {
             dispatch(getAdminGlobalLanguage(item));
         } else if (module === 'mentor') {
-            dispatch(getMentorGlobalLanguage(item));
+            dispatch(getMentorGlobalLanguage(forMentor));
         } else if (module === 'general') {
             dispatch(getGlobalLanguage(item));
             dispatch(getStudentGlobalLanguage(item));
-            dispatch(getMentorGlobalLanguage(item));
+            dispatch(getMentorGlobalLanguage(forMentor));
         } else {
             dispatch(getStudentGlobalLanguage(item));
+            if(module==='student'){
+                localStorage.setItem("s_language", JSON.stringify(item));
+            }
         }
     };
     return (
@@ -43,7 +63,7 @@ const LanguageSelectorComp = ({ module }) => {
             id="language-selector-btn"
             title={
                 <span>
-                    <FaGlobeAsia /> {language}
+                    <FaGlobeAsia /> { (localLang && localLang.name) || language}
                 </span>
             }
         >

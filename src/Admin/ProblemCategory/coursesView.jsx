@@ -37,9 +37,9 @@ const CourseView = (props) => {
       <div className="courses-page">
         <Row className="courses-head view-head py-5">
           <Col md={12} lg={6} className="mb-5 mb-md-5 mb-lg-0">
-            <p className="course-breadcrum">
+            {/* <p className="course-breadcrum">
               Courses <BsChevronRight /> Courses details
-            </p>
+            </p> */}
             <h5 className="text-white">Taking care of yourself</h5>
             <div className="courses-type">
               <BsLayoutTextSidebarReverse />

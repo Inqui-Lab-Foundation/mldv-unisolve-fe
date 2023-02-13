@@ -5,7 +5,9 @@ import {
     ADMIN_LOGIN_USER_SUCCESS,
     ADMIN_LOGIN_USER_ERROR,
     ADMIN_LANGUAGE,
-    GET_ADMINS
+    GET_ADMINS,
+    ADMIN_LIST_SUCCESS,
+    ADMIN_LIST_ERROR
 } from '../../../redux/actions.js';
 import { URL, KEY } from '../../../constants/defaultValues.js';
 import {
@@ -28,19 +30,19 @@ export const getAdminError = (message) => async (dispatch) => {
     });
 };
 
-export const getAdminByIdData = (id) => async (dispatch) => {
+export const getAdmin = () => async (dispatch) => {
     try {
         dispatch({ type: GET_ADMINS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .get(`${URL.getStudentById}${id}`, axiosConfig)
+            .get(`${URL.getAdmin + '?status= ALL'}`, axiosConfig)
             .then((user) => user)
             .catch((err) => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            const data =
-                result.data && result.data.data[0] && result.data.data[0];
+            const data = result.data?.data[0]?.dataValues || [];
+            data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
             dispatch(getAdminSuccess(data));
         } else {
             dispatch(getAdminError(result.statusText));
@@ -49,6 +51,43 @@ export const getAdminByIdData = (id) => async (dispatch) => {
         dispatch(getAdminError({}));
     }
 };
+// ----------------get adminlistData-----------
+export const getAdminListSuccess = (user) => async (dispatch) => {
+    dispatch({
+        type: ADMIN_LIST_SUCCESS,
+        payload: user
+    });
+};
+
+export const getAdminListError = (message) => async (dispatch) => {
+    dispatch({
+        type: ADMIN_LIST_ERROR,
+        payload: { message }
+    });
+};
+
+export const getAdminList = () => async (dispatch) => {
+    try {
+        // dispatch({ type: GET_ADMINS });
+        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+        const result = await axios
+            .get(`${URL.getAdmin}`, axiosConfig)
+            .then((user) => user)
+            .catch((err) => {
+                return err.response;
+            });
+        if (result && result.status === 200) {
+            const data = result.data?.data[0]?.dataValues || [];
+            data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
+            dispatch(getAdminListSuccess(data));
+        } else {
+            dispatch(getAdminListError(result.statusText));
+        }
+    } catch (error) {
+        dispatch(getAdminListError({}));
+    }
+};
+// --------------------------
 
 export const adminLoginUserSuccess = (user) => async (dispatch) => {
     dispatch({
@@ -70,7 +109,7 @@ export const adminLoginUserError = (message) => async (dispatch) => {
     });
 };
 
-export const adminLoginUser = (data, history,module) => async (dispatch) => {
+export const adminLoginUser = (data, history, module) => async (dispatch) => {
     try {
         const loginData = {
             ...data,
@@ -87,7 +126,7 @@ export const adminLoginUser = (data, history,module) => async (dispatch) => {
         if (result && result.status === 200) {
             const item = result.data;
             setCurrentUser(item);
-            localStorage.setItem("module",module);
+            localStorage.setItem('module', module);
             dispatch(adminLoginUserSuccess(result));
 
             history.push('/admin/dashboard');
@@ -108,7 +147,6 @@ export const adminLoginUser = (data, history,module) => async (dispatch) => {
 export const adminLoginUserLogOut = (history) => async () => {
     try {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        console.log(URL.adminLogOut);
         const result = await axios
 
             .get(`${URL.adminLogOut}`, axiosConfig)
@@ -136,12 +174,8 @@ export const deleteTempMentorById = async (id) => {
             .catch((err) => {
                 return err.response;
             });
-        console.log(result);
         if (result && result.status === 202) {
-            openNotificationWithIcon(
-                'success',
-                result.data && result.data?.message
-            );
+            openNotificationWithIcon('success', 'Deleted Successfully');
         } else {
             openNotificationWithIcon(
                 'error',
@@ -153,5 +187,27 @@ export const deleteTempMentorById = async (id) => {
             'error',
             error.response.data && error.response.data?.message
         );
+    }
+};
+
+export const teacherResetPassword = (body) => async () => {
+    try {
+        const axiosConfig = getNormalHeaders(KEY.User_API_Key);
+        const result = await axios
+            .put(`${URL.putResetPassword}`, body, axiosConfig)
+            .then((user) => user)
+            .catch((err) => {
+                return err.response;
+            });
+        if (result && result.status === 202) {
+            openNotificationWithIcon(
+                'success',
+                'Password Successfully Updated'
+            );
+        } else {
+            openNotificationWithIcon('error', 'Something went wrong');
+        }
+    } catch (error) {
+        openNotificationWithIcon('error', 'Something went wrong');
     }
 };

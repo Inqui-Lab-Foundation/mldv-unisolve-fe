@@ -1,96 +1,63 @@
 import React, { useState, useEffect } from 'react';
 import Layout from '../Layout';
 import { Container, Row, Col, Card, Label, Form } from 'reactstrap';
-import { RichText } from '../../stories/RichText/RichText';
 import { Button } from '../../stories/Button';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-
 import { getCurrentUser, openNotificationWithIcon } from '../../helpers/Utils';
-import { EditorState, ContentState, convertFromHTML } from 'draft-js';
+import { useTranslation } from 'react-i18next';
 
 const EditTranslation = (props) => {
+    const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const translationData =
         (history && history.location && history.location.item) || {};
 
-    const [editorStateOfFromKey, setEditorStateOfFromKey] = useState(() =>
-        EditorState.createEmpty()
-    );
-    const [editorStateOfToValue, setEditorStateOfToValue] = useState(() =>
-        EditorState.createEmpty()
-    );
+    const [editorStateOfToValue, setEditorStateOfToValue] = useState();
 
-    useEffect(()=>{
-        setEditorStateOfFromKey(
-            EditorState.createWithContent(
-                ContentState.createFromBlockArray(
-                    convertFromHTML(translationData.key)
-                )
-            )
-        );
-        setEditorStateOfToValue(
-            EditorState.createWithContent(
-                ContentState.createFromBlockArray(
-                    convertFromHTML(translationData.value)
-                )
-            )
-        );
-    },[]);
-
-    const handleEditorChangeOfFromKey = (state) => {
-        setEditorStateOfFromKey(state);
-        formik.setFieldValue(
-            'from_key',
-            state.getCurrentContent().getPlainText()
-        );
-    };
+    useEffect(() => {
+        setEditorStateOfToValue(translationData && translationData.value);
+    }, []);
 
     const handleEditorChangeOfToValue = (state) => {
-        setEditorStateOfToValue(state);
-        formik.setFieldValue(
-            'to_value',
-            state.getCurrentContent().getPlainText()
-        );
+        // console.log(state.target.value);
+        setEditorStateOfToValue(state.target.value);
+        formik.setFieldValue('value', state.target.value);
     };
- 
+
     const formik = useFormik({
         initialValues: {
-            from: translationData && translationData.from_locale,
-            from_key: translationData && translationData.key,
-            to: translationData && translationData.to_locale,
-            to_value: translationData && translationData.value
+            from_locale: translationData && translationData.from_locale,
+            key: translationData && translationData.key,
+            to_locale: translationData && translationData.to_locale,
+            value: translationData && translationData.value
         },
 
         validationSchema: Yup.object({
-            from: Yup.string().required('required'),
-            from_key: Yup.string().required('required'),
-            to: Yup.string().required('required'),
-            to_value: Yup.string().required('required')
+            value: Yup.string().required('required')
         }),
 
         onSubmit: (values) => {
-            const from = values.from;
-            const from_key = values.from_key;
-            const to = values.to;
-            const to_value = values.to_value;
             const body = JSON.stringify({
-                from_locale: from,
-                key: from_key,
-                to_locale: to,
-                value: to_value,
-                status: "ACTIVE"
+                from_locale: values.from_locale,
+                key: values.key,
+                to_locale: values.to_locale,
+                value: values.value,
+                status: 'ACTIVE'
             });
 
             var config = {
                 method: 'put',
-                url: process.env.REACT_APP_API_BASE_URL + '/translations/'+ translationData.translation_id,
+                url:
+                    process.env.REACT_APP_API_BASE_URL +
+                    '/translations/' +
+                    translationData.translation_id,
                 headers: {
                     'Content-Type': 'application/json',
-                    Authorization: `Bearer ${currentUser.data[0].token}`
+                    Authorization: `Bearer ${currentUser?.data[0]?.token}`
                 },
                 data: body
             };
@@ -129,103 +96,47 @@ const EditTranslation = (props) => {
                     <Row>
                         <Card className="mt-5 mb-5 p-5">
                             <Col>
-                                <Label>From</Label>
-                                <Col className="form-group" md={12}>
-                                    <div className="dropdown CalendarDropdownComp ">
-                                        <select
-                                            name="from"
-                                            className="form-control custom-dropdown"
-                                            value={formik.values.from}
-                                            onChange={formik.handleChange}
-                                        >
-                                            <option value="">
-                                                Select Language..
-                                            </option>
-                                            <option value="en">English</option>
-                                            <option value="tn">Tamil</option>
-                                        </select>
-                                    </div>
-
-                                    {formik.errors.from ? (
-                                        <small className="error-cls">
-                                            {formik.errors.from}
-                                        </small>
-                                    ) : null}
-                                </Col>
+                                <Label>English Content :-</Label>
                             </Col>
-                            <Col>
-                                <Label className="mb-2 mt-5">From_Key</Label>
-                                <Col className="form-group" md={12}>
-                                    <div style={{ height: '211px' }}>
-                                        <RichText
-                                            name="answer"
-                                            value={formik.values.from_key}
-                                            handleEditorChange={
-                                                handleEditorChangeOfFromKey
-                                            }
-                                            editorState={editorStateOfFromKey}
-                                        />
-                                    </div>
-                                    {formik.errors.from_key ? (
-                                        <small className="error-cls">
-                                            {formik.errors.from_key}
-                                        </small>
-                                    ) : null}
-                                </Col>
+
+                            <Col className="form-group" md={12}>
+                                {/* <textarea
+                                    className="form-control form-control-lg"
+                                    rows="3"
+                                    value={formik.values.from_key}
+                                    style={{ fontSize: '2rem' }}
+                                ></textarea> */}
+                                <p style={{ fontSize: '2rem' }} className="p-3">
+                                    {formik.values.key}
+                                </p>
                             </Col>
                         </Card>
                     </Row>
                     <Row>
                         <Card className="mt-5 mb-5 p-5">
                             <Col>
-                                <Label>To</Label>
-                                <Col className="form-group" md={12}>
-                                    <div className="dropdown CalendarDropdownComp ">
-                                        <select
-                                            name="to"
-                                            className="form-control custom-dropdown"
-                                            value={formik.values.to}
-                                            onChange={formik.handleChange}
-                                        >
-                                            <option value="">
-                                                Select Language..
-                                            </option>
-                                            <option value="en">English</option>
-                                            <option value="tn">Tamil</option>
-                                        </select>
-                                    </div>
-
-                                    {formik.errors.to ? (
-                                        <small className="error-cls">
-                                            {formik.errors.to}
-                                        </small>
-                                    ) : null}
-                                </Col>
+                                <Label>{t('translation.tamil')}</Label>
                             </Col>
-                            <Col>
-                                <Label className="mb-2 mt-5">To_Value</Label>
-                                <Col className="form-group" md={12}>
-                                    <div style={{ height: '211px' }}>
-                                        <RichText
-                                            name="to_value"
-                                            value={formik.values.to_value}
-                                            handleEditorChange={
-                                                handleEditorChangeOfToValue
-                                            }
-                                            editorState={editorStateOfToValue}
-                                        />
-                                    </div>
-                                    {formik.errors.to_value ? (
-                                        <small className="error-cls">
-                                            {formik.errors.to_value}
-                                        </small>
-                                    ) : null}
-                                </Col>
+
+                            <Col className="form-group" md={12}>
+                                <textarea
+                                    className="form-control form-control-lg"
+                                    rows="5"
+                                    value={editorStateOfToValue}
+                                    onChange={(e) =>
+                                        handleEditorChangeOfToValue(e)
+                                    }
+                                    style={{ fontSize: '2rem' }}
+                                ></textarea>
+                                {formik.errors.to_value ? (
+                                    <small className="error-cls">
+                                        {formik.errors.value}
+                                    </small>
+                                ) : null}
                             </Col>
                         </Card>
                     </Row>
                     <Row>
-                        <hr className="my-5 w-100 mb-4 clearfix" />
                         <div className="row mb-4 justify-content-between">
                             <div className="col-6">
                                 <Button
@@ -233,7 +144,9 @@ const EditTranslation = (props) => {
                                     size="small"
                                     btnClass="primary"
                                     type="cancel"
-                                    onClick={() => history.push('/admin/translation')}
+                                    onClick={() =>
+                                        history.push('/admin/translation')
+                                    }
                                 />
                             </div>
                             <div className="col-6 text-right">

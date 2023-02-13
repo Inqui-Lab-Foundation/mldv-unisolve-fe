@@ -1,4 +1,4 @@
-export const allStatus = ["ALL", "COMPLETED", "INPROGRESS", "INCOMPLETE"];
+export const allStatus = ["COMPLETED", "INPROGRESS", "INCOMPLETE"];
 export const allDistricts = [
     "ARIYALUR",
     "CHENGALPATTU",
@@ -42,4 +42,4 @@ export const allDistricts = [
     "ALL"
 ];
 
-export const allTypes = { "TR": "Registration", "TPRE": "Pre Survey", "TC": "Course Completion", "TPOST": "Post Survey" };
+export const allTypes = { "tr": "Registration", "tpre": "Pre Survey", "tc": "Course Completion", "tpost": "Post Survey" };

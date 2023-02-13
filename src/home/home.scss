@@ -34,7 +34,11 @@
         
       }
     }
+    .logoImg{
+      max-width: 70%;
+    }
   }
+ 
   h3 {
     font-size: 3rem;
     color: var(--color-black-1);
@@ -46,12 +50,13 @@
     font-size: 4.2rem;
   }
   p {
-    font-size: 2.2rem;
+    font-size: 1.9rem;
     line-height: 150%;
     color: #676767;
     @media (max-width: 991px) {
       font-size: 1.6rem !important;
     }
+    text-align: justify;
   }
 
   .landing-menu{
@@ -62,7 +67,7 @@
   
   section.about-us{
     padding: 10rem 0;
-    // background-color:  var(--color-white-3);
+    background-color:  var(--color-white-3);
     position: relative;
 
     &::before {
@@ -89,7 +94,18 @@
       animation: pulse-animation 1.5s linear infinite;
     
       }
-      
+      .sidp_row{
+        .sidp_video_box{
+          img{
+            border-bottom: 0.4rem solid var(--color-blue);
+            border-radius: 1.5rem;
+          }
+        }
+      }
+      // .upshift{
+      //   background-color: rgba(255, 203, 52, 0.2);
+      //   border-radius: 1rem;
+      // }
      
   }
 
@@ -116,7 +132,7 @@
 
     .home-banner {
       height: 100vh;
-      background: url("../assets/media/home/home-banner.svg") no-repeat;
+      background: url("../assets/media/InquiHomepageImage.png") no-repeat;
       background-size: 63%;
       background-position: right bottom;
 
@@ -132,6 +148,11 @@
             margin-right: 1rem !important;
           }
         }
+        li.nav-item a:hover{
+          padding-bottom:0.3rem;
+          border-bottom: 0.3rem solid var(--color-yellow);
+          transition: all 300ms ease;
+        }
 
         
         
@@ -139,11 +160,11 @@
       @media (max-width: 991px) {
         display: none;
       }
-      
+     
     }
     @media (max-width: 1199px) {
       .multi-actions.main-menu .dropdown #language-selector-btn {
-        display: none;
+        // display: none;
       }
     }
 
@@ -238,7 +259,7 @@
         color: var(--color-black-2);
       }
       p {
-        font-size: 2.8rem;
+        font-size: 1.8rem;
         color: var(--color-grey-light-5);
         line-height: 120%;
       }
@@ -272,6 +293,18 @@
         display: none;
       }
     }
+   
+  }
+  .bm-burger-button{
+    z-index: 1050 !important;
+  }
+  .nav_row{
+    background: linear-gradient(
+      135deg,
+      rgba(219, 235, 248, 1) 10%,
+      rgba(255, 255, 255, 1) 46%,
+      rgba(255, 255, 255, 1) 100%
+    );
   }
 
   .mentor-student {
@@ -913,6 +946,9 @@
   .partner-btn{display: inherit !important; }
 
   section.locate-unisolve {
+    background-image: linear-gradient(0deg, rgba(255, 203, 52, 0.2), rgba(255, 203, 52, 0.2));
+    background-attachment: fixed;
+    background-repeat: no-repeat;
     padding: 10rem 0;
     @media (max-width: 991px) {
       padding: 0rem 0 10rem 0;
@@ -1047,9 +1083,9 @@
         }
       }
       &-body p {
-        font-size: 1.8rem;
+        font-size: 1.6rem;
         @media (max-width: 576px) {
-          font-size: 1.6rem;
+          font-size: 1.4rem;
         }
       }
 
@@ -1250,7 +1286,7 @@ Note: Beware of modifying this element as it can break the animations - you shou
 }
 
 
-$content-width: calc(40vw - 84px);
+$content-width: calc(55vw - 84px);
 $margin: 20px;
 $spacing: 20px;
 $bdrs: 6px;
@@ -1270,7 +1306,8 @@ $color6: #0f93ff;
 
 section.road-map{
   padding: 10rem 0;
-  background-color: var(--color-white-3);
+  // background-color: var(--color-white-3);
+  background-color: rgba(255, 203, 52, 0.2);
   
   .timeline {
     display: flex;
@@ -1285,9 +1322,9 @@ section.road-map{
       margin: $spacing 0;
       border-radius: $bdrs;
       align-self: center;
-      width: 50vw;
+      width: 65vw;
       @media (max-width: 786px) {
-        width: 75vw;
+        width: 85vw;
       }
   
       &:nth-child(2n + 1) {

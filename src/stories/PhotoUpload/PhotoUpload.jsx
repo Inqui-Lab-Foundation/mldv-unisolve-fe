@@ -1,26 +1,25 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
-import "./PhotoUpload.scss";
+/* eslint-disable no-unused-vars */
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import './PhotoUpload.scss';
 import ImageUploading from 'react-images-uploading';
-import { Avatar } from "antd";
+import { Avatar } from 'antd';
 // import profile from "../../assets/media/img/duckImg.png";
-import profile from "../../assets/media/img/teacher.png";
+import profile from '../../assets/media/img/teacher.png';
 
-import {GrEdit} from "react-icons/gr";
+import { GrEdit } from 'react-icons/gr';
 
 /**
  * Primary UI component for user interaction
  */
 export const PhotoUpload = () => {
-
-    const [images, setImages] = useState([{data_url:profile}]);
+    const [images, setImages] = useState([{ data_url: profile }]);
     const maxNumber = 69;
     const onChange = (imageList, addUpdateIndex) => {
-    // data for submit
-        console.log(imageList, addUpdateIndex);
+        // data for submit
+        // console.log(imageList, addUpdateIndex);
         setImages(imageList);
     };
-
 
     return (
         <div className="App">
@@ -35,7 +34,7 @@ export const PhotoUpload = () => {
                     imageList,
                     // onImageUpload,
                     // onImageRemoveAll,
-                    onImageUpdate,
+                    onImageUpdate
                     // onImageRemove,
                     // isDragging,
                     // dragProps,
@@ -49,13 +48,20 @@ export const PhotoUpload = () => {
             >
               Click or Drop here
             </button> */}
-            &nbsp;
+                        &nbsp;
                         {imageList.map((image, index) => (
                             <div key={index} className="image-item">
-                                <Avatar className="upload-img" src={image['data_url']} />
+                                <Avatar
+                                    className="upload-img"
+                                    src={image['data_url']}
+                                />
 
                                 <div className="image-item__action">
-                                    <Avatar className="edit-icon" onClick={() => onImageUpdate(index)} icon={<GrEdit />} />
+                                    <Avatar
+                                        className="edit-icon"
+                                        onClick={() => onImageUpdate(index)}
+                                        icon={<GrEdit />}
+                                    />
                                 </div>
                             </div>
                         ))}
@@ -68,31 +74,31 @@ export const PhotoUpload = () => {
 
 PhotoUpload.propTypes = {
     /**
-   * Is this the principal call to action on the page?
-   */
+     * Is this the principal call to action on the page?
+     */
     SingleSelectDropdown: PropTypes.bool,
     /**
-   * What background color to use
-   */
+     * What background color to use
+     */
     backgroundColor: PropTypes.string,
     /**
-   * How large should the button be?
-   */
-    size: PropTypes.oneOf(["small", "medium", "large"]),
+     * How large should the button be?
+     */
+    size: PropTypes.oneOf(['small', 'medium', 'large']),
     /**
-   * Button contents
-   */
+     * Button contents
+     */
     label: PropTypes.string.isRequired,
     /**
-   * Optional click handler
-   */
-    onClick: PropTypes.func,
+     * Optional click handler
+     */
+    onClick: PropTypes.func
 };
 
 PhotoUpload.defaultProps = {
     backgroundColor: null,
     //   size: "medium",
     onClick: undefined,
-    label: "Select Pic",
+    label: 'Select Pic'
     //   options: ["Garde 1", "Garde 2", "Garde 3", "Garde 4", "Garde 5", "Garde 6"],
 };

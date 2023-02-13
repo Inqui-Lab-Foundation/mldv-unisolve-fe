@@ -16,7 +16,6 @@ import { CommonDropDownComp } from '../../stories/CommonDropdown/CommonDropdownC
 
 import { TableComponent } from '../../stories/TableComponent/TableComponent';
 const TicketDataTable = (props) => {
-    console.log(props, ':::::::::::');
     // eslint-disable-next-line no-unused-vars
     const [tableShow, setTableShow] = useState(true);
     const [actionDropdown, setActionDropdown] = useState(false);
@@ -30,7 +29,6 @@ const TicketDataTable = (props) => {
     //         setActionDropdown(false);
     //     }
     // };
-    console.log(actionDropdown, 'actionDropdown', actionIndex);
 
     const typeProps = {
         name: 'type: All',

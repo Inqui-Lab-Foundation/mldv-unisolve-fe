@@ -3,7 +3,7 @@ import { Row, Col } from 'react-bootstrap';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
 import { InputWithSearchComp } from '../../stories/InputWithSearch/InputWithSearch';
-import { BsChevronRight, BsFilter } from 'react-icons/bs';
+import { BsFilter } from 'react-icons/bs';
 import { FaMedal } from 'react-icons/fa';
 import { CommonDropDownComp } from '../../stories/CommonDropdown/CommonDropdownComp';
 import { BsLayoutTextSidebarReverse } from 'react-icons/bs';
@@ -18,7 +18,6 @@ const CourseView = () => {
 
     const history = useHistory();
     const data = (history && history.location && history.location.item) || {};
-    console.log('===============', data);
     const filterDropProps = {
         label: 'Filter by',
         Icon: BsFilter,
@@ -41,9 +40,9 @@ const CourseView = () => {
             <div className="courses-page">
                 <Row className="courses-head view-head py-5">
                     <Col md={12} lg={6} className="mb-5 mb-md-5 mb-lg-0">
-                        <p className="course-breadcrum">
+                        {/* <p className="course-breadcrum">
                             Courses <BsChevronRight /> Courses details
-                        </p>
+                        </p> */}
                         <h5 className="text-white">Course Title</h5>
                         <div className="courses-type">
                             <BsLayoutTextSidebarReverse />

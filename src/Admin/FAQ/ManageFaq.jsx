@@ -37,7 +37,6 @@ const ManageFaq = (props) => {
     // const [faqListDataTable, setFaqListDataTable] = useState([]);
     const [faqListDataTableCat, setFaqListDataTableCat] = useState([]);
 
-
     // const toggleFaqCatModal = () => {
     //     setShowFaqCatModal((showFaqCatModal) => !showFaqCatModal);
     // };
@@ -72,7 +71,7 @@ const ManageFaq = (props) => {
                                 key: data.faq_category_id,
                                 category_name: data.category_name,
                                 faqCatID: data.faq_category_id,
-                                faq_count:data?.faq_count
+                                faq_count: data?.faq_count
                             };
                             faqRowDataTableCat.push(eachRowFaqCat);
 
@@ -208,14 +207,21 @@ const ManageFaq = (props) => {
                 {
                     name: 'Category Name',
                     selector: 'category_name',
-                    width: "45%",
+                    width: '45%',
                     sortable: true,
-                    cell:(params)=>[<Link key={params.faqCatID} to={`/admin/faq-by-category?id=${params.faqCatID}`}>{params?.category_name}</Link>]
+                    cell: (params) => [
+                        <Link
+                            key={params.faqCatID}
+                            to={`/admin/faq-by-category?id=${params.faqCatID}`}
+                        >
+                            {params?.category_name}
+                        </Link>
+                    ]
                 },
                 {
                     name: 'Total Questions Count',
                     selector: 'faq_count',
-                    width: "22%",
+                    width: '22%',
                     center: true
                 },
                 {
@@ -225,7 +231,7 @@ const ManageFaq = (props) => {
                             <i
                                 key={params.faqCatID}
                                 className="fa fa-edit"
-                                style={{marginRight:"10px"}}
+                                style={{ marginRight: '10px' }}
                                 onClick={() => handleCateEdit(params)}
                             />,
                             <i
@@ -293,10 +299,10 @@ const ManageFaq = (props) => {
     // };
 
     const deleteFaqCat = async (faqCatID) => {
-        console.log(
-            '🚀 ~ file: ManageFaq.jsx ~ line 134 ~ deleteFaq ~ faqID',
-            faqCatID
-        );
+        // console.log(
+        //     '🚀 ~ file: ManageFaq.jsx ~ line 134 ~ deleteFaq ~ faqID',
+        //     faqCatID
+        // );
 
         Swal.fire({
             title: 'Are you sure?',
@@ -386,8 +392,8 @@ const ManageFaq = (props) => {
 
     return (
         <Layout>
-            <Container className="ticket-page mb-50 userlist faqList">
-                <Row className="mt-5 pt-2">
+            <Container className="ticket-page mt-5 mb-50 userlist faqList">
+                <Row className="pt-2">
                     <Col className="col-auto mb-5 mb-sm-5 mb-md-5 mb-lg-0">
                         <h2>Manage FAQ’s</h2>
                     </Col>

@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable react/jsx-key */
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col } from 'reactstrap';
@@ -7,12 +8,13 @@ import Layout from '../Layout';
 // import { Link } from 'react-router-dom';
 import { BsPlusLg } from 'react-icons/bs';
 import { Button } from '../../stories/Button';
-import { connect } from 'react-redux';
+import { connect, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 // import dummyCSV from '../../media/basic-csv.csv';
 import {
     // getAdminTeamsList,
-    getAdminTeamMembersList
+    getAdminTeamMembersList,
+    studentResetPassword
 } from '../../redux/actions';
 import axios from 'axios';
 import { openNotificationWithIcon, getCurrentUser } from '../../helpers/Utils';
@@ -24,6 +26,7 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import 'react-data-table-component-extensions/dist/index.css';
 import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
 import { useTranslation } from 'react-i18next';
+import DoubleBounce from '../../components/Loaders/DoubleBounce';
 
 // const { TabPane } = Tabs;
 
@@ -31,6 +34,7 @@ const ViewTeamMember = () => {
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
     const teamID = JSON.parse(localStorage.getItem('teamId'));
+    const dispatch = useDispatch();
 
     const history = useHistory();
     const teamId =
@@ -41,7 +45,7 @@ const ViewTeamMember = () => {
         teamID.team_id;
 
     const headingDetails = {
-        title: t('teacher_teams.view_team_member_details'),
+        title: teamID.team_name + t('teacher_teams.view_team_member_details'),
         options: [
             {
                 title: t('teacher_teams.teamslist'),
@@ -54,14 +58,12 @@ const ViewTeamMember = () => {
     };
     const [count, setCount] = useState(0);
     // eslint-disable-next-line no-unused-vars
-    const [teamMembersListArray, setTeamMembersArray] = useState([]);
     const [teamsMembersList, setTeamsMemers] = useState([]);
     // eslint-disable-next-line no-unused-vars
     const [pending, setPending] = React.useState(true);
     const [rows, setRows] = React.useState([]);
 
     useEffect(() => {
-        // props.getAdminTeamMembersListAction(teamId);
         handleteamMembersAPI(teamId);
     }, [teamId, count]);
 
@@ -76,14 +78,21 @@ const ViewTeamMember = () => {
                 '?status=ACTIVE',
             headers: {
                 'Content-Type': 'application/json',
-                Authorization: `Bearer ${currentUser.data[0].token}`
+                Authorization: `Bearer ${currentUser?.data[0]?.token}`
             }
         };
         await axios(config)
             .then(function (response) {
                 if (response.status === 200) {
-                    console.log('response.data.data', response.data.data);
-                    setTeamsMemers(response.data && response.data.data);
+                    // console.log('response.data.data', response.data.data);
+                    const updatedWithKey =
+                        response.data &&
+                        response.data.data.map((item, i) => {
+                            const upd = { ...item };
+                            upd['key'] = i + 1;
+                            return upd;
+                        });
+                    setTeamsMemers(updatedWithKey && updatedWithKey);
                 }
             })
             .catch(function (error) {
@@ -91,59 +100,81 @@ const ViewTeamMember = () => {
             });
     }
 
-    // useEffect(() => {
-    //     var teamsMembersArrays = [];
-    //     props.teamsMembersList.length > 0 &&
-    //         props.teamsMembersList.map((teams, index) => {
-    //             var key = index + 1;
-    //             return teamsMembersArrays.push({ ...teams, key });
-    //         });
-    //     setTeamMembersArray(teamsMembersArrays);
-    // }, [props.teamsMembersList.length > 0, count]);
+    const handleResetPassword = (data) => {
+        const swalWithBootstrapButtons = Swal.mixin({
+            customClass: {
+                confirmButton: 'btn btn-success',
+                cancelButton: 'btn btn-danger'
+            },
+            buttonsStyling: false
+        });
 
-    useEffect(() => {
-        var teamsMembersArrays = [];
-        teamsMembersList.length > 0 &&
-            teamsMembersList.map((teams, index) => {
-                var key = index + 1;
-                return teamsMembersArrays.push({ ...teams, key });
-            });
-        setTeamMembersArray(teamsMembersArrays);
-    }, [teamsMembersList.length > 0, count]);
-
+        swalWithBootstrapButtons
+            .fire({
+                title: 'You are attempting to reset the password',
+                text: 'Are you sure?',
+                imageUrl: `${logout}`,
+                showCloseButton: true,
+                confirmButtonText: 'Reset Password',
+                showCancelButton: true,
+                cancelButtonText: t('general_req.btn_cancel'),
+                reverseButtons: false
+            })
+            .then((result) => {
+                if (result.isConfirmed) {
+                    dispatch(
+                        studentResetPassword({
+                            user_id: data.user_id.toString()
+                        })
+                    );
+                } else if (result.dismiss === Swal.DismissReason.cancel) {
+                    swalWithBootstrapButtons.fire(
+                        'Cancelled',
+                        'Reset password is cancelled',
+                        'error'
+                    );
+                }
+            })
+            .catch((err) => console.log(err.response));
+    };
     var adminTeamMembersList = {
         data: teamsMembersList.length > 0 && teamsMembersList,
         columns: [
             {
-                name: 'User Name',
-                selector: 'user.username',
-                width: '15%'
+                name: 'S.No',
+                selector: 'key',
+                width: '6%'
             },
             {
-                name: 'Password',
+                name: 'User Id',
+                selector: 'user.username',
+                width: '16%'
+            },
+            {
+                name: 'Default Password',
                 selector: 'UUID',
-                width: '10%'
+                width: '20%'
             },
             {
                 name: t('teacher_teams.student_name'),
                 selector: 'full_name',
-                width: '15%'
+                width: '16%'
             },
             {
-                name: "Class",
+                name: 'Class',
                 selector: 'Grade',
                 width: '10%'
             },
             {
                 name: t('teacher_teams.age'),
                 selector: 'Age',
-                width: '9%'
+                width: '10%'
             },
 
             {
                 name: t('teacher_teams.gender'),
                 selector: 'Gender',
-                width: '12%'
+                width: '10%'
             },
             {
                 name: t('teacher_teams.actions'),
@@ -157,18 +188,21 @@ const ViewTeamMember = () => {
                             />
                         </a>,
                         <a onClick={() => handleDeleteTeamMember(params)}>
-                            <i
-                                key={params.team_id}
-                                className="fa fa-trash"
-                                style={{ marginRight: '10px' }}
-                            />
+                            {teamsMembersList &&
+                                teamsMembersList.length > 2 && (
+                                    <i
+                                        key={params.team_id}
+                                        className="fa fa-trash"
+                                        style={{ marginRight: '10px' }}
+                                    />
+                                )}
                         </a>,
-                        // <a onClick={() => handleReseatTeamMember(params)}>
-                        //     <i key={params.team_id} className="fa fa-key" />
-                        // </a>
+                        <a onClick={() => handleResetPassword(params)}>
+                            <i key={params.team_id} className="fa fa-key" />
+                        </a>
                     ];
                 },
-                width: '15%',
+                width: '12%',
                 center: true
             }
         ]
@@ -187,38 +221,6 @@ const ViewTeamMember = () => {
             item: item
         });
     };
-
-    // const handleReseatTeamMember = (item) => {
-    //     const body = JSON.stringify({
-    //         user_id: JSON.stringify(item.user_id)
-    //     });
-    //     console.log('item', body);
-
-    //     var config = {
-    //         method: 'put',
-    //         url: process.env.REACT_APP_API_BASE_URL + '/students/resetPassword',
-    //         headers: {
-    //             'Content-Type': 'application/json',
-    //             Authorization: `Bearer ${currentUser.data[0].token}`
-    //         },
-    //         data: body
-    //     };
-    //     axios(config)
-    //         .then(function (response) {
-    //             if (response.status === 202) {
-    //                 setCount(count + 1);
-    //                 openNotificationWithIcon(
-    //                     'success',
-    //                     'Password Successfully Updated'
-    //                 );
-    //             } else {
-    //                 openNotificationWithIcon('error', 'Opps! Something Wrong');
-    //             }
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         });
-    // };
 
     const handleDeleteTeamMember = (item) => {
         const swalWithBootstrapButtons = Swal.mixin({
@@ -250,7 +252,7 @@ const ViewTeamMember = () => {
                             item.student_id,
                         headers: {
                             'Content-Type': 'application/json',
-                            Authorization: `Bearer ${currentUser.data[0].token}`
+                            Authorization: `Bearer ${currentUser?.data[0]?.token}`
                         }
                     };
                     axios(config)
@@ -274,7 +276,7 @@ const ViewTeamMember = () => {
                 } else if (result.dismiss === Swal.DismissReason.cancel) {
                     swalWithBootstrapButtons.fire(
                         t('teacher_teams.delete_cancelled'),
-                        t('teacher_teams.delete_member_warning'),
+                        t('teacher_teams.delete_member_cancel'),
                         'error'
                     );
                 }
@@ -283,8 +285,8 @@ const ViewTeamMember = () => {
 
     return (
         <Layout>
-            <Container className="ticket-page mb-50 userlist">
-                <Row className="mt-5 pt-5">
+            <Container className="ticket-page mt-5 mb-50 userlist">
+                <Row className="pt-5">
                     <Row className="mb-2 mb-sm-5 mb-md-5 mb-lg-0">
                         <Col className="col-auto">
                             <BreadcrumbTwo {...headingDetails} />
@@ -305,29 +307,34 @@ const ViewTeamMember = () => {
                             </div>
                         </Col>
                     </Row>
-
+                    {/* 
                     <p>
                         {t('teacher_teams.team_name')}: {teamID.team_name}
-                    </p>
+                    </p> */}
                     <div className="ticket-data">
                         <Tabs defaultActiveKey="1">
-                            <div className="my-2">
-                                <DataTableExtensions
-                                    print={false}
-                                    export={false}
-                                    {...adminTeamMembersList}
-                                >
-                                    <DataTable
-                                        data={rows}
-                                        defaultSortField="id"
-                                        defaultSortAsc={false}
-                                        // pagination
-                                        highlightOnHover
-                                        fixedHeader
-                                        subHeaderAlign={Alignment.Center}
-                                    />
-                                </DataTableExtensions>
-                            </div>
+                            {teamsMembersList &&
+                            !teamsMembersList.length > 0 ? (
+                                <DoubleBounce />
+                            ) : (
+                                <div className="my-2">
+                                    <DataTableExtensions
+                                        print={false}
+                                        export={false}
+                                        {...adminTeamMembersList}
+                                    >
+                                        <DataTable
+                                            data={rows}
+                                            defaultSortField="id"
+                                            defaultSortAsc={false}
+                                            // pagination
+                                            highlightOnHover
+                                            fixedHeader
+                                            subHeaderAlign={Alignment.Center}
+                                        />
+                                    </DataTableExtensions>
+                                </div>
+                            )}
                         </Tabs>
                     </div>
                 </Row>

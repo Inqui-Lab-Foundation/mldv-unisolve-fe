@@ -37,22 +37,21 @@ export const updatePageSize = (number) => async (dispatch) => {
     });
 };
 
-export const getAdminMentorsList = (status) => async (dispatch) => {
+export const getAdminMentorsList = (status,district) => async (dispatch) => {
     try {
         dispatch({ type: ADMIN_MENTORS_LIST });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const mentorStatus = status ? status : "";
+        const mentorStatus = status ? status : "ALL";
+        const actualURL = `${!district ? URL.getMentors+'?status='+mentorStatus : URL.getMentors+'?status='+ mentorStatus + '&district=' + district}`;
         const result = await axios
-            .get(`${URL.getMentors}?status=${mentorStatus}`, axiosConfig)
+            .get(actualURL, axiosConfig)
             .then((user) => user)
             .catch((err) => {
                 return err.response;
             });
         if (result && result.status === 200) {
-            const data =
-                result.data &&
-                result.data.data[0] &&
-                result.data.data[0].dataValues;
+            const data = result.data?.data[0]?.dataValues || [];
+            data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
             const totalData = result.data &&
             result.data.data[0] &&
             result.data.data[0].totalItems;
@@ -69,7 +68,7 @@ export const updateMentorStatus = (data,id) => async (dispatch) => {
         dispatch({ type: ADMIN_MENTORS_STATUS_UPDATE });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .put(`${URL.updateMentorStatus + id}`, data, axiosConfig)
+            .put(`${URL.updateMentorStatus +"/"+ id}`, data, axiosConfig)
             .then((user) => console.log(user))
             .catch((err) => {
                 return err.response;

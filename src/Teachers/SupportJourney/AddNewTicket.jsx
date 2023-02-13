@@ -1,13 +1,14 @@
+/* eslint-disable indent */
 import React from 'react';
 import { Row, Col, Form, Label, FormGroup, Card, CardBody } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
 import './style.scss';
-import Layout from "../Layout";
+import Layout from '../Layout';
 import { Button } from '../../stories/Button';
 
 // import { InputBox } from '../../stories/InputBox/InputBox';
 import { DropDownWithSearch } from '../../stories/DropdownWithSearch/DropdownWithSearch';
-import {TextArea} from '../../stories/TextArea/TextArea';
+import { TextArea } from '../../stories/TextArea/TextArea';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
@@ -16,12 +17,11 @@ import { createSupportTickets } from '../store/mentors/actions';
 import { useHistory } from 'react-router-dom';
 
 const AddNewTicket = (props) => {
-   
     const dispatch = useDispatch();
     const history = useHistory();
 
     const headingDetails = {
-        title: 'Add New Query',
+        title: 'Query Details',
 
         options: [
             {
@@ -38,13 +38,12 @@ const AddNewTicket = (props) => {
     const selectCategory = {
         label: 'Select Category',
         options: [
-            { label: "General", value: "General" },
-            { label: "Technical", value: "Technical" },
-            { label: "Suggestion", value: "Suggestion" },
+            { label: 'General', value: 'General' },
+            { label: 'Technical', value: 'Technical' },
+            { label: 'Suggestion', value: 'Suggestion' }
         ],
         className: 'defaultDropdown'
     };
-    
 
     const formik = useFormik({
         initialValues: {
@@ -53,31 +52,25 @@ const AddNewTicket = (props) => {
         },
 
         validationSchema: Yup.object({
-            selectCategory: Yup.string()
-                .required("Required"),
-            
-            ticketDetails: Yup.string()
-                .required('Required')
+            selectCategory: Yup.string().required('Required'),
+
+            ticketDetails: Yup.string().required('Required')
         }),
 
         onSubmit: (values) => {
             const query_category = values.selectCategory;
             const query_details = values.ticketDetails;
-           
+
             const body = JSON.stringify({
                 query_category: query_category,
-                query_details: query_details,
-                
+                query_details: query_details
             });
-            console.log(body);
-            
+
             dispatch(createSupportTickets(body, history));
-            
-        },
-        
+        }
     });
 
-    console.log(formik.errors);
+    // console.log(formik.errors);
 
     return (
         <Layout>
@@ -89,14 +82,14 @@ const AddNewTicket = (props) => {
                         <div>
                             <Form onSubmit={formik.handleSubmit} isSubmitting>
                                 <Card className="aside p-4">
-                                    <CardBody className='px-0'>
+                                    <CardBody className="px-0">
                                         <FormGroup className="form-row row">
                                             <Col
                                                 className="form-group mb-5  mb-md-0"
                                                 md={12}
                                             >
                                                 <Label className="mb-2">
-                                            Select Category
+                                                    Select Category
                                                 </Label>
 
                                                 <Col
@@ -115,67 +108,66 @@ const AddNewTicket = (props) => {
                                                         // defaultValue={
                                                         //     defaultCategory
                                                         // }
-                                                        onChange={(option) =>{
+                                                        onChange={(option) => {
                                                             formik.setFieldValue(
-                                                                "selectCategory",
+                                                                'selectCategory',
                                                                 option[0].value
                                                             );
-                                                        }
-                                                        }
+                                                        }}
                                                         name="selectCategory"
                                                         id="selectCategory"
                                                     />
 
                                                     {formik.errors
                                                         .selectCategory ? (
-                                                            <small className="error-cls">
-                                                                {
-                                                                    formik.errors
-                                                                        .selectCategory
-                                                                }
-                                                            </small>
-                                                        ) : null}
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .selectCategory
+                                                            }
+                                                        </small>
+                                                    ) : null}
                                                 </Col>
-
-                                               
                                             </Col>
                                         </FormGroup>
                                     </CardBody>
                                     <div className="create-ticket1 register-block1">
                                         <Row>
-                                        
-                                   
                                             <Col md={12}>
                                                 <Label
                                                     className="name-req "
                                                     htmlFor="ticketDetails"
                                                 >
-                                                Details
+                                                    Details
                                                 </Label>
-                                                <TextArea className={'defaultInput'}
+                                                <TextArea
+                                                    className={'defaultInput'}
                                                     placeholder="Enter Details"
                                                     id="ticketDetails"
                                                     name="ticketDetails"
-                                                    onChange={formik.handleChange}
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
                                                     onBlur={formik.handleBlur}
-                                                    value={formik.values.ticketDetails} />
+                                                    value={
+                                                        formik.values
+                                                            .ticketDetails
+                                                    }
+                                                />
 
-                                            
                                                 {formik.touched.ticketDetails &&
-                                            formik.errors.ticketDetails ? 
-                                                    (
-                                                        <small className="error-cls">
-                                                            {formik.errors.ticketDetails}
-                                                        </small>
-                                                    ) : null}
+                                                formik.errors.ticketDetails ? (
+                                                    <small className="error-cls">
+                                                        {
+                                                            formik.errors
+                                                                .ticketDetails
+                                                        }
+                                                    </small>
+                                                ) : null}
                                             </Col>
-                                        
                                         </Row>
                                     </div>
                                 </Card>
-
-                           
-                              
 
                                 <hr className="mt-4 mb-4"></hr>
                                 <Row>
@@ -204,7 +196,12 @@ const AddNewTicket = (props) => {
                                                     : 'primary'
                                             }
                                             size="small"
-                                            disabled={!(formik.dirty && formik.isValid)}
+                                            disabled={
+                                                !(
+                                                    formik.dirty &&
+                                                    formik.isValid
+                                                )
+                                            }
                                         />
                                     </Col>
                                 </Row>

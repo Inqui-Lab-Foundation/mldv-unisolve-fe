@@ -1,20 +1,19 @@
 /* eslint-disable no-unused-vars */
-import React, { useState } from "react";
-import { Row, Col } from "react-bootstrap";
+import React, { useState } from 'react';
+import { Row, Col } from 'react-bootstrap';
 
-import { BsFilter, BsPlusLg } from "react-icons/bs";
+import { BsFilter, BsPlusLg } from 'react-icons/bs';
 
-import { Button } from "../../stories/Button";
+import { Button } from '../../stories/Button';
 
-import { withRouter } from "react-router-dom";
+import { withRouter } from 'react-router-dom';
 
-import { TableComponent } from "../../stories/TableComponent/TableComponent";
+import { TableComponent } from '../../stories/TableComponent/TableComponent';
 
 const FaqDataTable = (props) => {
-    // console.log(props, ":::::::::::123");
     const [tableShow, setTableShow] = useState(true);
     const [actionDropdown, setActionDropdown] = useState(false);
-    const [actionIndex, setActionIndex] = useState("");
+    const [actionIndex, setActionIndex] = useState('');
 
     const handleAction = (index) => {
         setActionIndex(index.key);
@@ -24,72 +23,76 @@ const FaqDataTable = (props) => {
             setActionDropdown(false);
         }
     };
-    // console.log(actionDropdown, "actionDropdown", actionIndex);
 
     const typeProps = {
-        name: "type: All",
+        name: 'type: All',
 
         options: [
-            { name: "type: All", path: "" },
-            { name: "type: 1", path: "" },
-            { name: "type: 2", path: "" },
-        ],
+            { name: 'type: All', path: '' },
+            { name: 'type: 1', path: '' },
+            { name: 'type: 2', path: '' }
+        ]
     };
 
     const statusFilter = {
-        name: "Status: All",
+        name: 'Status: All',
         options: [
-            { name: "All", path: "" },
-            { name: "Open", path: "" },
-            { name: "Draft", path: "" },
-            { name: "Solved", path: "" },
-        ],
+            { name: 'All', path: '' },
+            { name: 'Open', path: '' },
+            { name: 'Draft', path: '' },
+            { name: 'Solved', path: '' }
+        ]
     };
     const filterDropProps = {
-        name: "Filter by",
+        name: 'Filter by',
         Icon: BsFilter,
         options: [
-            { name: "Course - 1", path: "/playCourse" },
-            { name: "Course - 2", path: "/playCourse" },
-        ],
+            { name: 'Course - 1', path: '/playCourse' },
+            { name: 'Course - 2', path: '/playCourse' }
+        ]
     };
 
     const addImport = {
-        name: "Import",
+        name: 'Import',
         Icon: BsFilter,
         options: [
-            { name: "CSV", path: "" },
-            { name: "XLV", path: "" },
-        ],
+            { name: 'CSV', path: '' },
+            { name: 'XLV', path: '' }
+        ]
     };
     const addExport = {
-        name: "Export",
+        name: 'Export',
         Icon: BsFilter,
         options: [
-            { name: "All", path: "" },
-            { name: "Open", path: "" },
-            { name: "Draft", path: "" },
-            { name: "Solved", path: "" },
-        ],
+            { name: 'All', path: '' },
+            { name: 'Open', path: '' },
+            { name: 'Draft', path: '' },
+            { name: 'Solved', path: '' }
+        ]
     };
     return (
         <div>
-            <div className='tableActionTemplate'>
+            <div className="tableActionTemplate">
                 <Row>
                     <Col md={12}>
-                        <div className='ticket-table'>
+                        <div className="ticket-table">
                             {tableShow ? (
-                                <TableComponent {...props} showRowSelction={false} />
+                                <TableComponent
+                                    {...props}
+                                    showRowSelction={false}
+                                />
                             ) : (
-                                <div className='add-ticket'>
+                                <div className="add-ticket">
                                     <Button
-                                        btnClass='primary'
-                                        size='small'
-                                        shape='btn-circle'
+                                        btnClass="primary"
+                                        size="small"
+                                        shape="btn-circle"
                                         Icon={BsPlusLg}
-                                        onClick={() => props.history.push("/NewTicket")}
+                                        onClick={() =>
+                                            props.history.push('/NewTicket')
+                                        }
                                     />
-                                    <p className='text'>Add a Ticket</p>
+                                    <p className="text">Add a Ticket</p>
                                 </div>
                             )}
                         </div>

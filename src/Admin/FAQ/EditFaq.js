@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import '../../Student/Pages/Student.scss';
 import React, { useEffect, useState, Fragment } from 'react';
 import {
@@ -43,7 +44,6 @@ const EditFaq = (props) => {
         title: 'Edit FAQ',
 
         options: [
-            
             {
                 title: 'FAQ’s',
                 path: '/admin/faq'
@@ -68,7 +68,6 @@ const EditFaq = (props) => {
     const history = useHistory();
 
     let { faqid } = useParams();
-    console.log('🚀 ~ file: EditFaq.js ~ line 78 ~ EditFaq ~ faqid', faqid);
 
     // A custom hook that builds on useLocation to parse
     // the query string for you.
@@ -148,7 +147,7 @@ const EditFaq = (props) => {
             .then((categoryListRes) => {
                 if (categoryListRes?.status == 200) {
                     let dataValue = categoryListRes?.data?.data[0]?.dataValues;
-                    console.log('Data value ', dataValue);
+                    // console.log('Data value ', dataValue);
                     if (dataValue) {
                         let categoriesOptions = [];
                         dataValue.map((item) => {
@@ -174,7 +173,6 @@ const EditFaq = (props) => {
             .then((faqResData) => {
                 if (faqResData?.status == 200) {
                     let dataValue = faqResData?.data?.data[0];
-                    console.log('Data value ', dataValue);
                     if (dataValue) {
                         setFaqData(dataValue);
                         formik.setFieldValue('question', dataValue?.question);
@@ -212,7 +210,7 @@ const EditFaq = (props) => {
     };
 
     useEffect(() => {
-        console.log('formik.values ', formik.values, formik.errors);
+        // console.log('formik.values ', formik.values, formik.errors);
     }, [formik.values, formik.errors]);
 
     useEffect(() => {
@@ -220,19 +218,19 @@ const EditFaq = (props) => {
             let defaultCategoryValue = categoriesList.find(
                 (eachFaqCat) => eachFaqCat.value == faqData.faq_category_id
             );
-            console.log(
-                '🚀 ~ file: EditFaq.js ~ line 213 ~ EditFaq ~ defaultCategory',
-                defaultCategoryValue
-            );
+            // console.log(
+            //     '🚀 ~ file: EditFaq.js ~ line 213 ~ EditFaq ~ defaultCategory',
+            //     defaultCategoryValue
+            // );
             setDefaultCategory(defaultCategoryValue);
         }
     }, [categoriesList, faqData]);
 
     useEffect(() => {
-        console.log(
-            '🚀 ~ file: EditFaq.js ~ line 220 ~ EditFaq ~ defaultCategory',
-            defaultCategory
-        );
+        // console.log(
+        //     '🚀 ~ file: EditFaq.js ~ line 220 ~ EditFaq ~ defaultCategory',
+        //     defaultCategory
+        // );
     }, [defaultCategory]);
 
     return (
@@ -282,13 +280,13 @@ const EditFaq = (props) => {
 
                                                     {formik.errors
                                                         .faq_category_id ? (
-                                                            <small className="error-cls">
-                                                                {
-                                                                    formik.errors
-                                                                        .faq_category_id
-                                                                }
-                                                            </small>
-                                                        ) : null}
+                                                        <small className="error-cls">
+                                                            {
+                                                                formik.errors
+                                                                    .faq_category_id
+                                                            }
+                                                        </small>
+                                                    ) : null}
                                                 </Col>
 
                                                 <Col
@@ -366,7 +364,7 @@ const EditFaq = (props) => {
                                             </Label>
                                             <Col className="form-group" md={12}>
                                                 <div
-                                                    style={{ height: '211px' }}
+                                                // style={{ height: '211px' }}
                                                 >
                                                     <RichText
                                                         name="answer"
