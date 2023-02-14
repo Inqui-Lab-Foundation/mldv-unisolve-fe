@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Card } from 'reactstrap';
@@ -47,6 +48,7 @@ import CommonPage from '../../components/CommonPage';
 import { updateEvaluator } from '../../redux/actions';
 import { useDispatch } from 'react-redux';
 import Register from '../../Evaluator/Register';
+import dist from 'react-data-table-component-extensions';
 
 const { TabPane } = Tabs;
 
@@ -192,6 +194,7 @@ const TicketsPage = (props) => {
     //     // localStorage.setItem('mentor', JSON.stringify(item));
     // };
     const handleSelect = (item, num) => {
+        // where item = student id / mentor id //
         localStorage.removeItem('dist');
         localStorage.removeItem('num');
         if (num == '1') {
@@ -212,6 +215,8 @@ const TicketsPage = (props) => {
         localStorage.setItem('mentor', JSON.stringify(item));
     };
     const handleEdit = (item) => {
+        // where we can edit user details  //
+        // where item = mentor id //
         props.history.push({
             pathname: `/admin/edit-user-profile`,
             data: item
@@ -284,6 +289,9 @@ const TicketsPage = (props) => {
     //         });
     // };
     const handleStatusUpdateInAdmin = async (data, id) => {
+        // where we can update the admin status //
+        // where id = admin id //
+        // where data = status //
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .put(`${URL.updateMentorStatus + '/' + id}`, data, axiosConfig)
@@ -294,6 +302,9 @@ const TicketsPage = (props) => {
     };
 
     const handleStatus = (status, id, type = undefined, all = undefined) => {
+        // where we can update the status Active to InActive //
+        // where id = student id / mentor id  / admin id / evaluator  id//
+        // where status = status //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',

@@ -32,6 +32,8 @@ const Cards = ({ heading, list, reports, props, distList }) => {
     ];
 
     const handleDownload = (item) => {
+        // where we can download the reports //
+
         setMsg(item);
         var url = '';
         if (item == 'Registered Teachers List') {
@@ -86,6 +88,7 @@ const Cards = ({ heading, list, reports, props, distList }) => {
     };
 
     const handleView = (item) => {
+        // where we can see all challenges reports in districtwise //
         var url = '';
         if (item == 'Submitted Challenges') {
             url = 'SUBMITTED';

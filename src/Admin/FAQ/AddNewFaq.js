@@ -276,10 +276,10 @@ const AddNewFaq = (props) => {
                                                             defaultCategory
                                                         }
                                                         onChange={(option) => {
-                                                            console.log(
-                                                                '🚀 ~ file: AddNewFaq.js ~ line 233 ~ AddNewFaq ~ option',
-                                                                option
-                                                            );
+                                                            // console.log(
+                                                            //     '🚀 ~ file: AddNewFaq.js ~ line 233 ~ AddNewFaq ~ option',
+                                                            //     option
+                                                            // );
 
                                                             formik.setFieldValue(
                                                                 'faq_category_id',

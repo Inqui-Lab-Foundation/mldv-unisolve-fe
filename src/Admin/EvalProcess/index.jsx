@@ -18,6 +18,7 @@ const evalprocess = () => {
         handleEvalList();
     }, []);
     async function handleEvalList() {
+        //  handleEvalList Api where we can see list of all evaluationProcess //
         var config = {
             method: 'get',
             url:
@@ -44,6 +45,7 @@ const evalprocess = () => {
     }
 
     const handleEdit = (item) => {
+        // where we can edit level name, no of evaluation //
         history.push({
             pathname: '/admin/edit-evaluationProcess'
         });
@@ -51,6 +53,8 @@ const evalprocess = () => {
     };
 
     const handleDic = (item) => {
+        // where we can select district //
+        // where item = district //
         history.push({
             pathname: '/admin/selectingDistricts-evaluationProcess'
         });
@@ -58,6 +62,9 @@ const evalprocess = () => {
     };
 
     const handleActiveStatusUpdate = (item, itemA) => {
+        // where we can update the evaluation status //
+        // where item = evaluation process id //
+        // where itemA = status //
         const body = {
             status: itemA,
             level_name: item.level_name,

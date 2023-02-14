@@ -58,12 +58,16 @@ const TicketsPage = (props) => {
         props.getSchoolRegistationBulkUploadActions('i');
     }, []);
     const handleEdit = (item) => {
+        // where item = orgnization id  details //
+        // where we can edit the institution details //
         history.push({
             pathname: '/admin/register-edit-schools'
         });
         localStorage.setItem('listId', JSON.stringify(item));
     };
     const handleActiveStatusUpdate = (item, itemA) => {
+        // where we can update the status InActive or New   //
+        // where item = orgnization id details , itemA= status //
         const body = {
             status: itemA,
             organization_code: item.organization_code,
@@ -98,6 +102,10 @@ const TicketsPage = (props) => {
             });
     };
     const handleStatusUpdate = (item, itemS) => {
+        // where we can update the status Active or New  //
+        // where item = orgnization id details , itemS= status //
+        //organization_code = orgnization code //
+        // organization_name = orgnization name //
         const body = {
             status: itemS,
             organization_code: item.organization_code,
@@ -133,6 +141,10 @@ const TicketsPage = (props) => {
     };
 
     const handleNewUpdate = (item, itemS) => {
+        // where we can update the status Active or InActive //
+        // where item = orgnization id details , itemS= status //
+        //organization_code = orgnization code //
+        // organization_name = orgnization name //
         const body = {
             status: itemS,
             organization_code: item.organization_code,
@@ -167,10 +179,12 @@ const TicketsPage = (props) => {
             });
     };
     const handleNewSchoolsList = () => {
+        // list of  new institutions //
         setReqList(false);
         newListApi();
     };
     async function listApi() {
+        //  listApi where we can see all InActive Institutions //
         var config = {
             method: 'get',
             url:
@@ -196,6 +210,7 @@ const TicketsPage = (props) => {
             });
     }
     async function newListApi() {
+        //  newListApi where we can see list of new Institutions //
         var config = {
             method: 'get',
             url:
@@ -221,6 +236,7 @@ const TicketsPage = (props) => {
             });
     }
     const handleReqSchoolsList = (e) => {
+        // list of inActive institutions //
         listApi();
     };
 
@@ -301,7 +317,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Actions',
                 selector: 'action',
-                width: '20%',
+                width: '27%',
                 center: true,
                 cellExport: (row) => {},
                 cell: (record) => [
@@ -441,24 +457,14 @@ const TicketsPage = (props) => {
             {
                 name: 'Institution Name',
                 selector: 'organization_name',
-                width: '27%'
+                width: '25%'
             },
             {
                 name: 'Principal Name',
                 selector: 'principal_name',
-                width: '15%'
+                width: '13%'
             },
-            // {
-            //     name: 'Mobile',
-            //     selector: 'principal_mobile',
-            //     width: '12%'
-            // },
 
-            // {
-            //     name: 'State',
-            //     selector: 'state',
-            //     width: '15%'
-            // },
             {
                 name: 'Status',
                 cell: (row) => [
@@ -474,7 +480,7 @@ const TicketsPage = (props) => {
             {
                 name: 'Actions',
                 selector: 'action',
-                width: '20%',
+                width: '24%',
                 center: true,
                 cell: (record) => [
                     <>

@@ -11,12 +11,13 @@ import {
 import { URL, KEY } from '../../../constants/defaultValues.js';
 import { getNormalHeaders } from '../../../helpers/Utils.js';
 
-export const getAdminMentorsListSuccess = (user,totalItems) => async (dispatch) => {
-    dispatch({
-        type: ADMIN_MENTORS_LIST_SUCCESS,
-        payload: {user,totalItems}
-    });
-};
+export const getAdminMentorsListSuccess =
+    (user, totalItems) => async (dispatch) => {
+        dispatch({
+            type: ADMIN_MENTORS_LIST_SUCCESS,
+            payload: { user, totalItems }
+        });
+    };
 
 export const getAdminMentorsListError = (message) => async (dispatch) => {
     dispatch({
@@ -37,12 +38,22 @@ export const updatePageSize = (number) => async (dispatch) => {
     });
 };
 
-export const getAdminMentorsList = (status,district) => async (dispatch) => {
+export const getAdminMentorsList = (status, district) => async (dispatch) => {
+    // list of  mentors list in districtwise //
+    // where status = status ; district = district //
     try {
         dispatch({ type: ADMIN_MENTORS_LIST });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
-        const mentorStatus = status ? status : "ALL";
-        const actualURL = `${!district ? URL.getMentors+'?status='+mentorStatus : URL.getMentors+'?status='+ mentorStatus + '&district=' + district}`;
+        const mentorStatus = status ? status : 'ALL';
+        const actualURL = `${
+            !district
+                ? URL.getMentors + '?status=' + mentorStatus
+                : URL.getMentors +
+                  '?status=' +
+                  mentorStatus +
+                  '&district=' +
+                  district
+        }`;
         const result = await axios
             .get(actualURL, axiosConfig)
             .then((user) => user)
@@ -52,10 +63,11 @@ export const getAdminMentorsList = (status,district) => async (dispatch) => {
         if (result && result.status === 200) {
             const data = result.data?.data[0]?.dataValues || [];
             data.length > 0 ? data.forEach((item, i) => (item.id = i + 1)) : [];
-            const totalData = result.data &&
-            result.data.data[0] &&
-            result.data.data[0].totalItems;
-            dispatch(getAdminMentorsListSuccess(data,totalData));
+            const totalData =
+                result.data &&
+                result.data.data[0] &&
+                result.data.data[0].totalItems;
+            dispatch(getAdminMentorsListSuccess(data, totalData));
         } else {
             dispatch(getAdminMentorsListError(result.statusText));
         }
@@ -63,12 +75,15 @@ export const getAdminMentorsList = (status,district) => async (dispatch) => {
         dispatch(getAdminMentorsListError({}));
     }
 };
-export const updateMentorStatus = (data,id) => async (dispatch) => {
+export const updateMentorStatus = (data, id) => async (dispatch) => {
+    // where we can update the mentor status //
+    // where id = mentor id //
+    // where data = status //
     try {
         dispatch({ type: ADMIN_MENTORS_STATUS_UPDATE });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .put(`${URL.updateMentorStatus +"/"+ id}`, data, axiosConfig)
+            .put(`${URL.updateMentorStatus + '/' + id}`, data, axiosConfig)
             .then((user) => console.log(user))
             .catch((err) => {
                 return err.response;

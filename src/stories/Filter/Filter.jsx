@@ -27,8 +27,6 @@ export const Filter = ({ options }) => {
         setSelectedOptions(todos);
     };
 
-    console.log('=========', selectedOptions);
-
     return (
         <div className="filter">
             <div>

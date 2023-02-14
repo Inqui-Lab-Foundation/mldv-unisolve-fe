@@ -327,10 +327,10 @@ const ManageFaq = (props) => {
                                 '',
                                 'success'
                             );
-                            console.log(
-                                '🚀 ~ file: ManageFaq.jsx ~ line 211 ~ .then ~ faqCategoryList',
-                                faqCategoryList
-                            );
+                            // console.log(
+                            //     '🚀 ~ file: ManageFaq.jsx ~ line 211 ~ .then ~ faqCategoryList',
+                            //     faqCategoryList
+                            // );
                             setfaqCategoryList(
                                 faqCategoryList.filter(
                                     (eachfaqCat) =>

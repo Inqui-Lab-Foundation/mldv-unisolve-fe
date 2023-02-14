@@ -16,7 +16,7 @@ import { URL, KEY } from '../../constants/defaultValues';
 
 const EditEvalProcess = (props) => {
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
-
+    // evalID = evaluation_process_id //
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
