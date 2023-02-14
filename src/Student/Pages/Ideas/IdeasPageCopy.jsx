@@ -518,7 +518,7 @@ const IdeasPageNew = () => {
                                             className="form-row row mb-5"
                                             isSubmitting
                                         >
-                                            {/* {initiatedBy &&
+                                            {initiatedBy &&
                                                 initiatedBy ===
                                                     currentUser?.data[0]
                                                         ?.user_id &&
@@ -617,7 +617,7 @@ const IdeasPageNew = () => {
                                                             </div>
                                                         )}
                                                     </div>
-                                                )} */}
+                                                )}
                                             <Row className="card mb-4 my-3 comment-card px-0 px-5 py-3 card">
                                                 <div className="question quiz mb-0">
                                                     <b
