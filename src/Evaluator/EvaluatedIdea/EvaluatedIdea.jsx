@@ -1,4 +1,5 @@
 /* eslint-disable indent */
+
 import React, { useEffect } from 'react';
 import './EvaluatedIdea.scss';
 import Layout from '../Layout';
@@ -20,7 +21,7 @@ import Spinner from 'react-bootstrap/Spinner';
 
 const EvaluatedIdea = () => {
     const dispatch = useDispatch();
-    const [showspin,setshowspin]=React.useState(false);
+    const [showspin, setshowspin] = React.useState(false);
     const currentUser = getCurrentUser('current_user');
     const [reason, setReason] = React.useState('');
     const [district, setdistrict] = React.useState('');
@@ -40,52 +41,56 @@ const EvaluatedIdea = () => {
     const statusdata = ['Accepted', 'Rejected', 'Both'];
 
     React.useEffect(() => {
-        if(status &&(status === 'Accepted')){
+        if (status && status === 'Accepted') {
             setReason('');
         }
     }, [status]);
-    const [levelName, setLevelName]=React.useState('');
-    const [evalSchema, setEvalSchema]=React.useState('');
-    
-    React.useEffect(()=>{
-        if(currentUser){
+    const [levelName, setLevelName] = React.useState('');
+    const [evalSchema, setEvalSchema] = React.useState('');
+    const [tabledate, settabledate] = React.useState([]);
+
+    React.useEffect(() => {
+        if (currentUser) {
             setLevelName(currentUser?.data[0]?.level_name);
             setEvalSchema(currentUser?.data[0]?.eval_schema);
         }
-    },[currentUser]);
+    }, [currentUser]);
 
     useEffect(() => {
         dispatch(getDistrictData());
     }, []);
+    useEffect(() => {
+        if (levelName !== '' && evalSchema !== '') {
+            settabledate(evaluatedIdeaList);
+        }
+    }, [evaluatedIdeaList]);
 
     const handleclickcall = () => {
         setshowspin(true);
-        dispatch(getL1EvaluatedIdea(filterParams,setshowspin));
+        dispatch(getL1EvaluatedIdea(filterParams, setshowspin));
     };
-    const levelparam = levelName === 'L1' ? '?level=L1' : '?evaluation_status=SELECTEDROUND1&level=L2';
+    const levelparam =
+        levelName === 'L1'
+            ? '?level=L1'
+            : '?evaluation_status=SELECTEDROUND1&level=L2';
     const statusparam =
         status && status !== 'Both'
             ? '&evaluation_status=' +
               (status === 'Accepted' ? 'SELECTEDROUND1' : 'REJECTEDROUND1')
             : '';
     const districtparam =
-        district && district !== 'All Districts'
-            ? '&district=' + district : '';
-    const sdgparam =
-        sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg: '';
+        district && district !== 'All Districts' ? '&district=' + district : '';
+    const sdgparam = sdg && sdg !== 'ALL SDGs' ? '&sdg=' + sdg : '';
     const filterParams =
         levelparam +
         statusparam +
         districtparam +
         sdgparam +
-        (reason && (sdgparam !== ''
-            ? '&rejected_reason=' + reason
-            : '?rejected_reason=' + reason));
-
+        (reason && '&rejected_reason=' + reason);
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState([]);
-    const [currentRow, setCurrentRow]=React.useState(1);
-    const [tablePage, setTablePage]=React.useState(1);
+    const [currentRow, setCurrentRow] = React.useState(1);
+    const [tablePage, setTablePage] = React.useState(1);
     // const evaluatedIdeaList = [
     //     {
     //         team_name: 'Test Team 1',
@@ -94,7 +99,7 @@ const EvaluatedIdea = () => {
     //     }
     // ];
     const evaluatedIdea = {
-        data: evaluatedIdeaList || [],
+        data: tabledate || [],
         columns: [
             {
                 name: 'No',
@@ -127,33 +132,52 @@ const EvaluatedIdea = () => {
             {
                 name: 'Evaluated At',
                 selector: (row) =>
-                evalSchema && evalSchema?.toLowerCase()=='accept_reject' ? row.evaluated_at
-                        ? moment(row.evaluated_at).format('DD-MM-YY h:mm:ss a')
-                        : row.evaluated_at : row?.evaluator_ratings[0]?.created_at ? moment(row?.evaluator_ratings[0]?.created_at).format('DD-MM-YY h:mm:ss a') : row?.evaluator_ratings[0]?.created_at,
+                    evalSchema && evalSchema?.toLowerCase() == 'accept_reject'
+                        ? row.evaluated_at
+                            ? moment(row.evaluated_at).format(
+                                  'DD-MM-YY h:mm:ss a'
+                              )
+                            : row.evaluated_at
+                        : row?.evaluator_ratings[0]?.created_at
+                        ? moment(row?.evaluator_ratings[0]?.created_at).format(
+                              'DD-MM-YY h:mm:ss a'
+                          )
+                        : row?.evaluator_ratings[0]?.created_at,
                 width: '17%'
             },
             {
-                name: evalSchema && evalSchema?.toLowerCase()=='accept_reject'? 'Status':'Overall',
+                name:
+                    evalSchema && evalSchema?.toLowerCase() == 'accept_reject'
+                        ? 'Status'
+                        : 'Overall',
                 // selector: (row) => row.evaluation_status && row.evaluation_status=='SELECTEDROUND1'?'Accepted':row.evaluation_status=='REJECTEDROUND1'?'Rejected':'',
                 cell: (row) => {
-                    return evalSchema && evalSchema?.toLowerCase()=='accept_reject'?[
-                        <div className="d-flex" key={row}>
-                            {row.evaluation_status &&
-                                row.evaluation_status == 'SELECTEDROUND1' && (
-                                    <span className="text-success">
-                                        Accepted
-                                    </span>
-                                )}
-                            {row.evaluation_status == 'REJECTEDROUND1' && (
-                                <span className="text-danger">Rejected</span>
-                            )}
-                        </div>
-                    ]:
-                    [
-                        <div className="d-flex" key={row}>
-                            <span>{row?.evaluator_ratings[0]?.overall}</span>
-                        </div>
-                    ];
+                    return evalSchema &&
+                        evalSchema?.toLowerCase() == 'accept_reject'
+                        ? [
+                              <div className="d-flex" key={row}>
+                                  {row.evaluation_status &&
+                                      row.evaluation_status ==
+                                          'SELECTEDROUND1' && (
+                                          <span className="text-success">
+                                              Accepted
+                                          </span>
+                                      )}
+                                  {row.evaluation_status ==
+                                      'REJECTEDROUND1' && (
+                                      <span className="text-danger">
+                                          Rejected
+                                      </span>
+                                  )}
+                              </div>
+                          ]
+                        : [
+                              <div className="d-flex" key={row}>
+                                  <span>
+                                      {row?.evaluator_ratings[0]?.overall}
+                                  </span>
+                              </div>
+                          ];
                 },
                 width: '10%'
             },
@@ -167,14 +191,16 @@ const EvaluatedIdea = () => {
                                 onClick={() => {
                                     setIdeaDetails(params);
                                     setIsDetail(true);
-                                    let index=0;
-                                    evaluatedIdeaList?.forEach((item, i)=>{
-                                        if(item?.challenge_response_id==params?.challenge_response_id){
-                                            index=i;
+                                    let index = 0;
+                                    evaluatedIdeaList?.forEach((item, i) => {
+                                        if (
+                                            item?.challenge_response_id ==
+                                            params?.challenge_response_id
+                                        ) {
+                                            index = i;
                                         }
                                     });
-                                    setCurrentRow(index+1);
-                                  
+                                    setCurrentRow(index + 1);
                                 }}
                             >
                                 View Idea Details
@@ -187,20 +213,19 @@ const EvaluatedIdea = () => {
             }
         ]
     };
-    
-    const handleNext=()=>{
-        if(evaluatedIdeaList && currentRow < evaluatedIdeaList?.length){
+
+    const handleNext = () => {
+        if (evaluatedIdeaList && currentRow < evaluatedIdeaList?.length) {
             setIdeaDetails(evaluatedIdeaList[currentRow]);
             setIsDetail(true);
-            setCurrentRow(currentRow+1);
+            setCurrentRow(currentRow + 1);
         }
     };
-    const handlePrev=()=>{
-        if(evaluatedIdeaList && currentRow >= 1){
-            setIdeaDetails(evaluatedIdeaList[currentRow-2]);
+    const handlePrev = () => {
+        if (evaluatedIdeaList && currentRow >= 1) {
+            setIdeaDetails(evaluatedIdeaList[currentRow - 2]);
             setIsDetail(true);
-            setCurrentRow(currentRow-1);
-            
+            setCurrentRow(currentRow - 1);
         }
     };
 
@@ -214,20 +239,23 @@ const EvaluatedIdea = () => {
                                 <h2 className="ps-2 pb-3">Evaluated Idea</h2>
                                 <Container fluid className="px-0">
                                     <Row className="align-items-center">
-                                        { evalSchema && evalSchema?.toLowerCase()=='accept_reject' && (
-                                        <Col md={2}>
-                                        <div className="my-3 d-md-block d-flex justify-content-center">
-                                            <Select
-                                                list={statusdata}
-                                                setValue={setstatus}
-                                                placeHolder={
-                                                    'Select Status'
-                                                }
-                                                value={status}
-                                            />
-                                        </div>
-                                    </Col>)}
-                                        
+                                        {evalSchema &&
+                                            evalSchema?.toLowerCase() ==
+                                                'accept_reject' && (
+                                                <Col md={2}>
+                                                    <div className="my-3 d-md-block d-flex justify-content-center">
+                                                        <Select
+                                                            list={statusdata}
+                                                            setValue={setstatus}
+                                                            placeHolder={
+                                                                'Select Status'
+                                                            }
+                                                            value={status}
+                                                        />
+                                                    </div>
+                                                </Col>
+                                            )}
+
                                         <Col md={3}>
                                             <div className="my-3 d-md-block d-flex justify-content-center">
                                                 <Select
@@ -264,68 +292,95 @@ const EvaluatedIdea = () => {
                                                 </div>
                                             </Col>
                                         )}
-                                            <Col md={1}>
-                                                <div className="text-center">
-                                                    <Button
-                                                        btnClass={  evalSchema && evalSchema?.toLowerCase()=='accept_reject' ? status && district && sdg ? 'primary': 'default' : district && sdg ? 'primary': 'default'}
-                                                        size="small"
-                                                        label="Search"
-                                                        disabled={!( evalSchema && evalSchema?.toLowerCase()=='accept_reject' ? status && district && sdg : district && sdg)}
-                                                        onClick={() =>
-                                                            handleclickcall()
-                                                        }
-                                                    />
-                                                </div>
-                                            </Col>
+                                        <Col md={1}>
+                                            <div className="text-center">
+                                                <Button
+                                                    btnClass={
+                                                        evalSchema &&
+                                                        evalSchema?.toLowerCase() ==
+                                                            'accept_reject'
+                                                            ? status &&
+                                                              district &&
+                                                              sdg
+                                                                ? 'primary'
+                                                                : 'default'
+                                                            : district && sdg
+                                                            ? 'primary'
+                                                            : 'default'
+                                                    }
+                                                    size="small"
+                                                    label="Search"
+                                                    disabled={
+                                                        !(evalSchema &&
+                                                        evalSchema?.toLowerCase() ==
+                                                            'accept_reject'
+                                                            ? status &&
+                                                              district &&
+                                                              sdg
+                                                            : district && sdg)
+                                                    }
+                                                    onClick={() =>
+                                                        handleclickcall()
+                                                    }
+                                                />
+                                            </div>
+                                        </Col>
                                     </Row>
                                 </Container>
                             </div>
                         )}
-                        {
-                        showspin && <div className='text-center mt-5'>
-                        <Spinner animation="border" variant="secondary"/>
-                        </div>
-                        }
-                        {!showspin && (
-                        !isDetail ? (
-                            <div className="bg-white border card pt-3 mt-5">
-                                <DataTableExtensions
-                                    print={false}
-                                    export={false}
-                                    {...evaluatedIdea}
-                                >
-                                    <DataTable
-                                        data={evaluatedIdeaList || []}
-                                        defaultSortField="id"
-                                        defaultSortAsc={false}
-                                        pagination
-                                        highlightOnHover
-                                        fixedHeader
-                                        subHeaderAlign={Alignment.Center}
-                                        paginationRowsPerPageOptions={[
-                                            10, 25, 50, 100
-                                        ]}
-                                        paginationPerPage={10}
-                                        onChangePage={(page)=>setTablePage(page)}
-                                        paginationDefaultPage={tablePage}
-                                    />
-                                </DataTableExtensions>
+                        {showspin && (
+                            <div className="text-center mt-5">
+                                <Spinner
+                                    animation="border"
+                                    variant="secondary"
+                                />
                             </div>
-                        ) : (
-                            <EvaluatedIdeaDetail
-                                ideaDetails={ideaDetails}
-                                setIsDetail={setIsDetail}
-                                handleNext={handleNext}
-                                handlePrev={handlePrev}
-                                currentRow={currentRow}
-                                dataLength={evaluatedIdeaList && evaluatedIdeaList?.length}
-                            />
-                        ))}
+                        )}
+                        {!showspin &&
+                            (!isDetail ? (
+                                <div className="bg-white border card pt-3 mt-5">
+                                    <DataTableExtensions
+                                        print={false}
+                                        export={false}
+                                        {...evaluatedIdea}
+                                    >
+                                        <DataTable
+                                            data={evaluatedIdeaList || []}
+                                            defaultSortField="id"
+                                            defaultSortAsc={false}
+                                            pagination
+                                            highlightOnHover
+                                            fixedHeader
+                                            subHeaderAlign={Alignment.Center}
+                                            paginationRowsPerPageOptions={[
+                                                10, 25, 50, 100
+                                            ]}
+                                            paginationPerPage={10}
+                                            onChangePage={(page) =>
+                                                setTablePage(page)
+                                            }
+                                            paginationDefaultPage={tablePage}
+                                        />
+                                    </DataTableExtensions>
+                                </div>
+                            ) : (
+                                <EvaluatedIdeaDetail
+                                    ideaDetails={ideaDetails}
+                                    setIsDetail={setIsDetail}
+                                    handleNext={handleNext}
+                                    handlePrev={handlePrev}
+                                    currentRow={currentRow}
+                                    dataLength={
+                                        evaluatedIdeaList &&
+                                        evaluatedIdeaList?.length
+                                    }
+                                />
+                            ))}
                     </div>
                 </div>
             </div>
         </Layout>
     );
 };
-
 export default EvaluatedIdea;
