@@ -36,6 +36,7 @@ const AddNewTicket = (props) => {
     };
 
     const selectCategory = {
+        // here we can select the category of support tickets //
         label: 'Select Category',
         options: [
             { label: 'General', value: 'General' },

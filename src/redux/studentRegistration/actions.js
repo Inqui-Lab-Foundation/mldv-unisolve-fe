@@ -91,6 +91,7 @@ export const getStudentRegistationData = (studentType) => async (dispatch) => {
     }
 };
 export const getDistrictsSuccess = (data) => async (dispatch) => {
+    // where data = all districts //
     dispatch({
         type: GET_DISTRICTS,
         payload: data

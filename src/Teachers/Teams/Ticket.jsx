@@ -30,7 +30,9 @@ import DoubleBounce from '../../components/Loaders/DoubleBounce';
 const TicketsPage = (props) => {
     const history = useHistory();
     const { t } = useTranslation();
-    const dashboardStates  = useSelector((state) => state.teacherDashBoard.dashboardStates);
+    const dashboardStates = useSelector(
+        (state) => state.teacherDashBoard.dashboardStates
+    );
 
     localStorage.setItem('teamId', JSON.stringify(''));
     const [count, setCount] = useState(0);
@@ -161,6 +163,8 @@ const TicketsPage = (props) => {
         ]
     };
     const handleCreate = (item) => {
+        // where item = team name //
+        // where we can add team member details //
         history.push({
             pathname: `/teacher/create-team-member/${item.team_id}/${
                 item.student_count ? item.student_count : 'new'
@@ -168,6 +172,8 @@ const TicketsPage = (props) => {
         });
     };
     const handleEditTeam = (item) => {
+        // item = student //
+        // here we can edit the team member details //
         history.push({
             pathname: '/teacher/edit-team',
             item: item
@@ -175,6 +181,7 @@ const TicketsPage = (props) => {
         localStorage.setItem('teamId', JSON.stringify(item));
     };
     const handleView = (item) => {
+        // here item = team member details  //
         history.push({
             pathname: '/teacher/view-team-member',
             item: item
@@ -183,6 +190,7 @@ const TicketsPage = (props) => {
     };
 
     const handleDelete = (item) => {
+        // here we can delete the team //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -321,7 +329,8 @@ const TicketsPage = (props) => {
                                 You can delete the team by using Delete Option
                             </li>
                             <li>
-                                Special characters are not allowed in team name & Student name
+                                Special characters are not allowed in team name
+                                & Student name
                             </li>
                             {/* <li>
                                 25 to 30 students to be enrolled in Project per School

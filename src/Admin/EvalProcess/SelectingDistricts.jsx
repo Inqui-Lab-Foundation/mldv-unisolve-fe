@@ -15,6 +15,7 @@ import { getDistrictData } from '../../redux/studentRegistration/actions';
 
 const EditEvalProcess = (props) => {
     const evalID = JSON.parse(localStorage.getItem('eavlId'));
+    //  where evalID= evaluation_process_id //
     const dispatch = useDispatch();
     const [clickedValue, setclickedValue] = useState({});
     const [selectedDistricts, setselectedDistricts] = useState([]);
@@ -59,6 +60,8 @@ const EditEvalProcess = (props) => {
     }, [clickedValue]);
 
     async function handledistricts(value) {
+        //  handledistricts Api where value = district //
+        // where we can update the district //
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .put(
@@ -81,6 +84,7 @@ const EditEvalProcess = (props) => {
     }
 
     const handleclick = () => {
+        // where we can select  the districts //
         const value = { district: '' };
         selectedDistricts.includes('All Districts')
             ? (value.district = selectedDistricts

@@ -90,6 +90,8 @@ const TicketResponse = (props) => {
     });
 
     const selectProgress = {
+        // here we can select the support tickets //
+        // here we can give the replies to tickets //
         label:
             supportTicket && supportTicket.status
                 ? supportTicket.status

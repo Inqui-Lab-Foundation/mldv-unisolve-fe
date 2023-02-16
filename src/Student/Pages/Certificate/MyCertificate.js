@@ -31,6 +31,7 @@ const Certificate = ({
     const partRef = useRef(null);
     const dispatch = useDispatch();
     const handleCertificateDownload = () => {
+        // here we can download the certificates //
         const content = type ? partRef.current : pdfRef.current;
         const badge = 'the_finisher';
         const size = type ? [298, 220] : [298, 220];
@@ -60,9 +61,11 @@ const Certificate = ({
             );
     };
     const certDateCheck = () => {
-        const check = type !=='participate'
-            ? certDate?.course_completed_date &&
-            moment(certDate?.course_completed_date).format('DD-MM-YYYY'):'';
+        const check =
+            type !== 'participate'
+                ? certDate?.course_completed_date &&
+                  moment(certDate?.course_completed_date).format('DD-MM-YYYY')
+                : '';
         return check ? ' on ' + check : '';
     };
     return (
@@ -93,8 +96,7 @@ const Certificate = ({
                                 // top: `${type ? '9rem' : '12.8rem'}`,
                                 // left: `${type ? '10.3rem' : '6.5rem'}`,
                                 fontSize: '0.8rem',
-                                fontFamily:"Times New Roman"
-                                
+                                fontFamily: 'Times New Roman'
                             }}
                         >
                             {currentUser?.data[0]?.full_name}
@@ -106,10 +108,11 @@ const Certificate = ({
                                 top: `${type ? '9.5rem' : '8.8rem'}`,
                                 left: `${type ? '5rem' : '5rem'}`,
                                 fontSize: '0.8rem',
-                                fontFamily:"Times New Roman"
+                                fontFamily: 'Times New Roman'
                             }}
                         >
-                            {currentUser?.data[0]?.organization_name + certDateCheck()}
+                            {currentUser?.data[0]?.organization_name +
+                                certDateCheck()}
                         </span>
                         <img
                             src={
@@ -120,8 +123,8 @@ const Certificate = ({
                             alt="certificate"
                             className="img-fluid mx-auto"
                             style={{
-                                width:'297px',
-                                height:'210px',
+                                width: '297px',
+                                height: '210px',
                                 // width: `${type ? '297px' : '200px'}`,
                                 // height: `${type ? '209px' : '297px'}`,
                                 border: '1px solid #cccccc'
