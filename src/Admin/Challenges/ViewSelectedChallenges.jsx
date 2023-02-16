@@ -26,12 +26,11 @@ const ViewSelectedIdea = () => {
     const [district, setdistrict] = React.useState('');
     const [sdg, setsdg] = React.useState('');
     //---for handle next idea---
-    const [currentRow, setCurrentRow]= React.useState(1);
-    const [tablePage, setTablePage]=React.useState(1);
+    const [currentRow, setCurrentRow] = React.useState(1);
+    const [tablePage, setTablePage] = React.useState(1);
     // eslint-disable-next-line no-unused-vars
-    const [btnDisabler, setBtnDisabler]=React.useState(false);
-    const [showspin,setshowspin]=React.useState(false);
-
+    const [btnDisabler, setBtnDisabler] = React.useState(false);
+    const [showspin, setshowspin] = React.useState(false);
     const SDGDate = cardData.map((i) => {
         return i.goal_title;
     });
@@ -39,7 +38,7 @@ const ViewSelectedIdea = () => {
     const fullDistrictsNames = useSelector(
         (state) => state?.studentRegistration?.dists
     );
-    const {search} = useLocation();
+    const { search } = useLocation();
     const status = new URLSearchParams(search).get('status');
     const filterParams =
         (district && district !== 'All Districts'
@@ -51,25 +50,34 @@ const ViewSelectedIdea = () => {
     }, []);
 
     const handleclickcall = () => {
+        // where we can select district and sdg //
+        // where we can see list of challenges districtwise //
         setshowspin(true);
         handleideaList();
     };
 
     async function handleideaList() {
+        // handleideaList api //
+        //where we can see all ideas in districtwise //
         settableData([]);
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .get(
-                `${URL.getidealist}status=${status ? status : "ALL"}${filterParams}`,
+                `${URL.getidealist}status=${
+                    status ? status : 'ALL'
+                }${filterParams}`,
                 axiosConfig
             )
             .then(function (response) {
                 if (response.status === 200) {
-                    
-                   const updatedWithKey = response.data && response.data.data[0] && response.data.data[0].dataValues.map((item, i) => {
-                       const upd = { ...item }; upd["key"] = i + 1;
-                        return upd;
-                    });
+                    const updatedWithKey =
+                        response.data &&
+                        response.data.data[0] &&
+                        response.data.data[0].dataValues.map((item, i) => {
+                            const upd = { ...item };
+                            upd['key'] = i + 1;
+                            return upd;
+                        });
                     settableData(updatedWithKey && updatedWithKey);
                     setshowspin(false);
                 }
@@ -114,26 +122,27 @@ const ViewSelectedIdea = () => {
                 name: 'Actions',
                 cell: (params) => {
                     return [
-                        
                         <div className="d-flex" key={params}>
                             <div
                                 className="btn btn-primary btn-lg mr-5 mx-2"
                                 onClick={() => {
                                     setIdeaDetails(params);
                                     setIsDetail(true);
-                                    let index=0;
-                                    tableData?.forEach((item, i)=>{
-                                        if(item?.challenge_response_id==params?.challenge_response_id){
-                                            index=i;
+                                    let index = 0;
+                                    tableData?.forEach((item, i) => {
+                                        if (
+                                            item?.challenge_response_id ==
+                                            params?.challenge_response_id
+                                        ) {
+                                            index = i;
                                         }
                                     });
-                                    setCurrentRow(index+1);
+                                    setCurrentRow(index + 1);
                                 }}
                             >
                                 View
                             </div>
                         </div>
-                        
                     ];
                 },
                 width: '12%',
@@ -144,18 +153,18 @@ const ViewSelectedIdea = () => {
 
     const showbutton = district && sdg;
 
-    const handleNext=()=>{
-        if(tableData && currentRow < tableData?.length){
+    const handleNext = () => {
+        if (tableData && currentRow < tableData?.length) {
             setIdeaDetails(tableData[currentRow]);
             setIsDetail(true);
-            setCurrentRow(currentRow+1);
+            setCurrentRow(currentRow + 1);
         }
     };
-    const handlePrev=()=>{
-        if(tableData && currentRow >= 1){
-            setIdeaDetails(tableData[currentRow-2]);
+    const handlePrev = () => {
+        if (tableData && currentRow >= 1) {
+            setIdeaDetails(tableData[currentRow - 2]);
             setIsDetail(true);
-            setCurrentRow(currentRow-1);
+            setCurrentRow(currentRow - 1);
         }
     };
     return (
@@ -191,66 +200,75 @@ const ViewSelectedIdea = () => {
                                                 />
                                             </div>
                                         </Col>
-                                            <Col md={2}>
-                                                <div className="text-center">
-                                                    <Button
-                                                        btnClass={showbutton ? 'primary': 'default'}
-                                                        size="small"
-                                                        label="Search"
-                                                        disabled={!showbutton}
-                                                        onClick={() =>
-                                                            handleclickcall()
-                                                        }
-                                                    />
-                                                </div>
-                                            </Col>
+                                        <Col md={2}>
+                                            <div className="text-center">
+                                                <Button
+                                                    btnClass={
+                                                        showbutton
+                                                            ? 'primary'
+                                                            : 'default'
+                                                    }
+                                                    size="small"
+                                                    label="Search"
+                                                    disabled={!showbutton}
+                                                    onClick={() =>
+                                                        handleclickcall()
+                                                    }
+                                                />
+                                            </div>
+                                        </Col>
                                     </Row>
                                 </Container>
                             </div>
                         )}
-                        {
-                        showspin && <div className='text-center mt-5'>
-                        <Spinner animation="border" variant="secondary"/>
-                        </div>
-                        }
-                        {!showspin && 
-                        (!isDetail ? (
-                            <div className="bg-white border card pt-3 mt-5">
-                                <DataTableExtensions
-                                    print={false}
-                                    export={false}
-                                    {...evaluatedIdeaforsub}
-                                >
-                                    <DataTable
-                                        data={tableData || []}
-                                        defaultSortField="id"
-                                        defaultSortAsc={false}
-                                        pagination
-                                        highlightOnHover
-                                        fixedHeader
-                                        subHeaderAlign={Alignment.Center}
-                                        paginationRowsPerPageOptions={[
-                                            10, 25, 50, 100
-                                        ]}
-                                        paginationPerPage={10}
-                                        onChangePage={(page)=>setTablePage(page)}
-                                        paginationDefaultPage={tablePage}
-                                    />
-                                </DataTableExtensions>
+                        {showspin && (
+                            <div className="text-center mt-5">
+                                <Spinner
+                                    animation="border"
+                                    variant="secondary"
+                                />
                             </div>
-                        ) : (
-                            <ViewDetail
-                                ideaDetails={ideaDetails}
-                                setIsDetail={setIsDetail}
-                                settableData={settableData}
-                                setdistrict={setdistrict}
-                                setsdg={setsdg}
-                                handleNext={handleNext}
-                                handlePrev={handlePrev}
-                                currentRow={currentRow}
-                                dataLength={tableData && tableData?.length}
-                            />
-                        ))}
+                        )}
+                        {!showspin &&
+                            (!isDetail ? (
+                                <div className="bg-white border card pt-3 mt-5">
+                                    <DataTableExtensions
+                                        print={false}
+                                        export={false}
+                                        {...evaluatedIdeaforsub}
+                                    >
+                                        <DataTable
+                                            data={tableData || []}
+                                            defaultSortField="id"
+                                            defaultSortAsc={false}
+                                            pagination
+                                            highlightOnHover
+                                            fixedHeader
+                                            subHeaderAlign={Alignment.Center}
+                                            paginationRowsPerPageOptions={[
+                                                10, 25, 50, 100
+                                            ]}
+                                            paginationPerPage={10}
+                                            onChangePage={(page) =>
+                                                setTablePage(page)
+                                            }
+                                            paginationDefaultPage={tablePage}
+                                        />
+                                    </DataTableExtensions>
+                                </div>
+                            ) : (
+                                <ViewDetail
+                                    ideaDetails={ideaDetails}
+                                    setIsDetail={setIsDetail}
+                                    settableData={settableData}
+                                    setdistrict={setdistrict}
+                                    setsdg={setsdg}
+                                    handleNext={handleNext}
+                                    handlePrev={handlePrev}
+                                    currentRow={currentRow}
+                                    dataLength={tableData && tableData?.length}
+                                />
+                            ))}
                     </div>
                 </div>
             </div>

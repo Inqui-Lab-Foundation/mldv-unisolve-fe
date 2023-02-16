@@ -43,8 +43,9 @@ const Dashboard = () => {
     const [mentorTeam, setMentorTeam] = useState([]);
     const [count, setCount] = useState(0);
     const [error, setError] = useState('');
-    // console.log(mentorId);
     const handleOnChange = (e) => {
+        // we can give diescode as input //
+        //where organization_code = diescode //
         localStorage.removeItem('organization_code');
         setCount(0);
         setDiesCode(e.target.value);
@@ -52,11 +53,15 @@ const Dashboard = () => {
         setError('');
     };
     useEffect(() => {
+        // where list = diescode //
+        //where organization_code = diescode //
         const list = JSON.parse(localStorage.getItem('organization_code'));
         setDiesCode(list);
         apiCall(list);
     }, []);
     async function apiCall(list) {
+        // Dice code list API //
+        // where list = diescode //
         const body = JSON.stringify({
             organization_code: list
         });
@@ -93,6 +98,9 @@ const Dashboard = () => {
     }
 
     const handleSearch = (e) => {
+        //where we can search through diescode //
+        // we can see Registration Details & Mentor Details //
+
         const body = JSON.stringify({
             organization_code: diesCode
         });
@@ -129,6 +137,8 @@ const Dashboard = () => {
     };
 
     async function getMentorIdApi(id) {
+        // Mentor Id  Api//
+        // id = Mentor Id //
         let axiosConfig = getNormalHeaders(KEY.User_API_Key);
         axiosConfig['params'] = {
             mentor_id: id,
@@ -158,6 +168,8 @@ const Dashboard = () => {
     }
 
     const handleEdit = () => {
+        // We can edit the Registration details //
+        // Where data = orgData //
         history.push({
             pathname: '/admin/edit-user-profile',
             data: {
@@ -172,6 +184,7 @@ const Dashboard = () => {
     };
 
     const handleresetpassword = (data) => {
+        // we can reset the password as disecode //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -211,6 +224,7 @@ const Dashboard = () => {
             .catch((err) => console.log(err.response));
     };
     const downloadPDF = () => {
+        // where we can download the Registration Details //
         const content = pdfRef.current;
         const doc = new jsPDF('p', 'px', [1280, 1020]);
         doc.html(content, {
@@ -221,6 +235,8 @@ const Dashboard = () => {
         console.warn(content);
     };
     const viewDetails = () => {
+        // where we can see all details //
+        // where orgData = orgnization details , Mentor details //
         history.push({
             pathname: '/admin/View-More-details',
             data: orgData
@@ -282,6 +298,8 @@ const Dashboard = () => {
         ]
     };
     const handleRevoke = async (id, type) => {
+        // where id = challenge response id //
+        // where type = ideaStatus //
         let submitData = {
             status: type == 'DRAFT' ? 'SUBMITTED' : 'DRAFT'
         };
@@ -314,6 +332,8 @@ const Dashboard = () => {
     };
 
     const handleAlert = (id) => {
+        // where id = mentor.userid //
+        // we can delete the userid //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',

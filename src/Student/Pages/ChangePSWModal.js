@@ -41,7 +41,7 @@ const ChangePSWModal = (props) => {
         }),
 
         onSubmit: async (values) => {
-            console.log('=====valiues', values);
+            // console.log('=====valiues', values);
             if (values.newPassword.length < 8) {
                 SetError('New Password must be 8-character minimum');
             } else if (values.oldPassword === values.newPassword) {
@@ -79,18 +79,6 @@ const ChangePSWModal = (props) => {
                     old_password: old1,
                     new_password: new1
                 });
-                // console.log(
-                //   "===========old",
-                //   CryptoJS.AES.encrypt(
-                //     values.oldPassword,
-                //     "my-secret-key@123"
-                //   ).toString()
-                // );
-                // const body = JSON.stringify({
-                //   userId: currentUser.id,
-                //   oldPassword: values.oldPassword,
-                //   newPassword: values.newPassword,
-                // });
 
                 var config = {
                     method: 'put',

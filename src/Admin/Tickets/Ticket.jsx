@@ -34,6 +34,8 @@ const TicketsPage = () => {
     }, []);
 
     async function listApi() {
+        // where we can see all tickets //
+
         var config = {
             method: 'get',
             url: process.env.REACT_APP_API_BASE_URL + '/supportTickets',
@@ -57,6 +59,7 @@ const TicketsPage = () => {
             });
     }
     async function openListApi() {
+        // where we can see all open tickets //
         var config = {
             method: 'get',
             url:
@@ -81,6 +84,7 @@ const TicketsPage = () => {
             });
     }
     async function inProgressApi() {
+        // where  we can see  all inprogress tickets //
         var config = {
             method: 'get',
             url:
@@ -105,6 +109,7 @@ const TicketsPage = () => {
             });
     }
     async function resolvedApi() {
+        // where we ca see all resolved tickets //
         var config = {
             method: 'get',
             url:
@@ -129,6 +134,7 @@ const TicketsPage = () => {
             });
     }
     async function invalidApi() {
+        // where we can see all invalid tickets //
         var config = {
             method: 'get',
             url:

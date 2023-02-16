@@ -10,6 +10,8 @@ import { Button } from '../../stories/Button';
 const ViewMore = () => {
     const history = useHistory();
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
+    // where orgDaTa = orgnization details //
+    // we can see all orgnization , mentor details //
     const headingDetails = {
         title: 'View More Details',
         options: []

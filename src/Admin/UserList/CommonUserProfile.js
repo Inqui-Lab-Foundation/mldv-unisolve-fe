@@ -44,7 +44,8 @@ const CommonUserProfile = (props) => {
         // );
     };
     const handleReset = () => {
-        // alert('111');
+        // where we can reset the password  as diesCode //
+        
         const body = JSON.stringify({
             organization_code:
                 props.location.data && props.location.data?.organization_code,
@@ -75,6 +76,7 @@ const CommonUserProfile = (props) => {
             });
     };
     const handleEdit = () => {
+        // where we can edit  the users data //
         history.push({
             pathname: '/admin/edit-user-profile',
             data: {
@@ -145,7 +147,6 @@ const CommonUserProfile = (props) => {
                                 <b>
                                     {props.location.data &&
                                     props.location.data.full_name
-                                    
                                         ? props.location.data &&
                                           props.location.data.full_name
                                         : '-'}

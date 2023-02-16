@@ -33,6 +33,7 @@ import {
 
 const EditSchool = (props) => {
     const listID = JSON.parse(localStorage.getItem('listId'));
+    // where  listID = orgnization details //
     const listId =
         (history &&
             history.location &&
