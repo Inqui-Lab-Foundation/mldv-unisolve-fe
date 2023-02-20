@@ -92,6 +92,7 @@ const TicketResponse = (props) => {
     const selectProgress = {
         // here we can select the support tickets //
         // here we can give the replies to tickets //
+        // here we can select the   Invalid label  we are not able to give replies to that tickets //
         label:
             supportTicket && supportTicket.status
                 ? supportTicket.status

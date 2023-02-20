@@ -124,6 +124,8 @@ const ChangePSWModal = (props) => {
         history.push('/teacher/dashboard');
     };
     const handleShowPassword = (name) => {
+        // here we can see the password //
+        // here name = oldPassword //
         switch (name) {
             case oldPassword:
                 name?.type === 'password'

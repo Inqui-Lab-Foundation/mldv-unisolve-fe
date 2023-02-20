@@ -17,6 +17,7 @@ import { createSupportTickets } from '../store/mentors/actions';
 import { useHistory } from 'react-router-dom';
 
 const AddNewTicket = (props) => {
+    // here we can add new support tickets //
     const dispatch = useDispatch();
     const history = useHistory();
 

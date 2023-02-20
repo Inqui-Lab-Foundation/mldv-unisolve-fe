@@ -4,7 +4,7 @@ import {
     TEACHER_COURSES_DETAILS,
     TEACHER_COURSES_DETAILS_SUCCESS,
     TEACHER_COURSES_DETAILS_ERROR,
-    TEACHER_COURSES_ATTACHMENTS,
+    TEACHER_COURSES_ATTACHMENTS
 } from '../../../redux/actions.js';
 import { URL, KEY } from '../../../constants/defaultValues.js';
 import { getNormalHeaders } from '../../../helpers/Utils.js';
@@ -24,12 +24,19 @@ export const getTeacherCourseDetailsError = (message) => async (dispatch) => {
     });
 };
 
-export const getTeacherCourseDetails = (courseId,lang) => async (dispatch) => {
+export const getTeacherCourseDetails = (courseId, lang) => async (dispatch) => {
+    // here courseId = courseId //
+
     try {
         dispatch({ type: TEACHER_COURSES_DETAILS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         const result = await axios
-            .get(`${URL.getTeacherCousesDetails + courseId}?${getLanguage(lang)}`, axiosConfig)
+            .get(
+                `${URL.getTeacherCousesDetails + courseId}?${getLanguage(
+                    lang
+                )}`,
+                axiosConfig
+            )
             .then((user) => user)
             .catch((err) => {
                 return err.response;
@@ -44,13 +51,14 @@ export const getTeacherCourseDetails = (courseId,lang) => async (dispatch) => {
         dispatch(getTeacherCourseDetailsError({}));
     }
 };
-export const getTeacherCourseAttachmentsSuccess = (data) => async (dispatch) => {
-    dispatch({
-        type: TEACHER_COURSES_ATTACHMENTS,
-        payload: data
-    });
-};
-
+export const getTeacherCourseAttachmentsSuccess =
+    // here data = mentor_attachment_id //
+    (data) => async (dispatch) => {
+        dispatch({
+            type: TEACHER_COURSES_ATTACHMENTS,
+            payload: data
+        });
+    };
 
 export const getMentorCourseAttachments = () => async (dispatch) => {
     try {

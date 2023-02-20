@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import React, { useEffect, useLayoutEffect } from 'react';
 import './dashboard.scss';
 import { useHistory } from 'react-router-dom';
@@ -17,31 +18,36 @@ import { getDashboardStates } from '../store/dashboard/actions';
 import DoubleBounce from '../../components/Loaders/DoubleBounce';
 import DoughnutChart from './DoughnutChart';
 
-
 const Dashboard = () => {
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const { dashboardStates } = useSelector((state) => state.teacherDashBoard);
-    const presurveyStatus = useSelector(state=>state?.mentors.teacherPresurveyStatus);
+    // here dashboardStates = {students_count, ideas_count, teams_count,organization_name,students_count,district,teams_count} //
+    const presurveyStatus = useSelector(
+        (state) => state?.mentors.teacherPresurveyStatus
+    );
     const history = useHistory();
     useLayoutEffect(() => {
-        if(presurveyStatus !== 'COMPLETED')
+        if (presurveyStatus !== 'COMPLETED')
             history.push('/teacher/pre-survey');
     }, []);
-    
+
     useEffect(() => {
         dispatch(getDashboardStates(currentUser?.data[0]?.user_id));
     }, [dispatch, currentUser?.data[0]?.user_id]);
-
+    // here in  Dashboard we can see all details of teacher //
+    // like  school name , district , no of ideas , no of teams //
     return (
         <Layout>
             <Container className="dashboard pb-5 my-5 px-5">
                 <h2 className="mb-5">Dashboard </h2>
                 <Row className="teacher-statistics bg-white p-5 mb-5">
                     <Row className="">
-                        {!dashboardStates ? <div style={{width:"10rem",margin:"auto"}}>
-                            <DoubleBounce />
-                        </div> :
+                        {!dashboardStates ? (
+                            <div style={{ width: '10rem', margin: 'auto' }}>
+                                <DoubleBounce />
+                            </div>
+                        ) : (
                             <div className="card-wrapper">
                                 <div className="row row-gap">
                                     <div className="card border-top-blue col-md-3">
@@ -56,8 +62,8 @@ const Dashboard = () => {
                                                     {dashboardStates &&
                                                     dashboardStates?.organization
                                                         ? dashboardStates
-                                                            ?.organization
-                                                            ?.organization_name
+                                                              ?.organization
+                                                              ?.organization_name
                                                         : '-'}
                                                 </p>
                                                 <small>School Name</small>
@@ -76,8 +82,8 @@ const Dashboard = () => {
                                                     {dashboardStates &&
                                                     dashboardStates?.organization
                                                         ? dashboardStates
-                                                            ?.organization
-                                                            ?.district
+                                                              ?.organization
+                                                              ?.district
                                                         : '-'}
                                                 </span>
                                                 <small>District</small>
@@ -122,12 +128,12 @@ const Dashboard = () => {
                                     </div>
                                 </div>
                             </div>
-                        }
+                        )}
                     </Row>
                 </Row>
                 <Row className="teacher-statistics bg-white p-5">
                     <Row className="">
-                        <Col >
+                        <Col>
                             <div className="d-flex flex-wrap">
                                 <DoughnutChart user={currentUser?.data} />
                                 {/* <BarChart /> */}
