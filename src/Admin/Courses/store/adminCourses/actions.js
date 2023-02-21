@@ -122,6 +122,8 @@ export const getAdminCourseDetailsError = (message) => async (dispatch) => {
 };
 
 export const getAdminCourseDetails = (courseId, lang) => async (dispatch) => {
+    // here courseId = courseId //
+
     try {
         dispatch({ type: ADMIN_COURSES_DETAILS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
@@ -160,6 +162,7 @@ export const getAdminQuizQuestionsError = (message) => async (dispatch) => {
 };
 
 export const getAdminQuizQuestions = (quizId, lang) => async (dispatch) => {
+    // here quizId = quizId //
     try {
         dispatch({ type: ADMIN_COURSES_QUESTIONS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);

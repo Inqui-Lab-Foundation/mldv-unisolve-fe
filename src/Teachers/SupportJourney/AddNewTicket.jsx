@@ -17,6 +17,7 @@ import { createSupportTickets } from '../store/mentors/actions';
 import { useHistory } from 'react-router-dom';
 
 const AddNewTicket = (props) => {
+    // here we can add new support tickets //
     const dispatch = useDispatch();
     const history = useHistory();
 
@@ -36,6 +37,7 @@ const AddNewTicket = (props) => {
     };
 
     const selectCategory = {
+        // here we can select the category of support tickets //
         label: 'Select Category',
         options: [
             { label: 'General', value: 'General' },

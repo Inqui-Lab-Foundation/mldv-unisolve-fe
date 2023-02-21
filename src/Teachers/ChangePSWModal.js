@@ -107,20 +107,25 @@ const ChangePSWModal = (props) => {
     };
 
     const newPassword = {
+        //  here we can generate new password //
         type: newPassType,
         placeholder: t('changepswd.Create_new_password_here'),
         className: 'defaultInput'
     };
 
     const confirmPassword = {
+        // here  newPassword  is confirmPassword //
         type: confirmPassType,
         placeholder: t('changepswd.Verify_New_password'),
         className: 'defaultInput'
     };
     const handleOnCancel = () => {
+        //here we can cancel the changes //
         history.push('/teacher/dashboard');
     };
     const handleShowPassword = (name) => {
+        // here we can see the password //
+        // here name = oldPassword //
         switch (name) {
             case oldPassword:
                 name?.type === 'password'

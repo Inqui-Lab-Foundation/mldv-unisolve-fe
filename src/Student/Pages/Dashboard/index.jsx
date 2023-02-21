@@ -128,6 +128,7 @@ const Dashboard = () => {
     };
 
     const percentageBWNumbers = (a, b) => {
+        // here a = all_topics_count ; b= topics_completed_count //
         return (((a - b) / a) * 100).toFixed(2);
     };
     const columns = [
@@ -237,7 +238,10 @@ const Dashboard = () => {
             <Container className="dashboard-wrapper">
                 <div className="d-flex justify-content-between align-items-center">
                     <h2>Dashboard</h2>
-                    <div className='bg-white rounded p-3 d-flex align-items-center' style={{width:"max-content"}}>
+                    <div
+                        className="bg-white rounded p-3 d-flex align-items-center"
+                        style={{ width: 'max-content' }}
+                    >
                         <p>Preferred Language : </p>
                         <LanguageSelectorComp module="student" />
                     </div>
