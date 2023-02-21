@@ -18,6 +18,7 @@ import Layout from './Layout';
 import { useHistory } from 'react-router-dom';
 
 const ChangePSWModal = () => {
+    // here we can change the password //
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const { t } = useTranslation();
@@ -131,9 +132,12 @@ const ChangePSWModal = () => {
         className: 'defaultInput'
     };
     const handleOnCancel = () => {
+        // here we can cancel the changes //
         history.push('/evaluator/submitted-ideas');
     };
     const handleShowPassword = (name) => {
+        // here we can see the password //
+        // here name = password //
         switch (name) {
             case oldPassword:
                 name?.type === 'password'

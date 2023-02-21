@@ -18,6 +18,7 @@ import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 // eslint-disable-next-line no-unused-vars
 const ChangePSWModal = (props) => {
+    // here we can change the  teacher password //
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const { t } = useTranslation();

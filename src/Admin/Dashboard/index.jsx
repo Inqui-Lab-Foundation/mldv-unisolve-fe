@@ -28,6 +28,7 @@ import {
     openNotificationWithIcon
 } from '../../helpers/Utils';
 const Dashboard = () => {
+    // here we can see the registration details //
     const history = useHistory();
     const dispatch = useDispatch();
     const pdfRef = React.useRef(null);
@@ -168,7 +169,7 @@ const Dashboard = () => {
     }
 
     const handleEdit = () => {
-        // We can edit the Registration details //
+        //  here  We can edit the Registration details //
         // Where data = orgData //
         history.push({
             pathname: '/admin/edit-user-profile',
@@ -184,7 +185,7 @@ const Dashboard = () => {
     };
 
     const handleresetpassword = (data) => {
-        // we can reset the password as disecode //
+        //  here we can reset the password as disecode //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -299,6 +300,7 @@ const Dashboard = () => {
     };
     const handleRevoke = async (id, type) => {
         // where id = challenge response id //
+        // here we  can see the Revoke button when ever idea is submitted //
         // where type = ideaStatus //
         let submitData = {
             status: type == 'DRAFT' ? 'SUBMITTED' : 'DRAFT'
@@ -514,10 +516,12 @@ const Dashboard = () => {
                                         <button
                                             onClick={() =>
                                                 handleresetpassword({
-                                                    mentor_id:orgData.mentor.mentor_id,
-                                                    organization_code:orgData.organization_code
-                                                }   
-                                                )
+                                                    mentor_id:
+                                                        orgData.mentor
+                                                            .mentor_id,
+                                                    organization_code:
+                                                        orgData.organization_code
+                                                })
                                             }
                                             className="btn btn-info rounded-pill px-4 btn-lg text-white"
                                         >

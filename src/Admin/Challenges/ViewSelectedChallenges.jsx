@@ -19,6 +19,7 @@ import Spinner from 'react-bootstrap/Spinner';
 import { useLocation } from 'react-router-dom';
 
 const ViewSelectedIdea = () => {
+    // here we can see the selected ideas in district wise and sdg //
     const dispatch = useDispatch();
     const [isDetail, setIsDetail] = React.useState(false);
     const [ideaDetails, setIdeaDetails] = React.useState({});
@@ -154,6 +155,7 @@ const ViewSelectedIdea = () => {
     const showbutton = district && sdg;
 
     const handleNext = () => {
+        // here we can go for next page //
         if (tableData && currentRow < tableData?.length) {
             setIdeaDetails(tableData[currentRow]);
             setIsDetail(true);
@@ -161,6 +163,7 @@ const ViewSelectedIdea = () => {
         }
     };
     const handlePrev = () => {
+        // here we can go for previous page //
         if (tableData && currentRow >= 1) {
             setIdeaDetails(tableData[currentRow - 2]);
             setIsDetail(true);

@@ -148,7 +148,7 @@ const PreSurvey = () => {
     });
 
     const handleStart = () => {
-        // here student  can start the presurvey //
+        // here student  can start journey //
         setShow(true);
     };
 

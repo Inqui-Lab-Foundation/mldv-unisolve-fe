@@ -18,6 +18,7 @@ import { FaEyeSlash, FaEye } from 'react-icons/fa';
 
 // eslint-disable-next-line no-unused-vars
 const ChangePSW = (props) => {
+    // here we can change the  student password //
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const { t } = useTranslation();
@@ -118,9 +119,12 @@ const ChangePSW = (props) => {
         className: 'defaultInput'
     };
     const handleOnCancel = () => {
+        // here we can cancel the changes //
         history.push('/dashboard');
     };
     const handleShowPassword = (name) => {
+        // here we can see the password //
+        // here name = password //
         switch (name) {
             case oldPassword:
                 name?.type === 'password'

@@ -296,6 +296,7 @@ const PlayVideoCourses = (props) => {
         }
     }, [props.adminCoursesDetails]);
     async function fetchData(videoId) {
+        // here videoId= videoId //
         setVideoId(videoId);
         var config = {
             method: 'get',
@@ -322,6 +323,7 @@ const PlayVideoCourses = (props) => {
             });
     }
     async function getWorkSheetApi(worksheetId) {
+        // here worksheetId = worksheetId //
         var config = {
             method: 'get',
             url:
@@ -363,6 +365,7 @@ const PlayVideoCourses = (props) => {
     };
 
     async function modulesListUpdateApi(courseTopicId) {
+        // here courseTopicId = courseTopicId  //
         const body1 = JSON.stringify({
             user_id: JSON.stringify(currentUser?.data[0]?.user_id),
             course_topic_id: JSON.stringify(courseTopicId),
@@ -557,6 +560,8 @@ const PlayVideoCourses = (props) => {
     };
 
     const handleSelect = (topicId, couseId, type) => {
+        // here topicId = topicId ; couseId = couseId //
+        // type = worksheet ,video, quiz //
         setShowCompleteMessage(false);
         setCourseTopicId(couseId);
         const topic_Index =
@@ -593,7 +598,8 @@ const PlayVideoCourses = (props) => {
     };
 
     const videoStatus = (type, status) => {
-        // console.log(type, "==========", status);
+        // here type = video , worksheet , quiz //
+        // here status = Incomplete , completed //
         const done = <IoCheckmarkDoneCircleSharp className="done" />;
         const notDone = <IoCheckmarkDoneCircleSharp />;
         if (type === 'VIDEO' && status === 'COMPLETED') {

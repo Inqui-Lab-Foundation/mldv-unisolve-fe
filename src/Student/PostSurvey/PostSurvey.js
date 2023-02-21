@@ -59,8 +59,12 @@ const PostSurvey = () => {
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
-    const showPage = ideaSubmissionStatus && ideaSubmissionStatus !== "DRAFT" && (topicTotalCount === topicCompletedCount);
+    const showPage =
+        ideaSubmissionStatus &&
+        ideaSubmissionStatus !== 'DRAFT' &&
+        topicTotalCount === topicCompletedCount;
     const handleClick = () => {
+        // here we can see the certificates of teachers //
         history.push('/student/my-certificate');
     };
     const formik = useFormik({
