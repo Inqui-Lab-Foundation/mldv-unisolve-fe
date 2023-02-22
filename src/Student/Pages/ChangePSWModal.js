@@ -21,6 +21,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 // const bcrypt = require("bcrypt");
 
 const ChangePSWModal = (props) => {
+    // here we can change the  student password //
     const currentUser = getCurrentUser('current_user');
     const { t } = useTranslation();
     const [error, SetError] = useState('');
@@ -120,12 +121,14 @@ const ChangePSWModal = (props) => {
     };
 
     const newPassword = {
+        //  here we can generate new password //
         type: 'password',
         placeholder: t('changepswd.Create_new_password_here'),
         className: 'defaultInput'
     };
 
     const confirmPassword = {
+        // here  newPassword  is confirmPassword //
         type: 'password',
         placeholder: t('changepswd.Verify_New_password'),
         className: 'defaultInput'

@@ -134,6 +134,8 @@ const TicketsPage = (props) => {
         return () => clearTimeout(timeout);
     }, []);
     const changeTab = (e) => {
+        // here we can see 4 tabs //
+        // here e = students / teachers / evaluators / admins //
         setmentorDist('');
         setNewDists('');
         // localStorage.removeItem('dist');
@@ -170,6 +172,7 @@ const TicketsPage = (props) => {
     }, [localStorage.getItem('tab')]);
 
     useEffect(() => {
+        // here dist = district //
         if (localStorage.getItem('dist')) {
             const number = localStorage.getItem('num');
             if (number == '2') {

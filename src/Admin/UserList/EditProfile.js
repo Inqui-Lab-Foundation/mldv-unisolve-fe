@@ -18,6 +18,7 @@ import { getAdmin } from '../store/admin/actions';
 import { useDispatch } from 'react-redux';
 
 const EditProfile = (props) => {
+    // here we can edit the users details //
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
@@ -138,7 +139,7 @@ const EditProfile = (props) => {
     });
 
     const handleDiscard = () => {
-        // where we can discard //
+        // where we can discard  the changes //
         props.history.push(
             mentorData.where === 'Dashbord'
                 ? '/admin/dashboard'

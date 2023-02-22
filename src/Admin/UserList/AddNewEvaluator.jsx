@@ -26,6 +26,7 @@ import { DropDownComp } from '../../stories/DropdownComp/DropdownComp';
 import { CalendarDropdownComp } from '../../stories/CalendarDropdown/CalendarDropdown';
 
 const AddNewEvaluator = (props) => {
+    // here we can add the evaluator //
     const headingDetails = {
         title: 'Add new Evaluator details',
 

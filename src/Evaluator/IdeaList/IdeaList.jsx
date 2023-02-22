@@ -6,9 +6,10 @@ import IdeaDetail from './IdeaDetail';
 import { Button } from '../../stories/Button';
 import { getSubmittedIdeaList } from '../store/evaluator/action';
 import { useDispatch, useSelector } from 'react-redux';
-import succesImg from "../../assets/media/success1.jpeg";
+import succesImg from '../../assets/media/success1.jpeg';
 
 const IdeaList = () => {
+    // here we can see all the ideasList //
     const topRef = React.useRef();
     const dispatch = useDispatch();
     const [ideaDetails, setIdeaDetails] = React.useState({});
@@ -24,7 +25,7 @@ const IdeaList = () => {
     React.useEffect(() => {
         if (allIdeaList) {
             setIdeaDetails(allIdeaList);
-        }else{
+        } else {
             setIdeaDetails({});
         }
     }, [allIdeaList]);
@@ -56,7 +57,8 @@ const IdeaList = () => {
                                                 <br />
                                             </div>
                                             <h2 className="my-auto text-center my-4">
-                                                All idea has been processed, no more idea to display.
+                                                All idea has been processed, no
+                                                more idea to display.
                                             </h2>
                                         </div>
                                     </div>

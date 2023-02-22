@@ -40,6 +40,7 @@ const TicketResponse = (props) => {
 
     useLayoutEffect(() => {
         dispatch(getSupportTicketById(id, language));
+        // here id = support_ticket_id //
     }, [dispatch, id]);
 
     const headingDetails = {

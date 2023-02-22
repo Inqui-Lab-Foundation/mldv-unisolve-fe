@@ -20,6 +20,7 @@ import { getCurrentUser } from '../../helpers/Utils';
 import Spinner from 'react-bootstrap/Spinner';
 
 const EvaluatedIdea = () => {
+    // here we can see all the EvaluatedIdeas in  status wise , district wise , SDG wise   //
     const dispatch = useDispatch();
     const [showspin, setshowspin] = React.useState(false);
     const currentUser = getCurrentUser('current_user');
@@ -66,6 +67,7 @@ const EvaluatedIdea = () => {
     }, [evaluatedIdeaList]);
 
     const handleclickcall = () => {
+        // here we can select status , district , SDG //
         setshowspin(true);
         dispatch(getL1EvaluatedIdea(filterParams, setshowspin));
     };
@@ -215,6 +217,7 @@ const EvaluatedIdea = () => {
     };
 
     const handleNext = () => {
+        // here we go for next page //
         if (evaluatedIdeaList && currentRow < evaluatedIdeaList?.length) {
             setIdeaDetails(evaluatedIdeaList[currentRow]);
             setIsDetail(true);
@@ -222,6 +225,7 @@ const EvaluatedIdea = () => {
         }
     };
     const handlePrev = () => {
+        // here we can go for previous page //
         if (evaluatedIdeaList && currentRow >= 1) {
             setIdeaDetails(evaluatedIdeaList[currentRow - 2]);
             setIsDetail(true);

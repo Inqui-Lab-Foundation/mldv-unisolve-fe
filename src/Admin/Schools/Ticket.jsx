@@ -26,6 +26,7 @@ import axios from 'axios';
 // import { useHistory } from 'react-router-dom';
 
 const TicketsPage = (props) => {
+    // here we can see all the support tickets //
     const currentUser = getCurrentUser('current_user');
     const [showImportPopup, setImportPopup] = useState(false);
     const [reqList, setReqList] = useState(false);
@@ -179,12 +180,12 @@ const TicketsPage = (props) => {
             });
     };
     const handleNewSchoolsList = () => {
-        // list of  new institutions //
+        // here we can see  list of  new institutions //
         setReqList(false);
         newListApi();
     };
     async function listApi() {
-        //  listApi where we can see all InActive Institutions //
+        //  here we can see listApi where we can see all InActive Institutions //
         var config = {
             method: 'get',
             url:
@@ -210,7 +211,7 @@ const TicketsPage = (props) => {
             });
     }
     async function newListApi() {
-        //  newListApi where we can see list of new Institutions //
+        // here we can see newListApi where we can see list of new Institutions //
         var config = {
             method: 'get',
             url:
@@ -236,17 +237,19 @@ const TicketsPage = (props) => {
             });
     }
     const handleReqSchoolsList = (e) => {
-        // list of inActive institutions //
+        // here we can see  list of inActive institutions //
         listApi();
     };
 
     const handleBack = (e) => {
+        // here we can go back to main page //
         setReqList(false);
         setNewList(false);
         props.getSchoolRegistationBulkUploadActions('i');
     };
 
     const handleNewBack = (e) => {
+        // here we can go back to main page //
         setReqList(false);
         setNewList(false);
         props.getSchoolRegistationBulkUploadActions('i');

@@ -30,6 +30,7 @@ import {
 import LanguageSelectorComp from '../../../components/LanguageSelectorComp/index.js';
 
 const Dashboard = () => {
+    // here we can see all the details of student //
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );

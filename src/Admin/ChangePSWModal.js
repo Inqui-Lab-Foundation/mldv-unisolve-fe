@@ -23,6 +23,7 @@ import { FaEyeSlash, FaEye } from 'react-icons/fa';
 // const bcrypt = require("bcrypt");
 
 const ChangePSWModal = (props) => {
+    // here we can change the password //
     const currentUser = getCurrentUser('current_user');
     const { t } = useTranslation();
     const [error, SetError] = useState('');
@@ -143,6 +144,8 @@ const ChangePSWModal = (props) => {
         className: 'defaultInput'
     };
     const handleShowPassword = (name) => {
+        // here name = password //
+        // here we can see the password //
         switch (name) {
             case oldPassword:
                 name?.type === 'password'

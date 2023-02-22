@@ -12,9 +12,11 @@ const CommonPage = ({
     showChallenges,
     ideaSubmissionComButton
 }) => {
+    // here we can see showChallenges button means we can see the submitted idea //
     const { t } = useTranslation();
     const history = useHistory();
     const handleClick = () => {
+        // here we can go for the next course //
         history.push('/student/post-survey');
     };
 
@@ -68,7 +70,9 @@ const CommonPage = ({
                                 label={t('student_course.go_to_course_button')}
                             />
                             <Button
-                                label={t('student_course.go_to_post_survey_button')}
+                                label={t(
+                                    'student_course.go_to_post_survey_button'
+                                )}
                                 btnClass="primary mt-4 mx-4"
                                 size="small"
                                 onClick={() => handleClick()}

@@ -78,6 +78,7 @@ export default function DoughnutChart({ user }) {
         dispatch(getStudentChallengeSubmittedResponse(teamId));
     }, [teamId, dispatch]);
     const percentageBWNumbers = (a, b) => {
+        // here a = all_topics_count ; b= topics_completed_count //
         return (((a - b) / a) * 100).toFixed(2);
     };
     useEffect(() => {

@@ -14,6 +14,7 @@ import './button.css';
 import { useHistory } from 'react-router-dom';
 
 const Cards = ({ heading, list, reports, props, distList }) => {
+    // here list = student reports ; reports = teacher reports ; distList = district wise challenges reports //
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const [reportsData, setReportsData] = useState([]);
@@ -33,6 +34,7 @@ const Cards = ({ heading, list, reports, props, distList }) => {
 
     const handleDownload = (item) => {
         // where we can download the reports //
+        // here item = list //
 
         setMsg(item);
         var url = '';
@@ -89,6 +91,7 @@ const Cards = ({ heading, list, reports, props, distList }) => {
 
     const handleView = (item) => {
         // where we can see all challenges reports in districtwise //
+        // here item = challenges type //
         var url = '';
         if (item == 'Submitted Challenges') {
             url = 'SUBMITTED';

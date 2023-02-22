@@ -18,6 +18,7 @@ import { useDispatch } from 'react-redux';
 import { getAdmin, getAdminEvalutorsList } from '../redux/actions';
 
 const Register = (props) => {
+    // here we can add admin / eadmin //
     const handleClose = () => {};
     // const [passwordType, setPasswordType] = React.useState('password');
     // const [confirmPassType, setConfirmPassType] = React.useState('password');

@@ -19,6 +19,8 @@ import DoubleBounce from '../../components/Loaders/DoubleBounce';
 import DoughnutChart from './DoughnutChart';
 
 const Dashboard = () => {
+    // here we can see teacher details //
+    // details like school name ,district ,no of ideas , no of teams //
     const dispatch = useDispatch();
     const currentUser = getCurrentUser('current_user');
     const { dashboardStates } = useSelector((state) => state.teacherDashBoard);
