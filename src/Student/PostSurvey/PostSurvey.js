@@ -66,7 +66,7 @@ const PostSurvey = () => {
         topicTotalCount === topicCompletedCount;
     const handleClick = () => {
         ///here postsurvey is completed then only enable the student certificates //
-        // here we can see the certificates of teachers //
+        // here we can see the certificates of students  //
         history.push('/student/my-certificate');
     };
     const formik = useFormik({
