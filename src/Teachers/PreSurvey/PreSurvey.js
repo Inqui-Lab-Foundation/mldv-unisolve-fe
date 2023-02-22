@@ -31,6 +31,8 @@ import { useTranslation } from 'react-i18next';
 import { getTeacherPresurveyStatus } from '../store/mentors/actions';
 
 const PreSurvey = () => {
+    // here we can start the presurvey journey //
+    // here we can attempt all the questions //
     const { t } = useTranslation();
     const preSurveyStatus = useSelector(
         (state) => state?.mentors.teacherPresurveyStatus

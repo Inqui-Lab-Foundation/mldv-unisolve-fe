@@ -223,6 +223,8 @@ const TeacherPlayVideo = (props) => {
     };
 
     async function modulesListUpdateApi(courseTopicId) {
+        // here courseTopicId = courseTopicId //
+        // here we can see the mentorTopicProgress //
         const body1 = JSON.stringify({
             user_id: JSON.stringify(currentUser?.data[0]?.user_id),
             mentor_course_topic_id: JSON.stringify(courseTopicId),
@@ -252,6 +254,7 @@ const TeacherPlayVideo = (props) => {
     }
 
     const handlePause = (event) => {
+        // here we can pause the video //
         setPaused(event.target.checked);
     };
 
@@ -263,6 +266,7 @@ const TeacherPlayVideo = (props) => {
     };
 
     const handleVolume = (event) => {
+        // here we can increase  volume //
         setVolume(parseFloat(false));
     };
 
@@ -359,6 +363,9 @@ const TeacherPlayVideo = (props) => {
     };
 
     const videoStatus = (type, status) => {
+        // here we can see the videoStatus //
+        // type = video ,attachment ,quiz, certificates  //
+        //  where status = completed /incomplete //
         const done = <IoCheckmarkDoneCircleSharp className="done" />;
         const notDone = <IoCheckmarkDoneCircleSharp />;
         if (type === 'VIDEO' && status === 'COMPLETED') {
@@ -389,6 +396,7 @@ const TeacherPlayVideo = (props) => {
         setHideQuiz(false);
     };
     const handleQuiz = () => {
+        // here we can see Quiz //
         modulesListUpdateApi(topicObj.mentor_course_topic_id);
         handleSelect(
             topicObj.topic_type_id,
@@ -417,12 +425,14 @@ const TeacherPlayVideo = (props) => {
         }
     };
     const removeSelectedImage = () => {
+        // here we can remove the selected image //
         setImage();
         setFileName();
         setUrl();
     };
 
     const handleSubmit = (e) => {
+        // here we can submit the worksheets  responses//
         const data = new FormData();
         data.append('attachment_1', image);
         var config = {
@@ -453,6 +463,8 @@ const TeacherPlayVideo = (props) => {
     };
 
     const handleNextCourse = () => {
+        // here we can go for next course //
+        // here course_topic_id = course_topic_id //
         modulesListUpdateApi(topicObj.course_topic_id);
         handleSelect(
             topicObj.topic_type_id,
@@ -462,6 +474,7 @@ const TeacherPlayVideo = (props) => {
     };
 
     const startFirstCourse = (e) => {
+        // here we can start the course //
         setCourseData(null);
         modulesListUpdateApi(firstObj[0].mentor_course_topic_id);
         handleSelect(
@@ -472,6 +485,7 @@ const TeacherPlayVideo = (props) => {
     };
 
     const startContinueCourse = (e) => {
+        // here we can continue the course //
         setCourseData(null);
         modulesListUpdateApi(continueObj[0].course_topic_id);
         handleSelect(
@@ -483,12 +497,14 @@ const TeacherPlayVideo = (props) => {
     };
 
     const handlenextend = () => {
+        // here we can see continue button , go to the next course //
         handleVimeoOnEnd();
         setInstructions(true);
         setHandbook(false);
     };
 
     const handleDownload = (path) => {
+        // here we can download teacher handbook //
         let a = document.createElement('a');
         a.target = '_blank';
         //a.href = process.env.REACT_APP_API_IMAGE_BASE_URL + path;
@@ -499,6 +515,7 @@ const TeacherPlayVideo = (props) => {
         setHandbook(false);
     };
     const handleInstructionDownload = (path) => {
+        // here we can download the instructions  //
         let a = document.createElement('a');
         a.target = '_blank';
         //a.href = process.env.REACT_APP_API_IMAGE_BASE_URL + path;

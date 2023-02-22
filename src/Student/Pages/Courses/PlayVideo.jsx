@@ -165,6 +165,8 @@ const PlayVideoCourses = (props) => {
     const [uploadQId, setuploadQId] = useState(null);
     const [immediateLink, setImmediateLink] = useState(null);
     const handleUploadFiles = (addedFiles) => {
+        // here we can upload the files //
+        // addedFiles = selected files //
         const upload = [...files];
         addedFiles.some((item) => {
             if (upload.findIndex((i) => i.name === item.name) === -1)
@@ -360,6 +362,7 @@ const PlayVideoCourses = (props) => {
     }
 
     const handleNxtVideo = (id) => {
+        // here we can go for next video //
         fetchData(id?.topic_type_id);
         setItem('VIDEO');
     };
@@ -399,6 +402,7 @@ const PlayVideoCourses = (props) => {
     }
 
     const handlePause = (event) => {
+        // here we can pause the video //
         setPaused(event.target.checked);
     };
 
@@ -410,6 +414,7 @@ const PlayVideoCourses = (props) => {
     };
 
     const handleVolume = (event) => {
+        // here we can increase the volume //
         setVolume(parseFloat(false));
     };
 
@@ -623,12 +628,13 @@ const PlayVideoCourses = (props) => {
     };
 
     const handleClose = (item) => {
-        // alert("item" + item);
+        // here we can close the worksheet //
         setItem('WORKSHEET');
         setModalShow(item);
         setHideQuiz(false);
     };
     const handleQuiz = () => {
+        // here we can see quiz //
         modulesListUpdateApi(topicObj.course_topic_id);
         handleSelect(
             topicObj.topic_type_id,
@@ -667,12 +673,14 @@ const PlayVideoCourses = (props) => {
         event.target.files = null;
     };
     const removeSelectedImage = () => {
+        // here we can remove the selected image //
         setSeletedFiles();
         setImage();
         setFileName();
         setUrl();
     };
     const handleSubmit = (e) => {
+        // here we can submit the worksheet response //
         if (files) {
             // console.log(files,"---files");
             const formData = new FormData();
@@ -719,6 +727,7 @@ const PlayVideoCourses = (props) => {
         }
     };
     const handleNextCourse = () => {
+        // here we can go for next course //
         if (topicObj) {
             toggle(topicObj.course_module_id);
             modulesListUpdateApi(topicObj.course_topic_id);
@@ -734,6 +743,7 @@ const PlayVideoCourses = (props) => {
     };
 
     const startFirstCourse = (e) => {
+        // here we can start the student presurvey journey //
         setCourseData(null);
         modulesListUpdateApi(firstObj[0].course_topic_id);
         setTopic(firstObj[0]);
@@ -746,6 +756,7 @@ const PlayVideoCourses = (props) => {
     };
 
     const startContinueCourse = (e) => {
+        // here we can start the course //
         setCourseData(null);
         modulesListUpdateApi(continueObj[0].course_topic_id);
         setTopic(continueObj[0]);

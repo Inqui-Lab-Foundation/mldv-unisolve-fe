@@ -37,6 +37,7 @@ import {
 } from '../../redux/studentRegistration/actions';
 
 const PostSurvey = () => {
+    // here we can attempt all the question to complete the postsurvey //
     const { t } = useTranslation();
     const ideaSubmissionStatus = useSelector(
         (state) => state?.studentRegistration.ideaSubmissionStatus
@@ -64,6 +65,7 @@ const PostSurvey = () => {
         ideaSubmissionStatus !== 'DRAFT' &&
         topicTotalCount === topicCompletedCount;
     const handleClick = () => {
+        ///here postsurvey is completed then only enable the student certificates //
         // here we can see the certificates of teachers //
         history.push('/student/my-certificate');
     };

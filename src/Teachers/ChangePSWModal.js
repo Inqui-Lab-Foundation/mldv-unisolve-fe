@@ -126,7 +126,7 @@ const ChangePSWModal = (props) => {
     };
     const handleShowPassword = (name) => {
         // here we can see the password //
-        // here name = oldPassword //
+        // here name = Password //
         switch (name) {
             case oldPassword:
                 name?.type === 'password'
