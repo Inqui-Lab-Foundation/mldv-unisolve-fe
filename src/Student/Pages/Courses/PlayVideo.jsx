@@ -362,7 +362,7 @@ const PlayVideoCourses = (props) => {
     }
 
     const handleNxtVideo = (id) => {
-        // here we can go for next video //
+        // here we can go for next video ///
         fetchData(id?.topic_type_id);
         setItem('VIDEO');
     };
