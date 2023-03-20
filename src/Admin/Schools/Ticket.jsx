@@ -179,7 +179,7 @@ const TicketsPage = (props) => {
                 openNotificationWithIcon('error', 'Something went wrong');
             });
     };
-    const handleNewSchoolsList = () => {
+    const handleNewSchoolsList = (e) => {
         // here we can see  list of  new institutions //
         setReqList(false);
         newListApi();

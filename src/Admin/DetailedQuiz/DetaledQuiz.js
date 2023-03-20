@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import { React, useEffect, useState } from 'react';
 import { Card, Row, Col } from 'reactstrap';
@@ -20,7 +21,7 @@ import {
     getAdminCourseDetails
 } from '../../redux/actions';
 import QuizResponse from './QuizResponse';
-import succesImg from "../../assets/media/success1.jpeg";
+import succesImg from '../../assets/media/success1.jpeg';
 //import { getCurrentUser } from '../../helpers/Utils';
 const DetaledQuiz = (props) => {
     const { t } = useTranslation();
@@ -32,7 +33,9 @@ const DetaledQuiz = (props) => {
     const [condition, SetCondition] = useState(true);
     const [video, SetVideo] = useState(true);
     const [qst, SetQst] = useState({});
-    const language = useSelector((state) => state?.studentRegistration?.studentLanguage);
+    const language = useSelector(
+        (state) => state?.studentRegistration?.studentLanguage
+    );
     // const currentUser = getCurrentUser('current_user');
     // const role = currentUser?.data[0]?.role;
     useEffect(() => {
@@ -50,7 +53,8 @@ const DetaledQuiz = (props) => {
     const handleSelectType = (answer) => {
         SetType(answer);
     };
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        // console.log(e);
         if (type == 'DRAW') {
             const quiz_id = adminQst[0].quiz_id;
             const data = new FormData();
@@ -74,7 +78,8 @@ const DetaledQuiz = (props) => {
     const goToTop = () => {
         window.scrollTo(0, 0);
     };
-    const handleNxtQst = () => {
+    const handleNxtQst = (e) => {
+        // console.log(e);
         Setloading(true);
         setTimeout(() => {
             Setloading(false);
@@ -127,8 +132,9 @@ const DetaledQuiz = (props) => {
                                     <span></span>
                                 </div> */}
                                 <div className="mt-4 text-center">
-                                     <div className="success_img text-center w-100">
-                                        <img src={succesImg} alt=".." /><br />
+                                    <div className="success_img text-center w-100">
+                                        <img src={succesImg} alt=".." />
+                                        <br />
                                     </div>
                                     <p>{t('student.quiz_completed')}</p>
                                 </div>
@@ -264,7 +270,9 @@ const DetaledQuiz = (props) => {
                                                     <Button
                                                         btnClass="primary px-5"
                                                         size="small"
-                                                        label={t('student.continue')}
+                                                        label={t(
+                                                            'student.continue'
+                                                        )}
                                                         onClick={(e) =>
                                                             handleNxtQst(e)
                                                         }
@@ -290,7 +298,9 @@ const DetaledQuiz = (props) => {
                                                                 btnClass="primary px-5 mx-sm-3 mx-1 mb-3"
                                                                 size="small"
                                                                 // Icon={BsPlusLg}
-                                                                label={t('teacher.refer_video')}
+                                                                label={t(
+                                                                    'teacher.refer_video'
+                                                                )}
                                                                 onClick={() =>
                                                                     handlevideo(
                                                                         props.adminQstResponce &&

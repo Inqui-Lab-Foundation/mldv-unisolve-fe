@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 /* eslint-disable react/jsx-key */
 import React, { useState } from 'react';
@@ -63,7 +64,8 @@ const AddCoursesDetails = () => {
         setVideosList(list);
     };
 
-    const handleVideosAdd = () => {
+    const handleVideosAdd = (e) => {
+        console.log(e);
         setVideoClick(true);
         alert('hi');
         setVideosList([...videosList, { videoTitle: '', videoLink: '' }]);
@@ -83,7 +85,8 @@ const AddCoursesDetails = () => {
         setModulesList(list);
     };
 
-    const handleModulesAdd = () => {
+    const handleModulesAdd = (e) => {
+        // console.log(e);
         setModuleClick(true);
         alert('hi');
         setModulesList([...modulesList, { qstType: '', qst: '', ans1: '' }]);

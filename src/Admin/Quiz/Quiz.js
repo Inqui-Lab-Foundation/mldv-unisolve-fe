@@ -1,3 +1,5 @@
+/* eslint-disable indent */
+/* eslint-disable no-unused-vars */
 import { React, useEffect, useState } from 'react';
 import { Card, Row, Col } from 'reactstrap';
 import { Fragment } from 'react';
@@ -15,22 +17,24 @@ import {
     getAdminRefQuizQst
 } from '../../redux/actions';
 import { useTranslation } from 'react-i18next';
-import succesImg from "../../assets/media/success1.jpeg";
+import succesImg from '../../assets/media/success1.jpeg';
 
 const Quiz = (props) => {
     const { t } = useTranslation();
     const [selectOption, SetSelectOption] = useState('');
     const [type, SetType] = useState('');
     const [video] = useState(true);
-    const language = useSelector(state=>state?.studentRegistration?.studentLanguage);
-
+    const language = useSelector(
+        (state) => state?.studentRegistration?.studentLanguage
+    );
 
     useEffect(() => {
-        props.getAdminRefQuizQstActions(props.refQstId,language);
-    }, [props.refQstId,language]);
+        props.getAdminRefQuizQstActions(props.refQstId, language);
+    }, [props.refQstId, language]);
 
-    const handleNxtQst = () => {
-        props.getAdminRefQuizQstActions(props.refQstId,language);
+    const handleNxtQst = (e) => {
+        // console.log(e);
+        props.getAdminRefQuizQstActions(props.refQstId, language);
     };
     const handleSelect = (answer) => {
         SetSelectOption(answer);
@@ -48,7 +52,7 @@ const Quiz = (props) => {
             );
             data.append('selected_option', 'ok');
             data.append('attachment', selectOption);
-            props.getAdminRfQuizResponceAction(quiz_id, data,language);
+            props.getAdminRfQuizResponceAction(quiz_id, data, language);
             SetSelectOption();
             SetType();
         } else {
@@ -57,7 +61,7 @@ const Quiz = (props) => {
                     props.adminRefQuizQst.data[0].reflective_quiz_question_id,
                 selected_option: selectOption
             });
-            props.getAdminRfQuizResponceAction(quiz_id, data,language);
+            props.getAdminRfQuizResponceAction(quiz_id, data, language);
             SetSelectOption();
             SetType();
         }
@@ -66,18 +70,20 @@ const Quiz = (props) => {
     return (
         <Fragment>
             {video == true &&
-                  props.adminRefQuizQst &&
-                  props.adminRefQuizQst.count === null && <Confetti className="w-100" />}
+                props.adminRefQuizQst &&
+                props.adminRefQuizQst.count === null && (
+                    <Confetti className="w-100" />
+                )}
 
             <Card className="quiz">
                 {video == true &&
                 props.adminRefQstResponce &&
                 props.adminRefQstResponce.status === 200 ? (
-                        <Fragment>
-                            {/* <ProgressComp {...progressBar} /> */}
-                            <div className="question-section">
-                                <div className="score">
-                                    {props.adminRefQstResponce &&
+                    <Fragment>
+                        {/* <ProgressComp {...progressBar} /> */}
+                        <div className="question-section">
+                            <div className="score">
+                                {props.adminRefQstResponce &&
                                     props.adminRefQstResponce.data[0] &&
                                     props.adminRefQstResponce.data[0]
                                         .is_correct === true && (
@@ -87,7 +93,7 @@ const Quiz = (props) => {
                                                 <img
                                                     className="img-fluid mb-2"
                                                     src={quizCheck}
-                                                    style={{width:"8rem"}}
+                                                    style={{ width: '8rem' }}
                                                     alt="quiz"
                                                 />
                                             </figure>
@@ -101,7 +107,7 @@ const Quiz = (props) => {
                                             </p>
                                         </div>
                                     )}
-                                    {props.adminRefQstResponce &&
+                                {props.adminRefQstResponce &&
                                     props.adminRefQstResponce.data[0] &&
                                     props.adminRefQstResponce.data[0]
                                         .is_correct === false && (
@@ -123,10 +129,10 @@ const Quiz = (props) => {
                                             </p>
                                         </div>
                                     )}
-                                </div>
+                            </div>
 
-                                <Row className="justify-content-between ">
-                                    {props.adminRefQstResponce &&
+                            <Row className="justify-content-between ">
+                                {props.adminRefQstResponce &&
                                     props.adminRefQstResponce.data[0] &&
                                     props.adminRefQstResponce.data[0]
                                         .is_correct === true && (
@@ -139,7 +145,7 @@ const Quiz = (props) => {
                                             />
                                         </Col>
                                     )}
-                                    {props.adminRefQstResponce &&
+                                {props.adminRefQstResponce &&
                                     props.adminRefQstResponce.data[0] &&
                                     props.adminRefQstResponce.data[0]
                                         .is_correct === false && (
@@ -162,66 +168,71 @@ const Quiz = (props) => {
                                             />
                                         </Col>
                                     )}
+                            </Row>
+                        </div>
+                    </Fragment>
+                ) : video == true &&
+                  props.adminRefQuizQst &&
+                  props.adminRefQuizQst.count === null ? (
+                    <div className="container new-result">
+                        <div className="row justify-content-md-center ">
+                            <div className="col col-lg-9">
+                                {/* <Confetti className='w-100' /> */}
+                                <div className="results-heading">
+                                    <img src={ResultStar} alt="star" />
+                                </div>
+                                <div className="congratulations">
+                                    <div className="success_img text-center w-100">
+                                        <img src={succesImg} alt=".." />
+                                        <br />
+                                    </div>
+                                    {t('student_course.quiz_completed')}
+                                </div>
+
+                                <Button
+                                    onClick={() => props.handleClose(false)}
+                                    button="submit"
+                                    label={t('student_course.continue course')}
+                                    btnClass="primary mt-5 quiz-end"
+                                    size="small"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                ) : (
+                    video == true &&
+                    props.adminRefQuizQst.status === 200 && (
+                        <Fragment>
+                            <div className="question-section">
+                                <Question
+                                    qsts={props.adminRefQuizQst.data}
+                                    onSelectAnswer={handleSelect}
+                                    onSelectType={handleSelectType}
+                                />
+
+                                <Row className="justify-content-between mt-5">
+                                    <Col md={12} className="text-right">
+                                        <Button
+                                            size="small"
+                                            label={t('teacher_teams.submit')}
+                                            onClick={(e) =>
+                                                !selectOption
+                                                    ? null
+                                                    : handleSubmit(e)
+                                            }
+                                            btnClass={
+                                                !selectOption
+                                                    ? 'default'
+                                                    : 'primary'
+                                            }
+                                            disabled={!selectOption}
+                                        />
+                                    </Col>
                                 </Row>
                             </div>
                         </Fragment>
-                    ) : video == true &&
-                  props.adminRefQuizQst &&
-                  props.adminRefQuizQst.count === null ? (
-                            <div className="container new-result">
-                                <div className="row justify-content-md-center ">
-                                    <div className="col col-lg-9">
-                                        {/* <Confetti className='w-100' /> */}
-                                        <div className="results-heading">
-                                            <img src={ResultStar} alt="star" />
-                                        </div>
-                                        <div className="congratulations">
-                                            <div className="success_img text-center w-100">
-                                                <img src={succesImg} alt=".." /><br />
-                                            </div>
-                                            {t('student_course.quiz_completed')}
-                                        </div>
-                                       
-                                        <Button
-                                            onClick={() => props.handleClose(false)}
-                                            button="submit"
-                                            label={t('student_course.continue course')}
-                                            btnClass="primary mt-5 quiz-end"
-                                            size="small"
-                                        />
-                                    </div>
-                                </div>
-                            </div>
-                        ) : (
-                            video == true &&
-                    props.adminRefQuizQst.status === 200 && (
-                                <Fragment>
-                                    <div className="question-section">
-                                        <Question
-                                            qsts={props.adminRefQuizQst.data}
-                                            onSelectAnswer={handleSelect}
-                                            onSelectType={handleSelectType}
-                                        />
-
-                                        <Row className="justify-content-between mt-5">
-                                            <Col md={12} className="text-right">
-                                                <Button
-                                                    size="small"
-                                                    label={t('teacher_teams.submit')}
-                                                    onClick={(e) =>  !selectOption ? null :handleSubmit(e)}
-                                                    btnClass={
-                                                        !selectOption
-                                                            ? 'default'
-                                                            : 'primary'
-                                                    }
-                                                    disabled={!(selectOption)}
-                                                />
-                                            </Col>
-                                        </Row>
-                                    </div>
-                                </Fragment>
-                            )
-                        )}
+                    )
+                )}
             </Card>
         </Fragment>
     );

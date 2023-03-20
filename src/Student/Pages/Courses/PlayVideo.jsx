@@ -288,7 +288,7 @@ const PlayVideoCourses = (props) => {
                 if (item.progress == 'COMPLETED') {
                     continueArrays.push(item);
                 }
-            });
+            }); 
             firstObjectArray.push(topicArrays[0]);
             continueObjectArrays.push(
                 continueArrays[continueArrays.length - 1]

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 import React, { useState } from 'react';
 import { Modal } from 'react-bootstrap';
 // import { InputWithSearchComp } from "../../stories/InputWithSearch/InputWithSearch";
@@ -44,7 +45,7 @@ function ExportPopup(props) {
         }
     });
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
         const data = new FormData();
         data.append('data', file);
 
@@ -94,7 +95,7 @@ function ExportPopup(props) {
         setFileName(setFileName);
     };
 
-    const removeSelectedImage = () => {
+    const removeSelectedImage = (e) => {
         setFile();
         setFileName();
     };

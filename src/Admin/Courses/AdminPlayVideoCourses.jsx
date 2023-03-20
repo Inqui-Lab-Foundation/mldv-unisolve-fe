@@ -389,7 +389,8 @@ const AdminPlayVideoCourses = (props) => {
         setUrl();
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = (e) => {
+        // console.log(e)
         const data = new FormData();
         data.append('attachment_1', image);
         var config = {
