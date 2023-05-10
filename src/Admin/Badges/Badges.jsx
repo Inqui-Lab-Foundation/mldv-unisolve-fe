@@ -138,3 +138,4 @@ const BadgesComp = () => {
 
 export default BadgesComp;
 // end of file
+// end of badges
