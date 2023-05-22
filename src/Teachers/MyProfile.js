@@ -18,11 +18,13 @@ import 'sweetalert2/src/sweetalert2.scss';
 
 //import { Link } from 'react-router-dom';
 //import { BreadcrumbTwo } from '../stories/BreadcrumbTwo/BreadcrumbTwo.jsx';
-
+import { Button } from '../stories/Button';
 import Layout from './Layout.jsx';
 import { getCurrentUser } from '../helpers/Utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTeacherByID } from '../redux/actions';
+import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 // import moment from 'moment';
 
 // const MySwal = withReactContent(Swal);
@@ -60,6 +62,7 @@ import { getTeacherByID } from '../redux/actions';
 // };
 
 const MyProfile = () => {
+    const history=useHistory();
     // here we can see all the details of details of teacher //
     const currentUser = getCurrentUser('current_user');
     //const [profileAction, setProfileAction] = useState(true);
@@ -79,6 +82,7 @@ const MyProfile = () => {
     useLayoutEffect(() => {
         dispatch(getTeacherByID(currentUser?.data[0]?.mentor_id));
     }, [currentUser?.data[0]?.mentor_id]);
+
     // useEffect(() => {
     //     const search = window.location.search;
     //     // if (search === '?id=teams') {
@@ -99,10 +103,29 @@ const MyProfile = () => {
     //     //     }
     //     // ]
     // };
-
+    const handleEdit = () => {
+        history.push({
+            pathname: '/EditTeacherProfileDetails',
+            data: {
+                full_name: teacher?.full_name,
+                mentor_id: teacher?.mentor_id,
+                mobile: teacher?.mobile
+            }
+        });
+    };
     return (
         <Layout>
             <Container className="MyProfile pt-3 pt-xl-5 mb-50">
+                <div className="d-flex justify-content-between">
+                    <Link to="/EditTeacherProfileDetails">
+                        <Button
+                            onClick={() => handleEdit()}
+                            size="small"
+                            label={'EditProfileDetails'}
+                            className="btn btn-warning btn-lg"
+                        ></Button>
+                    </Link>
+                </div>
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">
                         <h2>My Profile</h2>
@@ -177,7 +200,7 @@ const MyProfile = () => {
                                                                     </b>
                                                                 </Col>
                                                             </Row>
-                                                            {/* <Row className="pt-3 pb-3">
+                                                            <Row className="pt-3 pb-3">
                                                                 <Col
                                                                     md={5}
                                                                     className="my-auto profile-detail"
@@ -199,7 +222,7 @@ const MyProfile = () => {
                                                                             : '-'}
                                                                     </b>
                                                                 </Col>
-                                                            </Row> */}
+                                                            </Row>
                                                         </CardText>
                                                     </Col>
                                                 </Row>
