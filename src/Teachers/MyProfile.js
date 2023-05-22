@@ -23,7 +23,6 @@ import Layout from './Layout.jsx';
 import { getCurrentUser } from '../helpers/Utils';
 import { useDispatch, useSelector } from 'react-redux';
 import { getTeacherByID } from '../redux/actions';
-import { Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
 // import moment from 'moment';
 
@@ -62,7 +61,7 @@ import { useHistory } from 'react-router-dom';
 // };
 
 const MyProfile = () => {
-    const history=useHistory();
+    const history = useHistory();
     // here we can see all the details of details of teacher //
     const currentUser = getCurrentUser('current_user');
     //const [profileAction, setProfileAction] = useState(true);
@@ -106,25 +105,25 @@ const MyProfile = () => {
     const handleEdit = () => {
         history.push({
             pathname: '/EditTeacherProfileDetails',
-            data: {
+            item: {
                 full_name: teacher?.full_name,
                 mentor_id: teacher?.mentor_id,
-                mobile: teacher?.mobile
+                mobile: teacher?.mobile,
+                username: teacher?.username_email
             }
         });
     };
+    console.log(teacher?.full_name);
     return (
         <Layout>
             <Container className="MyProfile pt-3 pt-xl-5 mb-50">
                 <div className="d-flex justify-content-between">
-                    <Link to="/EditTeacherProfileDetails">
-                        <Button
-                            onClick={() => handleEdit()}
-                            size="small"
-                            label={'EditProfileDetails'}
-                            className="btn btn-warning btn-lg"
-                        ></Button>
-                    </Link>
+                    <Button
+                        onClick={() => handleEdit()}
+                        size="small"
+                        label={'EditProfileDetails'}
+                        className="btn btn-warning btn-lg"
+                    ></Button>
                 </div>
                 <Row>
                     <Col className="col-xl-10 offset-xl-1 offset-md-0">

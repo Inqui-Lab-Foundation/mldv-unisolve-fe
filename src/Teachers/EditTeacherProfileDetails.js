@@ -21,30 +21,15 @@ const EditTeacherProfileDetails = (props) => {
     // here we can edit the users details //
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
-    const phoneRegExp = /^[0-9]{10}$/;
     // const dispatch = useDispatch();
     const mentorData =
         // where  mentorData = mentor details //
-        (history && history.location && history.location.data) || {};
-    {
-        /* const headingDetails = {
-        title: 'User Edit Details',
+        (history && history.location && history.location.item) || {};
 
-        options: [
-            {
-                title: 'User List',
-                path: '/admin/userlist'
-            },
-            {
-                title: 'User Edit Profile',
-                path: '/admin/userlist'
-            }
-        ]
-    }; */
-    }
-    // console.log(mentorData);
-    // const phoneRegExp =
-    //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
+    console.log(mentorData, '----',history.location);
+
+    const phoneRegExp =
+        /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
     const getValidationSchema = (data) => {
         // where data = mentorData //
@@ -72,19 +57,11 @@ const EditTeacherProfileDetails = (props) => {
         }
         return adminValidation;
     };
-    const getInitialValues = () => {
+    const getInitialValues = (mentorData) => {
         const commonInitialValues = {
-            name: mentorData.full_name || mentorData.user.full_name,
-            // email: mentorData.username || mentorData.user.username
-            mobile: mentorData.mobile || mentorData.user.mobile
+            name: mentorData?.full_name,
+            mobile: mentorData.mobile
         };
-        {
-            /* if (!data?.admin_id) {
-            commonInitialValues['phone'] = mentorData.mobile;
-            if (!data?.mentor_id)
-                commonInitialValues['district'] = mentorData.district;
-        } */
-        }
         return commonInitialValues;
     };
     const formik = useFormik({
@@ -97,7 +74,8 @@ const EditTeacherProfileDetails = (props) => {
             //const district = values.district;
             const body = JSON.stringify({
                 full_name: full_name,
-                mobile: mobile
+                mobile: mobile,
+                username : mentorData.username
                 // username: email,
                 // district: district
             });
@@ -137,7 +115,6 @@ const EditTeacherProfileDetails = (props) => {
         props.history.push('/teacher/my-profile');
     };
 
-    console.log(mentorData);
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">
@@ -219,7 +196,7 @@ const EditTeacherProfileDetails = (props) => {
                                                     <small className="error-cls">
                                                         {formik.errors.phone}
                                                     </small>
-                                                ) : null  }  
+                                                ) : null}
                                             </Col>
                                         </>
                                     </Row>
