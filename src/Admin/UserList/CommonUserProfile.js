@@ -339,10 +339,11 @@ const CommonUserProfile = (props) => {
                                           StudentsDaTa.team.mentor.organization
                                               .organization_code
                                         : '-'} */}
-                                    {StudentsDaTa?.team?.mentor?.organization
+                                    {StudentsDaTa?.team?.mentor?.organization &&
+                                    StudentsDaTa?.team?.mentor?.organization
                                         .organization_code
                                         ? StudentsDaTa?.team?.mentor
-                                              ?.organization.organization_code
+                                              ?.organization?.organization_code
                                         : '-'}
                                 </b>
                             </CardText>
@@ -356,7 +357,8 @@ const CommonUserProfile = (props) => {
                                         StudentsDaTa?.team?.mentor?.organization
                                             .organization_name
                                     } */}
-                                    {StudentsDaTa?.team?.mentor?.organization
+                                    {StudentsDaTa?.team?.mentor?.organization &&
+                                    StudentsDaTa?.team?.mentor?.organization
                                         .organization_name
                                         ? StudentsDaTa?.team?.mentor
                                               ?.organization.organization_name
@@ -369,7 +371,8 @@ const CommonUserProfile = (props) => {
                                     <b>District:</b>
                                 </span>
                                 <b>
-                                    {StudentsDaTa?.team?.mentor?.organization
+                                    {StudentsDaTa?.team?.mentor?.organization &&
+                                    StudentsDaTa?.team?.mentor?.organization
                                         .district
                                         ? StudentsDaTa?.team?.mentor
                                               ?.organization.district
