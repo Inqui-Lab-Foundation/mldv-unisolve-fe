@@ -10,6 +10,7 @@ import ReportIcon from '../assets/media/reports.png';
 // import LogoutIcon from '../assets/media/logout.png';
 import FaqIcon from '../assets/media/faq.png';
 import SchoolIcon from '../assets/media/schools.png';
+import LatestNewsIcon from '../assets/media/latestNewsIcon.png';
 
 import {
     ProSidebar,
@@ -192,6 +193,33 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                     >
                         <NavLink exact={true} to={'/admin/registered-schools'}>
                             Institutions
+                        </NavLink>
+                    </MenuItem>
+                    <MenuItem
+                        icon={
+                            <img
+                                src={LatestNewsIcon}
+                                style={{ width: '20px' }}
+                                className="img-fluid"
+                                alt="school"
+                            />
+                        }
+                        className={
+                            location.pathname === '/admin/LatestNews' &&
+                            'sidebar-active'
+                        }
+                    >
+                        <NavLink
+                            exact={true}
+                            to={'/admin/LatestNews'}
+                            style={{
+                                color: 'black !important',
+                                '--override-color': 'black'
+                            }}
+                        >
+                            <span style={{ color: 'var(--override-color)' }}>
+                                LatestNews
+                            </span>
                         </NavLink>
                     </MenuItem>
                     {/* <MenuItem

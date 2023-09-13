@@ -8,12 +8,11 @@ import DoughnutChart from '../../Teachers/Dashboard/DoughnutChart';
 import { Button } from '../../stories/Button';
 import { getCurrentUser } from '../../helpers/Utils';
 import axios from 'axios';
-
 const ViewMore = () => {
     const history = useHistory();
     const orgDaTa = JSON.parse(localStorage.getItem('orgData'));
-    const currentUser = getCurrentUser('current_user');
     const [course, setCourse] = useState([]);
+    const currentUser = getCurrentUser('current_user');
 
     // where orgDaTa = orgnization details //
     // we can see all orgnization , mentor details //
@@ -26,7 +25,7 @@ const ViewMore = () => {
 
     const handleBack = () => {
         history.push({
-            pathname: '/admin/dashboard'
+            pathname: '/admin/teacher/dashboard'
         });
         localStorage.setItem(
             'organization_code',

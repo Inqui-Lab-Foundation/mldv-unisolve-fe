@@ -207,6 +207,8 @@ const TicketsPage = (props) => {
                 dist: studentDist,
                 num: num
             });
+            localStorage.setItem('studentData', JSON.stringify(item));
+            // localStorage.setItem('orgData', JSON.stringify(item));
         } else {
             props.history.push({
                 pathname: `/admin/userprofile`,
@@ -225,6 +227,16 @@ const TicketsPage = (props) => {
             data: item
         });
         localStorage.setItem('mentor', JSON.stringify(item));
+    };
+    const viewDetail = (item) => {
+        props.history.push({
+            pathname: '/admin/teacher/dashboard',
+            data: item
+        });
+        localStorage.setItem(
+            'organization_code',
+            JSON.stringify(item.organization_code)
+        );
     };
     // const handleReset = (item) => {
     //     const body = JSON.stringify({
@@ -463,7 +475,8 @@ const TicketsPage = (props) => {
                     <Link
                         exact="true"
                         key={record.id}
-                        onClick={() => handleSelect(record, '2')}
+                        onClick={() => viewDetail(record)}
+                        // onClick={() => handleSelect(record, '2')}
                         style={{ marginRight: '10px' }}
                     >
                         <div className="btn btn-primary btn-lg">VIEW</div>
@@ -598,6 +611,7 @@ const TicketsPage = (props) => {
             }
         ]
     };
+    // console.log(props.studentList, 'data');
     const evaluatorsData = {
         data: props.evalutorsList,
         columns: [
