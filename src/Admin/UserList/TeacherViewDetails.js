@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect, useState } from 'react';
 import { useHistory, withRouter } from 'react-router-dom';
@@ -32,29 +33,29 @@ const ViewMore = () => {
             JSON.stringify(orgDaTa.organization_code)
         );
     };
-    useEffect(() => {
-        var config = {
-            method: 'get',
-            url:
-                process.env.REACT_APP_API_BASE_URL +
-                `/dashboard/quizscores?user_id=${orgDaTa?.mentor.user_id}&role=MENTOR`,
-            headers: {
-                'Content-Type': 'application/json',
-                Accept: 'application/json',
-                Authorization: `Bearer ${currentUser.data[0]?.token}`
-            }
-        };
-        axios(config)
-            .then(function (response) {
-                if (response.status === 200) {
-                    setCourse(response.data.data);
-                    // console.log(response);
-                }
-            })
-            .catch(function (error) {
-                console.log(error);
-            });
-    }, []);
+    // useEffect(() => {
+    //     var config = {
+    //         method: 'get',
+    //         url:
+    //             process.env.REACT_APP_API_BASE_URL +
+    //             `/dashboard/quizscores?user_id=${orgDaTa?.mentor.user_id}&role=MENTOR`,
+    //         headers: {
+    //             'Content-Type': 'application/json',
+    //             Accept: 'application/json',
+    //             Authorization: `Bearer ${currentUser.data[0]?.token}`
+    //         }
+    //     };
+    //     axios(config)
+    //         .then(function (response) {
+    //             if (response.status === 200) {
+    //                 setCourse(response.data.data);
+    //                 // console.log(response);
+    //             }
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         });
+    // }, []);
     return (
         <Layout>
             <Container className="mt-5 pt-5 dynamic-form">
@@ -170,7 +171,7 @@ const ViewMore = () => {
                             </Col>
                         </Row>
                     </Row>
-                    <Row className="py-5">
+                    {/* <Row className="py-5">
                         <Card className="py-5">
                             <CardBody>
                                 <h2 className="mb-4">Mentor Course Details</h2>
@@ -206,7 +207,7 @@ const ViewMore = () => {
                                 </CardText>
                             </CardBody>
                         </Card>
-                    </Row>
+                    </Row> */}
                 </Row>
             </Container>
         </Layout>

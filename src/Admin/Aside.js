@@ -212,10 +212,10 @@ const Aside = ({ rtl, toggled, handleToggleSidebar }) => {
                         <NavLink
                             exact={true}
                             to={'/admin/LatestNews'}
-                            style={{
-                                color: 'black !important',
-                                '--override-color': 'black'
-                            }}
+                            // style={{
+                            //     color: 'black !important',
+                            //     '--override-color': 'black'
+                            // }}
                         >
                             <span style={{ color: 'var(--override-color)' }}>
                                 LatestNews
