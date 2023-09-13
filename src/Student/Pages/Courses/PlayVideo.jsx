@@ -1349,44 +1349,35 @@ const PlayVideoCourses = (props) => {
                                                                                         }}
                                                                                     /> */}
 
-                                                                {worksheetResponce.response !=
-                                                                    null && (
-                                                                    // worksheetResponce.worksheet_id !==
-                                                                    //     setTopicArrays[
-                                                                    //         setTopicArrays?.length -
-                                                                    //         1
-                                                                    //     ]
-                                                                    //         ?.topic_type_id ? (
-                                                                    <Button
-                                                                        label="Go to Next Course"
-                                                                        btnClass="primary w-auto"
-                                                                        size="small"
-                                                                        type="submit"
-                                                                        style={{
-                                                                            background:
-                                                                                '#00ced1',
-                                                                            color: '#fff'
-                                                                        }}
-                                                                        onClick={() => {
-                                                                            handleNextCourse();
-                                                                            dispatch(
-                                                                                updateStudentBadges(
-                                                                                    {
-                                                                                        badge_slugs:
-                                                                                            [
-                                                                                                badge
-                                                                                            ]
-                                                                                    },
-                                                                                    currentUser
-                                                                                        .data[0]
-                                                                                        .user_id,
-                                                                                    language,
-                                                                                    t
-                                                                                )
-                                                                            );
-                                                                        }}
-                                                                    />
-                                                                )}
+                                                                <Button
+                                                                    label="Go to Next Course"
+                                                                    btnClass="primary w-auto"
+                                                                    size="small"
+                                                                    type="submit"
+                                                                    style={{
+                                                                        background:
+                                                                            '#00ced1',
+                                                                        color: '#fff'
+                                                                    }}
+                                                                    onClick={() => {
+                                                                        handleNextCourse();
+                                                                        dispatch(
+                                                                            updateStudentBadges(
+                                                                                {
+                                                                                    badge_slugs:
+                                                                                        [
+                                                                                            badge
+                                                                                        ]
+                                                                                },
+                                                                                currentUser
+                                                                                    .data[0]
+                                                                                    .user_id,
+                                                                                language,
+                                                                                t
+                                                                            )
+                                                                        );
+                                                                    }}
+                                                                />
                                                             </div>
                                                         </div>
                                                     </CardBody>
