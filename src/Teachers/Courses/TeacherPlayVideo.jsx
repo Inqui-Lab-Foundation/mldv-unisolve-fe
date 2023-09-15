@@ -165,6 +165,7 @@ const TeacherPlayVideo = (props) => {
     }, [props.teaherCoursesDetails]);
 
     async function fetchData(videoId) {
+        // here videoId = videoId //
         setVideoId(videoId);
         var config = {
             method: 'get',
@@ -189,6 +190,7 @@ const TeacherPlayVideo = (props) => {
     }
 
     async function getWorkSheetApi(worksheetId) {
+        // here worksheetId = worksheetId //
         var config = {
             method: 'get',
             url:
@@ -215,12 +217,14 @@ const TeacherPlayVideo = (props) => {
     }
 
     const handleNxtVideo = (id) => {
+        // here id = course_id //
         fetchData(id);
         setItem('VIDEO');
     };
 
     async function modulesListUpdateApi(courseTopicId) {
-        // console.log(courseTopicId);
+        // here courseTopicId = courseTopicId //
+        // here we can see the mentorTopicProgress //
         const body1 = JSON.stringify({
             user_id: JSON.stringify(currentUser?.data[0]?.user_id),
             mentor_course_topic_id: JSON.stringify(courseTopicId),
@@ -250,6 +254,7 @@ const TeacherPlayVideo = (props) => {
     }
 
     const handlePause = (event) => {
+        // here we can pause the video //
         setPaused(event.target.checked);
     };
 
@@ -261,6 +266,7 @@ const TeacherPlayVideo = (props) => {
     };
 
     const handleVolume = (event) => {
+        // here we can increase  volume //
         setVolume(parseFloat(false));
     };
 
@@ -324,6 +330,9 @@ const TeacherPlayVideo = (props) => {
     };
 
     const handleSelect = (topicId, couseId, type) => {
+        // here topicId = topicId //
+        // here couseId = couseId  //
+        // here type = Attachment ,Video ,Quiz //
         scrollRef.current.scrollIntoView();
         setCourseTopicId(couseId);
         const topic_Index =
@@ -354,6 +363,9 @@ const TeacherPlayVideo = (props) => {
     };
 
     const videoStatus = (type, status) => {
+        // here we can see the videoStatus //
+        // type = video ,attachment ,quiz, certificates  //
+        //  where status = completed /incomplete //
         const done = <IoCheckmarkDoneCircleSharp className="done" />;
         const notDone = <IoCheckmarkDoneCircleSharp />;
         if (type === 'VIDEO' && status === 'COMPLETED') {
@@ -384,6 +396,7 @@ const TeacherPlayVideo = (props) => {
         setHideQuiz(false);
     };
     const handleQuiz = () => {
+        // here we can see Quiz //
         modulesListUpdateApi(topicObj.mentor_course_topic_id);
         handleSelect(
             topicObj.topic_type_id,
@@ -412,12 +425,14 @@ const TeacherPlayVideo = (props) => {
         }
     };
     const removeSelectedImage = () => {
+        // here we can remove the selected image //
         setImage();
         setFileName();
         setUrl();
     };
 
     const handleSubmit = (e) => {
+        // here we can submit the worksheets  responses//
         const data = new FormData();
         data.append('attachment_1', image);
         var config = {
@@ -448,6 +463,8 @@ const TeacherPlayVideo = (props) => {
     };
 
     const handleNextCourse = () => {
+        // here we can go for next course //
+        // here course_topic_id = course_topic_id //
         modulesListUpdateApi(topicObj.course_topic_id);
         handleSelect(
             topicObj.topic_type_id,
@@ -457,6 +474,7 @@ const TeacherPlayVideo = (props) => {
     };
 
     const startFirstCourse = (e) => {
+        // here we can start the course //
         setCourseData(null);
         modulesListUpdateApi(firstObj[0].mentor_course_topic_id);
         handleSelect(
@@ -467,6 +485,7 @@ const TeacherPlayVideo = (props) => {
     };
 
     const startContinueCourse = (e) => {
+        // here we can continue the course //
         setCourseData(null);
         modulesListUpdateApi(continueObj[0].course_topic_id);
         handleSelect(
@@ -477,13 +496,15 @@ const TeacherPlayVideo = (props) => {
         // toggle(continueObj[0].course_module_id);
     };
 
-    const handlenextend = () =>{
+    const handlenextend = () => {
+        // here we can see continue button , go to the next course //
         handleVimeoOnEnd();
         setInstructions(true);
         setHandbook(false);
     };
 
     const handleDownload = (path) => {
+        // here we can download teacher handbook //
         let a = document.createElement('a');
         a.target = '_blank';
         //a.href = process.env.REACT_APP_API_IMAGE_BASE_URL + path;
@@ -494,6 +515,7 @@ const TeacherPlayVideo = (props) => {
         setHandbook(false);
     };
     const handleInstructionDownload = (path) => {
+        // here we can download the instructions  //
         let a = document.createElement('a');
         a.target = '_blank';
         //a.href = process.env.REACT_APP_API_IMAGE_BASE_URL + path;
@@ -501,6 +523,7 @@ const TeacherPlayVideo = (props) => {
         a.click();
     };
     const handleCertificateDownload = () => {
+        // here we can download the certificate //
         const content = pdfRef.current;
         const doc = new jsPDF('l', 'px', [210, 297]);
         doc.html(content, {
@@ -725,16 +748,28 @@ const TeacherPlayVideo = (props) => {
                                                     will help you understand the
                                                     program objectives and
                                                     enable you to support your
-                                                    Unisolve student teams better.
+                                                    Unisolve student teams
+                                                    better.
                                                 </p>
                                                 <p>
-                                                STEP 1 : Go through pages 1 - 28, to understand about the program before giving the Quiz.
+                                                    STEP 1 : Go through pages 1
+                                                    - 28, to understand about
+                                                    the program before giving
+                                                    the Quiz.
                                                 </p>
                                                 <p>
-                                                STEP 2 : Refer to pages 29 - 38 to roll out the program in your schools and familiarise all the studetns about the program and the course components.
+                                                    STEP 2 : Refer to pages 29 -
+                                                    38 to roll out the program
+                                                    in your schools and
+                                                    familiarise all the studetns
+                                                    about the program and the
+                                                    course components.
                                                 </p>
                                                 <p>
-                                                STEP 3 : Register the students on the platform and guide then through the journey.
+                                                    STEP 3 : Register the
+                                                    students on the platform and
+                                                    guide then through the
+                                                    journey.
                                                 </p>
                                                 <p className="text-primary text-left">
                                                     <b>
@@ -800,7 +835,9 @@ const TeacherPlayVideo = (props) => {
                                                         worksheetResponce.map(
                                                             (item, i) => (
                                                                 <Button
-                                                                style={{margin:"5px"}}
+                                                                    style={{
+                                                                        margin: '5px'
+                                                                    }}
                                                                     key={i}
                                                                     label={`Download ${item
                                                                         .split(
@@ -829,15 +866,17 @@ const TeacherPlayVideo = (props) => {
                                                                 />
                                                             )
                                                         )}
-                                                </div>   
+                                                </div>
                                             </div>
-                                            <Col className='text-right'>
-                                            <Button 
-                                            label={"Continue"}
-                                            onClick={()=> handlenextend()}
-                                            btnClass="primary mt-4 mb-2"
-                                            size="small"
-                                            />
+                                            <Col className="text-right">
+                                                <Button
+                                                    label={'Continue'}
+                                                    onClick={() =>
+                                                        handlenextend()
+                                                    }
+                                                    btnClass="primary mt-4 mb-2"
+                                                    size="small"
+                                                />
                                             </Col>
                                         </CardBody>
                                     </Card>
@@ -983,10 +1022,12 @@ const TeacherPlayVideo = (props) => {
                                                     <p>
                                                         In addition to the
                                                         teacher handbook there
-                                                        are worksheets and additional readings
-                                                        for your student teams
-                                                        which will aid in this
-                                                        Unisolve learning journey:
+                                                        are worksheets and
+                                                        additional readings for
+                                                        your student teams which
+                                                        will aid in this
+                                                        Unisolve learning
+                                                        journey:
                                                     </p>
                                                     {/* <p className="mb-0">
                                                         A. Worksheets
@@ -1000,10 +1041,18 @@ const TeacherPlayVideo = (props) => {
                                                     </p> */}
                                                     <h3>WORKSHEETS</h3>
                                                     <p className="mb-0">
-                                                        1.  This document had one set of Worksheet per Module.
+                                                        1. This document had one
+                                                        set of Worksheet per
+                                                        Module.
                                                     </p>
                                                     <p className="mb-0">
-                                                        2. Respective worksheets are required to be completed/filled by the Unisolve Students (as a TEAM) after they watch each lesson from lesson 1 to lesson 6.
+                                                        2. Respective worksheets
+                                                        are required to be
+                                                        completed/filled by the
+                                                        Unisolve Students (as a
+                                                        TEAM) after they watch
+                                                        each lesson from lesson
+                                                        1 to lesson 6.
                                                     </p>
                                                     <p className="mb-0">
                                                         3. Download, Print/Xerox
@@ -1017,11 +1066,22 @@ const TeacherPlayVideo = (props) => {
                                                         if they need help.
                                                     </p>
                                                     <p className="mb-0">
-                                                        5. Guide the teams to upload their worksheets on the portal after they complete it.
+                                                        5. Guide the teams to
+                                                        upload their worksheets
+                                                        on the portal after they
+                                                        complete it.
                                                     </p>
                                                     <br></br>
                                                     <h3>ADDITIONAL READINGS</h3>
-                                                    <p>Print and provide the related pages from the Additional Reading document to each student while they watch the respective video to support their learning.</p>
+                                                    <p>
+                                                        Print and provide the
+                                                        related pages from the
+                                                        Additional Reading
+                                                        document to each student
+                                                        while they watch the
+                                                        respective video to
+                                                        support their learning.
+                                                    </p>
                                                 </CardBody>
                                                 <div className="text-left mb-5">
                                                     {worksheetResponce &&
@@ -1031,7 +1091,9 @@ const TeacherPlayVideo = (props) => {
                                                             (item, i) =>
                                                                 i > 1 && (
                                                                     <Button
-                                                                    style={{margin:"5px"}}
+                                                                        style={{
+                                                                            margin: '5px'
+                                                                        }}
                                                                         key={i}
                                                                         label={`Download ${item
                                                                             .split(
@@ -1089,8 +1151,10 @@ const TeacherPlayVideo = (props) => {
                                                         worksheetResponce.map(
                                                             (item, i) =>
                                                                 i <= 1 && (
-                                                                    <Button 
-                                                                    style={{margin:"5px"}}
+                                                                    <Button
+                                                                        style={{
+                                                                            margin: '5px'
+                                                                        }}
                                                                         key={i}
                                                                         label={`Download ${item
                                                                             .split(
@@ -1204,6 +1268,7 @@ const mapStateToProps = ({ teacherCourses, adminCourses }) => {
         mentorAttachments
     };
 };
+
 export default connect(mapStateToProps, {
     getTeacherCourseDetailsActions: getTeacherCourseDetails,
     getAdminCourseDetailsActions: getAdminCourseDetails,

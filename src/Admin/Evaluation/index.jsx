@@ -10,13 +10,15 @@ import axios from 'axios';
 import { getNormalHeaders } from '../../helpers/Utils';
 
 const eadmindashboard = () => {
-    const [dateCount, setdateCount] = useState({});
+    // here we can see all  the Challenges  and count //
 
+    const [dateCount, setdateCount] = useState({});
     useEffect(() => {
         handlecountvalue();
     }, []);
 
     async function handlecountvalue() {
+        //  handlecountvalue Api where we  can see all challenges list //
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
             .get(`${URL.gettotalcount}`, axiosConfig)

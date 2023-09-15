@@ -21,6 +21,7 @@ import 'sweetalert2/src/sweetalert2.scss';
 // const bcrypt = require("bcrypt");
 
 const ChangePSWModal = (props) => {
+    // here we can change the  student password //
     const currentUser = getCurrentUser('current_user');
     const { t } = useTranslation();
     const [error, SetError] = useState('');
@@ -41,7 +42,7 @@ const ChangePSWModal = (props) => {
         }),
 
         onSubmit: async (values) => {
-            console.log('=====valiues', values);
+            // console.log('=====valiues', values);
             if (values.newPassword.length < 8) {
                 SetError('New Password must be 8-character minimum');
             } else if (values.oldPassword === values.newPassword) {
@@ -79,18 +80,6 @@ const ChangePSWModal = (props) => {
                     old_password: old1,
                     new_password: new1
                 });
-                // console.log(
-                //   "===========old",
-                //   CryptoJS.AES.encrypt(
-                //     values.oldPassword,
-                //     "my-secret-key@123"
-                //   ).toString()
-                // );
-                // const body = JSON.stringify({
-                //   userId: currentUser.id,
-                //   oldPassword: values.oldPassword,
-                //   newPassword: values.newPassword,
-                // });
 
                 var config = {
                     method: 'put',
@@ -132,12 +121,14 @@ const ChangePSWModal = (props) => {
     };
 
     const newPassword = {
+        //  here we can generate new password //
         type: 'password',
         placeholder: t('changepswd.Create_new_password_here'),
         className: 'defaultInput'
     };
 
     const confirmPassword = {
+        // here  newPassword  is confirmPassword //
         type: 'password',
         placeholder: t('changepswd.Verify_New_password'),
         className: 'defaultInput'

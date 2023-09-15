@@ -91,12 +91,14 @@ export const getStudentRegistationData = (studentType) => async (dispatch) => {
     }
 };
 export const getDistrictsSuccess = (data) => async (dispatch) => {
+    // where data = all districts //
     dispatch({
         type: GET_DISTRICTS,
         payload: data
     });
 };
 export const getDistrictData = () => async (dispatch) => {
+    // here we can see  district wise data //
     try {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         let result;
@@ -139,6 +141,8 @@ export const getStudentByIdData = (id) => async (dispatch) => {
 };
 
 export const updateStudentStatus = (data, id) => async (dispatch) => {
+    // here we can update the student status  //
+    // here id = student id  //
     try {
         dispatch({ type: UPDATE_STUDENT_STATUS });
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);

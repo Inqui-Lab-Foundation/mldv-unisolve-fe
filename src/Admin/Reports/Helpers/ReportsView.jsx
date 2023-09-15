@@ -12,6 +12,7 @@ import DataTableExtensions from 'react-data-table-component-extensions';
 import { useHistory } from 'react-router-dom';
 import { URL, KEY } from '../../../constants/defaultValues';
 const ReportsView = () => {
+    // her we can see challenges reports view in district wise and count //
     // const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     // const [rows, setRows] = React.useState([]);
@@ -28,6 +29,7 @@ const ReportsView = () => {
     }, []);
 
     async function handleDistAPI(disTrict) {
+        // handleDistAPI where disTrict  = district //
         let axiosConfig = getNormalHeaders(KEY.User_API_Key);
         axiosConfig['params'] = {
             level: disTrict

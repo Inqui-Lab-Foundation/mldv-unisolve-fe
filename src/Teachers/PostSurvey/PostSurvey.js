@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 /* eslint-disable no-unused-vars */
 import React, { useEffect, useState } from 'react';
 import './style.scss';
@@ -33,6 +34,7 @@ import { getDashboardStates } from '../store/dashboard/actions';
 import PostSurveyStatic from './PostSurveyStatic';
 
 const PostSurvey = () => {
+    // here we can attempt all the questions then we are able to download the certificate //
     const { t } = useTranslation();
     const dispatch = useDispatch();
     const [postSurveyList, setPostSurveyList] = useState([]);
@@ -128,7 +130,11 @@ const PostSurvey = () => {
                         <div className="aside  p-4 bg-white">
                             <h2>{t('teacher.post_survey')}</h2>
                             <CardBody>
-                                {(dashboardStates && dashboardStates.teams_count && dashboardStates.ideas_count===dashboardStates.teams_count && postSurveyStatus != 'COMPLETED') ? (
+                                {dashboardStates &&
+                                dashboardStates.teams_count &&
+                                dashboardStates.ideas_count ===
+                                    dashboardStates.teams_count &&
+                                postSurveyStatus != 'COMPLETED' ? (
                                     <>
                                         <UncontrolledAlert
                                             color="danger"

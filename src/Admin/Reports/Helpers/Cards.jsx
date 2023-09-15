@@ -14,6 +14,7 @@ import './button.css';
 import { useHistory } from 'react-router-dom';
 
 const Cards = ({ heading, list, reports, props, distList }) => {
+    // here list = student reports ; reports = teacher reports ; distList = district wise challenges reports //
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
     const [reportsData, setReportsData] = useState([]);
@@ -32,6 +33,9 @@ const Cards = ({ heading, list, reports, props, distList }) => {
     ];
 
     const handleDownload = (item) => {
+        // where we can download the reports //
+        // here item = list //
+
         setMsg(item);
         var url = '';
         if (item == 'Registered Teachers List') {
@@ -42,8 +46,24 @@ const Cards = ({ heading, list, reports, props, distList }) => {
             url = '/reports/courseComplete';
         } else if (item == 'Teachers Pre Survey Completed List') {
             url = '/reports/preSurvey?role=MENTOR';
-            // } else if (item == 'Students Pre Survey') {
-            //     url = '/reports/preSurvey?role=STUDENT';
+        } else if (item == 'Submitted Challenges') {
+            url = '/reports/challengesDistrictCount?level=SUBMITTED';
+        } else if (item == 'Draft Challenges') {
+            url = '/reports/challengesDistrictCount?level=DRAFT';
+        } else if (item == 'Accepted Challenges') {
+            url = '/reports/challengesDistrictCount?level=SELECTEDROUND1';
+        } else if (item == 'Rejected Challenges') {
+            url = '/reports/challengesDistrictCount?level=REJECTEDROUND1';
+        } else if (item == 'L1 - Yet to Processed Challenges') {
+            url = '/reports/challengesDistrictCount?level=L1YETPROCESSED';
+        } else if (item == 'L2 - Processed Challenges') {
+            url = '/reports/challengesDistrictCount?level=L2PROCESSED';
+        } else if (item == 'L2 - Yet to  Processed Challenges') {
+            url = '/reports/challengesDistrictCount?level=L2YETPROCESSED';
+        } else if (item == 'Final Evaluation Challenges') {
+            url = '/reports/challengesDistrictCount?level=FINALCHALLENGES';
+        } else if (item == 'Final Winner Challenges') {
+            url = '/reports/challengesDistrictCount?level=FINALACCEPTED';
         }
         var config = {
             method: 'get',
@@ -70,6 +90,28 @@ const Cards = ({ heading, list, reports, props, distList }) => {
                         msg = 'Teachers Pre Survey Download successfully';
                     } else if (item == 'Students Pre Survey') {
                         msg = 'Students Pre Survey Download Successfully';
+                    } else if (item == 'Submitted Challenges') {
+                        msg = 'Submitted Challenges  Download Successfully';
+                    } else if (item == 'Draft Challenges') {
+                        msg = 'Draft Challenges Download Successfully';
+                    } else if (item == 'Accepted Challenges') {
+                        msg = 'Accepted Challenges  Download Successfully';
+                    } else if (item == 'Rejected Challenges') {
+                        msg = 'Rejected Challenges  Download Successfully';
+                    } else if (item == 'L1 - Yet to Processed Challenges') {
+                        msg =
+                            'L1 - Yet to Processed Challenges  Download Successfully';
+                    } else if (item == 'L2 - Processed Challenges') {
+                        msg =
+                            'L2 - Processed Challenges  Download Successfully';
+                    } else if (item == 'L2 - Yet to  Processed Challenges') {
+                        msg =
+                            'L2 - Yet to  Processed Challenges  Download Successfully';
+                    } else if (item == 'Final Evaluation Challenges') {
+                        msg =
+                            'Final Evaluation Challenges  Download Successfully';
+                    } else if (item == 'Final Winner Challenges') {
+                        msg = 'Final Winner Challenges  Download Successfully';
                     }
 
                     openNotificationWithIcon('success', msg);
@@ -86,6 +128,8 @@ const Cards = ({ heading, list, reports, props, distList }) => {
     };
 
     const handleView = (item) => {
+        // where we can see all challenges reports in districtwise //
+        // here item = challenges type //
         var url = '';
         if (item == 'Submitted Challenges') {
             url = 'SUBMITTED';
@@ -201,7 +245,7 @@ const Cards = ({ heading, list, reports, props, distList }) => {
                                 <tr key={key} className="table_data_row">
                                     <td>{val}</td>
 
-                                    <td>
+                                    <td className="d-flex justify-content-around">
                                         <button
                                             className="btn btn-primary  px-4 btn-lg text-white "
                                             onClick={() => {
@@ -209,6 +253,15 @@ const Cards = ({ heading, list, reports, props, distList }) => {
                                             }}
                                         >
                                             View
+                                        </button>
+                                        <button
+                                            className="btn btn-primary  rounded-3"
+                                            onClick={() => {
+                                                handleDownload(val);
+                                            }}
+                                        >
+                                            <i className="fa fa-download me-2"></i>
+                                            Download
                                         </button>
                                     </td>
                                 </tr>
@@ -233,6 +286,29 @@ const Cards = ({ heading, list, reports, props, distList }) => {
                             ? 'Teachers Pre Survey.csv'
                             : msg == 'Students Pre Survey'
                             ? 'Students Pre Survey.csv'
+                            : msg ==
+                              'Submitted Challenges  Download Successfully'
+                            ? 'Submitted Challenges.csv'
+                            : msg == 'Draft Challenges  Download Successfully'
+                            ? 'Draft Challenges.csv'
+                            : msg ==
+                              'Accepted Challenges  Download Successfully'
+                            ? 'Accepted Challenges.csv'
+                            : msg ==
+                              'Rejected Challenges  Download Successfully'
+                            ? 'Rejected Challenges.csv'
+                            : msg ==
+                              'L1 - Yet to Processed Challenges  Download Successfully'
+                            ? 'L1 - Yet to Processed Challenges.csv'
+                            : msg ==
+                              'L2 - Processed Challenges  Download Successfully'
+                            ? 'L2 - Processed Challenges.csv'
+                            : msg ==
+                              'Final Evaluation Challenges  Download Successfully'
+                            ? 'Final Evaluation Challenges.csv'
+                            : msg ==
+                              'Final Winner Challenges  Download Successfully'
+                            ? 'Final Winner Challenges.csv'
                             : 'Report.csv'
                     }
                 />

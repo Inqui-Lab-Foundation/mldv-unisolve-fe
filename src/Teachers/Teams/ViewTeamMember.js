@@ -65,9 +65,11 @@ const ViewTeamMember = () => {
 
     useEffect(() => {
         handleteamMembersAPI(teamId);
+        // here teamId = team id //
     }, [teamId, count]);
 
     async function handleteamMembersAPI(teamId) {
+        // here we can get all team member details //
         var config = {
             method: 'get',
             url:
@@ -101,6 +103,8 @@ const ViewTeamMember = () => {
     }
 
     const handleResetPassword = (data) => {
+        // here we can reset password as  user_id //
+        // here data = student_id //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',
@@ -216,6 +220,8 @@ const ViewTeamMember = () => {
     }, []);
 
     const handleEditTeamMember = (item) => {
+        // here we can edit team member details //
+        // here item = student_id //
         history.push({
             pathname: '/teacher/edit-team-member',
             item: item
@@ -223,6 +229,8 @@ const ViewTeamMember = () => {
     };
 
     const handleDeleteTeamMember = (item) => {
+        // here we can delete the team member details //
+        // here item = student_id //
         const swalWithBootstrapButtons = Swal.mixin({
             customClass: {
                 confirmButton: 'btn btn-success',

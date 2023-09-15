@@ -60,6 +60,7 @@ import { getTeacherByID } from '../redux/actions';
 // };
 
 const MyProfile = () => {
+    // here we can see all the details of details of teacher //
     const currentUser = getCurrentUser('current_user');
     //const [profileAction, setProfileAction] = useState(true);
     const { teacher } = useSelector((state) => state.teacher);

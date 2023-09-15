@@ -1,3 +1,4 @@
+/* eslint-disable indent */
 import { useLayoutEffect } from 'react';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,7 +16,7 @@ const IdeaSubmission = () => {
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
-    const challengesSubmittedResponse  = useSelector(
+    const challengesSubmittedResponse = useSelector(
         (state) => state?.studentRegistration.challengesSubmittedResponse
     );
     const currentUser = getCurrentUser('current_user');
@@ -37,13 +38,16 @@ const IdeaSubmission = () => {
         ) {
             challengesSubmittedResponse[0].status === 'DRAFT'
                 ? setShowChallenges(true)
-                : view ? setShowChallenges(true) :setShowCompleted(true);
+                : view
+                ? setShowChallenges(true)
+                : setShowCompleted(true);
         } else {
             setShowChallenges(false);
         }
-    }, [challengesSubmittedResponse,view]);
-    const commonPageText = t("student.idea_submitted_desc");
-    const handleView = ()=>{
+    }, [challengesSubmittedResponse, view]);
+    const commonPageText = t('student.idea_submitted_desc');
+    const handleView = () => {
+        // here we can see the idea submission //
         setShowChallenges(true);
         setShowCompleted(false);
         setView(true);
@@ -62,7 +66,7 @@ const IdeaSubmission = () => {
         <SDG setShowChallenges={setShowChallenges} />
         // <Layout>
         //     <CommonPage text={t("student_course.idea_submission_date_com_desc")} ideaSubmissionComButton={true}/>
-        // </Layout> 
+        // </Layout>
     );
 };
 export default IdeaSubmission;

@@ -6,6 +6,8 @@ export const UserRole = {
 
 export const URL = {
     // Post //
+    schoolLogin: process.env.REACT_APP_API_BASE_URL + '/organizations/login',
+
     login: process.env.REACT_APP_API_BASE_URL + '/students/login',
     adminLogin: process.env.REACT_APP_API_BASE_URL + '/admins/login',
     eadminLogin:
@@ -103,6 +105,8 @@ export const URL = {
         process.env.REACT_APP_API_BASE_URL + '/organizations/districts',
     getStudentBadges: process.env.REACT_APP_API_BASE_URL + '/students/',
     getStudentById: process.env.REACT_APP_API_BASE_URL + '/students/',
+    getSchoolById: process.env.REACT_APP_API_BASE_URL + '/organizations/',
+
     getAdmin: process.env.REACT_APP_API_BASE_URL + '/admins/',
     getChallengeList: `${process.env.REACT_APP_API_BASE_URL}/challenge_response/customFilter`,
 

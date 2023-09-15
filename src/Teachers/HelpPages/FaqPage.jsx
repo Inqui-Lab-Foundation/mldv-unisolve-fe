@@ -14,21 +14,22 @@ const FaqPage = () => {
     // changed
     // const currentUser = getCurrentUser('current_user');
     const [response, SetResponse] = useState([]);
-    const language = useSelector(state=>state?.mentors.mentorLanguage);
+    const language = useSelector((state) => state?.mentors.mentorLanguage);
 
     const getFaqByCategory = async (id) => {
         const axiosConfig = getNormalHeaders(KEY.User_API_Key);
         await axios
-            .get(`${URL.getFaqByCategoryId}/${id}?${getLanguage(language)}`, axiosConfig)
+            .get(
+                `${URL.getFaqByCategoryId}/${id}?${getLanguage(language)}`,
+                axiosConfig
+            )
             .then((res) => {
                 if (res?.status === 200) {
                     SetResponse(res?.data?.data[0]?.faqs);
                 }
             })
             .catch((err) => {
-                console.log(
-                    err.response
-                );
+                console.log(err.response);
             });
     };
     // changed
@@ -67,43 +68,53 @@ const FaqPage = () => {
                             <Col md={10}>
                                 <div className="collapse-sec idea-que-sec pt-2">
                                     <Accordion>
-                                        { response && response.map((que, index) => {
-                                            return (
-                                                <Accordion.Item
-                                                    eventKey={index}
-                                                    className="mt-3 mb-4 que-items"
-                                                    key={index}
-                                                >
-                                                    <Accordion.Header className="question">
-                                                        <div className="idea-query py-3">
-                                                            {/* <Avatar src={User} className="avatar-imgs" /> */}
-                                                            <span className="avatar-txt">
-                                                                {que.question}
-                                                            </span>
-                                                        </div>
-                                                    </Accordion.Header>
-                                                    <Accordion.Body>
-                                                        <div className="idea-pblms">
-                                                            <div
-                                                                className="idea-pblm-list"
-                                                                key={index}
-                                                            >
-                                                                <Row className="justify-content-between w-100">
-                                                                    <Col
-                                                                        md={12}
-                                                                        xl={12}
-                                                                        className="my-auto text-left"
-                                                                    >
-                                                                        <div dangerouslySetInnerHTML={ { __html: que.answer } }></div>
-            
-                                                                    </Col>
-                                                                </Row>
+                                        {response &&
+                                            response.map((que, index) => {
+                                                return (
+                                                    <Accordion.Item
+                                                        eventKey={index}
+                                                        className="mt-3 mb-4 que-items"
+                                                        key={index}
+                                                    >
+                                                        <Accordion.Header className="question">
+                                                            <div className="idea-query py-3">
+                                                                {/* <Avatar src={User} className="avatar-imgs" /> */}
+                                                                <span className="avatar-txt">
+                                                                    {
+                                                                        que.question
+                                                                    }
+                                                                </span>
                                                             </div>
-                                                        </div>
-                                                    </Accordion.Body>
-                                                </Accordion.Item>
-                                            );
-                                        })}
+                                                        </Accordion.Header>
+                                                        <Accordion.Body>
+                                                            <div className="idea-pblms">
+                                                                <div
+                                                                    className="idea-pblm-list"
+                                                                    key={index}
+                                                                >
+                                                                    <Row className="justify-content-between w-100">
+                                                                        <Col
+                                                                            md={
+                                                                                12
+                                                                            }
+                                                                            xl={
+                                                                                12
+                                                                            }
+                                                                            className="my-auto text-left"
+                                                                        >
+                                                                            <div
+                                                                                dangerouslySetInnerHTML={{
+                                                                                    __html: que.answer
+                                                                                }}
+                                                                            ></div>
+                                                                        </Col>
+                                                                    </Row>
+                                                                </div>
+                                                            </div>
+                                                        </Accordion.Body>
+                                                    </Accordion.Item>
+                                                );
+                                            })}
                                     </Accordion>
                                 </div>
                             </Col>

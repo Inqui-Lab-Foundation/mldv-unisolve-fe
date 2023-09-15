@@ -18,10 +18,12 @@ import { getAdmin } from '../store/admin/actions';
 import { useDispatch } from 'react-redux';
 
 const EditProfile = (props) => {
+    // here we can edit the users details //
     const history = useHistory();
     const currentUser = getCurrentUser('current_user');
     const dispatch = useDispatch();
     const mentorData =
+        // where  mentorData = mentor details //
         (history && history.location && history.location.data) || {};
     const headingDetails = {
         title: 'User Edit Details',
@@ -37,11 +39,12 @@ const EditProfile = (props) => {
             }
         ]
     };
-
+    // console.log(mentorData);
     // const phoneRegExp =
     //     /^((\\+[1-9]{1,4}[ \\-]*)|(\\([0-9]{2,3}\\)[ \\-]*)|([0-9]{2,4})[ \\-]*)*?[0-9]{3,4}?[ \\-]*[0-9]{3,4}?$/;
 
     const getValidationSchema = (data) => {
+        // where data = mentorData //
         const adminValidation = Yup.object({
             name: Yup.string()
                 .matches(/^[aA-zZ\s]+$/, 'Invalid name ')
@@ -124,7 +127,7 @@ const EditProfile = (props) => {
                             props.history.push(
                                 mentorData.where === 'Dashbord'
                                     ? '/admin/dashboard'
-                                    : '/admin/userprofile'
+                                    : '/admin/userlist'
                             );
                         }, 200);
                     }
@@ -136,17 +139,17 @@ const EditProfile = (props) => {
     });
 
     const handleDiscard = () => {
+        // where we can discard  the changes //
         props.history.push(
             mentorData.where === 'Dashbord'
                 ? '/admin/dashboard'
-                : '/admin/userprofile'
+                : '/admin/userlist'
         );
         localStorage.setItem(
             'organization_code',
             JSON.stringify(mentorData.organization_code)
         );
     };
-    // console.log(mentorData);
     return (
         <Layout>
             <div className="EditPersonalDetails new-member-page">

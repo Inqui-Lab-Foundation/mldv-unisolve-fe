@@ -28,7 +28,11 @@ import { getLanguage } from '../../constants/languageOptions';
 import { useDispatch, useSelector } from 'react-redux';
 import getStart from '../../assets/media/getStart.png';
 import { useTranslation } from 'react-i18next';
-import { getPresurveyData, getStudentDashboardStatus, updateStudentBadges } from '../../redux/studentRegistration/actions';
+import {
+    getPresurveyData,
+    getStudentDashboardStatus,
+    updateStudentBadges
+} from '../../redux/studentRegistration/actions';
 //import { Modal } from 'react-bootstrap';
 //import ChildrensDaysGif from '../../assets/media/childrensdays.gif';
 
@@ -58,6 +62,7 @@ import { getPresurveyData, getStudentDashboardStatus, updateStudentBadges } from
 // };
 
 const PreSurvey = () => {
+    // here student can attempt all the questions //
     const { t } = useTranslation();
     const currentUser = getCurrentUser('current_user');
     const history = useHistory();
@@ -65,9 +70,15 @@ const PreSurvey = () => {
     const language = useSelector(
         (state) => state?.studentRegistration?.studentLanguage
     );
-    const preSurveyStatus = useSelector((state) => state?.studentRegistration?.presuveyStatusGl);
-    const preSurveyList = useSelector((state) => state?.studentRegistration?.preSurveyList);
-    const quizSurveyId = useSelector((state) => state?.studentRegistration?.quizSurveyId);
+    const preSurveyStatus = useSelector(
+        (state) => state?.studentRegistration?.presuveyStatusGl
+    );
+    const preSurveyList = useSelector(
+        (state) => state?.studentRegistration?.preSurveyList
+    );
+    const quizSurveyId = useSelector(
+        (state) => state?.studentRegistration?.quizSurveyId
+    );
     const [show, setShow] = useState(false);
 
     const formik = useFormik({
@@ -94,7 +105,8 @@ const PreSurvey = () => {
             } else {
                 return await axios
                     .post(
-                        `${URL.getPreSurveyList
+                        `${
+                            URL.getPreSurveyList
                         }/${quizSurveyId}/responses?${getLanguage(language)}`,
                         JSON.stringify(submitData, null, 2),
                         axiosConfig
@@ -107,12 +119,18 @@ const PreSurvey = () => {
                                 ''
                             );
                             dispatch(getPresurveyData(language));
-                            dispatch(getStudentDashboardStatus(currentUser?.data[0]?.user_id, language));
+                            dispatch(
+                                getStudentDashboardStatus(
+                                    currentUser?.data[0]?.user_id,
+                                    language
+                                )
+                            );
                             dispatch(
                                 updateStudentBadges(
                                     { badge_slugs: ['survey_champ'] },
                                     currentUser?.data[0]?.user_id,
-                                    language,t
+                                    language,
+                                    t
                                 )
                             );
                             setTimeout(() => {
@@ -129,8 +147,8 @@ const PreSurvey = () => {
         }
     });
 
-
     const handleStart = () => {
+        // here student  can start journey //
         setShow(true);
     };
 
@@ -235,8 +253,12 @@ const PreSurvey = () => {
                                                             }
                                                         >
                                                             {eachQuestion.option_a && (
-                                                                <FormGroup check>
-                                                                    <Label check>
+                                                                <FormGroup
+                                                                    check
+                                                                >
+                                                                    <Label
+                                                                        check
+                                                                    >
                                                                         <Input
                                                                             type="radio"
                                                                             name={`radioGroup${i}`}
@@ -250,8 +272,12 @@ const PreSurvey = () => {
                                                                 </FormGroup>
                                                             )}
                                                             {eachQuestion.option_b && (
-                                                                <FormGroup check>
-                                                                    <Label check>
+                                                                <FormGroup
+                                                                    check
+                                                                >
+                                                                    <Label
+                                                                        check
+                                                                    >
                                                                         <Input
                                                                             type="radio"
                                                                             name={`radioGroup${i}`}
@@ -265,8 +291,12 @@ const PreSurvey = () => {
                                                                 </FormGroup>
                                                             )}
                                                             {eachQuestion.option_c && (
-                                                                <FormGroup check>
-                                                                    <Label check>
+                                                                <FormGroup
+                                                                    check
+                                                                >
+                                                                    <Label
+                                                                        check
+                                                                    >
                                                                         <Input
                                                                             type="radio"
                                                                             name={`radioGroup${i}`}
@@ -280,8 +310,12 @@ const PreSurvey = () => {
                                                                 </FormGroup>
                                                             )}
                                                             {eachQuestion.option_d && (
-                                                                <FormGroup check>
-                                                                    <Label check>
+                                                                <FormGroup
+                                                                    check
+                                                                >
+                                                                    <Label
+                                                                        check
+                                                                    >
                                                                         <Input
                                                                             type="radio"
                                                                             name={`radioGroup${i}`}
@@ -294,7 +328,6 @@ const PreSurvey = () => {
                                                                     </Label>
                                                                 </FormGroup>
                                                             )}
-
                                                         </FormGroup>
                                                     </div>
                                                 </Card>

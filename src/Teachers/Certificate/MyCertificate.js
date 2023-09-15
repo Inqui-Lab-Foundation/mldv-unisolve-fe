@@ -21,6 +21,7 @@ const MyCertificate = () => {
     //let tempVar = postSurveyStatus ==="COMPLETED";
     let tempVar = false ;
     const handleCertificateDownload = () => {
+        // here we can download the certificates //
         const content = pdfRef.current;
         const doc = new jsPDF('l', 'px', [211,298]);
         doc.html(content, {

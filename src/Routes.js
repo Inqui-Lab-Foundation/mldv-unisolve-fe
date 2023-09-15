@@ -50,6 +50,8 @@ import AdminLogin from './Admin/LoginNew';
 import AdminDashboard from './Admin/Dashboard/index';
 import AdminMyProfile from './Admin/MyProfile';
 import AdminMySettings from './Admin/MySettings';
+import AdminTeacherDashboard from './Admin/UserList/AdminTeacherDashboard';
+import MentorEditProfile from './Admin/UserList/MentorEditProfile';
 
 import AdminChallenges from './Admin/Challenges/ViewSelectedChallenges';
 import AdminEvaluation from './Admin/Evaluation/index';
@@ -145,6 +147,7 @@ import EvaluatorIdeaList from './Evaluator/IdeaList/IdeaList';
 import ViewMore from './Admin/Dashboard/ViewMore';
 import EvaluatorInstructions from './Evaluator/Instructions/Instructions';
 import EvaluatedIdea from './Evaluator/EvaluatedIdea/EvaluatedIdea';
+import StudentEditProfile from './Admin/UserList/StudentEditProfile';
 
 import EvalutorAdminLogins from './Evaluator/Admin/EvaluatorAdminLogin';
 import Eadmindashboard from './Evaluator/Admin/Dashboard/EAdminDashboard';
@@ -156,10 +159,23 @@ import EditEvalProcess from './Admin/EvalProcess/EditEvalProcess';
 import SelDistricts from './Admin/EvalProcess/SelectingDistricts';
 import CreateEvalProcess from './Admin/EvalProcess/CreateEvalProcess';
 import ReportsView from './Admin/Reports/Helpers/ReportsView';
+import ReportsRegistration from './Admin/Reports/Helpers/ReportsRegistration';
+import StudentsProgressReport from './Admin/Reports/Helpers/StudentsProgressReport';
+
+import TeacherProgressDetailed from './Admin/Reports/Helpers/TeacherProgressDetailed';
+import AdminLatestNews from './Admin/LatestNews/index';
+import AdminCreateLatestNews from './Admin/LatestNews/createLatestNews';
+import AdminEditLatestNews from './Admin/LatestNews/editLatestNews';
+import TeacherViewDetails from './Admin/UserList/TeacherViewDetails';
+import LoginSchool from './School/LoginSchool';
+import MySchoolProfile from './School/MySchoolProfile';
+import SchoolEditProfile from './School/SchoolEditProfile';
+import SchoolChangePSWModal from './School/ChangePSWModal';
+import DashboardSchool from './School/Dashboard';
 
 const Routers = () => {
     // const history = useHistory();
-    // const currentUser = getCurrentUser('current_user');
+    // const currentUser = ('current_user');
     // if (currentUser && currentUser?.data[0]?.role === 'ADMIN') {
     //     history.push('/admin/dashboard');
     // } else if (currentUser && currentUser?.data[0]?.role === 'STUDENT') {
@@ -219,6 +235,35 @@ const Routers = () => {
                         render={() => <PasswordEmailConfirmation />}
                     />
 
+                    <Route
+                        exact
+                        path="/school"
+                        render={() => <LoginSchool />}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="SCHOOL"
+                        path="/school/dashboard"
+                        component={DashboardSchool}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="SCHOOL"
+                        path="/school/my-profile"
+                        component={MySchoolProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="SCHOOL"
+                        path="/EditSchoolProfile"
+                        component={SchoolEditProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="SCHOOL"
+                        path="/school-changePassword"
+                        component={SchoolChangePSWModal}
+                    />
                     <ProtectedRoute
                         exact
                         path="/dashboard"
@@ -400,6 +445,30 @@ const Routers = () => {
                         exact={true}
                         path="/admin/userprofile"
                         component={CommonUserProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="ADMIN"
+                        path="/admin/student/edit-user-profile"
+                        component={StudentEditProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="ADMIN"
+                        path="/admin/teacher/dashboard"
+                        component={AdminTeacherDashboard}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="ADMIN"
+                        path="/admin/teacher/View-More-details"
+                        component={TeacherViewDetails}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="ADMIN"
+                        path="/admin/mentor/edit-user-profile"
+                        component={MentorEditProfile}
                     />
                     {/* CommonUserProfileEdit */}
                     <ProtectedRoute
@@ -588,6 +657,42 @@ const Routers = () => {
                         exact={true}
                         path="/admin/reports"
                         component={Reports}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        user="ADMIN"
+                        path="/admin/LatestNews"
+                        component={AdminLatestNews}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="ADMIN"
+                        path="/admin/LatestNews/createLatestNews"
+                        component={AdminCreateLatestNews}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="ADMIN"
+                        path="/admin/LatestNews/editLatestNews"
+                        component={AdminEditLatestNews}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="ADMIN"
+                        path="/admin/reports-registration"
+                        component={ReportsRegistration}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="ADMIN"
+                        path="/admin/TeacherProgressDetailed"
+                        component={TeacherProgressDetailed}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="ADMIN"
+                        path="/admin/StudentsProgressReport"
+                        component={StudentsProgressReport}
                     />
                     <ProtectedRoute
                         exact={true}
