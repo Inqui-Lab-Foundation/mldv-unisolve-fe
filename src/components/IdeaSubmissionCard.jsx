@@ -32,7 +32,7 @@ const IdeaSubmissionCard = ({ handleClose, show, response }) => {
     const submittedResponse = response[0]?.response;
     const [answers, setAnswers] = useState([]);
     useEffect(() => {
-        if (submittedResponse && submittedResponse !== {}) {
+        if (submittedResponse) {
             const data = Object.entries(submittedResponse);
             const answerFormat = data.map((item) => {
                 return {
@@ -86,14 +86,26 @@ const IdeaSubmissionCard = ({ handleClose, show, response }) => {
                     <p className="fw-bold me-3">
                         Initiated By: {response[0]?.initiated_name}
                     </p>
-                    <p className="fw-bold">
+                    {response[0]?.status != 'DRAFT' ? (
+                        <p className="fw-bold">
+                            Submitted at:{' '}
+                            {response[0]?.submitted_at
+                                ? moment(response[0]?.submitted_at).format(
+                                      'DD-MM-YYYY'
+                                  )
+                                : '-'}
+                        </p>
+                    ) : (
+                        ''
+                    )}
+                    {/* <p className="fw-bold">
                         Submitted at:{' '}
                         {response[0]?.submitted_at
                             ? moment(response[0]?.submitted_at).format(
                                   'DD-MM-YYYY'
                               )
                             : '-'}
-                    </p>
+                    </p> */}
                 </div>
             </Modal.Body>
             <Modal.Footer>

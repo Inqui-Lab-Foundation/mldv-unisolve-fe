@@ -59,7 +59,7 @@ const AddNewSchool = (props) => {
         validationSchema: Yup.object({
             organization_code: Yup.string()
                 .matches(
-                    /^[A-Za-z0-9]*$/,
+                    /^[A-Za-z0-9-_]*$/,
                     'Please enter only alphanumeric characters'
                 )
                 .trim()

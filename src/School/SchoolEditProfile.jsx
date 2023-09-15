@@ -1,64 +1,50 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable indent */
 import React, { useEffect } from 'react';
 import { Row, Col, Form, Label, FormGroup } from 'reactstrap';
 import { withRouter } from 'react-router-dom';
-import './style.scss';
+// import './style.scss';
 
-import Layout from '../../Admin/Layout';
+import Layout from './Layout.js';
 
-import { Button } from '../../stories/Button';
+import { Button } from '../stories/Button.jsx';
 
 import axios from 'axios';
-import Select from './../Challenges/pages/Select';
+// import Select from './../Challenges/pages/Select';
 
-import { InputBox } from '../../stories/InputBox/InputBox';
+import { InputBox } from '../stories/InputBox/InputBox';
 import * as Yup from 'yup';
 import { useFormik } from 'formik';
 // import { BreadcrumbTwo } from '../../stories/BreadcrumbTwo/BreadcrumbTwo';
+import { useTranslation } from 'react-i18next';
 
-import { URL, KEY } from '../../constants/defaultValues';
+import { URL, KEY } from '../constants/defaultValues';
 import {
     getNormalHeaders,
-    openNotificationWithIcon
-} from '../../helpers/Utils';
+    openNotificationWithIcon,
+    getCurrentUser
+} from '../helpers/Utils';
+import { useHistory } from 'react-router-dom';
 
 const EditSchool = (props) => {
-    const listID = JSON.parse(localStorage.getItem('listId'));
+    const history = useHistory();
 
-    // where  listID = orgnization details //
+    const { t } = useTranslation();
+    const currentUser = getCurrentUser('current_user');
 
-    const listId =
-        (history &&
-            history.location &&
-            history.location.item &&
-            history.location.item) ||
-        listID;
+    const listId = (history && history.location && history.location.item) || {};
 
     const inputDICE = {
         type: 'text',
         className: 'defaultInput'
     };
-    // const phoneRegExp = /^[0-9\s]+$/;
-    // const headingDetails = {
-    //     title: 'Edit Institutions Details',
 
-    //     options: [
-    //         {
-    //             title: 'Institutions',
-    //             path: '/admin/registered-schools'
-    //         },
-    //         {
-    //             title: 'Edit Institutions',
-    //             path: '/admin/register-edit-schools'
-    //         }
-    //     ]
-    // };
-
+    console.log(listId, 'listId');
     const formik = useFormik({
         initialValues: {
             principal_name: listId && listId.principal_name,
-            // principal_mobile: listId && listId.principal_mobile,
+            principal_mobile: listId && listId.principal_mobile,
             principal_email: listId && listId.principal_email,
             organization_name: listId && listId.organization_name,
             organization_code: listId && listId.organization_code,
@@ -67,8 +53,9 @@ const EditSchool = (props) => {
             district: listId && listId.district,
             // district: 'District',
             // state: 'State',
-            state: listId && listId.state,
-            status: listId && listId.status
+            // state: listId && listId.state,
+            // status: listId && listId.status,
+            status: 'ACTIVE'
             // category: listId && listId.category
             // category: 'Category'
         },
@@ -76,7 +63,7 @@ const EditSchool = (props) => {
         validationSchema: Yup.object({
             organization_code: Yup.string(),
             // .matches(
-            //     /^[A-Za-z0-9]*$/,
+            //     /^[A-Za-z0-9-_]*$/,
             //     'Please enter only alphanumeric characters'
             // )
             // .trim()
@@ -90,9 +77,9 @@ const EditSchool = (props) => {
             // category: Yup.string()
             //     .matches(/^[aA-zZ\s]+$/, 'Invalid category')
             //     .required('category is Required'),
-            state: Yup.string()
-                .optional()
-                .matches(/^[aA-zZ\s]+$/, 'Invalid State'),
+            // state: Yup.string()
+            //     .optional()
+            //     .matches(/^[aA-zZ\s]+$/, 'Invalid State'),
             principal_email: Yup.string()
                 .optional()
                 .email('Invalid email address format'),
@@ -100,10 +87,15 @@ const EditSchool = (props) => {
                 .optional()
                 .matches(/^[aA-zZ\s/^.*$/]+$/, 'Invalid Name')
                 .trim(),
+            principal_mobile: Yup.string()
+                .optional()
+                .matches(/^[0-9\s]+$/, 'Please Enter Valid Number')
+                .trim(),
             city: Yup.string().matches(/^[aA-zZ\s/^.*$/]+$/)
         }),
 
         onSubmit: async (values) => {
+            // console.log(values, 'values');
             const axiosConfig = getNormalHeaders(KEY.User_API_Key);
             await axios
                 .put(
@@ -117,7 +109,7 @@ const EditSchool = (props) => {
                             'success',
                             'School Update Successfully'
                         );
-                        props.history.push('/admin/registered-schools');
+                        props.history.push('/school/my-profile');
                     }
                 })
                 .catch((err) => {
@@ -125,6 +117,7 @@ const EditSchool = (props) => {
                 });
         }
     });
+    console.log(status);
     // console.log('formik.values.district', formik.values.district);
 
     return (
@@ -142,11 +135,11 @@ const EditSchool = (props) => {
                                         <Row className="justify-content-center">
                                             <p style={{ color: 'red' }}>
                                                 Note : Here Editable Fields are
-                                                Institute/School
-                                                Name,City,Principal
-                                                Name,Principal Email.
+                                                School Name,City,Principal
+                                                Name,Principal Email/Principal
+                                                Mobile No.
                                             </p>
-                                            <Col md={6}>
+                                            <Col md={12}>
                                                 <Label
                                                     className="mb-2"
                                                     htmlFor="organization_code"
@@ -181,12 +174,14 @@ const EditSchool = (props) => {
                                                     </small>
                                                 ) : null}
                                             </Col>
+                                        </Row>
+                                        <Row>
                                             <Col md={6}>
                                                 <Label
                                                     className="mb-2"
                                                     htmlFor="organization_name"
                                                 >
-                                                    Institute/School Name
+                                                    School Name
                                                     <span required>*</span>
                                                 </Label>
                                                 <InputBox
@@ -216,10 +211,43 @@ const EditSchool = (props) => {
                                                     </small>
                                                 ) : null}
                                             </Col>
+                                            <Col md={6}>
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="principal_mobile"
+                                                >
+                                                    Principal Mobile No
+                                                </Label>
+                                                <InputBox
+                                                    {...inputDICE}
+                                                    id="principal_mobile"
+                                                    name="principal_mobile"
+                                                    placeholder="Please enter principal mobile number"
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={formik.handleBlur}
+                                                    value={
+                                                        formik.values
+                                                            .principal_mobile
+                                                    }
+                                                />
+                                                {formik.touched
+                                                    .principal_mobile &&
+                                                formik.errors
+                                                    .principal_mobile ? (
+                                                    <small className="error-cls">
+                                                        {
+                                                            formik.errors
+                                                                .principal_mobile
+                                                        }
+                                                    </small>
+                                                ) : null}
+                                            </Col>
                                         </Row>
 
                                         <Row>
-                                            <Col md={4}>
+                                            <Col md={6}>
                                                 <Label
                                                     className="mb-2"
                                                     htmlFor="city"
@@ -245,7 +273,7 @@ const EditSchool = (props) => {
                                                     </small>
                                                 ) : null}
                                             </Col>
-                                            <Col md={4}>
+                                            <Col md={6}>
                                                 <Label
                                                     className="mb-2"
                                                     htmlFor="district"
@@ -276,7 +304,7 @@ const EditSchool = (props) => {
                                                     </small>
                                                 ) : null}
                                             </Col>
-                                            <Col md={4}>
+                                            {/* <Col md={4}>
                                                 <Label
                                                     className="mb-2"
                                                     htmlFor="state"
@@ -302,7 +330,7 @@ const EditSchool = (props) => {
                                                         {formik.errors.state}
                                                     </small>
                                                 ) : null}
-                                            </Col>
+                                            </Col> */}
                                         </Row>
                                         <Row>
                                             <Col md={6}>
@@ -337,33 +365,39 @@ const EditSchool = (props) => {
                                                     </small>
                                                 ) : null}
                                             </Col>
-                                            {/* <Label
-                                                className="mb-2"
-                                                htmlFor="principal_mobile"
-                                            >
-                                                Principal Mobile
-                                            </Label>
-                                            <InputBox
-                                                {...inputDICE}
-                                                id="principal_mobile"
-                                                name="principal_mobile"
-                                                placeholder="Please enter principal mobile number"
-                                                onChange={formik.handleChange}
-                                                onBlur={formik.handleBlur}
-                                                value={
-                                                    formik.values
-                                                        .principal_mobile
-                                                }
-                                            />
-                                            {formik.touched.principal_mobile &&
-                                            formik.errors.principal_mobile ? (
-                                                <small className="error-cls">
-                                                    {
-                                                        formik.errors
+                                            {/* <Col md={6}>
+                                                <Label
+                                                    className="mb-2"
+                                                    htmlFor="principal_mobile"
+                                                >
+                                                    Principal Mobile
+                                                </Label>
+                                                <InputBox
+                                                    {...inputDICE}
+                                                    id="principal_mobile"
+                                                    name="principal_mobile"
+                                                    placeholder="Please enter principal mobile number"
+                                                    onChange={
+                                                        formik.handleChange
+                                                    }
+                                                    onBlur={formik.handleBlur}
+                                                    value={
+                                                        formik.values
                                                             .principal_mobile
                                                     }
-                                                </small>
-                                            ) : null} */}
+                                                />
+                                                {formik.touched
+                                                    .principal_mobile &&
+                                                formik.errors
+                                                    .principal_mobile ? (
+                                                    <small className="error-cls">
+                                                        {
+                                                            formik.errors
+                                                                .principal_mobile
+                                                        }
+                                                    </small>
+                                                ) : null}
+                                            </Col> */}
                                             <Col md={6}>
                                                 <Label
                                                     className="mb-2"
@@ -410,7 +444,7 @@ const EditSchool = (props) => {
                                             size="small"
                                             onClick={() =>
                                                 props.history.push(
-                                                    '/admin/registered-schools'
+                                                    '/school/my-profile'
                                                 )
                                             }
                                         />

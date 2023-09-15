@@ -167,6 +167,11 @@ import AdminLatestNews from './Admin/LatestNews/index';
 import AdminCreateLatestNews from './Admin/LatestNews/createLatestNews';
 import AdminEditLatestNews from './Admin/LatestNews/editLatestNews';
 import TeacherViewDetails from './Admin/UserList/TeacherViewDetails';
+import LoginSchool from './School/LoginSchool';
+import MySchoolProfile from './School/MySchoolProfile';
+import SchoolEditProfile from './School/SchoolEditProfile';
+import SchoolChangePSWModal from './School/ChangePSWModal';
+import DashboardSchool from './School/Dashboard';
 
 const Routers = () => {
     // const history = useHistory();
@@ -230,6 +235,35 @@ const Routers = () => {
                         render={() => <PasswordEmailConfirmation />}
                     />
 
+                    <Route
+                        exact
+                        path="/school"
+                        render={() => <LoginSchool />}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="SCHOOL"
+                        path="/school/dashboard"
+                        component={DashboardSchool}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="SCHOOL"
+                        path="/school/my-profile"
+                        component={MySchoolProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="SCHOOL"
+                        path="/EditSchoolProfile"
+                        component={SchoolEditProfile}
+                    />
+                    <ProtectedRoute
+                        exact={true}
+                        // user="SCHOOL"
+                        path="/school-changePassword"
+                        component={SchoolChangePSWModal}
+                    />
                     <ProtectedRoute
                         exact
                         path="/dashboard"

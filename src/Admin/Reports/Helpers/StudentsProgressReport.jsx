@@ -206,18 +206,18 @@ const ReportsRegistration = () => {
             label: 'Teacher Name',
             key: 'Teacher Name'
         },
-        {
-            label: 'Teacher Gender',
-            key: 'Teacher Gender'
-        },
-        {
-            label: 'Teacher Contact',
-            key: 'Teacher Contact'
-        },
-        {
-            label: 'Teacher WhatsApp Contact',
-            key: 'Teacher WhatsApp Contact'
-        },
+        // {
+        //     label: 'Teacher Gender',
+        //     key: 'Teacher Gender'
+        // },
+        // {
+        //     label: 'Teacher Contact',
+        //     key: 'Teacher Contact'
+        // },
+        // {
+        //     label: 'Teacher WhatsApp Contact',
+        //     key: 'Teacher WhatsApp Contact'
+        // },
         {
             label: 'Team Name',
             key: 'Team Name'

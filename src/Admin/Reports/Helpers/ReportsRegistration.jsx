@@ -63,15 +63,15 @@ const ReportsRegistration = () => {
         {
             label: 'Total Not Registered Teachers',
             key: 'total_not_registered_teachers'
-        },
-        {
-            label: 'Registered Male Teachers',
-            key: 'male_mentor_count'
-        },
-        {
-            label: 'Registered Female Teachers',
-            key: 'female_mentor_count'
         }
+        // {
+        //     label: 'Registered Male Teachers',
+        //     key: 'male_mentor_count'
+        // },
+        // {
+        //     label: 'Registered Female Teachers',
+        //     key: 'female_mentor_count'
+        // }
     ];
     const RegHeaders = [
         {
@@ -82,10 +82,10 @@ const ReportsRegistration = () => {
             label: 'School Name',
             key: 'organization.organization_name'
         },
-        {
-            label: 'School Type/Category',
-            key: 'organization.category'
-        },
+        // {
+        //     label: 'School Type/Category',
+        //     key: 'organization.category'
+        // },
         {
             label: 'District',
             key: 'organization.district'
@@ -105,19 +105,19 @@ const ReportsRegistration = () => {
         {
             label: 'Teacher Name',
             key: 'full_name'
-        },
-        {
-            label: 'Teacher Gender',
-            key: 'gender'
-        },
-        {
-            label: 'Teacher Contact',
-            key: 'mobile'
-        },
-        {
-            label: 'Teacher WhatsApp Contact',
-            key: 'whatapp_mobile'
         }
+        // {
+        //     label: 'Teacher Gender',
+        //     key: 'gender'
+        // },
+        // {
+        //     label: 'Teacher Contact',
+        //     key: 'mobile'
+        // },
+        // {
+        //     label: 'Teacher WhatsApp Contact',
+        //     key: 'whatapp_mobile'
+        // }
     ];
     const notRegHeaders = [
         {
@@ -132,10 +132,10 @@ const ReportsRegistration = () => {
             label: 'School Name',
             key: 'organization_name'
         },
-        {
-            label: 'School Type/Category',
-            key: 'category'
-        },
+        // {
+        //     label: 'School Type/Category',
+        //     key: 'category'
+        // },
         {
             label: 'District',
             key: 'district'
@@ -497,7 +497,7 @@ const ReportsRegistration = () => {
                                                                     Registered
                                                                     Teachers
                                                                 </th>
-                                                                <th>
+                                                                {/* <th>
                                                                     Registered
                                                                     Male
                                                                     Teachers
@@ -506,7 +506,7 @@ const ReportsRegistration = () => {
                                                                     Registered
                                                                     Female
                                                                     Teachers
-                                                                </th>
+                                                                </th> */}
                                                             </tr>
                                                         </thead>
                                                         <tbody>
@@ -544,7 +544,7 @@ const ReportsRegistration = () => {
                                                                                 item.total_not_registered_teachers
                                                                             }
                                                                         </td>
-                                                                        <td>
+                                                                        {/* <td>
                                                                             {
                                                                                 item.male_mentor_count
                                                                             }
@@ -553,7 +553,7 @@ const ReportsRegistration = () => {
                                                                             {
                                                                                 item.female_mentor_count
                                                                             }
-                                                                        </td>
+                                                                        </td> */}
                                                                     </tr>
                                                                 )
                                                             )}

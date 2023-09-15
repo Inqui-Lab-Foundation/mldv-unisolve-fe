@@ -7,6 +7,8 @@ import teacher from '../Teachers/store/teacher/reducer';
 import sample from './sample/reducers';
 import mentors from '../Teachers/store/mentors/reducer';
 import modules from './modules/reducer';
+import school from '../School/store/reducer';
+
 import adminCourses from '../Admin/Courses/store/adminCourses/reducer';
 import adminEvalutors from '../Admin/store/adminEvalutors/reducer';
 import adminMentors from '../Admin/store/adminMentors/reducer';
@@ -36,6 +38,7 @@ const reducers = combineReducers({
     studentRegistration,
     evaluatorsBulkUpload,
     teacher,
+    school,
     teacherCourses,
     teams,
     studentTeam,
@@ -48,7 +51,7 @@ const rootReducer = (state, action) => {
     if (action.type === 'USER_LOGOUT') {
         return reducers({}, action);
     }
-  
+
     return reducers(state, action);
 };
 export default rootReducer;

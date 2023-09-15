@@ -576,7 +576,7 @@ const TicketsPage = (props) => {
                                 <div className="d-flex justify-content-end">
                                     <Button
                                         label="Add New Institutions"
-                                        btnClass=" btn btn-success"
+                                        btnClass="primary"
                                         size="small"
                                         shape="btn-square"
                                         Icon={BsPlusLg}
